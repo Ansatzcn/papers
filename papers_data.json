@@ -117,6 +117,15 @@
       "issue": "0269-2171",
       "journalNote": "SSCI经济学Q3",
       "code": "304925"
+    },
+    {
+      "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
+      "title": "Competition A Marxist View",
+      "year": "2017-06",
+      "journal": "Cambridge Journal of Economics",
+      "issue": "0309-166X",
+      "journalNote": "SSCI经济学Q2",
+      "code": "303014"
     }
   ],
   "histories": {
@@ -128,11 +137,13 @@
       "马克思主义研究",
       "马克思主义与现实",
       "中共党史研究",
+      "Cambridge Journal of Economics",
       "International Review of Applied Economics"
     ],
     "issues": [
       "0257-2826",
       "0269-2171",
+      "0309-166X",
       "0577-9154",
       "1000-176X",
       "1002-8390",
@@ -143,6 +154,7 @@
     "notes": [
       "经济学C刊",
       "马克思主义理论C刊",
+      "SSCI经济学Q2",
       "SSCI经济学Q3"
     ]
   },
@@ -186,6 +198,11 @@
       "journal": "International Review of Applied Economics",
       "issue": "0269-2171",
       "journalNote": "SSCI经济学Q3"
+    },
+    {
+      "journal": "Cambridge Journal of Economics",
+      "issue": "0309-166X",
+      "journalNote": "SSCI经济学Q2"
     }
   ]
 }
