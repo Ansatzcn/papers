@@ -154,8 +154,7 @@
     "notes": [
       "经济学C刊",
       "马克思主义理论C刊",
-      "SSCI经济学Q2",
-      "SSCI经济学Q3"
+      "SSCI经济学Q2"
     ]
   },
   "profiles": [
@@ -197,7 +196,7 @@
     {
       "journal": "International Review of Applied Economics",
       "issue": "0269-2171",
-      "journalNote": "SSCI经济学Q3"
+      "journalNote": ""
     },
     {
       "journal": "Cambridge Journal of Economics",
