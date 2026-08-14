@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-14-papers-v1">
+<meta name="app-build" content="2026-08-14-papers-public-read-token-edit-v2">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -85,6 +85,26 @@ button{cursor:pointer}
 .btn-danger{border-color:#fecaca;background:#fee2e2;color:#991b1b}
 .btn-danger:hover{background:#fecaca}
 .last-sync{color:#94a3b8;font-size:.8rem}
+
+.visitor-note{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:8px;
+    margin:-.55rem 0 .9rem;
+    color:#94a3b8;
+    font-size:.76rem;
+}
+.visitor-login-link{
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#64748b;
+    font-size:.76rem;
+    text-decoration:underline;
+    text-underline-offset:2px;
+}
+.visitor-login-link:hover{color:#334155}
 
 .add-section{
     margin-bottom:2rem;
@@ -437,6 +457,10 @@ button{cursor:pointer}
         <span class="last-sync" id="lastSyncTime">正在加载公开内容…</span>
     </section>
 
+    <section class="visitor-note" id="visitorNote">
+        <button class="visitor-login-link" id="visitorLoginBtn" type="button">编辑登录</button>
+    </section>
+
     <section class="add-section hidden" id="editorSection">
         <h2>添加</h2>
         <div class="form-grid">
@@ -620,7 +644,7 @@ button{cursor:pointer}
 const $=id=>document.getElementById(id);
 const statusDot=$('statusDot'),statusText=$('statusText'),syncBtn=$('syncBtn'),configBtn=$('configBtn'),
 exportBtn=$('exportBtn'),importBtn=$('importBtn'),fileInput=$('fileInput'),lastSyncTime=$('lastSyncTime'),
-editorSection=$('editorSection'),titleInput=$('titleInput'),yearInput=$('yearInput'),codeInput=$('codeInput'),
+editorSection=$('editorSection'),visitorNote=$('visitorNote'),visitorLoginBtn=$('visitorLoginBtn'),titleInput=$('titleInput'),yearInput=$('yearInput'),codeInput=$('codeInput'),
 journalInput=$('journalInput'),journalToggle=$('journalToggle'),journalPanel=$('journalPanel'),journalOptions=$('journalOptions'),journalCombo=$('journalCombo'),
 issueInput=$('issueInput'),issueToggle=$('issueToggle'),issuePanel=$('issuePanel'),issueOptions=$('issueOptions'),issueCombo=$('issueCombo'),
 journalNoteInput=$('journalNoteInput'),journalNoteToggle=$('journalNoteToggle'),journalNotePanel=$('journalNotePanel'),journalNoteOptions=$('journalNoteOptions'),journalNoteCombo=$('journalNoteCombo'),
@@ -812,9 +836,18 @@ function record(snapshot,sha){
 }
 function setUnlocked(on){
     unlocked=Boolean(on);
+
+    // 公开浏览与编辑权限分离：
+    // 总表及论文内容始终对访客可见；只有 Token 验证成功后才开放写操作。
     editorSection.classList.toggle('hidden',!unlocked);
-    syncBtn.disabled=!unlocked;importBtn.disabled=!unlocked;
+    visitorNote.classList.toggle('hidden',unlocked);
+
+    syncBtn.disabled=!unlocked;
+    importBtn.disabled=!unlocked;
+
+    // 导出只是读取公开数据，不属于编辑行为；公开数据加载成功后访客也可导出。
     exportBtn.disabled=!publicLoaded&&!unlocked;
+
     configBtn.textContent=unlocked?'编辑配置':'编辑登录';
 }
 
@@ -1107,8 +1140,14 @@ function render(){
     publicLoaded=true;exportBtn.disabled=false;saveCache();renderAllCombos();
 }
 
+function requireEditAccess(){
+    if(unlocked&&adminConfigured())return true;
+    show('请先使用 Token 登录后再编辑','error');
+    return false;
+}
+
 function addEntry(){
-    if(!unlocked)return;
+    if(!requireEditAccess())return;
     const title=clean(titleInput.value);
     if(!title){show('标题不能为空','error');titleInput.focus();return}
     const journal=clean(journalInput.value),issue=clean(issueInput.value),journalNote=clean(journalNoteInput.value);
@@ -1132,7 +1171,7 @@ function closeEdit(){
     editingId='';editInitialSnapshot='';editModal.classList.add('hidden');closePanels();
 }
 function openEdit(id){
-    if(!unlocked)return;
+    if(!requireEditAccess())return;
     const item=data.entries.find(x=>x.id===id);if(!item)return;
     editingId=id;editTitle.value=item.title;editYear.value=item.year;editJournal.value=item.journal;
     editIssue.value=item.issue;editJournalNote.value=item.journalNote;editCode.value=item.code;
@@ -1140,7 +1179,7 @@ function openEdit(id){
     setTimeout(()=>editTitle.focus(),30);
 }
 function saveEditEntry(){
-    if(!unlocked)return;
+    if(!requireEditAccess())return;
     const item=data.entries.find(x=>x.id===editingId);if(!item)return;
     const title=clean(editTitle.value);if(!title){show('标题不能为空','error');editTitle.focus();return}
     const journal=clean(editJournal.value),issue=clean(editIssue.value),journalNote=clean(editJournalNote.value);
@@ -1150,21 +1189,22 @@ function saveEditEntry(){
     closeEdit();markLocalChange();show('已保存','success');
 }
 function deleteEntry(){
-    if(!unlocked||!editingId)return;
+    if(!requireEditAccess()||!editingId)return;
     const item=data.entries.find(x=>x.id===editingId);if(!item)return;
     if(!confirm(`确定删除论文“${item.title}”吗？`))return;
     data.entries=data.entries.filter(x=>x.id!==editingId);closeEdit();markLocalChange();show('已删除','success');
 }
 
 function downloadJson(){
-    if(!unlocked)return;
+    // 导出属于只读操作：访客在公开数据已经加载后也允许导出。
+    if(!publicLoaded&&!unlocked)return;
     const payload={schemaVersion:1,...normalizeData(data)};
     const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');
     a.href=url;a.download=`papers_backup_${formatDate(new Date().toISOString())}.json`;a.click();URL.revokeObjectURL(url);
 }
 function importFile(file){
-    if(!unlocked||!file)return;
+    if(!requireEditAccess()||!file)return;
     if(file.size>MAX_BYTES){show('文件超过 900 KB','error');return}
     const reader=new FileReader();
     reader.onload=e=>{
@@ -1202,6 +1242,7 @@ editModal.addEventListener('pointerup',event=>{
 });
 syncBtn.addEventListener('click',()=>sync(true,true));
 configBtn.addEventListener('click',openConfig);
+visitorLoginBtn.addEventListener('click',openConfig);
 configCancel.addEventListener('click',closeConfig);
 exportBtn.addEventListener('click',downloadJson);
 importBtn.addEventListener('click',()=>fileInput.click());
