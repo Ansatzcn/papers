@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-14-papers-bottom-edit-period-punctuation-sort-v5">
+<meta name="app-build" content="2026-08-14-papers-text-selection-fix-v6">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -272,6 +272,8 @@ button{cursor:pointer}
     border-radius:20px;
     background:#fff;
     overflow:hidden;
+    user-select:text;
+    -webkit-user-select:text;
 }
 .paper-item:hover{background:#fafcff}
 .paper-title{
@@ -324,6 +326,9 @@ button{cursor:pointer}
     line-height:1.55;
     text-decoration:underline;
     text-underline-offset:2px;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:manipulation;
 }
 .edit-btn:hover,
 .edit-btn:focus-visible{
@@ -1345,8 +1350,81 @@ configForm.addEventListener('submit',async event=>{
     saveConfig();closeConfig();await login(true);
 });
 
+// 总表文字必须可以自由拖选。
+// “编辑”只响应真正的短点击：按下和松开都必须在同一个编辑按钮上，
+// 指针移动不能超过阈值，而且当前不能存在非折叠文字选区。
+let paperEditPointer=null;
+const EDIT_CLICK_MOVE_LIMIT=6;
+
+function hasActiveTextSelection(){
+    const selection=window.getSelection?.();
+    return Boolean(selection&&selection.rangeCount>0&&!selection.isCollapsed&&String(selection).length);
+}
+
+papersList.addEventListener('pointerdown',event=>{
+    const btn=event.target.closest('.edit-btn[data-id]');
+    if(!btn){
+        paperEditPointer=null;
+        return;
+    }
+    paperEditPointer={
+        pointerId:event.pointerId,
+        button:btn,
+        x:event.clientX,
+        y:event.clientY,
+        moved:false
+    };
+});
+
+papersList.addEventListener('pointermove',event=>{
+    if(!paperEditPointer||event.pointerId!==paperEditPointer.pointerId)return;
+    if(
+        Math.abs(event.clientX-paperEditPointer.x)>EDIT_CLICK_MOVE_LIMIT||
+        Math.abs(event.clientY-paperEditPointer.y)>EDIT_CLICK_MOVE_LIMIT
+    ){
+        paperEditPointer.moved=true;
+    }
+});
+
+papersList.addEventListener('pointerup',event=>{
+    if(!paperEditPointer||event.pointerId!==paperEditPointer.pointerId)return;
+
+    const state=paperEditPointer;
+    paperEditPointer=null;
+
+    const releasedBtn=event.target.closest('.edit-btn[data-id]');
+    const genuineClick=
+        !state.moved&&
+        releasedBtn===state.button&&
+        !hasActiveTextSelection();
+
+    if(genuineClick){
+        event.preventDefault();
+        openEdit(state.button.dataset.id);
+    }
+});
+
+papersList.addEventListener('pointercancel',()=>{
+    paperEditPointer=null;
+});
+
+// 屏蔽拖选结束后浏览器合成的 click，避免它再次误触编辑。
+// 键盘仍可用 Enter / Space 打开编辑。
 papersList.addEventListener('click',event=>{
-    const btn=event.target.closest('.edit-btn[data-id]');if(btn)openEdit(btn.dataset.id);
+    const btn=event.target.closest('.edit-btn[data-id]');
+    if(btn){
+        event.preventDefault();
+        event.stopPropagation();
+    }
+});
+
+papersList.addEventListener('keydown',event=>{
+    const btn=event.target.closest('.edit-btn[data-id]');
+    if(!btn)return;
+    if(event.key==='Enter'||event.key===' '){
+        event.preventDefault();
+        if(!hasActiveTextSelection())openEdit(btn.dataset.id);
+    }
 });
 addBtn.addEventListener('click',addEntry);
 editDelete.addEventListener('click',deleteEntry);
