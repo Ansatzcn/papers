@@ -829,8 +829,17 @@ function paperTitleGroup(value){
     const info=titleSortInfo(value);
 
     // 总表语言大组：中文标题最前，英文标题其次，其它标题最后。
+    // 若标题以数字开头，不把它单独归入“其它”，而是继续向后查找
+    // 第一个汉字或拉丁字母，用它判断该标题属于中文组还是英文组。
     if(info.type===0)return 0;
     if(info.type===2)return 1;
+    if(info.type===1){
+        const chars=Array.from(info.text);
+        for(const ch of chars){
+            if(/^\p{Script=Han}$/u.test(ch))return 0;
+            if(/^[A-Za-z]$/.test(ch))return 1;
+        }
+    }
     return 2;
 }
 function comparePaperField(a,b){
