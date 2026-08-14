@@ -108,6 +108,15 @@
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
       "code": "322584"
+    },
+    {
+      "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
+      "title": "Biased Technical Change and the Aggregate Production Function",
+      "year": "1999-02",
+      "journal": "International Review of Applied Economics",
+      "issue": "0269-2171",
+      "journalNote": "SSCI经济学Q3",
+      "code": "304925"
     }
   ],
   "histories": {
@@ -118,10 +127,12 @@
       "经济研究",
       "马克思主义研究",
       "马克思主义与现实",
-      "中共党史研究"
+      "中共党史研究",
+      "International Review of Applied Economics"
     ],
     "issues": [
       "0257-2826",
+      "0269-2171",
       "0577-9154",
       "1000-176X",
       "1002-8390",
@@ -131,7 +142,8 @@
     ],
     "notes": [
       "经济学C刊",
-      "马克思主义理论C刊"
+      "马克思主义理论C刊",
+      "SSCI经济学Q3"
     ]
   },
   "profiles": [
@@ -169,6 +181,11 @@
       "journal": "马克思主义研究",
       "issue": "1006-5199",
       "journalNote": "马克思主义理论C刊"
+    },
+    {
+      "journal": "International Review of Applied Economics",
+      "issue": "0269-2171",
+      "journalNote": "SSCI经济学Q3"
     }
   ]
 }
