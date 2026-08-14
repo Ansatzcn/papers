@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-14-papers-top-edit-mobile-no-date-v4">
+<meta name="app-build" content="2026-08-14-papers-bottom-edit-period-punctuation-sort-v5">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -274,10 +274,6 @@ button{cursor:pointer}
     overflow:hidden;
 }
 .paper-item:hover{background:#fafcff}
-.paper-item > .edit-btn{
-    float:right;
-    margin:0 0 .35rem .8rem;
-}
 .paper-title{
     margin-bottom:.6rem;
     color:#0f172a;
@@ -291,7 +287,6 @@ button{cursor:pointer}
     display:grid;
     gap:.26rem;
     min-width:0;
-    clear:both;
 }
 .meta-row{
     display:flex;
@@ -305,15 +300,37 @@ button{cursor:pointer}
     word-break:break-word;
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
-.action-btn{
-    padding:.28rem .72rem;
-    border:0;
-    border-radius:999px;
-    font-size:.82rem;
-    font-weight:650;
+.code-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:1rem;
 }
-.edit-btn{background:#dbeafe;color:#1e3a8a}
-.edit-btn:hover{background:#bfdbfe}
+.code-main{
+    display:flex;
+    align-items:baseline;
+    gap:.4rem;
+    min-width:0;
+}
+.edit-btn{
+    flex:0 0 auto;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    color:#94a3b8;
+    font-size:.86rem;
+    font-weight:400;
+    line-height:1.55;
+    text-decoration:underline;
+    text-underline-offset:2px;
+}
+.edit-btn:hover,
+.edit-btn:focus-visible{
+    background:transparent;
+    color:#64748b;
+    outline:none;
+}
 .empty-state{
     padding:2.8rem 1rem;
     border:1px solid #e2e8f0;
@@ -454,6 +471,12 @@ button{cursor:pointer}
         overflow-wrap:anywhere;
         word-break:break-word;
     }
+    .code-row{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+    }
+    .code-main{min-width:0}
     .page-title{font-size:1.8rem}
     .toolbar{flex-direction:column;align-items:stretch}
     .toolbar-group{justify-content:center}
@@ -506,7 +529,7 @@ button{cursor:pointer}
                 <input class="input" id="titleInput" type="text" autocomplete="off">
             </div>
             <div class="form-group">
-                <label for="yearInput">年份</label>
+                <label for="yearInput">刊期</label>
                 <input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
             </div>
             <div class="form-group">
@@ -578,7 +601,7 @@ button{cursor:pointer}
                     <input class="input" id="editTitle" type="text" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="editYear">年份</label>
+                    <label for="editYear">刊期</label>
                     <input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off">
                 </div>
                 <div class="form-group">
@@ -733,29 +756,38 @@ const pinyinCollator=new Intl.Collator('zh-CN-u-co-pinyin',{numeric:true,sensiti
 const latinCollator=new Intl.Collator('en',{numeric:true,sensitivity:'base'});
 
 function titleSortInfo(value){
-    const text=clean(value).normalize('NFKC');
-    if(!text)return{type:99,text,number:null};
+    const raw=clean(value).normalize('NFKC');
+    if(!raw)return{type:99,text:'',number:null};
 
-    const first=Array.from(text)[0]||'';
+    // 忽略标题开头的标点、空格及其它符号，
+    // 直到遇到首个汉字 / 数字 / 拉丁字母，再按该字符类型排序。
+    const chars=Array.from(raw);
+    let startIndex=-1;
+    for(let i=0;i<chars.length;i++){
+        const ch=chars[i];
+        if(/^\p{Script=Han}$/u.test(ch)||/^\d$/.test(ch)||/^[A-Za-z]$/.test(ch)){
+            startIndex=i;
+            break;
+        }
+    }
 
-    // 0：汉字，按拼音首字母及后续拼音排序
+    if(startIndex<0){
+        return{type:3,text:raw,number:null};
+    }
+
+    const text=chars.slice(startIndex).join('');
+    const first=chars[startIndex];
+
     if(/^\p{Script=Han}$/u.test(first)){
         return{type:0,text,number:null};
     }
 
-    // 1：数字，按开头数值从小到大
-    const numberMatch=text.match(/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)/);
-    if(numberMatch){
-        return{type:1,text,number:Number(numberMatch[0])};
+    if(/^\d$/.test(first)){
+        const numberMatch=text.match(/^\d+(?:\.\d+)?/);
+        return{type:1,text,number:numberMatch?Number(numberMatch[0]):Number(first)};
     }
 
-    // 2：拉丁字母，A → Z
-    if(/^[A-Za-z]$/.test(first)){
-        return{type:2,text,number:null};
-    }
-
-    // 其它符号最后
-    return{type:3,text,number:null};
+    return{type:2,text,number:null};
 }
 function comparePaperTitle(a,b){
     const x=titleSortInfo(a),y=titleSortInfo(b);
@@ -1208,16 +1240,18 @@ function render(){
     }
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
-            item.year?`<div class="meta-row"><span class="meta-label">年份：</span>${esc(item.year)}</div>`:'',
+            item.year?`<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`:'',
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
             item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
-            item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:'',
-            `<div class="meta-row"><span class="meta-label">编码：</span>${esc(item.code)}</div>`
+            item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
         ].join('');
+        const codeRow=`<div class="meta-row code-row">
+            <span class="code-main"><span class="meta-label">编码：</span>${esc(item.code)}</span>
+            ${unlocked?`<button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:''}
+        </div>`;
         return `<article class="paper-item">
-            ${unlocked?`<button class="action-btn edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:''}
             <h3 class="paper-title">${esc(item.title||'（无标题）')}</h3>
-            <div class="paper-meta">${rows}</div>
+            <div class="paper-meta">${rows}${codeRow}</div>
         </article>`;
     }).join('');
     publicLoaded=true;exportBtn.disabled=false;saveCache();renderAllCombos();
