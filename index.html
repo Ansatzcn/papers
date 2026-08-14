@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-14-papers-public-read-token-edit-v2">
+<meta name="app-build" content="2026-08-14-papers-top-edit-mobile-no-date-v4">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -264,12 +264,20 @@ button{cursor:pointer}
 }
 .papers-list{display:grid;gap:1rem}
 .paper-item{
+    width:100%;
+    max-width:100%;
+    min-width:0;
     padding:1.15rem 1.2rem .95rem;
     border:1px solid #e2e8f0;
     border-radius:20px;
     background:#fff;
+    overflow:hidden;
 }
 .paper-item:hover{background:#fafcff}
+.paper-item > .edit-btn{
+    float:right;
+    margin:0 0 .35rem .8rem;
+}
 .paper-title{
     margin-bottom:.6rem;
     color:#0f172a;
@@ -277,26 +285,26 @@ button{cursor:pointer}
     font-weight:750;
     line-height:1.45;
     overflow-wrap:anywhere;
+    word-break:break-word;
 }
-.paper-meta{display:grid;gap:.26rem}
+.paper-meta{
+    display:grid;
+    gap:.26rem;
+    min-width:0;
+    clear:both;
+}
 .meta-row{
     display:flex;
     align-items:flex-start;
     gap:.4rem;
+    min-width:0;
     color:#475569;
     font-size:.9rem;
     line-height:1.55;
     overflow-wrap:anywhere;
+    word-break:break-word;
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
-.paper-footer{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:12px;
-    margin-top:.85rem;
-}
-.paper-date{color:#94a3b8;font-size:.78rem}
 .action-btn{
     padding:.28rem .72rem;
     border:0;
@@ -414,8 +422,38 @@ button{cursor:pointer}
 .back-to-top:hover{opacity:1}
 
 @media(max-width:700px){
+    html,body{
+        width:100%;
+        max-width:100%;
+        overflow-x:hidden;
+    }
     body{padding:.8rem}
-    .container{padding:1.25rem;border-radius:22px}
+    .container{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        padding:1.25rem;
+        border-radius:22px;
+    }
+    .papers-list{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+    }
+    .paper-item{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        padding:1rem;
+    }
+    .paper-title,
+    .paper-meta,
+    .meta-row{
+        max-width:100%;
+        min-width:0;
+        overflow-wrap:anywhere;
+        word-break:break-word;
+    }
     .page-title{font-size:1.8rem}
     .toolbar{flex-direction:column;align-items:stretch}
     .toolbar-group{justify-content:center}
@@ -431,7 +469,6 @@ button{cursor:pointer}
     .dialog-scroll{padding:1.2rem 1.2rem .8rem}
     .dialog-actions{padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom))}
     .combo-panel{max-height:230px}
-    .paper-item{padding:1rem}
     .back-to-top{right:8px}
 }
 </style>
@@ -773,10 +810,6 @@ function generateUniqueCode(usedSet){
     }
     throw new Error('无法生成唯一编码');
 }
-function validIso(v){
-    const s=clean(v);
-    return s&&!Number.isNaN(Date.parse(s))?new Date(s).toISOString():'';
-}
 function normalizeEntry(x,used){
     if(!x||typeof x!=='object')return null;
     let code=clean(x.code);
@@ -789,8 +822,7 @@ function normalizeEntry(x,used){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
-        code,
-        createdAt:validIso(x.createdAt)||new Date().toISOString()
+        code
     };
 }
 function normalizeProfile(x){
@@ -1183,12 +1215,9 @@ function render(){
             `<div class="meta-row"><span class="meta-label">编码：</span>${esc(item.code)}</div>`
         ].join('');
         return `<article class="paper-item">
+            ${unlocked?`<button class="action-btn edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:''}
             <h3 class="paper-title">${esc(item.title||'（无标题）')}</h3>
             <div class="paper-meta">${rows}</div>
-            <div class="paper-footer">
-                <time class="paper-date" datetime="${attr(item.createdAt)}">${formatDate(item.createdAt)}</time>
-                ${unlocked?`<button class="action-btn edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:''}
-            </div>
         </article>`;
     }).join('');
     publicLoaded=true;exportBtn.disabled=false;saveCache();renderAllCombos();
@@ -1210,7 +1239,7 @@ function addEntry(){
     const used=new Set(data.entries.map(x=>x.code));
     const code=generateUniqueCode(used);
     data.entries.push({
-        id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,createdAt:new Date().toISOString()
+        id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code
     });
     titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
     codeInput.value='';
