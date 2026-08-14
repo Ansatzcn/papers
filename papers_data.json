@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "e3c74184-b14a-4615-bf13-4db4de01909d",
+      "title": "“大革命”称谓与共产国际",
+      "year": "1997",
+      "journal": "教学与研究",
+      "issue": "0257-2826",
+      "journalNote": "马克思主义理论C刊",
+      "code": "365794",
+      "createdAt": "2026-08-14T13:23:47.909Z"
+    }
+  ],
+  "histories": {
+    "journals": [
+      "教学与研究"
+    ],
+    "issues": [
+      "0257-2826"
+    ],
+    "notes": [
+      "马克思主义理论C刊"
+    ]
+  },
+  "profiles": [
+    {
+      "journal": "教学与研究",
+      "issue": "0257-2826",
+      "journalNote": "马克思主义理论C刊"
+    }
+  ]
+}
