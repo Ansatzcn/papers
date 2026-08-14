@@ -173,6 +173,15 @@
       "code": "322584"
     },
     {
+      "id": "6bca59aa-a63e-414a-a23a-d90e52ae7454",
+      "title": "1964年民法典草案的政治经济学化",
+      "year": "2021-01",
+      "journal": "探索与争鸣",
+      "issue": "1004-2229",
+      "journalNote": "综合性社会科学C刊",
+      "code": "315627"
+    },
+    {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
       "title": "Biased Technical Change and the Aggregate Production Function",
       "year": "1999-02",
@@ -205,6 +214,7 @@
       "马克思主义与现实",
       "社会主义研究",
       "世界社会主义研究",
+      "探索与争鸣",
       "中共党史研究",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics"
@@ -219,6 +229,7 @@
       "1002-8390",
       "1003-3815",
       "1003-7543",
+      "1004-2229",
       "1004-5961",
       "1005-1597",
       "1006-5199",
@@ -229,7 +240,8 @@
     "notes": [
       "经济学C刊",
       "经济学Q2",
-      "马克思主义理论C刊"
+      "马克思主义理论C刊",
+      "综合性社会科学C刊"
     ]
   },
   "profiles": [
@@ -307,6 +319,11 @@
       "journal": "世界社会主义研究",
       "issue": "2096-2630",
       "journalNote": "马克思主义理论C刊"
+    },
+    {
+      "journal": "探索与争鸣",
+      "issue": "1004-2229",
+      "journalNote": "综合性社会科学C刊"
     }
   ]
 }
