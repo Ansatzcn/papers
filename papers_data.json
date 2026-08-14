@@ -83,6 +83,15 @@
       "code": "333572"
     },
     {
+      "id": "f53ef9c4-159f-4fec-9e06-70f3bdf37e0e",
+      "title": "马克思关于东方国家现代化进程的理论思考及启示",
+      "year": "2022-06",
+      "journal": "社会主义研究",
+      "issue": "1001-4527",
+      "journalNote": "马克思主义理论C刊",
+      "code": "363648"
+    },
+    {
       "id": "487ebe90-d6ed-4f9b-982b-556e45d07996",
       "title": "农民问题、生产关系论与中国革命的政治经济学脉络——中国社会性质问题论战的思想和政治动能",
       "year": "2021-01",
@@ -136,6 +145,7 @@
       "经济研究",
       "马克思主义研究",
       "马克思主义与现实",
+      "社会主义研究",
       "中共党史研究",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics"
@@ -146,6 +156,7 @@
       "0309-166X",
       "0577-9154",
       "1000-176X",
+      "1001-4527",
       "1002-8390",
       "1003-3815",
       "1004-5961",
@@ -202,6 +213,11 @@
       "journal": "Cambridge Journal of Economics",
       "issue": "0309-166X",
       "journalNote": "SSCI经济学Q2"
+    },
+    {
+      "journal": "社会主义研究",
+      "issue": "1001-4527",
+      "journalNote": "马克思主义理论C刊"
     }
   ]
 }
