@@ -474,7 +474,7 @@ button{cursor:pointer}
             </div>
             <div class="form-group">
                 <label for="codeInput">编码</label>
-                <input class="input" id="codeInput" type="text" readonly value="提交后自动生成">
+                <input class="input" id="codeInput" type="text" readonly>
             </div>
 
             <div class="form-group">
@@ -488,7 +488,6 @@ button{cursor:pointer}
                         <div id="journalOptions"></div>
                     </div>
                 </div>
-                <div class="combo-help">输入已有刊名时，刊号和刊注会自动回填。</div>
             </div>
 
             <div class="form-group">
@@ -693,6 +692,58 @@ function uid(){
     return crypto?.randomUUID?crypto.randomUUID():`papers_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
 }
 const collator=new Intl.Collator('zh-CN',{numeric:true,sensitivity:'base'});
+const pinyinCollator=new Intl.Collator('zh-CN-u-co-pinyin',{numeric:true,sensitivity:'base'});
+const latinCollator=new Intl.Collator('en',{numeric:true,sensitivity:'base'});
+
+function titleSortInfo(value){
+    const text=clean(value).normalize('NFKC');
+    if(!text)return{type:99,text,number:null};
+
+    const first=Array.from(text)[0]||'';
+
+    // 0：汉字，按拼音首字母及后续拼音排序
+    if(/^\p{Script=Han}$/u.test(first)){
+        return{type:0,text,number:null};
+    }
+
+    // 1：数字，按开头数值从小到大
+    const numberMatch=text.match(/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)/);
+    if(numberMatch){
+        return{type:1,text,number:Number(numberMatch[0])};
+    }
+
+    // 2：拉丁字母，A → Z
+    if(/^[A-Za-z]$/.test(first)){
+        return{type:2,text,number:null};
+    }
+
+    // 其它符号最后
+    return{type:3,text,number:null};
+}
+function comparePaperTitle(a,b){
+    const x=titleSortInfo(a),y=titleSortInfo(b);
+
+    if(x.type!==y.type)return x.type-y.type;
+
+    if(x.type===0){
+        const r=pinyinCollator.compare(x.text,y.text);
+        if(r!==0)return r;
+    }
+
+    if(x.type===1&&x.number!==y.number){
+        return x.number-y.number;
+    }
+
+    if(x.type===2){
+        const r=latinCollator.compare(x.text,y.text);
+        if(r!==0)return r;
+    }
+
+    const r=collator.compare(x.text,y.text);
+    if(r!==0)return r;
+
+    return x.text<y.text?-1:(x.text>y.text?1:0);
+}
 function uniq(values){
     const out=[],seen=new Set();
     for(const raw of values||[]){
@@ -702,7 +753,9 @@ function uniq(values){
     }
     return out;
 }
-function sortOptions(values){return uniq(values).sort((a,b)=>collator.compare(a,b))}
+function sortOptions(values){
+    return uniq(values).sort(comparePaperTitle)
+}
 function validCode(value){return /^\d{6}$/.test(String(value||''))&&Number(value)>=300000&&Number(value)<=399999}
 function generateUniqueCode(usedSet){
     if(usedSet.size>=100000)throw new Error('编码区间已用完');
@@ -760,8 +813,9 @@ function normalizeData(value){
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(x=>normalizeEntry(x,used)).filter(Boolean)
         .sort((a,b)=>{
-            const t=Date.parse(b.createdAt)-Date.parse(a.createdAt);
-            return t||String(b.id).localeCompare(String(a.id));
+            const byTitle=comparePaperTitle(a.title,b.title);
+            if(byTitle!==0)return byTitle;
+            return String(a.id).localeCompare(String(b.id));
         });
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
@@ -848,7 +902,7 @@ function setUnlocked(on){
     // 导出只是读取公开数据，不属于编辑行为；公开数据加载成功后访客也可导出。
     exportBtn.disabled=!publicLoaded&&!unlocked;
 
-    configBtn.textContent=unlocked?'编辑配置':'编辑登录';
+    configBtn.textContent=unlocked?'配置':'编辑登录';
 }
 
 function publicDataUrl(){return new URL(PUBLIC_DATA_FILE,location.href).href}
@@ -1159,7 +1213,7 @@ function addEntry(){
         id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,createdAt:new Date().toISOString()
     });
     titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
-    codeInput.value='提交后自动生成';
+    codeInput.value='';
     markLocalChange();titleInput.focus();show(`已提交，编码 ${code}`,'success');
 }
 function editSnapshot(){
