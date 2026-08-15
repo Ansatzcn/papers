@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-14-papers-text-selection-fix-v6">
+<meta name="app-build" content="2026-08-16-papers-released-code-reuse-v1">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -750,7 +750,7 @@ const TOKEN_SESSION_KEY=`${NS}:token_session`;
 const CACHE_KEY=`${NS}:cache`;
 const META_KEY=`${NS}:meta`;
 
-let data={entries:[],histories:{journals:[],issues:[],notes:[]},profiles:[]};
+let data={entries:[],histories:{journals:[],issues:[],notes:[]},profiles:[],releasedCodes:[]};
 let config={owner:'',repo:'',file:'papers_data.json',token:''};
 let meta={target:'',fingerprint:null,sha:null,lastSyncAt:null};
 let unlocked=false,publicLoaded=false,syncing=false,autoTimer=null,editingId='',editInitialSnapshot='',toastTimer=null;
@@ -920,6 +920,19 @@ function generateUniqueCode(usedSet){
     }
     throw new Error('无法生成唯一编码');
 }
+// 删除条目后，其编码进入释放池；新增条目优先复用最早释放且当前未占用的编码。
+function allocateCode(usedSet){
+    const released=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
+    for(let i=0;i<released.length;i++){
+        const code=clean(released[i]);
+        if(!validCode(code)||usedSet.has(code))continue;
+        data.releasedCodes=released.filter((_,index)=>index!==i);
+        usedSet.add(code);
+        return code;
+    }
+    data.releasedCodes=released.filter(code=>validCode(code)&&!usedSet.has(clean(code)));
+    return generateUniqueCode(usedSet);
+}
 function normalizeEntry(x,used){
     if(!x||typeof x!=='object')return null;
     let code=clean(x.code);
@@ -968,7 +981,16 @@ function normalizeData(value){
 
     const profileMap=new Map();
     for(const p of profiles)profileMap.set(key(p.journal),p);
-    return{entries,histories,profiles:[...profileMap.values()]};
+
+    // 释放池只保留合法、未被当前条目占用且不重复的编码。
+    const releasedCodes=[];
+    const releasedSeen=new Set();
+    for(const raw of Array.isArray(source.releasedCodes)?source.releasedCodes:[]){
+        const code=clean(raw);
+        if(!validCode(code)||used.has(code)||releasedSeen.has(code))continue;
+        releasedSeen.add(code);releasedCodes.push(code);
+    }
+    return{entries,histories,profiles:[...profileMap.values()],releasedCodes};
 }
 function fingerprint(value=data){return JSON.stringify(normalizeData(value))}
 function formatDate(iso){
@@ -1096,7 +1118,7 @@ async function readRemote(){
 }
 async function writeRemote(snapshot,sha){
     const normalized=normalizeData(snapshot);
-    const raw=JSON.stringify({schemaVersion:1,...normalized},null,2);
+    const raw=JSON.stringify({schemaVersion:2,...normalized},null,2);
     if(new TextEncoder().encode(raw).length>MAX_BYTES)throw new Error('数据超过 900 KB');
     const body={message:`更新 Papers 数据 - ${new Date().toLocaleString()}`,content:utf8ToBase64(raw)};
     if(sha)body.sha=sha;
@@ -1345,7 +1367,7 @@ function addEntry(){
     rememberOption('journal',journal);rememberOption('issue',issue);rememberOption('note',journalNote);
     upsertProfile(journal,issue,journalNote);
     const used=new Set(data.entries.map(x=>x.code));
-    const code=generateUniqueCode(used);
+    const code=allocateCode(used);
     data.entries.push({
         id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code
     });
@@ -1383,13 +1405,19 @@ function deleteEntry(){
     if(!requireEditAccess()||!editingId)return;
     const item=data.entries.find(x=>x.id===editingId);if(!item)return;
     if(!confirm(`确定删除论文“${item.title}”吗？`))return;
-    data.entries=data.entries.filter(x=>x.id!==editingId);closeEdit();markLocalChange();show('已删除','success');
+    const releasedCode=clean(item.code);
+    data.entries=data.entries.filter(x=>x.id!==editingId);
+    if(validCode(releasedCode)){
+        const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
+        if(!pool.includes(releasedCode))data.releasedCodes=[...pool,releasedCode];
+    }
+    closeEdit();markLocalChange();show(`已删除，编码 ${releasedCode} 已释放`,'success');
 }
 
 function downloadJson(){
     // 导出属于只读操作：访客在公开数据已经加载后也允许导出。
     if(!publicLoaded&&!unlocked)return;
-    const payload={schemaVersion:1,...normalizeData(data)};
+    const payload={schemaVersion:2,...normalizeData(data)};
     const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');
     a.href=url;a.download=`papers_backup_${formatDate(new Date().toISOString())}.json`;a.click();URL.revokeObjectURL(url);
