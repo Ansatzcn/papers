@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-16-papers-released-code-reuse-v1">
+<meta name="app-build" content="2026-08-17-dropdown-row-edit-delete-v1">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -171,22 +171,29 @@ button{cursor:pointer}
 }
 .combo-option-list{
     display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+    flex-direction:column;
+    gap:6px;
+    width:100%;
+    min-width:0;
 }
 .combo-pill{
-    display:inline-flex;
-    align-items:center;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto auto;
+    align-items:stretch;
+    width:100%;
     max-width:100%;
-    min-height:35px;
+    min-width:0;
+    min-height:38px;
     border:1px solid #cbd5e1;
-    border-radius:999px;
+    border-radius:12px;
     background:#f8fafc;
     overflow:hidden;
 }
 .combo-pill-select{
+    display:block;
+    width:100%;
     min-width:0;
-    padding:.42rem .35rem .42rem .75rem;
+    padding:.52rem .75rem;
     border:0;
     background:transparent;
     color:#0f172a;
@@ -195,29 +202,23 @@ button{cursor:pointer}
     overflow-wrap:anywhere;
 }
 .combo-pill-select:hover{background:#eef2f7}
-.combo-pill-edit{
-    flex:0 0 auto;
-    height:29px;
-    padding:0 .42rem;
+.combo-pill-edit,
+.combo-pill-delete{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:48px;
+    padding:0 .65rem;
     border:0;
     border-left:1px solid #e2e8f0;
     background:transparent;
-    color:#64748b;
-    font-size:.72rem;
+    font-size:.75rem;
+    font-weight:650;
+    white-space:nowrap;
 }
+.combo-pill-edit{color:#475569}
 .combo-pill-edit:hover{background:#e2e8f0;color:#334155}
-.combo-pill-delete{
-    flex:0 0 30px;
-    width:30px;
-    height:30px;
-    margin-right:2px;
-    border:0;
-    border-radius:50%;
-    background:transparent;
-    color:#991b1b;
-    font-size:.82rem;
-    font-weight:700;
-}
+.combo-pill-delete{color:#991b1b}
 .combo-pill-delete:hover{background:#fee2e2}
 .combo-empty{
     width:100%;
@@ -503,6 +504,8 @@ button{cursor:pointer}
     .dialog-scroll{padding:1.2rem 1.2rem .8rem}
     .dialog-actions{padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom))}
     .combo-panel{max-height:230px}
+    .combo-pill{grid-template-columns:minmax(0,1fr) 48px 48px}
+    .combo-pill-edit,.combo-pill-delete{min-width:0;padding:0 .45rem}
     .back-to-top{right:3px;top:70%;width:24px;height:24px;font-size:.7rem}
 }
 </style>
@@ -1290,8 +1293,8 @@ function renderCombo(type,context){
         ? `<div class="combo-option-list">${values.map(v=>`
             <span class="combo-pill">
                 <button class="combo-pill-select" type="button" data-select="${attr(v)}">${esc(v)}</button>
-                <button class="combo-pill-edit" type="button" data-edit="${attr(v)}" aria-label="编辑">编辑</button>
-                <button class="combo-pill-delete" type="button" data-delete="${attr(v)}" aria-label="删除">×</button>
+                <button class="combo-pill-edit" type="button" data-edit="${attr(v)}" aria-label="编辑${attr(v)}">编辑</button>
+                <button class="combo-pill-delete" type="button" data-delete="${attr(v)}" aria-label="删除${attr(v)}">删除</button>
             </span>`).join('')}</div>`
         : `<div class="combo-empty">暂无${historyMeta(type).label}</div>`;
 }
