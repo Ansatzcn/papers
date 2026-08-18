@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-17-dropdown-row-edit-delete-v1">
+<meta name="app-build" content="2026-08-18-dropdown-keyboard-navigation-v1">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -202,6 +202,13 @@ button{cursor:pointer}
     overflow-wrap:anywhere;
 }
 .combo-pill-select:hover{background:#eef2f7}
+.combo-pill-select.keyboard-active{
+    background:#dbeafe;
+    color:#1d4ed8;
+    font-weight:700;
+    outline:2px solid #93c5fd;
+    outline-offset:-2px;
+}
 .combo-pill-edit,
 .combo-pill-delete{
     display:inline-flex;
@@ -1303,29 +1310,104 @@ function renderAllCombos(){
 }
 function setupCombo(type,context){
     const cfg=comboRegistry[context][type];
+    let keyboardIndex=-1;
+
+    function selectableOptions(){
+        return [...cfg.options.querySelectorAll('.combo-pill-select[data-select]')];
+    }
+
+    function clearKeyboardActive(){
+        keyboardIndex=-1;
+        selectableOptions().forEach(option=>{
+            option.classList.remove('keyboard-active');
+            option.removeAttribute('aria-selected');
+        });
+    }
+
+    function setKeyboardActive(nextIndex){
+        const options=selectableOptions();
+        if(!options.length){keyboardIndex=-1;return false}
+        keyboardIndex=((nextIndex%options.length)+options.length)%options.length;
+        options.forEach((option,index)=>{
+            const active=index===keyboardIndex;
+            option.classList.toggle('keyboard-active',active);
+            if(active)option.setAttribute('aria-selected','true');
+            else option.removeAttribute('aria-selected');
+        });
+        options[keyboardIndex].scrollIntoView({block:'nearest'});
+        return true;
+    }
+
+    function selectValue(value){
+        cfg.input.value=value;
+        if(type==='journal')applyJournalProfile(cfg.input.value,context);
+        clearKeyboardActive();
+        cfg.panel.classList.add('hidden');
+        cfg.input.focus();
+    }
+
+    function openForKeyboard(){
+        if(cfg.panel.classList.contains('hidden')){
+            closePanels();
+            cfg.panel.classList.remove('hidden');
+            renderCombo(type,context);
+            keyboardIndex=-1;
+        }
+    }
+
     cfg.toggle.addEventListener('click',event=>{
         event.stopPropagation();const open=cfg.panel.classList.contains('hidden');closePanels();
+        keyboardIndex=-1;
         if(open){cfg.panel.classList.remove('hidden');renderCombo(type,context)}
     });
     cfg.input.addEventListener('click',event=>{
         event.stopPropagation();closePanels();cfg.panel.classList.remove('hidden');renderCombo(type,context);
+        keyboardIndex=-1;
     });
     cfg.input.addEventListener('input',()=>{
         renderCombo(type,context);
+        keyboardIndex=-1;
         if(type==='journal')applyJournalProfile(cfg.input.value,context);
+    });
+    cfg.input.addEventListener('keydown',event=>{
+        if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+            event.preventDefault();
+            event.stopPropagation();
+            openForKeyboard();
+            const options=selectableOptions();
+            if(!options.length)return;
+            if(keyboardIndex<0){
+                setKeyboardActive(event.key==='ArrowDown'?0:options.length-1);
+            }else{
+                setKeyboardActive(keyboardIndex+(event.key==='ArrowDown'?1:-1));
+            }
+            return;
+        }
+        if(event.key==='Enter'&&!cfg.panel.classList.contains('hidden')&&keyboardIndex>=0){
+            const option=selectableOptions()[keyboardIndex];
+            if(option){
+                event.preventDefault();
+                event.stopPropagation();
+                selectValue(option.dataset.select);
+            }
+            return;
+        }
+        if(event.key==='Escape'&&!cfg.panel.classList.contains('hidden')){
+            event.preventDefault();
+            event.stopPropagation();
+            clearKeyboardActive();
+            cfg.panel.classList.add('hidden');
+        }
     });
     cfg.options.addEventListener('click',event=>{
         event.stopPropagation();
         const del=event.target.closest('[data-delete]');
-        if(del)return deleteHistoryOption(type,del.dataset.delete);
+        if(del){clearKeyboardActive();return deleteHistoryOption(type,del.dataset.delete)}
         const edit=event.target.closest('[data-edit]');
-        if(edit)return editHistoryOption(type,edit.dataset.edit);
+        if(edit){clearKeyboardActive();return editHistoryOption(type,edit.dataset.edit)}
         const select=event.target.closest('[data-select]');
         if(!select)return;
-        cfg.input.value=select.dataset.select;
-        if(type==='journal')applyJournalProfile(cfg.input.value,context);
-        cfg.panel.classList.add('hidden');
-        cfg.input.focus();
+        selectValue(select.dataset.select);
     });
     cfg.combo.addEventListener('click',event=>event.stopPropagation());
 }
