@@ -112,16 +112,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "548595ff-28ee-4972-b5cb-a10db78f9cf0",
-      "title": "《爱尔福特纲领》及考茨基的“解说”在华早期传播与中共的关系",
-      "year": "2015-10",
-      "journal": "中共党史研究",
-      "issue": "1003-3815",
-      "journalNote": "马克思主义理论C刊",
-      "code": "300014",
-      "codeManualEdited": false
-    },
-    {
       "id": "0519cb9e-be54-48e2-9ed7-070833bab51d",
       "title": "亲历中央若干重要改革文件的起草过程",
       "year": "2018-06",
@@ -459,5 +449,7 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": []
+  "releasedCodes": [
+    "300014"
+  ]
 }
