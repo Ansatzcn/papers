@@ -939,7 +939,7 @@ function allocateCodeForEntry(entry,usedSet){
     throw new Error('对应语言编码区间已用完');
 }
 function allocateCode(usedSet,entry){return allocateCodeForEntry(entry,usedSet)}
-function clearAndRebuildAllCodes(entries){
+function rebuildCodes(entries){
     const used=new Set();
     for(const item of entries){
         item.code='';
@@ -985,9 +985,7 @@ function normalizeData(value){
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(x=>normalizeEntry(x,used)).filter(Boolean)
         .sort(comparePaperEntry);
-    // 强制清空所有旧编码，再按照新规则重新分配。
-    // 旧编码不参与占用、不保留、不继承。
-    clearAndRebuildAllCodes(entries);
+    rebuildCodes(entries);
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
     const histories={
@@ -1002,7 +1000,6 @@ function normalizeData(value){
     const profileMap=new Map();
     for(const p of profiles)profileMap.set(key(p.journal),p);
 
-    // 释放池只保留合法、未被当前条目占用且不重复的编码。
     const releasedCodes=[];
     const releasedSeen=new Set();
     for(const raw of Array.isArray(source.releasedCodes)?source.releasedCodes:[]){
@@ -1499,7 +1496,7 @@ function saveEditEntry(){
         item.code='';
         item.codeManualEdited=false;
         data.releasedCodes=[];
-        clearAndRebuildAllCodes(data.entries);
+        rebuildCodes(data.entries);
     }else if(!item.codeManualEdited&&nextCode!==item.code){
         if(!validCode(nextCode)){show('编码必须为六位数字','error');editCode.focus();return}
         const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
@@ -1515,8 +1512,8 @@ function deleteEntry(){
     data.entries=data.entries.filter(x=>x.id!==editingId);
     data.releasedCodes=[];
     data.entries.sort(comparePaperEntry);
-    clearAndRebuildAllCodes(data.entries);
-    closeEdit();markLocalChange();show(`已删除，编码 ${releasedCode} 已释放`,'success');
+    rebuildCodes(data.entries);
+    closeEdit();markLocalChange();show(`已删除，编码已释放`,'success');
 }
 
 function downloadJson(){
