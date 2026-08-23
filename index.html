@@ -443,11 +443,11 @@ button{cursor:pointer}
     width:30px;
     height:30px;
     padding:0;
-    border:1px solid rgba(148,163,184,.45);
+    border:0;
     border-radius:50%;
-    background:rgba(255,255,255,.82);
-    color:#64748b;
-    font-size:1rem;
+    background:#2563eb;
+    color:#fff;
+    font-size:0;
     line-height:1;
     opacity:0;
     visibility:hidden;
@@ -555,7 +555,7 @@ button{cursor:pointer}
             </div>
             <div class="form-group">
                 <label for="codeInput">编码</label>
-                <input class="input" id="codeInput" type="text" readonly>
+                <input class="input" id="codeInput" type="text">
             </div>
 
             <div class="form-group">
@@ -627,7 +627,7 @@ button{cursor:pointer}
                 </div>
                 <div class="form-group">
                     <label for="editCode">编码</label>
-                    <input class="input" id="editCode" type="text" readonly>
+                    <input class="input" id="editCode" type="text">
                 </div>
 
                 <div class="form-group">
@@ -714,7 +714,7 @@ button{cursor:pointer}
     </form>
 </section>
 
-<button class="back-to-top" id="backToTopBtn" type="button">↑</button>
+<button class="back-to-top" id="backToTopBtn" type="button" aria-label="回到顶部"></button>
 <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -913,40 +913,40 @@ function uniq(values){
 function sortOptions(values){
     return uniq(values).sort(comparePaperTitle)
 }
-function validCode(value){return /^\d{6}$/.test(String(value||''))&&Number(value)>=300000&&Number(value)<=399999}
-function generateUniqueCode(usedSet){
-    if(usedSet.size>=100000)throw new Error('编码区间已用完');
-    for(let i=0;i<200000;i++){
-        let n;
-        if(globalThis.crypto?.getRandomValues){
-            const buf=new Uint32Array(1);
-            crypto.getRandomValues(buf);
-            n=300000+(buf[0]%100000);
-        }else{
-            n=300000+Math.floor(Math.random()*100000);
-        }
-        const code=String(n);
+function hasChinese(value){return /\p{Script=Han}/u.test(clean(value))}
+function hasEnglish(value){return /[A-Za-z]/.test(clean(value))}
+function codeRangeForEntry(entry){
+    if(hasChinese(entry?.title)||hasChinese(entry?.journal))return [300001,309999];
+    if(hasEnglish(entry?.title)||hasEnglish(entry?.journal))return [310001,319999];
+    return [310001,319999];
+}
+function validCode(value){
+    return /^\d{6}$/.test(String(value||''))&&(
+        (Number(value)>=300001&&Number(value)<=309999)||
+        (Number(value)>=310001&&Number(value)<=319999)
+    )
+}
+function allocateCodeForEntry(entry,usedSet){
+    const range=codeRangeForEntry(entry);
+    for(let i=range[0];i<=range[1];i++){
+        const code=String(i);
         if(!usedSet.has(code)){usedSet.add(code);return code}
     }
-    throw new Error('无法生成唯一编码');
+    throw new Error('对应语言编码区间已用完');
 }
-// 删除条目后，其编码进入释放池；新增条目优先复用最早释放且当前未占用的编码。
-function allocateCode(usedSet){
-    const released=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
-    for(let i=0;i<released.length;i++){
-        const code=clean(released[i]);
-        if(!validCode(code)||usedSet.has(code))continue;
-        data.releasedCodes=released.filter((_,index)=>index!==i);
-        usedSet.add(code);
-        return code;
+function allocateCode(usedSet,entry){return allocateCodeForEntry(entry,usedSet)}
+function reassignAutoCodes(entries){
+    const used=new Set();
+    for(const item of entries){
+        const old=clean(item.code);
+        if(item.codeManualEdited&&validCode(old)&&!used.has(old)){used.add(old)}
+        else{item.code=allocateCodeForEntry(item,used);item.codeManualEdited=false}
     }
-    data.releasedCodes=released.filter(code=>validCode(code)&&!usedSet.has(clean(code)));
-    return generateUniqueCode(usedSet);
 }
 function normalizeEntry(x,used){
     if(!x||typeof x!=='object')return null;
     let code=clean(x.code);
-    if(!validCode(code)||used.has(code))code=generateUniqueCode(used);
+    if(!validCode(code)||used.has(code))code='';
     else used.add(code);
     return{
         id:clean(x.id)||uid(),
@@ -955,7 +955,8 @@ function normalizeEntry(x,used){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
-        code
+        code,
+        codeManualEdited:Boolean(x.codeManualEdited)
     };
 }
 function normalizeProfile(x){
@@ -978,6 +979,7 @@ function normalizeData(value){
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(x=>normalizeEntry(x,used)).filter(Boolean)
         .sort(comparePaperEntry);
+    reassignAutoCodes(entries);
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
     const histories={
@@ -1452,10 +1454,14 @@ function addEntry(){
     rememberOption('journal',journal);rememberOption('issue',issue);rememberOption('note',journalNote);
     upsertProfile(journal,issue,journalNote);
     const used=new Set(data.entries.map(x=>x.code));
-    const code=allocateCode(used);
-    data.entries.push({
-        id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code
-    });
+    const draft={title,journal};
+    let code=clean(codeInput.value),codeManualEdited=false;
+    const range=codeRangeForEntry(draft);
+    if(validCode(code)&&!used.has(code)&&Number(code)>=range[0]&&Number(code)<=range[1]){
+        used.add(code);codeManualEdited=true;
+    }else code='';
+    if(!code)code=allocateCode(used,draft);
+    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited});
     titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
     codeInput.value='';
     markLocalChange();titleInput.focus();show(`已提交，编码 ${code}`,'success');
@@ -1473,6 +1479,7 @@ function openEdit(id){
     const item=data.entries.find(x=>x.id===id);if(!item)return;
     editingId=id;editTitle.value=item.title;editYear.value=item.year;editJournal.value=item.journal;
     editIssue.value=item.issue;editJournalNote.value=item.journalNote;editCode.value=item.code;
+    editCode.readOnly=Boolean(item.codeManualEdited);
     editInitialSnapshot=editSnapshot();editModal.classList.remove('hidden');renderAllCombos();
     setTimeout(()=>editTitle.focus(),30);
 }
@@ -1483,7 +1490,13 @@ function saveEditEntry(){
     const journal=clean(editJournal.value),issue=clean(editIssue.value),journalNote=clean(editJournalNote.value);
     rememberOption('journal',journal);rememberOption('issue',issue);rememberOption('note',journalNote);upsertProfile(journal,issue,journalNote);
     item.title=title;item.year=clean(editYear.value);item.journal=journal;item.issue=issue;item.journalNote=journalNote;
-    // 编码字段不写入，确保提交后永久不变。
+    const nextCode=clean(editCode.value);
+    if(!item.codeManualEdited&&nextCode!==item.code){
+        if(!validCode(nextCode)){show('编码必须为六位数字','error');editCode.focus();return}
+        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
+        if(used.has(nextCode)){show('该编码已被占用','error');editCode.focus();return}
+        item.code=nextCode;item.codeManualEdited=true;editCode.readOnly=true;
+    }
     closeEdit();markLocalChange();show('已保存','success');
 }
 function deleteEntry(){
@@ -1496,6 +1509,7 @@ function deleteEntry(){
         const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
         if(!pool.includes(releasedCode))data.releasedCodes=[...pool,releasedCode];
     }
+    reassignAutoCodes(data.entries.sort(comparePaperEntry));
     closeEdit();markLocalChange();show(`已删除，编码 ${releasedCode} 已释放`,'success');
 }
 
@@ -1627,7 +1641,7 @@ fileInput.addEventListener('change',()=>{const file=fileInput.files?.[0];if(file
 document.addEventListener('keydown',event=>{
     if(event.key==='Escape'){closePanels();if(!editModal.classList.contains('hidden')&&editSnapshot()===editInitialSnapshot)closeEdit();else closeConfig()}
 });
-backToTopBtn.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+backToTopBtn.addEventListener('click',()=>{const start=scrollY;const t=performance.now();function go(now){const p=Math.min((now-t)/50,1);scrollTo(0,start*(1-p));if(p<1)requestAnimationFrame(go)}requestAnimationFrame(go)});
 addEventListener('scroll',()=>backToTopBtn.classList.toggle('visible',scrollY>260),{passive:true});
 
 (async()=>{
