@@ -939,22 +939,6 @@ function allocateCodeForEntry(entry,usedSet){
     throw new Error('对应语言编码区间已用完');
 }
 function allocateCode(usedSet,entry){return allocateCodeForEntry(entry,usedSet)}
-
-function randomLegacyCode320000(usedSet){
-    for(let i=0;i<5000;i++){
-        const code=String(320000+Math.floor(Math.random()*1001));
-        if(!usedSet.has(code)){usedSet.add(code);return code}
-    }
-    throw new Error('320000-321000 编码区间已用完');
-}
-function randomizeLegacyCodes(entries){
-    const used=new Set();
-    for(const item of entries){
-        item.code=randomLegacyCode320000(used);
-        item.codeManualEdited=false;
-    }
-}
-
 function reassignAutoCodes(entries){
     const used=new Set(entries.map(x=>clean(x.code)).filter(validCode));
     for(const item of entries){
@@ -976,8 +960,8 @@ function normalizeEntry(x,used){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
-        code,
-        codeManualEdited:Boolean(x.codeManualEdited)
+        code:'',
+        codeManualEdited:false
     };
 }
 function normalizeProfile(x){
@@ -1029,7 +1013,7 @@ function normalizeData(value){
         if(!validCode(code)||used.has(code)||releasedSeen.has(code))continue;
         releasedSeen.add(code);releasedCodes.push(code);
     }
-    return{entries,histories,profiles:[...profileMap.values()],releasedCodes,legacy320Migrated:true};
+    return{entries,histories,profiles:[...profileMap.values()],releasedCodes};
 }
 function fingerprint(value=data){return JSON.stringify(normalizeData(value))}
 function formatDate(iso){
@@ -1536,7 +1520,7 @@ function deleteEntry(){
         const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
         if(!pool.includes(releasedCode))data.releasedCodes=[...pool,releasedCode];
     }
-    reassignAutoCodes(data.entries.sort(comparePaperEntry));
+    data.entries.sort(comparePaperEntry);
     closeEdit();markLocalChange();show(`已删除，编码 ${releasedCode} 已释放`,'success');
 }
 
