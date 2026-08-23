@@ -8,7 +8,8 @@
       "journal": "教学与研究",
       "issue": "0257-2826",
       "journalNote": "马克思主义理论C刊",
-      "code": "365794"
+      "code": "300001",
+      "codeManualEdited": false
     },
     {
       "id": "3519d68e-36e1-4722-a381-508151ab2887",
@@ -17,7 +18,8 @@
       "journal": "教学与研究",
       "issue": "0257-2826",
       "journalNote": "马克思主义理论C刊",
-      "code": "391026"
+      "code": "300002",
+      "codeManualEdited": false
     },
     {
       "id": "f478ff49-cea9-492d-818c-34f591941297",
@@ -26,7 +28,8 @@
       "journal": "经济研究",
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
-      "code": "359343"
+      "code": "300003",
+      "codeManualEdited": false
     },
     {
       "id": "597f6a6d-5e77-4d87-baf0-1184790512f4",
@@ -35,7 +38,8 @@
       "journal": "经济研究",
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
-      "code": "379527"
+      "code": "300004",
+      "codeManualEdited": false
     },
     {
       "id": "99a9309b-1a49-400d-9eb1-1776ed37e94e",
@@ -44,7 +48,8 @@
       "journal": "经济研究",
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
-      "code": "322584"
+      "code": "300005",
+      "codeManualEdited": false
     },
     {
       "id": "d4b42049-0d07-4b63-bc94-5cfd82b33a53",
@@ -53,7 +58,8 @@
       "journal": "财经问题研究",
       "issue": "1000-176X",
       "journalNote": "经济学C刊",
-      "code": "330390"
+      "code": "300006",
+      "codeManualEdited": false
     },
     {
       "id": "f53ef9c4-159f-4fec-9e06-70f3bdf37e0e",
@@ -62,7 +68,8 @@
       "journal": "社会主义研究",
       "issue": "1001-4527",
       "journalNote": "马克思主义理论C刊",
-      "code": "363648"
+      "code": "300007",
+      "codeManualEdited": false
     },
     {
       "id": "68126d31-e845-449a-90ce-0288cac987c5",
@@ -71,7 +78,8 @@
       "journal": "南开经济研究",
       "issue": "1001-4691",
       "journalNote": "经济学C刊",
-      "code": "311978"
+      "code": "300027",
+      "codeManualEdited": false
     },
     {
       "id": "906d3003-dd37-4bd0-9095-7e64b10124e8",
@@ -80,7 +88,8 @@
       "journal": "财贸经济",
       "issue": "1002-8102",
       "journalNote": "经济学C刊",
-      "code": "348969"
+      "code": "300008",
+      "codeManualEdited": false
     },
     {
       "id": "f909aa31-3d5c-4bc0-88ab-da64a0fd120b",
@@ -89,7 +98,8 @@
       "journal": "经济学动态",
       "issue": "1002-8390",
       "journalNote": "经济学C刊",
-      "code": "305620"
+      "code": "305620",
+      "codeManualEdited": false
     },
     {
       "id": "c9890e6c-74de-4cf3-91b7-913b1c8283dc",
@@ -98,7 +108,8 @@
       "journal": "经济学动态",
       "issue": "1002-8390",
       "journalNote": "经济学C刊",
-      "code": "343100"
+      "code": "300009",
+      "codeManualEdited": false
     },
     {
       "id": "11a4b3bc-9a63-4ef8-a0d1-4daedc5f5b14",
@@ -107,7 +118,8 @@
       "journal": "经济学动态",
       "issue": "1002-8390",
       "journalNote": "经济学C刊",
-      "code": "333572"
+      "code": "300010",
+      "codeManualEdited": false
     },
     {
       "id": "dd8620eb-7b14-4eb0-aad5-e0d56d1428d0",
@@ -116,7 +128,8 @@
       "journal": "经济学动态",
       "issue": "1002-8390",
       "journalNote": "经济学C刊",
-      "code": "380875"
+      "code": "300011",
+      "codeManualEdited": false
     },
     {
       "id": "61d99b75-c22a-4c97-b694-52c4ab728cf7",
@@ -125,7 +138,8 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "378650"
+      "code": "300012",
+      "codeManualEdited": false
     },
     {
       "id": "548595ff-28ee-4972-b5cb-a10db78f9cf0",
@@ -134,7 +148,8 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "364457"
+      "code": "300013",
+      "codeManualEdited": false
     },
     {
       "id": "0519cb9e-be54-48e2-9ed7-070833bab51d",
@@ -143,7 +158,8 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "322190"
+      "code": "300014",
+      "codeManualEdited": false
     },
     {
       "id": "487ebe90-d6ed-4f9b-982b-556e45d07996",
@@ -152,7 +168,8 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "397020"
+      "code": "300015",
+      "codeManualEdited": false
     },
     {
       "id": "4e3fa8ba-9509-4db8-ae7b-b242b1868373",
@@ -161,7 +178,8 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "371080"
+      "code": "300016",
+      "codeManualEdited": false
     },
     {
       "id": "54dc13b1-0d27-4f3f-849f-ce50d8d15957",
@@ -170,7 +188,8 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "376066"
+      "code": "300017",
+      "codeManualEdited": false
     },
     {
       "id": "65af20c2-37f7-43a7-8974-5843e9d453f8",
@@ -179,7 +198,8 @@
       "journal": "改革",
       "issue": "1003-7543",
       "journalNote": "经济学C刊",
-      "code": "336137"
+      "code": "300018",
+      "codeManualEdited": false
     },
     {
       "id": "6bca59aa-a63e-414a-a23a-d90e52ae7454",
@@ -188,7 +208,8 @@
       "journal": "探索与争鸣",
       "issue": "1004-2229",
       "journalNote": "综合性社会科学C刊",
-      "code": "315627"
+      "code": "315627",
+      "codeManualEdited": false
     },
     {
       "id": "c0d42c94-f85d-45ba-913f-a6df706dd028",
@@ -197,7 +218,8 @@
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
       "journalNote": "马克思主义理论C刊",
-      "code": "353858"
+      "code": "300019",
+      "codeManualEdited": false
     },
     {
       "id": "8626935d-3094-4a1c-bf48-93fbc5993e8c",
@@ -206,7 +228,8 @@
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
       "journalNote": "马克思主义理论C刊",
-      "code": "313608"
+      "code": "313608",
+      "codeManualEdited": false
     },
     {
       "id": "34ee64d2-0930-474c-b9fd-a379d11c0836",
@@ -215,7 +238,8 @@
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
       "journalNote": "马克思主义理论C刊",
-      "code": "368209"
+      "code": "300020",
+      "codeManualEdited": false
     },
     {
       "id": "98d07dff-3f33-4f34-bd13-a52c5dc14f65",
@@ -224,7 +248,8 @@
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
       "journalNote": "马克思主义理论C刊",
-      "code": "309427"
+      "code": "309427",
+      "codeManualEdited": false
     },
     {
       "id": "5ada062c-ff63-44cd-9797-180dcee1081c",
@@ -233,7 +258,8 @@
       "journal": "党的文献",
       "issue": "1005-1597",
       "journalNote": "马克思主义理论C刊",
-      "code": "350258"
+      "code": "300021",
+      "codeManualEdited": false
     },
     {
       "id": "536c8ce1-a3db-4b67-a661-fbfcc188204e",
@@ -242,7 +268,8 @@
       "journal": "毛泽东邓小平理论研究",
       "issue": "1005-8273",
       "journalNote": "马克思主义理论C刊",
-      "code": "360005"
+      "code": "300022",
+      "codeManualEdited": false
     },
     {
       "id": "b8286f48-ccd0-48c6-8c95-cbd5f281bde4",
@@ -251,7 +278,8 @@
       "journal": "马克思主义研究",
       "issue": "1006-5199",
       "journalNote": "马克思主义理论C刊",
-      "code": "343952"
+      "code": "300023",
+      "codeManualEdited": false
     },
     {
       "id": "720ed785-4814-4a21-a35f-69c16c9280c1",
@@ -260,7 +288,8 @@
       "journal": "马克思主义研究",
       "issue": "1006-5199",
       "journalNote": "马克思主义理论C刊",
-      "code": "347687"
+      "code": "300024",
+      "codeManualEdited": false
     },
     {
       "id": "c352de42-f5ec-4efc-9129-40f2b23e5949",
@@ -269,7 +298,8 @@
       "journal": "经济纵横",
       "issue": "1007-7685",
       "journalNote": "经济学C刊",
-      "code": "375281"
+      "code": "300025",
+      "codeManualEdited": false
     },
     {
       "id": "8500a501-cb7b-4b31-9f39-705027929a7f",
@@ -278,7 +308,8 @@
       "journal": "国外理论动态",
       "issue": "1674-1277",
       "journalNote": "马克思主义理论C刊",
-      "code": "317046"
+      "code": "317046",
+      "codeManualEdited": false
     },
     {
       "id": "91df1ca3-bfca-4cb5-83a9-7e5029dcdc77",
@@ -287,7 +318,8 @@
       "journal": "世界社会主义研究",
       "issue": "2096-2630",
       "journalNote": "马克思主义理论C刊",
-      "code": "322218"
+      "code": "300026",
+      "codeManualEdited": false
     },
     {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
@@ -296,7 +328,8 @@
       "journal": "International Review of Applied Economics",
       "issue": "0269-2171",
       "journalNote": "",
-      "code": "304925"
+      "code": "304925",
+      "codeManualEdited": false
     },
     {
       "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
@@ -305,7 +338,8 @@
       "journal": "Cambridge Journal of Economics",
       "issue": "0309-166X",
       "journalNote": "经济学Q2",
-      "code": "303014"
+      "code": "303014",
+      "codeManualEdited": false
     }
   ],
   "histories": {
