@@ -328,7 +328,7 @@
       "journal": "International Review of Applied Economics",
       "issue": "0269-2171",
       "journalNote": "",
-      "code": "304925",
+      "code": "310001",
       "codeManualEdited": false
     },
     {
@@ -489,5 +489,6 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": []
+  "releasedCodes": [],
+  "legacy320Migrated": true
 }
