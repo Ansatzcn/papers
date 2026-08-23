@@ -146,6 +146,10 @@ button{cursor:pointer}
     background:#f1f5f9;
     color:#64748b;
 }
+.clearable-input{position:relative;width:100%}
+.clearable-input .input{padding-right:2.3rem}
+.input-clear{position:absolute;right:.65rem;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#94a3b8;font-size:1.2rem;line-height:1;cursor:pointer}
+.input-clear:hover{color:#ef4444}
 .combo{position:relative;min-width:0}
 .combo-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}
 .combo-toggle{
@@ -555,7 +559,7 @@ button{cursor:pointer}
             </div>
             <div class="form-group">
                 <label for="codeInput">编码</label>
-                <input class="input" id="codeInput" type="text">
+                <input class="input" id="codeInput" type="text" readonly>
             </div>
 
             <div class="form-group">
@@ -623,11 +627,11 @@ button{cursor:pointer}
                 </div>
                 <div class="form-group">
                     <label for="editYear">刊期</label>
-                    <input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off">
+                    <div class="clearable-input"><input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off"><button class="input-clear" id="clearEditYear" type="button">×</button></div>
                 </div>
                 <div class="form-group">
                     <label for="editCode">编码</label>
-                    <input class="input" id="editCode" type="text">
+                    <div class="clearable-input"><input class="input" id="editCode" type="text" readonly><button class="input-clear" id="clearEditCode" type="button">×</button></div>
                 </div>
 
                 <div class="form-group">
@@ -729,7 +733,7 @@ journalInput=$('journalInput'),journalToggle=$('journalToggle'),journalPanel=$('
 issueInput=$('issueInput'),issueToggle=$('issueToggle'),issuePanel=$('issuePanel'),issueOptions=$('issueOptions'),issueCombo=$('issueCombo'),
 journalNoteInput=$('journalNoteInput'),journalNoteToggle=$('journalNoteToggle'),journalNotePanel=$('journalNotePanel'),journalNoteOptions=$('journalNoteOptions'),journalNoteCombo=$('journalNoteCombo'),
 addBtn=$('addBtn'),countDisplay=$('countDisplay'),papersList=$('papersList'),
-editModal=$('editModal'),editTitle=$('editTitle'),editYear=$('editYear'),editCode=$('editCode'),
+editModal=$('editModal'),editTitle=$('editTitle'),editYear=$('editYear'),editCode=$('editCode'),clearEditYear=$('clearEditYear'),clearEditCode=$('clearEditCode'),
 editJournal=$('editJournal'),editJournalToggle=$('editJournalToggle'),editJournalPanel=$('editJournalPanel'),editJournalOptions=$('editJournalOptions'),editJournalCombo=$('editJournalCombo'),
 editIssue=$('editIssue'),editIssueToggle=$('editIssueToggle'),editIssuePanel=$('editIssuePanel'),editIssueOptions=$('editIssueOptions'),editIssueCombo=$('editIssueCombo'),
 editJournalNote=$('editJournalNote'),editJournalNoteToggle=$('editJournalNoteToggle'),editJournalNotePanel=$('editJournalNotePanel'),editJournalNoteOptions=$('editJournalNoteOptions'),editJournalNoteCombo=$('editJournalNoteCombo'),
@@ -1455,13 +1459,9 @@ function addEntry(){
     upsertProfile(journal,issue,journalNote);
     const used=new Set(data.entries.map(x=>x.code));
     const draft={title,journal};
-    let code=clean(codeInput.value),codeManualEdited=false;
-    const range=codeRangeForEntry(draft);
-    if(validCode(code)&&!used.has(code)&&Number(code)>=range[0]&&Number(code)<=range[1]){
-        used.add(code);codeManualEdited=true;
-    }else code='';
-    if(!code)code=allocateCode(used,draft);
-    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited});
+    const code=allocateCodeForEntry(draft,used);
+    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited:false});
+    codeInput.value=code;
     titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
     codeInput.value='';
     markLocalChange();titleInput.focus();show(`已提交，编码 ${code}`,'success');
@@ -1491,7 +1491,11 @@ function saveEditEntry(){
     rememberOption('journal',journal);rememberOption('issue',issue);rememberOption('note',journalNote);upsertProfile(journal,issue,journalNote);
     item.title=title;item.year=clean(editYear.value);item.journal=journal;item.issue=issue;item.journalNote=journalNote;
     const nextCode=clean(editCode.value);
-    if(!item.codeManualEdited&&nextCode!==item.code){
+    if(!nextCode){
+        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
+        item.code=allocateCodeForEntry({title:item.title,journal:item.journal},used);
+        item.codeManualEdited=false;
+    }else if(!item.codeManualEdited&&nextCode!==item.code){
         if(!validCode(nextCode)){show('编码必须为六位数字','error');editCode.focus();return}
         const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
         if(used.has(nextCode)){show('该编码已被占用','error');editCode.focus();return}
@@ -1626,6 +1630,8 @@ addBtn.addEventListener('click',addEntry);
 editDelete.addEventListener('click',deleteEntry);
 editCancel.addEventListener('click',closeEdit);
 editSave.addEventListener('click',saveEditEntry);
+clearEditYear.addEventListener('click',()=>{editYear.value=''});
+clearEditCode.addEventListener('click',()=>{if(!editCode.readOnly)editCode.value=''});
 editModal.addEventListener('pointerdown',event=>{editModal.dataset.outside=event.target===editModal?'1':'0'});
 editModal.addEventListener('pointerup',event=>{
     const genuine=editModal.dataset.outside==='1'&&event.target===editModal;editModal.dataset.outside='0';
