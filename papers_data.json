@@ -32,16 +32,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "d4b42049-0d07-4b63-bc94-5cfd82b33a53",
-      "title": "关于新质生产力的理论",
-      "year": "2024-06",
-      "journal": "财经问题研究",
-      "issue": "1000-176X",
-      "journalNote": "经济学C刊",
-      "code": "300005",
-      "codeManualEdited": false
-    },
-    {
       "id": "f53ef9c4-159f-4fec-9e06-70f3bdf37e0e",
       "title": "马克思关于东方国家现代化进程的理论思考及启示",
       "year": "2022-06",
@@ -469,5 +459,7 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": []
+  "releasedCodes": [
+    "300005"
+  ]
 }
