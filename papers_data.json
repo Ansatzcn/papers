@@ -218,7 +218,7 @@
       "journal": "毛泽东邓小平理论研究",
       "issue": "1005-8273",
       "journalNote": "马克思主义理论C刊",
-      "code": "300026",
+      "code": "300018",
       "codeManualEdited": false
     },
     {
@@ -439,7 +439,5 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": [
-    "300018"
-  ]
+  "releasedCodes": []
 }
