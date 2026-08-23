@@ -939,13 +939,14 @@ function allocateCodeForEntry(entry,usedSet){
     throw new Error('对应语言编码区间已用完');
 }
 function allocateCode(usedSet,entry){return allocateCodeForEntry(entry,usedSet)}
-function reassignAutoCodes(entries){
-    const used=new Set(entries.map(x=>clean(x.code)).filter(validCode));
+function clearAndRebuildAllCodes(entries){
+    const used=new Set();
     for(const item of entries){
-        if(!validCode(item.code)){
-            item.code=allocateCodeForEntry(item,used);
-            item.codeManualEdited=false;
-        }
+        item.code='';
+        item.codeManualEdited=false;
+    }
+    for(const item of entries){
+        item.code=allocateCodeForEntry(item,used);
     }
 }
 function normalizeEntry(x,used){
@@ -960,10 +961,8 @@ function normalizeEntry(x,used){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
-        // 清空所有旧编码，重新由新规则分配
         code:'',
-        codeManualEdited:false,
-        codeManualEditUsed:false
+        codeManualEdited:false
     };
 }
 function normalizeProfile(x){
@@ -986,17 +985,9 @@ function normalizeData(value){
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(x=>normalizeEntry(x,used)).filter(Boolean)
         .sort(comparePaperEntry);
-    // 强制清空所有旧编码，再按照新规则重新编号。
-    // 自动重新编号不属于手动修改。
-    const codeUsed=new Set();
-    for(const item of entries){
-        item.code='';
-        item.codeManualEdited=false;
-        item.codeManualEditUsed=false;
-    }
-    for(const item of entries){
-        item.code=allocateCodeForEntry(item,codeUsed);
-    }
+    // 强制清空所有旧编码，再按照新规则重新分配。
+    // 旧编码不参与占用、不保留、不继承。
+    clearAndRebuildAllCodes(entries);
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
     const histories={
@@ -1473,7 +1464,7 @@ function addEntry(){
     const used=new Set(data.entries.map(x=>x.code));
     const draft={title,journal};
     const code=allocateCodeForEntry(draft,used);
-    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited:false,codeManualEditUsed:false});
+    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited:false});
     codeInput.value=code;
     titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
     codeInput.value='';
@@ -1505,18 +1496,15 @@ function saveEditEntry(){
     item.title=title;item.year=clean(editYear.value);item.journal=journal;item.issue=issue;item.journalNote=journalNote;
     const nextCode=clean(editCode.value);
     if(!nextCode){
-        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
-        item.code=allocateCodeForEntry({title:item.title,journal:item.journal},used);
+        item.code='';
         item.codeManualEdited=false;
-    }else if(!item.codeManualEditUsed&&nextCode!==item.code){
+        data.releasedCodes=[];
+        clearAndRebuildAllCodes(data.entries);
+    }else if(!item.codeManualEdited&&nextCode!==item.code){
         if(!validCode(nextCode)){show('编码必须为六位数字','error');editCode.focus();return}
         const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
         if(used.has(nextCode)){show('该编码已被占用','error');editCode.focus();return}
-        item.code=nextCode;item.codeManualEdited=true;item.codeManualEditUsed=true;editCode.readOnly=true;
-    }
-    if(!item.codeManualEdited){
-        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
-        item.code=allocateCodeForEntry(item,used);
+        item.code=nextCode;item.codeManualEdited=true;editCode.readOnly=true;
     }
     closeEdit();markLocalChange();show('已保存','success');
 }
@@ -1524,13 +1512,10 @@ function deleteEntry(){
     if(!requireEditAccess()||!editingId)return;
     const item=data.entries.find(x=>x.id===editingId);if(!item)return;
     if(!confirm(`确定删除论文“${item.title}”吗？`))return;
-    const releasedCode=clean(item.code);
     data.entries=data.entries.filter(x=>x.id!==editingId);
-    if(validCode(releasedCode)){
-        const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
-        if(!pool.includes(releasedCode))data.releasedCodes=[...pool,releasedCode];
-    }
+    data.releasedCodes=[];
     data.entries.sort(comparePaperEntry);
+    clearAndRebuildAllCodes(data.entries);
     closeEdit();markLocalChange();show(`已删除，编码 ${releasedCode} 已释放`,'success');
 }
 
