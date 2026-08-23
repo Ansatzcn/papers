@@ -52,16 +52,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "68126d31-e845-449a-90ce-0288cac987c5",
-      "title": "本土中间产品创新对国内大循环的影响研究",
-      "year": "2025-07",
-      "journal": "南开经济研究",
-      "issue": "1001-4691",
-      "journalNote": "经济学C刊",
-      "code": "300007",
-      "codeManualEdited": false
-    },
-    {
       "id": "906d3003-dd37-4bd0-9095-7e64b10124e8",
       "title": "对置盐定理的再审视",
       "year": "2024-03",
@@ -469,5 +459,7 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": []
+  "releasedCodes": [
+    "300007"
+  ]
 }
