@@ -372,6 +372,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
+      "title": "价值转形与置盐定理：一个批评和自我批评",
+      "year": "2021-02",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "经济学C扩",
+      "code": "300038",
+      "codeManualEdited": false
+    },
+    {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
       "title": "Biased Technical Change and the Aggregate Production Function",
       "year": "1999-02",
@@ -400,6 +410,7 @@
       "改革",
       "国外理论动态",
       "教学与研究",
+      "经济思想史学刊",
       "经济学动态",
       "经济研究",
       "经济纵横",
@@ -441,10 +452,12 @@
       "1674-1277",
       "1674-7542",
       "2095-5804",
-      "2096-2630"
+      "2096-2630",
+      "2096-9627"
     ],
     "notes": [
       "经济学C刊",
+      "经济学C扩",
       "经济学Q2",
       "马克思主义理论C刊",
       "社会学C刊",
@@ -566,6 +579,11 @@
       "journal": "政治经济学评论",
       "issue": "1674-7542",
       "journalNote": "经济学C刊"
+    },
+    {
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "经济学C扩"
     }
   ],
   "releasedCodes": []
