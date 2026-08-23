@@ -940,11 +940,12 @@ function allocateCodeForEntry(entry,usedSet){
 }
 function allocateCode(usedSet,entry){return allocateCodeForEntry(entry,usedSet)}
 function reassignAutoCodes(entries){
-    const used=new Set();
+    const used=new Set(entries.map(x=>clean(x.code)).filter(validCode));
     for(const item of entries){
-        const old=clean(item.code);
-        if(item.codeManualEdited&&validCode(old)&&!used.has(old)){used.add(old)}
-        else{item.code=allocateCodeForEntry(item,used);item.codeManualEdited=false}
+        if(!validCode(item.code)){
+            item.code=allocateCodeForEntry(item,used);
+            item.codeManualEdited=false;
+        }
     }
 }
 function normalizeEntry(x,used){
@@ -983,7 +984,13 @@ function normalizeData(value){
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(x=>normalizeEntry(x,used)).filter(Boolean)
         .sort(comparePaperEntry);
-    reassignAutoCodes(entries);
+    // 保留已有条目的原编码；只有缺失编码的条目才自动补充。
+    // 新增或主动删除编码后提交时才进入新的自动编码规则。
+    for(const item of entries){
+        if(!validCode(item.code)){
+            item.code=allocateCodeForEntry(item,new Set(entries.filter(x=>validCode(x.code)).map(x=>x.code)));
+        }
+    }
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
     const histories={
