@@ -456,7 +456,7 @@ button{cursor:pointer}
     opacity:0;
     visibility:hidden;
     pointer-events:none;
-    transition:.2s;
+    transition:.05s;
 }
 .back-to-top.visible{opacity:.55;visibility:visible;pointer-events:auto}
 .back-to-top:hover{opacity:1}
@@ -960,8 +960,10 @@ function normalizeEntry(x,used){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
+        // 清空所有旧编码，重新由新规则分配
         code:'',
-        codeManualEdited:false
+        codeManualEdited:false,
+        codeManualEditUsed:false
     };
 }
 function normalizeProfile(x){
@@ -984,12 +986,16 @@ function normalizeData(value){
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(x=>normalizeEntry(x,used)).filter(Boolean)
         .sort(comparePaperEntry);
-    // 保留已有条目的原编码；只有缺失编码的条目才自动补充。
-    // 新增或主动删除编码后提交时才进入新的自动编码规则。
+    // 强制清空所有旧编码，再按照新规则重新编号。
+    // 自动重新编号不属于手动修改。
+    const codeUsed=new Set();
     for(const item of entries){
-        if(!validCode(item.code)){
-            item.code=allocateCodeForEntry(item,new Set(entries.filter(x=>validCode(x.code)).map(x=>x.code)));
-        }
+        item.code='';
+        item.codeManualEdited=false;
+        item.codeManualEditUsed=false;
+    }
+    for(const item of entries){
+        item.code=allocateCodeForEntry(item,codeUsed);
     }
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
@@ -1467,7 +1473,7 @@ function addEntry(){
     const used=new Set(data.entries.map(x=>x.code));
     const draft={title,journal};
     const code=allocateCodeForEntry(draft,used);
-    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited:false});
+    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited:false,codeManualEditUsed:false});
     codeInput.value=code;
     titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
     codeInput.value='';
@@ -1502,11 +1508,15 @@ function saveEditEntry(){
         const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
         item.code=allocateCodeForEntry({title:item.title,journal:item.journal},used);
         item.codeManualEdited=false;
-    }else if(!item.codeManualEdited&&nextCode!==item.code){
+    }else if(!item.codeManualEditUsed&&nextCode!==item.code){
         if(!validCode(nextCode)){show('编码必须为六位数字','error');editCode.focus();return}
         const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
         if(used.has(nextCode)){show('该编码已被占用','error');editCode.focus();return}
-        item.code=nextCode;item.codeManualEdited=true;editCode.readOnly=true;
+        item.code=nextCode;item.codeManualEdited=true;item.codeManualEditUsed=true;editCode.readOnly=true;
+    }
+    if(!item.codeManualEdited){
+        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
+        item.code=allocateCodeForEntry(item,used);
     }
     closeEdit();markLocalChange();show('已保存','success');
 }
