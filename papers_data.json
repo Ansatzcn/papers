@@ -2,6 +2,16 @@
   "schemaVersion": 2,
   "entries": [
     {
+      "id": "645979c2-2fe0-4086-bb7d-73ddcde27260",
+      "title": "数字经济的价值来源与价值决定的理论解析",
+      "year": "2022-03",
+      "journal": "教学与研究",
+      "issue": "0257-2826",
+      "journalNote": "马克思主义理论C刊",
+      "code": "300005",
+      "codeManualEdited": false
+    },
+    {
       "id": "f478ff49-cea9-492d-818c-34f591941297",
       "title": "关于生产关系的两重性问题",
       "year": "1979-10",
@@ -459,7 +469,5 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": [
-    "300005"
-  ]
+  "releasedCodes": []
 }
