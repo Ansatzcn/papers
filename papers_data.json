@@ -8,7 +8,7 @@
       "journal": "经济研究",
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
-      "code": "300002",
+      "code": "300001",
       "codeManualEdited": false
     },
     {
@@ -469,7 +469,5 @@
       "journalNote": "经济学C刊"
     }
   ],
-  "releasedCodes": [
-    "300001"
-  ]
+  "releasedCodes": []
 }
