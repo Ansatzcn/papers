@@ -312,6 +312,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "64627e8c-80dd-45c9-81d0-ba38744b790a",
+      "title": "“半殖民地半封建社会”概念的讨论及反思",
+      "year": "2022-05",
+      "journal": "中国高校社会科学",
+      "issue": "2095-5804",
+      "journalNote": "综合性社会科学C刊",
+      "code": "300033",
+      "codeManualEdited": false
+    },
+    {
       "id": "91df1ca3-bfca-4cb5-83a9-7e5029dcdc77",
       "title": "新型农村集体经济基本问题研究",
       "year": "2025-05",
@@ -361,6 +371,7 @@
       "世界社会主义研究",
       "探索与争鸣",
       "中共党史研究",
+      "中国高校社会科学",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics"
     ],
@@ -383,6 +394,7 @@
       "1006-5199",
       "1007-7685",
       "1674-1277",
+      "2095-5804",
       "2096-2630"
     ],
     "notes": [
@@ -487,6 +499,11 @@
       "journal": "财贸经济",
       "issue": "1002-8102",
       "journalNote": "经济学C刊"
+    },
+    {
+      "journal": "中国高校社会科学",
+      "issue": "2095-5804",
+      "journalNote": "综合性社会科学C刊"
     }
   ],
   "releasedCodes": []
