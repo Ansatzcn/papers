@@ -920,14 +920,14 @@ function sortOptions(values){
 function hasChinese(value){return /\p{Script=Han}/u.test(clean(value))}
 function hasEnglish(value){return /[A-Za-z]/.test(clean(value))}
 function codeRangeForEntry(entry){
-    if(hasChinese(entry?.title)||hasChinese(entry?.journal))return [300001,309999];
-    if(hasEnglish(entry?.title)||hasEnglish(entry?.journal))return [310001,319999];
-    return [310001,319999];
+    if(hasChinese(entry?.title)||hasChinese(entry?.journal))return [310001,319999];
+    if(hasEnglish(entry?.title)||hasEnglish(entry?.journal))return [350001,359999];
+    return [350001,359999];
 }
 function validCode(value){
     return /^\d{6}$/.test(String(value||''))&&(
-        (Number(value)>=300001&&Number(value)<=309999)||
-        (Number(value)>=310001&&Number(value)<=319999)
+        (Number(value)>=310001&&Number(value)<=319999)||
+        (Number(value)>=350001&&Number(value)<=359999)
     )
 }
 function allocateCodeForEntry(entry,usedSet){
