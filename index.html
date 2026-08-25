@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-18-dropdown-keyboard-navigation-v1">
+<meta name="app-build" content="2026-08-25-stable-persistent-code-v2">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -918,41 +918,76 @@ function sortOptions(values){
 }
 function hasChinese(value){return /\p{Script=Han}/u.test(clean(value))}
 function hasEnglish(value){return /[A-Za-z]/.test(clean(value))}
+
+/*
+ * 编码设计原则（重要）：
+ * 1. 编码是每条 Papers 记录自身持久保存的数据，不是由其它字段反复推导的“计算属性”。
+ * 2. codeRangeForEntry() 只决定“新编码从哪个区间分配”，绝不决定既有编码是否应被改写。
+ * 3. normalizeData()/render()/fingerprint()/缓存/同步/导入/导出都不得生成、修复、去重或重排编码。
+ * 4. 只有两个显式写入入口：
+ *    - 新增记录时，为这一条新记录分配编码；
+ *    - 编辑时，用户明确修改编码，或明确清空编码后保存，仅处理这一条记录。
+ * 5. 因此，将来即使调整编码判断规则，也不会触碰任何既有记录的 code。
+ */
+
 function codeRangeForEntry(entry){
+    // 编码规则与区间保持不变：
+    // 中文标题或中文刊名 -> 310001–319999；
+    // 英文标题或英文刊名 -> 350001–359999；
+    // 其它情况沿用英文区间。
     if(hasChinese(entry?.title)||hasChinese(entry?.journal))return [310001,319999];
     if(hasEnglish(entry?.title)||hasEnglish(entry?.journal))return [350001,359999];
     return [350001,359999];
 }
+
 function validCode(value){
+    // 只用于“新写入编码”的校验，不用于改写既有编码。
     return /^\d{6}$/.test(String(value||''))&&(
         (Number(value)>=310001&&Number(value)<=319999)||
         (Number(value)>=350001&&Number(value)<=359999)
     )
 }
-function allocateCodeForEntry(entry,usedSet){
+
+function usedCodeSet(entries=data.entries,exceptId=''){
+    const used=new Set();
+    for(const item of entries||[]){
+        if(exceptId&&item?.id===exceptId)continue;
+        const code=clean(item?.code);
+        if(code)used.add(code);
+    }
+    return used;
+}
+
+function removeReleasedCode(code){
+    const targetCode=clean(code);
+    if(!targetCode||!Array.isArray(data.releasedCodes))return;
+    data.releasedCodes=data.releasedCodes.filter(x=>clean(x)!==targetCode);
+}
+
+function rememberReleasedCode(code){
+    const released=clean(code);
+    if(!validCode(released))return;
+    const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
+    if(!pool.some(x=>clean(x)===released))data.releasedCodes=[...pool,released];
+}
+
+function allocateCodeForEntry(entry,usedSet=usedCodeSet()){
     const range=codeRangeForEntry(entry);
     for(let i=range[0];i<=range[1];i++){
         const code=String(i);
-        if(!usedSet.has(code)){usedSet.add(code);return code}
+        if(!usedSet.has(code)){
+            removeReleasedCode(code);
+            return code;
+        }
     }
     throw new Error('对应语言编码区间已用完');
 }
-function allocateCode(usedSet,entry){return allocateCodeForEntry(entry,usedSet)}
-function reassignAutoCodes(entries){
-    const used=new Set(entries.map(x=>clean(x.code)).filter(validCode));
-    for(const item of entries){
-        if(!validCode(item.code)){
-            item.code=allocateCodeForEntry(item,used);
-            item.codeManualEdited=false;
-        }
-    }
-}
-function normalizeEntry(x,used){
+
+function normalizeEntry(x){
     if(!x||typeof x!=='object')return null;
-    let code=clean(x.code);
-    const manual=Boolean(x.codeManualEdited);
-    if(!validCode(code)||used.has(code))code='';
-    else used.add(code);
+
+    // 关键：只清理字段格式，原样保留该条记录自己的编码。
+    // 不验证、不去重、不补号，更不会根据标题/刊名重新计算编码。
     return{
         id:clean(x.id)||uid(),
         title:clean(x.title),
@@ -960,16 +995,18 @@ function normalizeEntry(x,used){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
-        code,
-        codeManualEdited:manual
+        code:clean(x.code),
+        codeManualEdited:Boolean(x.codeManualEdited)
     };
 }
+
 function normalizeProfile(x){
     if(!x||typeof x!=='object')return null;
     const journal=clean(x.journal);
     if(!journal)return null;
     return{journal,issue:clean(x.issue),journalNote:clean(x.journalNote??x.note)};
 }
+
 function deriveProfiles(entries){
     const map=new Map();
     for(const x of entries){
@@ -978,19 +1015,16 @@ function deriveProfiles(entries){
     }
     return [...map.values()];
 }
+
 function normalizeData(value){
     const source=Array.isArray(value)?{entries:value}:(value&&typeof value==='object'?value:{});
-    const used=new Set();
+
+    // 结构规范化与编码分配彻底解耦。
+    // 无论此函数被调用多少次，都不会写入或替换任何 entry.code。
     const entries=(Array.isArray(source.entries)?source.entries:[])
-        .map(x=>normalizeEntry(x,used)).filter(Boolean)
+        .map(normalizeEntry)
+        .filter(Boolean)
         .sort(comparePaperEntry);
-    // 仅为没有编码的条目分配编码；已有条目编码保持独立，不进行全表重排。
-    // 新增、删除释放、单条删除编码提交时，均只影响对应条目。
-    for(const item of entries){
-        if(!validCode(item.code)){
-            item.code=allocateCodeForEntry(item,used);
-        }
-    }
 
     const rawHist=source.histories&&typeof source.histories==='object'?source.histories:{};
     const histories={
@@ -998,6 +1032,7 @@ function normalizeData(value){
         issues:Array.isArray(rawHist.issues)?sortOptions(rawHist.issues):sortOptions(entries.map(x=>x.issue)),
         notes:Array.isArray(rawHist.notes)?sortOptions(rawHist.notes):sortOptions(entries.map(x=>x.journalNote))
     };
+
     const profiles=Array.isArray(source.profiles)
         ? source.profiles.map(normalizeProfile).filter(Boolean)
         : deriveProfiles(entries);
@@ -1005,16 +1040,31 @@ function normalizeData(value){
     const profileMap=new Map();
     for(const p of profiles)profileMap.set(key(p.journal),p);
 
-    // 释放池只保留合法、未被当前条目占用且不重复的编码。
-    const releasedCodes=[];
-    const releasedSeen=new Set();
-    for(const raw of Array.isArray(source.releasedCodes)?source.releasedCodes:[]){
-        const code=clean(raw);
-        if(!validCode(code)||used.has(code)||releasedSeen.has(code))continue;
-        releasedSeen.add(code);releasedCodes.push(code);
-    }
+    // 释放池同样只做字符串清理和去重，不拿当前编码规则去“修理”历史数据。
+    const releasedCodes=uniq(Array.isArray(source.releasedCodes)?source.releasedCodes:[]);
+
     return{entries,histories,profiles:[...profileMap.values()],releasedCodes};
 }
+
+function inspectCodeIntegrity(entries=data.entries){
+    // 只诊断，不修改。规则变化最多改变诊断结果，绝不能改变数据本身。
+    const seen=new Map(),issues=[];
+    for(const item of entries||[]){
+        const code=clean(item?.code);
+        if(!code){
+            issues.push({id:item?.id||'',type:'missing',code:''});
+            continue;
+        }
+        if(!validCode(code))issues.push({id:item?.id||'',type:'out-of-range',code});
+        if(seen.has(code)){
+            issues.push({id:item?.id||'',type:'duplicate',code,withId:seen.get(code)});
+        }else{
+            seen.set(code,item?.id||'');
+        }
+    }
+    return issues;
+}
+
 function fingerprint(value=data){return JSON.stringify(normalizeData(value))}
 function formatDate(iso){
     const d=new Date(iso);
@@ -1459,69 +1509,195 @@ function requireEditAccess(){
 
 function addEntry(){
     if(!requireEditAccess())return;
+
     const title=clean(titleInput.value);
-    if(!title){show('标题不能为空','error');titleInput.focus();return}
-    const journal=clean(journalInput.value),issue=clean(issueInput.value),journalNote=clean(journalNoteInput.value);
-    rememberOption('journal',journal);rememberOption('issue',issue);rememberOption('note',journalNote);
+    if(!title){
+        show('标题不能为空','error');
+        titleInput.focus();
+        return;
+    }
+
+    const year=clean(yearInput.value);
+    const journal=clean(journalInput.value);
+    const issue=clean(issueInput.value);
+    const journalNote=clean(journalNoteInput.value);
+
+    let code='';
+    try{
+        // 新增是自动分配编码的唯一常规入口，只给这一条新记录分配。
+        code=allocateCodeForEntry({title,journal},usedCodeSet());
+    }catch(error){
+        console.error(error);
+        show(error.message||'编码分配失败','error');
+        return;
+    }
+
+    rememberOption('journal',journal);
+    rememberOption('issue',issue);
+    rememberOption('note',journalNote);
     upsertProfile(journal,issue,journalNote);
-    const used=new Set(data.entries.map(x=>x.code));
-    const draft={title,journal};
-    const code=allocateCodeForEntry(draft,used);
-    data.entries.push({id:uid(),title,year:clean(yearInput.value),journal,issue,journalNote,code,codeManualEdited:false});
-    codeInput.value=code;
-    titleInput.value='';yearInput.value='';journalInput.value='';issueInput.value='';journalNoteInput.value='';
+
+    data.entries.push({
+        id:uid(),
+        title,
+        year,
+        journal,
+        issue,
+        journalNote,
+        code,
+        codeManualEdited:false
+    });
+
+    titleInput.value='';
+    yearInput.value='';
+    journalInput.value='';
+    issueInput.value='';
+    journalNoteInput.value='';
     codeInput.value='';
-    markLocalChange();titleInput.focus();show(`已提交，编码 ${code}`,'success');
+
+    markLocalChange();
+    titleInput.focus();
+    show(`已提交，编码 ${code}`,'success');
 }
+
 function editSnapshot(){
     return JSON.stringify({
-        title:editTitle.value,year:editYear.value,journal:editJournal.value,issue:editIssue.value,journalNote:editJournalNote.value
+        title:editTitle.value,
+        year:editYear.value,
+        journal:editJournal.value,
+        issue:editIssue.value,
+        journalNote:editJournalNote.value,
+        code:editCode.value
     });
 }
+
 function closeEdit(){
-    editingId='';editInitialSnapshot='';editModal.classList.add('hidden');closePanels();
+    editingId='';
+    editInitialSnapshot='';
+    editModal.classList.add('hidden');
+    closePanels();
 }
+
 function openEdit(id){
     if(!requireEditAccess())return;
-    const item=data.entries.find(x=>x.id===id);if(!item)return;
-    editingId=id;editTitle.value=item.title;editYear.value=item.year;editJournal.value=item.journal;
-    editIssue.value=item.issue;editJournalNote.value=item.journalNote;editCode.value=item.code;
-    editCode.readOnly=Boolean(item.codeManualEdited);
-    editInitialSnapshot=editSnapshot();editModal.classList.remove('hidden');renderAllCombos();
+    const item=data.entries.find(x=>x.id===id);
+    if(!item)return;
+
+    editingId=id;
+    editTitle.value=item.title;
+    editYear.value=item.year;
+    editJournal.value=item.journal;
+    editIssue.value=item.issue;
+    editJournalNote.value=item.journalNote;
+    editCode.value=item.code;
+
+    // 编码允许显式人工修改；只要用户不改这个输入框，保存其它字段绝不会碰 code。
+    editCode.readOnly=false;
+
+    editInitialSnapshot=editSnapshot();
+    editModal.classList.remove('hidden');
+    renderAllCombos();
     setTimeout(()=>editTitle.focus(),30);
 }
+
 function saveEditEntry(){
     if(!requireEditAccess())return;
-    const item=data.entries.find(x=>x.id===editingId);if(!item)return;
-    const title=clean(editTitle.value);if(!title){show('标题不能为空','error');editTitle.focus();return}
-    const journal=clean(editJournal.value),issue=clean(editIssue.value),journalNote=clean(editJournalNote.value);
-    rememberOption('journal',journal);rememberOption('issue',issue);rememberOption('note',journalNote);upsertProfile(journal,issue,journalNote);
-    item.title=title;item.year=clean(editYear.value);item.journal=journal;item.issue=issue;item.journalNote=journalNote;
-    const nextCode=clean(editCode.value);
-    if(!nextCode){
-        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
-        item.code=allocateCodeForEntry({title:item.title,journal:item.journal},used);
-        item.codeManualEdited=false;
-    }else if(!item.codeManualEdited&&nextCode!==item.code){
-        if(!validCode(nextCode)){show('编码必须为六位数字','error');editCode.focus();return}
-        const used=new Set(data.entries.filter(x=>x.id!==item.id).map(x=>x.code));
-        if(used.has(nextCode)){show('该编码已被占用','error');editCode.focus();return}
-        item.code=nextCode;item.codeManualEdited=true;editCode.readOnly=true;
+
+    const item=data.entries.find(x=>x.id===editingId);
+    if(!item)return;
+
+    const next={
+        title:clean(editTitle.value),
+        year:clean(editYear.value),
+        journal:clean(editJournal.value),
+        issue:clean(editIssue.value),
+        journalNote:clean(editJournalNote.value)
+    };
+
+    if(!next.title){
+        show('标题不能为空','error');
+        editTitle.focus();
+        return;
     }
-    closeEdit();markLocalChange();show('已保存','success');
+
+    const currentCode=clean(item.code);
+    const requestedCode=clean(editCode.value);
+    let finalCode=currentCode;
+    let finalManual=Boolean(item.codeManualEdited);
+
+    if(requestedCode!==currentCode){
+        const used=usedCodeSet(data.entries,item.id);
+
+        if(!requestedCode){
+            // 用户明确把本条编码清空后保存：只重新分配当前这一条。
+            try{
+                finalCode=allocateCodeForEntry(
+                    {title:next.title,journal:next.journal},
+                    used
+                );
+                finalManual=false;
+            }catch(error){
+                console.error(error);
+                show(error.message||'编码分配失败','error');
+                editCode.focus();
+                return;
+            }
+        }else{
+            // 用户明确输入新编码：只校验并写入当前这一条。
+            if(!validCode(requestedCode)){
+                show('编码必须是 310001–319999 或 350001–359999 范围内的六位数字','error');
+                editCode.focus();
+                return;
+            }
+            if(used.has(requestedCode)){
+                show('该编码已被占用','error');
+                editCode.focus();
+                return;
+            }
+            finalCode=requestedCode;
+            finalManual=true;
+            removeReleasedCode(finalCode);
+        }
+    }
+
+    // 所有校验通过后再一次性提交，避免校验失败造成“半保存”。
+    rememberOption('journal',next.journal);
+    rememberOption('issue',next.issue);
+    rememberOption('note',next.journalNote);
+    upsertProfile(next.journal,next.issue,next.journalNote);
+
+    Object.assign(item,next,{
+        code:finalCode,
+        codeManualEdited:finalManual
+    });
+
+    closeEdit();
+    markLocalChange();
+    show('已保存','success');
 }
+
 function deleteEntry(){
     if(!requireEditAccess()||!editingId)return;
-    const item=data.entries.find(x=>x.id===editingId);if(!item)return;
+
+    const item=data.entries.find(x=>x.id===editingId);
+    if(!item)return;
     if(!confirm(`确定删除论文“${item.title}”吗？`))return;
+
     const releasedCode=clean(item.code);
     data.entries=data.entries.filter(x=>x.id!==editingId);
-    if(validCode(releasedCode)){
-        const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
-        if(!pool.includes(releasedCode))data.releasedCodes=[...pool,releasedCode];
-    }
+
+    // 删除只释放被删除这一条的编码，不触碰其它任何条目。
+    rememberReleasedCode(releasedCode);
+
     data.entries.sort(comparePaperEntry);
-    closeEdit();markLocalChange();show(`已删除，编码 ${releasedCode} 已释放`,'success');
+    closeEdit();
+    markLocalChange();
+    show(
+        validCode(releasedCode)
+            ? `已删除，编码 ${releasedCode} 已释放`
+            : '已删除',
+        'success'
+    );
 }
 
 function downloadJson(){
@@ -1540,7 +1716,7 @@ function importFile(file){
         try{
             const next=normalizeData(JSON.parse(String(e.target.result||'')));
             if(!confirm(`将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`))return;
-            data=next;markLocalChange();show('导入完成','success');
+            data=next;markLocalChange();show('导入完成；原有编码已原样保留','success');
         }catch(error){console.error(error);show('导入失败：JSON 格式不正确','error')}
     };
     reader.readAsText(file,'utf-8');
@@ -1638,7 +1814,7 @@ editDelete.addEventListener('click',deleteEntry);
 editCancel.addEventListener('click',closeEdit);
 editSave.addEventListener('click',saveEditEntry);
 clearEditYear.addEventListener('click',()=>{editYear.value=''});
-clearEditCode.addEventListener('click',()=>{if(!editCode.readOnly)editCode.value=''});
+clearEditCode.addEventListener('click',()=>{editCode.value='';editCode.focus()});
 editModal.addEventListener('pointerdown',event=>{editModal.dataset.outside=event.target===editModal?'1':'0'});
 editModal.addEventListener('pointerup',event=>{
     const genuine=editModal.dataset.outside==='1'&&event.target===editModal;editModal.dataset.outside='0';
