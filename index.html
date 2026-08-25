@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-25-stable-persistent-code-v2">
+<meta name="app-build" content="2026-08-25-stable-persistent-code-v3">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -1629,13 +1629,25 @@ function saveEditEntry(){
         const used=usedCodeSet(data.entries,item.id);
 
         if(!requestedCode){
-            // 用户明确把本条编码清空后保存：只重新分配当前这一条。
+            /*
+             * 用户明确删除本条已提交编码并保存：
+             * - 旧编码在“这一次重新分配”中临时不可用，防止刚删掉又立刻分回自己；
+             * - 当前条目按现行编码规则，从目标区间选择其余可用编码中的最小值；
+             * - 保存完成后，旧编码立即恢复为普通可用空号，
+             *   因而下一次有符合该区间的编码分配时，可以再次被使用。
+             */
+            const temporarilyBlocked=new Set(used);
+            if(validCode(currentCode))temporarilyBlocked.add(currentCode);
+
             try{
                 finalCode=allocateCodeForEntry(
                     {title:next.title,journal:next.journal},
-                    used
+                    temporarilyBlocked
                 );
                 finalManual=false;
+
+                // 仅记录“已释放”这一事实；它不会阻止后续分配重新使用该编码。
+                rememberReleasedCode(currentCode);
             }catch(error){
                 console.error(error);
                 show(error.message||'编码分配失败','error');
