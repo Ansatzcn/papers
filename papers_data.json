@@ -98,7 +98,7 @@
       "journal": "社会学研究",
       "issue": "1002-5936",
       "journalNote": "社会学C刊",
-      "code": "310025",
+      "code": "310011",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310011"
+    "310025"
   ]
 }
