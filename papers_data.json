@@ -88,7 +88,7 @@
       "journal": "南开经济研究",
       "issue": "1001-4691",
       "journalNote": "经济学C刊",
-      "code": "310011",
+      "code": "310010",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310010"
+    "310011"
   ]
 }
