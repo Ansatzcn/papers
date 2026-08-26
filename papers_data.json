@@ -28,7 +28,7 @@
       "journal": "学术月刊",
       "issue": "0439-8041",
       "journalNote": "综合性社会科学C刊",
-      "code": "310025",
+      "code": "310005",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310005"
+    "310025"
   ]
 }
