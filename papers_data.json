@@ -92,6 +92,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "4556bbe3-a4b8-443d-b16c-12a7fa4a0cdb",
+      "title": "城市更新与共享社会发展",
+      "year": "2024-12",
+      "journal": "中国社会科学",
+      "issue": "1002-4921",
+      "journalNote": "综合性社会科学C刊",
+      "code": "310043",
+      "codeManualEdited": false
+    },
+    {
       "id": "08a50af9-474e-4a26-9cca-ac2b800b13b8",
       "title": "“数字控制”下的劳动秩序——外卖骑手的劳动控制研究",
       "year": "2020-06",
@@ -467,6 +477,7 @@
       "政治经济学评论",
       "中共党史研究",
       "中国高校社会科学",
+      "中国社会科学",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics"
     ],
@@ -479,6 +490,7 @@
       "1000-176X",
       "1001-4527",
       "1001-4691",
+      "1002-4921",
       "1002-5936",
       "1002-8102",
       "1002-8390",
@@ -631,6 +643,11 @@
       "journal": "经济学家",
       "issue": "1003-5656",
       "journalNote": "经济学C刊"
+    },
+    {
+      "journal": "中国社会科学",
+      "issue": "1002-4921",
+      "journalNote": "综合性社会科学C刊"
     }
   ],
   "releasedCodes": []
