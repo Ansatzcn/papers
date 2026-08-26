@@ -378,7 +378,7 @@
       "journal": "经济思想史学刊",
       "issue": "2096-9627",
       "journalNote": "经济学C扩",
-      "code": "310040",
+      "code": "310031",
       "codeManualEdited": false
     },
     {
@@ -587,7 +587,7 @@
     }
   ],
   "releasedCodes": [
-    "310031",
-    "310036"
+    "310036",
+    "310040"
   ]
 }
