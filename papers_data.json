@@ -68,7 +68,7 @@
       "journal": "财经问题研究",
       "issue": "1000-176X",
       "journalNote": "经济学C刊",
-      "code": "310009",
+      "code": "310027",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310027"
+    "310009"
   ]
 }
