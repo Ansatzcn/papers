@@ -348,7 +348,7 @@
       "journal": "政治经济学评论",
       "issue": "1674-7542",
       "journalNote": "经济学C刊",
-      "code": "310037",
+      "code": "310035",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310035"
+    "310037"
   ]
 }
