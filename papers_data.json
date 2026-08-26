@@ -442,6 +442,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "b8411fc6-ba14-4562-bbfa-f2e396866a13",
+      "title": "An Input-Output Study of Labor Productivity in the U.S. Economy 1947-72",
+      "year": "1986-01",
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3",
+      "code": "350003",
+      "codeManualEdited": false
+    },
+    {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
       "title": "Biased Technical Change and the Aggregate Production Function",
       "year": "1999-02",
@@ -490,9 +500,11 @@
       "中国高校社会科学",
       "中国社会科学",
       "Cambridge Journal of Economics",
-      "International Review of Applied Economics"
+      "International Review of Applied Economics",
+      "Journal of Post Keynesian Economics"
     ],
     "issues": [
+      "0160-3477",
       "0257-2826",
       "0269-2171",
       "0309-166X",
@@ -526,6 +538,7 @@
       "经济学C刊",
       "经济学C扩",
       "经济学Q2",
+      "经济学Q3",
       "马克思主义理论C刊",
       "社会学C刊",
       "综合性社会科学C刊"
@@ -666,6 +679,11 @@
       "journal": "新疆师范大学学报（哲学社会科学版）",
       "issue": "1005-9245",
       "journalNote": "高校学报C刊"
+    },
+    {
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3"
     }
   ],
   "releasedCodes": []
