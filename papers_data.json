@@ -2,16 +2,6 @@
   "schemaVersion": 2,
   "entries": [
     {
-      "id": "1853d305-d89e-4933-96ca-f785a3a276df",
-      "title": "参照系与内循环：新兴政策范式的政治经济学阐释",
-      "year": "2021-04",
-      "journal": "复旦学报（社会科学版）",
-      "issue": "0257-0289",
-      "journalNote": "高校学报C刊",
-      "code": "310049",
-      "codeManualEdited": false
-    },
-    {
       "id": "e1851cce-b37b-413b-8cda-cae000ae92b1",
       "title": "“大革命”称谓与共产国际",
       "year": "1997-11",
@@ -29,16 +19,6 @@
       "issue": "0257-2826",
       "journalNote": "马克思主义理论C刊",
       "code": "310036",
-      "codeManualEdited": false
-    },
-    {
-      "id": "63259a9f-de84-404c-8457-bdcfbcbeb539",
-      "title": "我国地方财政支出结构与经济增长的政治经济学分析",
-      "year": "2022-10",
-      "journal": "教学与研究",
-      "issue": "0257-2826",
-      "journalNote": "马克思主义理论C刊",
-      "code": "310052",
       "codeManualEdited": false
     },
     {
@@ -82,26 +62,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "5c17871f-a04a-4318-b380-ebb4bfc75051",
-      "title": "二十世纪二三十年代中国农村经济调查与研究评述",
-      "year": "2000-04",
-      "journal": "史学月刊",
-      "issue": "0583-0214",
-      "journalNote": "历史学C刊",
-      "code": "310050",
-      "codeManualEdited": false
-    },
-    {
-      "id": "333b7f1f-ae5e-47d0-b09f-824991ceb31a",
-      "title": "案例研究的理论化：三种可行途径",
-      "year": "2023-03",
-      "journal": "广东社会科学",
-      "issue": "1000-114X",
-      "journalNote": "综合性社会科学C刊",
-      "code": "310048",
-      "codeManualEdited": false
-    },
-    {
       "id": "bfeb605a-4510-4d9c-8099-25de5425c471",
       "title": "关于新质生产力的理论",
       "year": "2024-06",
@@ -119,16 +79,6 @@
       "issue": "1001-4527",
       "journalNote": "马克思主义理论C刊",
       "code": "310034",
-      "codeManualEdited": false
-    },
-    {
-      "id": "5c609c29-fe6e-4c12-b8c3-a5328f943853",
-      "title": "“时间”的经济作用",
-      "year": "1994-04",
-      "journal": "南开经济研究",
-      "issue": "1001-4691",
-      "journalNote": "经济学C刊",
-      "code": "310046",
       "codeManualEdited": false
     },
     {
@@ -392,16 +342,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "8c1e1de4-683c-4f5c-bd1d-f933b8aad644",
-      "title": "工业发展阶段与新质生产力的生成逻辑",
-      "year": "2023-11",
-      "journal": "马克思主义研究",
-      "issue": "1006-5199",
-      "journalNote": "马克思主义理论C刊",
-      "code": "310053",
-      "codeManualEdited": false
-    },
-    {
       "id": "720ed785-4814-4a21-a35f-69c16c9280c1",
       "title": "习近平关于全面深化改革重要论述的历史逻辑、理论要义与实践指向",
       "year": "2025-01",
@@ -452,16 +392,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "e420e0fa-655e-4a1c-9e81-252eace65186",
-      "title": "空间的生产与城市的权利",
-      "year": "2015-03",
-      "journal": "公共行政评论",
-      "issue": "1674-2486",
-      "journalNote": "政治学C刊",
-      "code": "310051",
-      "codeManualEdited": false
-    },
-    {
       "id": "7302d939-4c80-4a92-9c33-90dcac817adf",
       "title": "中国制造业企业的实际资本积累动能研究：经济、技术与制度的协同视角",
       "year": "2024-01",
@@ -482,16 +412,6 @@
       "codeManualEdited": false
     },
     {
-      "id": "7bba0ba2-76b4-420f-adf7-95c2422c7d1c",
-      "title": "《社会民主党在民主革命中的两种策略》译本考证及历史地位——基于马克思主义传播史的考察",
-      "year": "2020-03",
-      "journal": "高校马克思主义理论研究",
-      "issue": "2096-1170",
-      "journalNote": "马克思主义理论C扩",
-      "code": "310047",
-      "codeManualEdited": false
-    },
-    {
       "id": "91df1ca3-bfca-4cb5-83a9-7e5029dcdc77",
       "title": "新型农村集体经济基本问题研究",
       "year": "2025-05",
@@ -499,16 +419,6 @@
       "issue": "2096-2630",
       "journalNote": "马克思主义理论C刊",
       "code": "310037",
-      "codeManualEdited": false
-    },
-    {
-      "id": "67dfa8d6-149b-4ea9-ad62-f6399521c404",
-      "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
-      "year": "2022-02",
-      "journal": "政治经济学研究",
-      "issue": "2096-9090",
-      "journalNote": "经济学C扩",
-      "code": "310045",
       "codeManualEdited": false
     },
     {
@@ -529,26 +439,6 @@
       "issue": "2096-9627",
       "journalNote": "经济学C扩",
       "code": "310042",
-      "codeManualEdited": false
-    },
-    {
-      "id": "b8411fc6-ba14-4562-bbfa-f2e396866a13",
-      "title": "An Input-Output Study of Labor Productivity in the U.S. Economy 1947-72",
-      "year": "1986-01",
-      "journal": "Journal of Post Keynesian Economics",
-      "issue": "0160-3477",
-      "journalNote": "经济学Q3",
-      "code": "350003",
-      "codeManualEdited": false
-    },
-    {
-      "id": "2a643af3-037d-4efa-8981-2bfe5453baf0",
-      "title": "Fiscal Policy in a Stock-Flow Consistent (SFC) Model",
-      "year": "2007-01",
-      "journal": "Journal of Post Keynesian Economics",
-      "issue": "0160-3477",
-      "journalNote": "经济学Q3",
-      "code": "350004",
       "codeManualEdited": false
     },
     {
@@ -577,11 +467,7 @@
       "财经问题研究",
       "财贸经济",
       "党的文献",
-      "复旦学报（社会科学版）",
       "改革",
-      "高校马克思主义理论研究",
-      "公共行政评论",
-      "广东社会科学",
       "国外理论动态",
       "教学与研究",
       "经济思想史学刊",
@@ -595,30 +481,23 @@
       "南开经济研究",
       "社会学研究",
       "社会主义研究",
-      "史学月刊",
       "世界社会主义研究",
       "探索与争鸣",
       "新疆师范大学学报（哲学社会科学版）",
       "学术月刊",
       "政治经济学评论",
-      "政治经济学研究",
       "中共党史研究",
       "中国高校社会科学",
       "中国社会科学",
       "Cambridge Journal of Economics",
-      "International Review of Applied Economics",
-      "Journal of Post Keynesian Economics"
+      "International Review of Applied Economics"
     ],
     "issues": [
-      "0160-3477",
-      "0257-0289",
       "0257-2826",
       "0269-2171",
       "0309-166X",
       "0439-8041",
       "0577-9154",
-      "0583-0214",
-      "1000-114X",
       "1000-176X",
       "1001-4527",
       "1001-4691",
@@ -637,12 +516,9 @@
       "1006-5199",
       "1007-7685",
       "1674-1277",
-      "1674-2486",
       "1674-7542",
       "2095-5804",
-      "2096-1170",
       "2096-2630",
-      "2096-9090",
       "2096-9627"
     ],
     "notes": [
@@ -650,12 +526,8 @@
       "经济学C刊",
       "经济学C扩",
       "经济学Q2",
-      "经济学Q3",
-      "历史学C刊",
       "马克思主义理论C刊",
-      "马克思主义理论C扩",
       "社会学C刊",
-      "政治学C刊",
       "综合性社会科学C刊"
     ]
   },
@@ -794,41 +666,6 @@
       "journal": "新疆师范大学学报（哲学社会科学版）",
       "issue": "1005-9245",
       "journalNote": "高校学报C刊"
-    },
-    {
-      "journal": "Journal of Post Keynesian Economics",
-      "issue": "0160-3477",
-      "journalNote": "经济学Q3"
-    },
-    {
-      "journal": "政治经济学研究",
-      "issue": "2096-9090",
-      "journalNote": "经济学C扩"
-    },
-    {
-      "journal": "高校马克思主义理论研究",
-      "issue": "2096-1170",
-      "journalNote": "马克思主义理论C扩"
-    },
-    {
-      "journal": "广东社会科学",
-      "issue": "1000-114X",
-      "journalNote": "综合性社会科学C刊"
-    },
-    {
-      "journal": "复旦学报（社会科学版）",
-      "issue": "0257-0289",
-      "journalNote": "高校学报C刊"
-    },
-    {
-      "journal": "史学月刊",
-      "issue": "0583-0214",
-      "journalNote": "历史学C刊"
-    },
-    {
-      "journal": "公共行政评论",
-      "issue": "1674-2486",
-      "journalNote": "政治学C刊"
     }
   ],
   "releasedCodes": []
