@@ -82,6 +82,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "5c609c29-fe6e-4c12-b8c3-a5328f943853",
+      "title": "“时间”的经济作用",
+      "year": "1994-04",
+      "journal": "南开经济研究",
+      "issue": "1001-4691",
+      "journalNote": "经济学C刊",
+      "code": "310046",
+      "codeManualEdited": false
+    },
+    {
       "id": "39fd37bc-9646-4a2f-b0c9-72b4c2892048",
       "title": "本土中间产品创新对国内大循环的影响研究",
       "year": "2025-07",
@@ -412,6 +422,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "7bba0ba2-76b4-420f-adf7-95c2422c7d1c",
+      "title": "《社会民主党在民主革命中的两种策略》译本考证及历史地位——基于马克思主义传播史的考察",
+      "year": "2020-03",
+      "journal": "高校马克思主义理论研究",
+      "issue": "2096-1170",
+      "journalNote": "马克思主义理论C扩",
+      "code": "310047",
+      "codeManualEdited": false
+    },
+    {
       "id": "91df1ca3-bfca-4cb5-83a9-7e5029dcdc77",
       "title": "新型农村集体经济基本问题研究",
       "year": "2025-05",
@@ -419,6 +439,16 @@
       "issue": "2096-2630",
       "journalNote": "马克思主义理论C刊",
       "code": "310037",
+      "codeManualEdited": false
+    },
+    {
+      "id": "67dfa8d6-149b-4ea9-ad62-f6399521c404",
+      "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
+      "year": "2022-02",
+      "journal": "政治经济学研究",
+      "issue": "2096-9090",
+      "journalNote": "经济学C扩",
+      "code": "310045",
       "codeManualEdited": false
     },
     {
@@ -439,6 +469,26 @@
       "issue": "2096-9627",
       "journalNote": "经济学C扩",
       "code": "310042",
+      "codeManualEdited": false
+    },
+    {
+      "id": "b8411fc6-ba14-4562-bbfa-f2e396866a13",
+      "title": "An Input-Output Study of Labor Productivity in the U.S. Economy 1947-72",
+      "year": "1986-01",
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3",
+      "code": "350003",
+      "codeManualEdited": false
+    },
+    {
+      "id": "2a643af3-037d-4efa-8981-2bfe5453baf0",
+      "title": "Fiscal Policy in a Stock-Flow Consistent (SFC) Model",
+      "year": "2007-01",
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3",
+      "code": "350004",
       "codeManualEdited": false
     },
     {
@@ -468,6 +518,7 @@
       "财贸经济",
       "党的文献",
       "改革",
+      "高校马克思主义理论研究",
       "国外理论动态",
       "教学与研究",
       "经济思想史学刊",
@@ -486,13 +537,16 @@
       "新疆师范大学学报（哲学社会科学版）",
       "学术月刊",
       "政治经济学评论",
+      "政治经济学研究",
       "中共党史研究",
       "中国高校社会科学",
       "中国社会科学",
       "Cambridge Journal of Economics",
-      "International Review of Applied Economics"
+      "International Review of Applied Economics",
+      "Journal of Post Keynesian Economics"
     ],
     "issues": [
+      "0160-3477",
       "0257-2826",
       "0269-2171",
       "0309-166X",
@@ -518,7 +572,9 @@
       "1674-1277",
       "1674-7542",
       "2095-5804",
+      "2096-1170",
       "2096-2630",
+      "2096-9090",
       "2096-9627"
     ],
     "notes": [
@@ -526,7 +582,9 @@
       "经济学C刊",
       "经济学C扩",
       "经济学Q2",
+      "经济学Q3",
       "马克思主义理论C刊",
+      "马克思主义理论C扩",
       "社会学C刊",
       "综合性社会科学C刊"
     ]
@@ -666,6 +724,21 @@
       "journal": "新疆师范大学学报（哲学社会科学版）",
       "issue": "1005-9245",
       "journalNote": "高校学报C刊"
+    },
+    {
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3"
+    },
+    {
+      "journal": "政治经济学研究",
+      "issue": "2096-9090",
+      "journalNote": "经济学C扩"
+    },
+    {
+      "journal": "高校马克思主义理论研究",
+      "issue": "2096-1170",
+      "journalNote": "马克思主义理论C扩"
     }
   ],
   "releasedCodes": []
