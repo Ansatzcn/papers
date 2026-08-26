@@ -112,6 +112,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "e0450869-28bb-42f1-a703-a59eb558626c",
+      "title": "陈翰笙与国立中央研究院无锡农村经济调查",
+      "year": "2020-05",
+      "journal": "中国经济史研究",
+      "issue": "1002-8005",
+      "journalNote": "经济学C刊",
+      "code": "310045",
+      "codeManualEdited": false
+    },
+    {
       "id": "906d3003-dd37-4bd0-9095-7e64b10124e8",
       "title": "对置盐定理的再审视",
       "year": "2024-03",
@@ -488,6 +498,7 @@
       "政治经济学评论",
       "中共党史研究",
       "中国高校社会科学",
+      "中国经济史研究",
       "中国社会科学",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics"
@@ -503,6 +514,7 @@
       "1001-4691",
       "1002-4921",
       "1002-5936",
+      "1002-8005",
       "1002-8102",
       "1002-8390",
       "1003-3815",
@@ -666,6 +678,11 @@
       "journal": "新疆师范大学学报（哲学社会科学版）",
       "issue": "1005-9245",
       "journalNote": "高校学报C刊"
+    },
+    {
+      "journal": "中国经济史研究",
+      "issue": "1002-8005",
+      "journalNote": "经济学C刊"
     }
   ],
   "releasedCodes": []
