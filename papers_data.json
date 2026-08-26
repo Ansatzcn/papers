@@ -368,7 +368,7 @@
       "journal": "世界社会主义研究",
       "issue": "2096-2630",
       "journalNote": "马克思主义理论C刊",
-      "code": "310039",
+      "code": "310037",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310037"
+    "310039"
   ]
 }
