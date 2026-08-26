@@ -338,7 +338,7 @@
       "journal": "国外理论动态",
       "issue": "1674-1277",
       "journalNote": "马克思主义理论C刊",
-      "code": "310036",
+      "code": "310020",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310031",
-    "310020"
+    "310036"
   ]
 }
