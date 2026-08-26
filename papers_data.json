@@ -298,7 +298,7 @@
       "journal": "马克思主义研究",
       "issue": "1006-5199",
       "journalNote": "马克思主义理论C刊",
-      "code": "310032",
+      "code": "310028",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310028"
+    "310032"
   ]
 }
