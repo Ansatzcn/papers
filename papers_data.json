@@ -218,7 +218,7 @@
       "journal": "改革",
       "issue": "1003-7543",
       "journalNote": "经济学C刊",
-      "code": "310024",
+      "code": "310023",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310031",
-    "310023"
+    "310024"
   ]
 }
