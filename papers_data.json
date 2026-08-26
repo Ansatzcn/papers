@@ -128,7 +128,7 @@
       "journal": "经济学动态",
       "issue": "1002-8390",
       "journalNote": "经济学C刊",
-      "code": "310015",
+      "code": "310004",
       "codeManualEdited": false
     },
     {
@@ -587,6 +587,6 @@
     }
   ],
   "releasedCodes": [
-    "310004"
+    "310015"
   ]
 }
