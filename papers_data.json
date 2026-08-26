@@ -178,7 +178,7 @@
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
-      "code": "310020",
+      "code": "310016",
       "codeManualEdited": false
     },
     {
@@ -587,6 +587,6 @@
     }
   ],
   "releasedCodes": [
-    "310016"
+    "310020"
   ]
 }
