@@ -258,7 +258,7 @@
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
       "journalNote": "马克思主义理论C刊",
-      "code": "310028",
+      "code": "310009",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310009"
+    "310028"
   ]
 }
