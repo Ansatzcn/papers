@@ -332,6 +332,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "d86c9bb7-4767-4d1d-ac4c-e903fdaea172",
+      "title": "《共产党宣言》中经济学和经济社会学学理问题探讨",
+      "year": "2022-09",
+      "journal": "经济纵横",
+      "issue": "1007-7685",
+      "journalNote": "经济学C刊",
+      "code": "310040",
+      "codeManualEdited": false
+    },
+    {
       "id": "8500a501-cb7b-4b31-9f39-705027929a7f",
       "title": "关于马克思著作中名词“资本主义”使用的考证",
       "year": "2011-02",
@@ -596,7 +606,5 @@
       "journalNote": "经济学C扩"
     }
   ],
-  "releasedCodes": [
-    "310040"
-  ]
+  "releasedCodes": []
 }
