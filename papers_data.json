@@ -18,7 +18,7 @@
       "journal": "教学与研究",
       "issue": "0257-2826",
       "journalNote": "马克思主义理论C刊",
-      "code": "310005",
+      "code": "310036",
       "codeManualEdited": false
     },
     {
@@ -587,7 +587,7 @@
     }
   ],
   "releasedCodes": [
-    "310036",
-    "310040"
+    "310040",
+    "310005"
   ]
 }
