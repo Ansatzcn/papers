@@ -318,7 +318,7 @@
       "journal": "经济纵横",
       "issue": "1007-7685",
       "journalNote": "经济学C刊",
-      "code": "310034",
+      "code": "310032",
       "codeManualEdited": false
     },
     {
@@ -588,6 +588,6 @@
   ],
   "releasedCodes": [
     "310040",
-    "310032"
+    "310034"
   ]
 }
