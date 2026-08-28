@@ -452,6 +452,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "9309839e-7644-47fa-8b64-fd61f47c6bd9",
+      "title": "The Capitalist Economy as a Monetary Production Economy",
+      "year": "2026-03",
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3",
+      "code": "350003",
+      "codeManualEdited": false
+    },
+    {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
       "title": "Biased Technical Change and the Aggregate Production Function",
       "year": "1999-02",
@@ -501,9 +511,11 @@
       "中国经济史研究",
       "中国社会科学",
       "Cambridge Journal of Economics",
-      "International Review of Applied Economics"
+      "International Review of Applied Economics",
+      "Journal of Post Keynesian Economics"
     ],
     "issues": [
+      "0160-3477",
       "0257-2826",
       "0269-2171",
       "0309-166X",
@@ -538,6 +550,7 @@
       "经济学C刊",
       "经济学C扩",
       "经济学Q2",
+      "经济学Q3",
       "马克思主义理论C刊",
       "社会学C刊",
       "综合性社会科学C刊"
@@ -683,6 +696,11 @@
       "journal": "中国经济史研究",
       "issue": "1002-8005",
       "journalNote": "经济学C刊"
+    },
+    {
+      "journal": "Journal of Post Keynesian Economics",
+      "issue": "0160-3477",
+      "journalNote": "经济学Q3"
     }
   ],
   "releasedCodes": []
