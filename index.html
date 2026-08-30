@@ -1842,7 +1842,7 @@ fileInput.addEventListener('change',()=>{const file=fileInput.files?.[0];if(file
 document.addEventListener('keydown',event=>{
     if(event.key==='Escape'){closePanels();if(!editModal.classList.contains('hidden')&&editSnapshot()===editInitialSnapshot)closeEdit();else closeConfig()}
 });
-backToTopBtn.addEventListener('click',()=>{const start=scrollY;const t=performance.now();function go(now){const p=Math.min((now-t)/50,1);scrollTo(0,start*(1-p));if(p<1)requestAnimationFrame(go)}requestAnimationFrame(go)});
+backToTopBtn.addEventListener('click',()=>{const start=scrollY;const t=performance.now();function go(now){const p=Math.min((now-t)/10,1);scrollTo(0,start*(1-p));if(p<1)requestAnimationFrame(go)}requestAnimationFrame(go)});
 addEventListener('scroll',()=>backToTopBtn.classList.toggle('visible',scrollY>260),{passive:true});
 
 (async()=>{
