@@ -692,6 +692,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "3a6f2021-6db1-4235-8ad0-49c0bb74585d",
+      "title": "习近平总书记关于宏观经济治理现代化重要论述的原创性贡献",
+      "year": "2026-05",
+      "journal": "习近平经济思想研究",
+      "issue": "2097-1729",
+      "journalNote": "马克思主义理论C扩",
+      "code": "310070",
+      "codeManualEdited": false
+    },
+    {
       "id": "32954d98-0b32-4016-8634-a4f894cf16c7",
       "title": "Is the NAIRU Theory a Monetarist New Keynesian Post Keynesian or a Marxist Theory",
       "year": "2008-03",
@@ -791,6 +801,7 @@
       "探索与争鸣",
       "统一战线学研究",
       "武汉大学学报（哲学社会科学版）",
+      "习近平经济思想研究",
       "新疆师范大学学报（哲学社会科学版）",
       "学术月刊",
       "学校党建与思想教育",
@@ -857,7 +868,8 @@
       "2096-2630",
       "2096-3378",
       "2096-9090",
-      "2096-9627"
+      "2096-9627",
+      "2097-1729"
     ],
     "notes": [
       "高校学报C刊",
@@ -1127,6 +1139,11 @@
       "journal": "统一战线学研究",
       "issue": "2096-3378",
       "journalNote": "马克思主义理论C刊"
+    },
+    {
+      "journal": "习近平经济思想研究",
+      "issue": "2097-1729",
+      "journalNote": "马克思主义理论C扩"
     }
   ],
   "releasedCodes": []
