@@ -482,6 +482,16 @@
       "codeManualEdited": false
     },
     {
+      "id": "91621d5a-adc7-4085-8e21-b1693918dab6",
+      "title": "健全投资与融资相协调的资本市场功能：挑战、机理与对策",
+      "year": "2026-03",
+      "journal": "中国特色社会主义研究",
+      "issue": "1006-6470",
+      "journalNote": "马克思主义理论C刊",
+      "code": "310062",
+      "codeManualEdited": false
+    },
+    {
       "id": "c352de42-f5ec-4efc-9129-40f2b23e5949",
       "title": "克罗蒂和布伦纳的破坏性竞争理论比较研究",
       "year": "2013-05",
@@ -713,6 +723,7 @@
       "中国高校社会科学",
       "中国经济史研究",
       "中国社会科学",
+      "中国特色社会主义研究",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics",
       "Journal of Post Keynesian Economics",
@@ -752,6 +763,7 @@
       "1005-8273",
       "1005-9245",
       "1006-5199",
+      "1006-6470",
       "1007-7685",
       "1672-7320",
       "1674-1277",
@@ -990,6 +1002,11 @@
     {
       "journal": "党史研究与教学",
       "issue": "1003-708X",
+      "journalNote": "马克思主义理论C刊"
+    },
+    {
+      "journal": "中国特色社会主义研究",
+      "issue": "1006-6470",
       "journalNote": "马克思主义理论C刊"
     }
   ],
