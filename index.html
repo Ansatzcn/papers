@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-08-26-ae0b2a-title-color-v1">
+<meta name="app-build" content="2026-09-17-zero-web-storage-v1">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -707,7 +707,7 @@ button{cursor:pointer}
             </div>
             <label class="remember-row">
                 <input type="checkbox" id="rememberToken" checked>
-                <span>在本设备保存 Token；取消勾选则只保存到当前浏览器会话。</span>
+                <span>在本设备保存 Token；取消勾选则仅保留在当前页面内存，刷新或关闭页面后失效。</span>
             </label>
         </div>
         <div class="dialog-actions">
@@ -756,17 +756,22 @@ function hashIdentity(value){
     for(let i=0;i<value.length;i++){hash^=value.charCodeAt(i);hash=Math.imul(hash,0x01000193)}
     return (hash>>>0).toString(16).padStart(8,'0');
 }
-const NS=`papers_private:${hashIdentity(pageIdentity())}`;
+const PAGE_INSTANCE_ID=hashIdentity(pageIdentity());
+const NS=`papers_private:${PAGE_INSTANCE_ID}`;
 const CONFIG_KEY=`${NS}:config`;
-const TOKEN_LOCAL_KEY=`${NS}:token_local`;
-const TOKEN_SESSION_KEY=`${NS}:token_session`;
-const CACHE_KEY=`${NS}:cache`;
+const TOKEN_KEY=`${NS}:token`;
 const META_KEY=`${NS}:meta`;
+const PUBLIC_CACHE_KEY=`${NS}:public_cache`;
+const WORKING_COPY_KEY=`${NS}:working_copy`;
+const IDB_NAME=`${NS}:indexeddb_v1`;
+const IDB_STORE='kv';
+const OPFS_WORKING_FILE=`papers-working-${PAGE_INSTANCE_ID}.json`;
 
 let data={entries:[],histories:{journals:[],issues:[],notes:[]},profiles:[],releasedCodes:[]};
 let config={owner:'',repo:'',file:'papers_data.json',token:''};
 let meta={target:'',fingerprint:null,sha:null,lastSyncAt:null};
-let unlocked=false,publicLoaded=false,syncing=false,autoTimer=null,editingId='',editInitialSnapshot='',toastTimer=null;
+let unlocked=false,publicLoaded=false,syncing=false,autoTimer=null,editingId='',editInitialSnapshot='',toastTimer=null,rememberTokenPreference=true;
+let idbPromise=null,workingSaveChain=Promise.resolve();
 
 function clean(v){return String(v??'').trim()}
 function key(v){return clean(v).normalize('NFKC').toLocaleLowerCase('zh-CN')}
@@ -1074,11 +1079,134 @@ function formatDate(iso){
 function target(){return config.owner&&config.repo&&config.file?`${config.owner}/${config.repo}/${config.file}`:''}
 function adminConfigured(){return Boolean(config.owner&&config.repo&&config.file&&config.token)}
 function pathEncode(path){return String(path).split('/').filter(Boolean).map(encodeURIComponent).join('/')}
-function localSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
-function localGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
-function sessionSet(k,v){try{sessionStorage.setItem(k,v);return true}catch(e){return false}}
-function sessionGet(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
-function removeStored(k,kind='local'){try{(kind==='local'?localStorage:sessionStorage).removeItem(k)}catch(e){}}
+function openStorageDb(){
+    if(idbPromise)return idbPromise;
+    idbPromise=new Promise((resolve,reject)=>{
+        const request=indexedDB.open(IDB_NAME,1);
+        request.onupgradeneeded=()=>{
+            const db=request.result;
+            if(!db.objectStoreNames.contains(IDB_STORE))db.createObjectStore(IDB_STORE);
+        };
+        request.onsuccess=()=>resolve(request.result);
+        request.onerror=()=>reject(request.error||new Error('IndexedDB 打开失败'));
+        request.onblocked=()=>console.warn('IndexedDB 打开被阻塞');
+    });
+    return idbPromise;
+}
+async function idbGet(k){
+    try{
+        const db=await openStorageDb();
+        return await new Promise((resolve,reject)=>{
+            const tx=db.transaction(IDB_STORE,'readonly');
+            const req=tx.objectStore(IDB_STORE).get(k);
+            req.onsuccess=()=>resolve(req.result);
+            req.onerror=()=>reject(req.error||new Error('IndexedDB 读取失败'));
+        });
+    }catch(error){console.error('IndexedDB 读取失败:',error);return undefined}
+}
+async function idbSet(k,v){
+    try{
+        const db=await openStorageDb();
+        await new Promise((resolve,reject)=>{
+            const tx=db.transaction(IDB_STORE,'readwrite');
+            tx.objectStore(IDB_STORE).put(v,k);
+            tx.oncomplete=()=>resolve();
+            tx.onerror=()=>reject(tx.error||new Error('IndexedDB 写入失败'));
+            tx.onabort=()=>reject(tx.error||new Error('IndexedDB 写入中止'));
+        });
+        return true;
+    }catch(error){console.error('IndexedDB 写入失败:',error);return false}
+}
+async function idbDelete(k){
+    try{
+        const db=await openStorageDb();
+        await new Promise((resolve,reject)=>{
+            const tx=db.transaction(IDB_STORE,'readwrite');
+            tx.objectStore(IDB_STORE).delete(k);
+            tx.oncomplete=()=>resolve();
+            tx.onerror=()=>reject(tx.error||new Error('IndexedDB 删除失败'));
+            tx.onabort=()=>reject(tx.error||new Error('IndexedDB 删除中止'));
+        });
+        return true;
+    }catch(error){console.error('IndexedDB 删除失败:',error);return false}
+}
+async function requestPersistentStorage(){
+    try{if(navigator.storage?.persist)await navigator.storage.persist()}catch(error){console.warn('无法申请持久存储:',error)}
+}
+async function opfsRoot(){
+    try{return navigator.storage?.getDirectory?await navigator.storage.getDirectory():null}
+    catch(error){console.warn('OPFS 不可用:',error);return null}
+}
+async function readOpfsWorkingCopy(){
+    try{
+        const root=await opfsRoot();if(!root)return null;
+        const handle=await root.getFileHandle(OPFS_WORKING_FILE);
+        const file=await handle.getFile();
+        const parsed=JSON.parse(await file.text());
+        return parsed&&typeof parsed==='object'?parsed:null;
+    }catch(error){
+        if(error?.name!=='NotFoundError')console.warn('读取 OPFS 工作副本失败:',error);
+        return null;
+    }
+}
+async function writeOpfsWorkingCopy(payload){
+    try{
+        const root=await opfsRoot();if(!root)return false;
+        const handle=await root.getFileHandle(OPFS_WORKING_FILE,{create:true});
+        const writable=await handle.createWritable();
+        await writable.write(JSON.stringify(payload));
+        await writable.close();
+        return true;
+    }catch(error){console.warn('写入 OPFS 工作副本失败:',error);return false}
+}
+function validWorkingEnvelope(value,expectedTarget=''){
+    if(!value||typeof value!=='object'||!value.state)return null;
+    const payloadTarget=clean(value.target);
+    if(expectedTarget&&payloadTarget!==expectedTarget)return null;
+    const savedAt=Number(value.savedAt)||0;
+    return{version:Number(value.version)||1,target:payloadTarget,savedAt,state:normalizeData(value.state)};
+}
+async function persistWorkingEnvelope(payload){
+    const results=await Promise.allSettled([
+        idbSet(WORKING_COPY_KEY,payload),
+        writeOpfsWorkingCopy(payload)
+    ]);
+    const idbOk=results[0].status==='fulfilled'&&results[0].value===true;
+    const opfsOk=results[1].status==='fulfilled'&&results[1].value===true;
+    if(!idbOk&&!opfsOk)throw new Error('本机工作副本保存失败');
+    return{idbOk,opfsOk};
+}
+function saveWorkingCopy(snapshot=data){
+    const currentTarget=target();
+    if(!currentTarget)return Promise.resolve(false);
+    const normalized=normalizeData(snapshot);
+    const payload={version:1,target:currentTarget,savedAt:Date.now(),state:normalized};
+    workingSaveChain=workingSaveChain.catch(()=>{}).then(()=>persistWorkingEnvelope(payload));
+    return workingSaveChain;
+}
+async function loadWorkingCopy(expectedTarget=target()){
+    const [idbRaw,opfsRaw]=await Promise.all([idbGet(WORKING_COPY_KEY),readOpfsWorkingCopy()]);
+    const idbCopy=validWorkingEnvelope(idbRaw,expectedTarget);
+    const opfsCopy=validWorkingEnvelope(opfsRaw,expectedTarget);
+    const chosen=!idbCopy?opfsCopy:(!opfsCopy?idbCopy:(opfsCopy.savedAt>idbCopy.savedAt?opfsCopy:idbCopy));
+    if(!chosen)return null;
+    const needsIdb=!idbCopy||idbCopy.savedAt!==chosen.savedAt;
+    const needsOpfs=!opfsCopy||opfsCopy.savedAt!==chosen.savedAt;
+    if(needsIdb||needsOpfs){
+        const tasks=[];
+        if(needsIdb)tasks.push(idbSet(WORKING_COPY_KEY,chosen));
+        if(needsOpfs)tasks.push(writeOpfsWorkingCopy(chosen));
+        void Promise.allSettled(tasks);
+    }
+    return chosen.state;
+}
+async function savePublicCache(snapshot=data){
+    return idbSet(PUBLIC_CACHE_KEY,{version:1,savedAt:Date.now(),state:normalizeData(snapshot)});
+}
+async function loadPublicCache(){
+    const value=await idbGet(PUBLIC_CACHE_KEY);
+    return value&&typeof value==='object'&&value.state?normalizeData(value.state):normalizeData({});
+}
 function show(msg,type='info'){
     toast.textContent=msg;toast.className=`toast ${type}`;clearTimeout(toastTimer);
     toastTimer=setTimeout(()=>toast.classList.add('hidden'),3200);
@@ -1093,33 +1221,46 @@ function formatError(error){
     return error.message||String(error);
 }
 
-function loadConfig(){
-    let saved={};try{saved=JSON.parse(localGet(CONFIG_KEY)||'{}')||{}}catch(e){}
+async function loadConfig(){
+    const saved=await idbGet(CONFIG_KEY)||{};
+    const storedToken=clean(await idbGet(TOKEN_KEY)||'');
     config.owner=clean(saved.owner);config.repo=clean(saved.repo);
     config.file=clean(saved.file)||'papers_data.json';
-    config.token=clean(localGet(TOKEN_LOCAL_KEY)||sessionGet(TOKEN_SESSION_KEY)||'');
+    config.token=storedToken;
+    rememberTokenPreference=typeof saved.rememberToken==='boolean'?saved.rememberToken:true;
 }
-function saveConfig(){
-    localSet(CONFIG_KEY,JSON.stringify({owner:config.owner,repo:config.repo,file:config.file}));
-    if(rememberToken.checked){
-        localSet(TOKEN_LOCAL_KEY,config.token);removeStored(TOKEN_SESSION_KEY,'session');
+async function saveConfig(){
+    rememberTokenPreference=rememberToken.checked;
+    await idbSet(CONFIG_KEY,{owner:config.owner,repo:config.repo,file:config.file,rememberToken:rememberTokenPreference});
+    if(rememberTokenPreference&&config.token){
+        await idbSet(TOKEN_KEY,config.token);
     }else{
-        sessionSet(TOKEN_SESSION_KEY,config.token);removeStored(TOKEN_LOCAL_KEY,'local');
+        await idbDelete(TOKEN_KEY);
     }
 }
-function loadMeta(){
-    try{
-        const x=JSON.parse(localGet(META_KEY)||'{}')||{};
-        meta={target:clean(x.target),fingerprint:typeof x.fingerprint==='string'?x.fingerprint:null,sha:clean(x.sha)||null,lastSyncAt:clean(x.lastSyncAt)||null};
-    }catch(e){meta={target:'',fingerprint:null,sha:null,lastSyncAt:null}}
+async function loadMeta(){
+    const x=await idbGet(META_KEY)||{};
+    meta={target:clean(x.target),fingerprint:typeof x.fingerprint==='string'?x.fingerprint:null,sha:clean(x.sha)||null,lastSyncAt:clean(x.lastSyncAt)||null};
 }
-function saveMeta(){localSet(META_KEY,JSON.stringify(meta))}
-function saveCache(){localSet(CACHE_KEY,JSON.stringify(normalizeData(data)))}
-function loadCache(){try{return normalizeData(JSON.parse(localGet(CACHE_KEY)||'{}'))}catch(e){return normalizeData({})}}
-function record(snapshot,sha){
-    meta={target:target(),fingerprint:fingerprint(snapshot),sha:sha||null,lastSyncAt:new Date().toISOString()};
-    saveMeta();
+async function saveMeta(){return idbSet(META_KEY,meta)}
+async function record(snapshot,sha){
+    const normalized=normalizeData(snapshot);
+    const baselineFingerprint=fingerprint(normalized);
+    meta={target:target(),fingerprint:baselineFingerprint,sha:sha||null,lastSyncAt:new Date().toISOString()};
+    const currentSnapshot=normalizeData(data);
+    const changedDuringSync=fingerprint(currentSnapshot)!==baselineFingerprint;
+    const metaSaved=await saveMeta();
+    try{await saveWorkingCopy(changedDuringSync?currentSnapshot:normalized)}catch(error){console.error('保存本机工作副本失败:',error)}
+    if(!metaSaved)console.warn('同步元数据未能持久保存');
     lastSyncTime.textContent=`已同步 ${new Date(meta.lastSyncAt).toLocaleString()}`;
+    if(changedDuringSync){
+        setTimeout(()=>{
+            if(!unlocked)return;
+            status('offline','待同步');lastSyncTime.textContent='有未同步修改';
+            clearTimeout(autoTimer);
+            autoTimer=setTimeout(()=>{autoTimer=null;sync(false,false)},AUTO_DELAY);
+        },0);
+    }
 }
 function setUnlocked(on){
     unlocked=Boolean(on);
@@ -1147,9 +1288,10 @@ async function loadPublicView(){
         if(!response.ok){const e=new Error(`公开数据加载失败：HTTP ${response.status}`);e.status=response.status;throw e}
         if(new TextEncoder().encode(raw).length>MAX_BYTES)throw new Error('公开数据超过 900 KB');
         data=normalizeData(JSON.parse(raw));publicLoaded=true;render();exportBtn.disabled=false;
+        void savePublicCache(data);
         status('online','公开浏览');lastSyncTime.textContent='公开浏览 · 编辑需 Token';return true;
     }catch(error){
-        console.error(error);const cached=loadCache();data=cached;publicLoaded=cached.entries.length>0;render();
+        console.error(error);const cached=await loadPublicCache();data=cached;publicLoaded=cached.entries.length>0;render();
         if(publicLoaded){exportBtn.disabled=false;status('offline','离线浏览');lastSyncTime.textContent='公开数据暂时不可用 · 当前显示本机缓存'}
         else{exportBtn.disabled=true;status('offline','公开数据不可用');lastSyncTime.textContent='无法加载 papers_data.json · 编辑登录仍可使用'}
         return false;
@@ -1208,8 +1350,8 @@ async function login(showResult=true){
     status('syncing','验证编辑权限…');syncBtn.disabled=true;exportBtn.disabled=true;importBtn.disabled=true;
     try{
         await verifyRepository();const remote=await readRemote();
-        const remoteFp=fingerprint(remote.data),cache=loadCache(),sameTarget=meta.target===target();
-        const cacheFp=fingerprint(cache),cacheUnsynced=sameTarget&&meta.fingerprint!==null&&cacheFp!==meta.fingerprint&&cacheFp!==remoteFp;
+        const remoteFp=fingerprint(remote.data),cache=await loadWorkingCopy(target()),sameTarget=meta.target===target();
+        const cacheFp=cache?fingerprint(cache):null,cacheUnsynced=Boolean(cache)&&sameTarget&&meta.fingerprint!==null&&cacheFp!==meta.fingerprint&&cacheFp!==remoteFp;
         if(cacheUnsynced){
             data=cache;setUnlocked(true);render();
             if(remote.exists&&remoteFp!==meta.fingerprint){
@@ -1220,7 +1362,7 @@ async function login(showResult=true){
                 if(showResult)show('编辑登录成功，已恢复本地未同步修改','success');
             }
         }else{
-            data=remote.data;setUnlocked(true);render();record(data,remote.sha);status('online','编辑已登录');
+            data=remote.data;setUnlocked(true);render();await record(data,remote.sha);status('online','编辑已登录');
             if(!remote.exists)lastSyncTime.textContent='编辑已登录 · 数据文件尚未创建';
             if(showResult)show('Token 验证成功，已启用编辑','success');
         }
@@ -1240,34 +1382,35 @@ async function sync(showResult=true,interactive=showResult){
         const localSnapshot=normalizeData(data),localFp=fingerprint(localSnapshot),baseline=meta.target===target()?meta.fingerprint:null;
         const remote=await readRemote();
         if(!remote.exists){
-            const sha=await writeRemote(localSnapshot,null);record(localSnapshot,sha);status('online','编辑已登录');
+            const sha=await writeRemote(localSnapshot,null);await record(localSnapshot,sha);status('online','编辑已登录');
             if(showResult)show('同步完成','success');return true;
         }
         const remoteFp=fingerprint(remote.data);
-        if(localFp===remoteFp){record(localSnapshot,remote.sha);status('online','编辑已登录');if(showResult)show('本地与云端已一致','success');return true}
+        if(localFp===remoteFp){await record(localSnapshot,remote.sha);status('online','编辑已登录');if(showResult)show('本地与云端已一致','success');return true}
         const localChanged=baseline===null||localFp!==baseline,remoteChanged=baseline===null||remoteFp!==baseline;
         if(baseline!==null&&localChanged&&!remoteChanged){
-            const sha=await writeRemote(localSnapshot,remote.sha);record(localSnapshot,sha);status('online','编辑已登录');
+            const sha=await writeRemote(localSnapshot,remote.sha);await record(localSnapshot,sha);status('online','编辑已登录');
             if(showResult)show('同步完成','success');return true;
         }
         if(baseline!==null&&!localChanged&&remoteChanged){
-            data=remote.data;render();record(data,remote.sha);status('online','编辑已登录');
+            data=remote.data;render();await record(data,remote.sha);status('online','编辑已登录');
             if(showResult)show('已采用云端最新数据','success');return true;
         }
         if(!interactive){status('offline','存在同步冲突');show('本地和云端都发生了修改，请点击“同步”选择版本','error');return false}
         const useLocal=confirm('检测到本地和云端数据不同。\n\n确定：用当前网页数据覆盖云端。\n取消：继续选择是否采用云端数据。');
         if(useLocal){
-            const sha=await writeRemote(localSnapshot,remote.sha);record(localSnapshot,sha);status('online','编辑已登录');show('已用当前网页数据覆盖云端','success');return true;
+            const sha=await writeRemote(localSnapshot,remote.sha);await record(localSnapshot,sha);status('online','编辑已登录');show('已用当前网页数据覆盖云端','success');return true;
         }
         const useRemote=confirm('是否采用云端数据覆盖当前网页？\n\n确定：采用云端最新数据。\n取消：暂不处理。');
-        if(useRemote){data=remote.data;render();record(data,remote.sha);status('online','编辑已登录');show('已采用云端数据','success');return true}
+        if(useRemote){data=remote.data;render();await record(data,remote.sha);status('online','编辑已登录');show('已采用云端数据','success');return true}
         status('offline','同步已取消');return false;
     }catch(error){
         console.error(error);status('offline','同步失败');show(`同步失败：${formatError(error)}`,'error');return false;
     }finally{syncing=false;syncBtn.disabled=!unlocked}
 }
 function scheduleSync(){
-    saveCache();if(!unlocked)return;clearTimeout(autoTimer);
+    if(target())void saveWorkingCopy(data).catch(error=>console.error('保存本机工作副本失败:',error));
+    if(!unlocked)return;clearTimeout(autoTimer);
     autoTimer=setTimeout(()=>{autoTimer=null;sync(false,false)},AUTO_DELAY);
 }
 function markLocalChange(){
@@ -1325,7 +1468,7 @@ function editHistoryOption(type,oldValue){
     }else{
         for(const p of data.profiles)if(key(p.journalNote)===key(oldValue))p.journalNote=next;
     }
-    saveCache();scheduleSync();renderAllCombos();show(`已修改${meta.label}选项`,'success');
+    scheduleSync();renderAllCombos();show(`已修改${meta.label}选项`,'success');
 }
 function deleteHistoryOption(type,value){
     const meta=historyMeta(type);
@@ -1338,7 +1481,7 @@ function deleteHistoryOption(type,value){
     }else{
         for(const p of data.profiles)if(key(p.journalNote)===key(value))p.journalNote='';
     }
-    saveCache();scheduleSync();renderAllCombos();show(`已删除${meta.label}选项`,'success');
+    scheduleSync();renderAllCombos();show(`已删除${meta.label}选项`,'success');
 }
 
 const comboRegistry={
@@ -1480,7 +1623,7 @@ document.addEventListener('click',closePanels);
 function render(){
     data=normalizeData(data);countDisplay.textContent=String(data.entries.length);
     if(!data.entries.length){
-        papersList.innerHTML='<div class="empty-state">暂无 Papers</div>';saveCache();renderAllCombos();return;
+        papersList.innerHTML='<div class="empty-state">暂无 Papers</div>';renderAllCombos();return;
     }
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
@@ -1498,7 +1641,7 @@ function render(){
             <div class="paper-meta">${rows}${codeRow}</div>
         </article>`;
     }).join('');
-    publicLoaded=true;exportBtn.disabled=false;saveCache();renderAllCombos();
+    publicLoaded=true;exportBtn.disabled=false;renderAllCombos();
 }
 
 function requireEditAccess(){
@@ -1736,13 +1879,13 @@ function importFile(file){
 
 function openConfig(){
     cfgOwner.value=config.owner;cfgRepo.value=config.repo;cfgFile.value=config.file||'papers_data.json';cfgToken.value=config.token;
-    rememberToken.checked=Boolean(localGet(TOKEN_LOCAL_KEY)||!sessionGet(TOKEN_SESSION_KEY));configModal.classList.remove('hidden');
+    rememberToken.checked=rememberTokenPreference;configModal.classList.remove('hidden');
 }
 function closeConfig(){configModal.classList.add('hidden')}
 configForm.addEventListener('submit',async event=>{
     event.preventDefault();
     config.owner=clean(cfgOwner.value);config.repo=clean(cfgRepo.value);config.file=clean(cfgFile.value)||'papers_data.json';config.token=clean(cfgToken.value);
-    saveConfig();closeConfig();await login(true);
+    await saveConfig();closeConfig();await login(true);
 });
 
 // 总表文字必须可以自由拖选。
@@ -1846,10 +1989,17 @@ backToTopBtn.addEventListener('click',()=>{const start=scrollY;const t=performan
 addEventListener('scroll',()=>backToTopBtn.classList.toggle('visible',scrollY>260),{passive:true});
 
 (async()=>{
-    loadConfig();loadMeta();setUnlocked(false);await loadPublicView();
+    await requestPersistentStorage();
+    await loadConfig();await loadMeta();setUnlocked(false);await loadPublicView();
     if(adminConfigured())await login(false);
     render();
 })();
+
+function persistCurrentWorkingCopyBestEffort(){
+    if(unlocked&&target())void saveWorkingCopy(data).catch(()=>{});
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persistCurrentWorkingCopyBestEffort()});
+window.addEventListener('pagehide',persistCurrentWorkingCopyBestEffort);
 })();
 </script>
 </body>
