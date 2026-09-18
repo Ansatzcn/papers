@@ -594,7 +594,7 @@ button{cursor:pointer}
             <span class="count-badge" id="countDisplay">0</span>
         </div>
         <div class="papers-list" id="papersList">
-            <div class="empty-state">正在加载 Papers…</div>
+            <div class="empty-state"></div>
         </div>
     </section>
 </main>
@@ -1509,7 +1509,7 @@ document.addEventListener('click',closePanels);
 function render(){
     data=normalizeData(data);countDisplay.textContent=String(data.entries.length);
     if(!data.entries.length){
-        papersList.innerHTML='<div class="empty-state">暂无 Papers</div>';renderAllCombos();return;
+        papersList.innerHTML='<div class="empty-state"></div>';renderAllCombos();return;
     }
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
@@ -1522,7 +1522,7 @@ function render(){
         if(editButton&&rows.length)rows[rows.length-1]=rows[rows.length-1].replace('</div>',`${editButton}</div>`);
         const actions=editButton&&!rows.length?`<div class="paper-actions">${editButton}</div>`:'';
         return `<article class="paper-item">
-            <h3 class="paper-title">${esc(item.title||'（无标题）')}</h3>
+            <h3 class="paper-title">${esc(item.title||'')}</h3>
             <div class="paper-meta">${rows.join('')}${actions}</div>
         </article>`;
     }).join('');
