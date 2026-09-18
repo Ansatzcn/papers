@@ -313,16 +313,9 @@ button{cursor:pointer}
     word-break:break-word;
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
-.code-row{
+.paper-actions{
     display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:1rem;
-}
-.code-main{
-    display:flex;
-    align-items:baseline;
-    gap:.4rem;
+    justify-content:flex-end;
     min-width:0;
 }
 .edit-btn{
@@ -493,12 +486,6 @@ button{cursor:pointer}
         overflow-wrap:anywhere;
         word-break:break-word;
     }
-    .code-row{
-        width:100%;
-        max-width:100%;
-        min-width:0;
-    }
-    .code-main{min-width:0}
     .page-title{font-size:1.8rem}
     .toolbar{flex-direction:column;align-items:stretch}
     .toolbar-group{justify-content:center}
@@ -553,15 +540,6 @@ button{cursor:pointer}
                 <input class="input" id="titleInput" type="text" autocomplete="off">
             </div>
             <div class="form-group">
-                <label for="yearInput">刊期</label>
-                <input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="codeInput">编码</label>
-                <input class="input" id="codeInput" type="text" readonly>
-            </div>
-
-            <div class="form-group">
                 <label for="journalInput">刊名</label>
                 <div class="combo" id="journalCombo">
                     <div class="combo-row">
@@ -587,7 +565,12 @@ button{cursor:pointer}
                 </div>
             </div>
 
-            <div class="form-group full">
+            <div class="form-group">
+                <label for="yearInput">刊期</label>
+                <input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
+            </div>
+
+            <div class="form-group">
                 <label for="journalNoteInput">刊注</label>
                 <div class="combo" id="journalNoteCombo">
                     <div class="combo-row">
@@ -627,10 +610,6 @@ button{cursor:pointer}
                 <div class="form-group">
                     <label for="editYear">刊期</label>
                     <div class="clearable-input"><input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off"><button class="input-clear" id="clearEditYear" type="button">×</button></div>
-                </div>
-                <div class="form-group">
-                    <label for="editCode">编码</label>
-                    <div class="clearable-input"><input class="input" id="editCode" type="text" readonly><button class="input-clear" id="clearEditCode" type="button">×</button></div>
                 </div>
 
                 <div class="form-group">
@@ -727,12 +706,12 @@ button{cursor:pointer}
 const $=id=>document.getElementById(id);
 const statusDot=$('statusDot'),statusText=$('statusText'),syncBtn=$('syncBtn'),configBtn=$('configBtn'),
 exportBtn=$('exportBtn'),importBtn=$('importBtn'),fileInput=$('fileInput'),lastSyncTime=$('lastSyncTime'),
-editorSection=$('editorSection'),visitorNote=$('visitorNote'),visitorLoginBtn=$('visitorLoginBtn'),titleInput=$('titleInput'),yearInput=$('yearInput'),codeInput=$('codeInput'),
+editorSection=$('editorSection'),visitorNote=$('visitorNote'),visitorLoginBtn=$('visitorLoginBtn'),titleInput=$('titleInput'),yearInput=$('yearInput'),
 journalInput=$('journalInput'),journalToggle=$('journalToggle'),journalPanel=$('journalPanel'),journalOptions=$('journalOptions'),journalCombo=$('journalCombo'),
 issueInput=$('issueInput'),issueToggle=$('issueToggle'),issuePanel=$('issuePanel'),issueOptions=$('issueOptions'),issueCombo=$('issueCombo'),
 journalNoteInput=$('journalNoteInput'),journalNoteToggle=$('journalNoteToggle'),journalNotePanel=$('journalNotePanel'),journalNoteOptions=$('journalNoteOptions'),journalNoteCombo=$('journalNoteCombo'),
 addBtn=$('addBtn'),countDisplay=$('countDisplay'),papersList=$('papersList'),
-editModal=$('editModal'),editTitle=$('editTitle'),editYear=$('editYear'),editCode=$('editCode'),clearEditYear=$('clearEditYear'),clearEditCode=$('clearEditCode'),
+editModal=$('editModal'),editTitle=$('editTitle'),editYear=$('editYear'),clearEditYear=$('clearEditYear'),
 editJournal=$('editJournal'),editJournalToggle=$('editJournalToggle'),editJournalPanel=$('editJournalPanel'),editJournalOptions=$('editJournalOptions'),editJournalCombo=$('editJournalCombo'),
 editIssue=$('editIssue'),editIssueToggle=$('editIssueToggle'),editIssuePanel=$('editIssuePanel'),editIssueOptions=$('editIssueOptions'),editIssueCombo=$('editIssueCombo'),
 editJournalNote=$('editJournalNote'),editJournalNoteToggle=$('editJournalNoteToggle'),editJournalNotePanel=$('editJournalNotePanel'),editJournalNoteOptions=$('editJournalNoteOptions'),editJournalNoteCombo=$('editJournalNoteCombo'),
@@ -767,7 +746,7 @@ const IDB_NAME=`${NS}:indexeddb_v1`;
 const IDB_STORE='kv';
 const OPFS_WORKING_FILE=`papers-working-${PAGE_INSTANCE_ID}.json`;
 
-let data={entries:[],histories:{journals:[],issues:[],notes:[]},profiles:[],releasedCodes:[]};
+let data={entries:[],histories:{journals:[],issues:[],notes:[]},profiles:[]};
 let config={owner:'',repo:'',file:'papers_data.json',token:''};
 let meta={target:'',fingerprint:null,sha:null,lastSyncAt:null};
 let unlocked=false,publicLoaded=false,syncing=false,autoTimer=null,editingId='',editInitialSnapshot='',toastTimer=null,rememberTokenPreference=true;
@@ -921,87 +900,16 @@ function uniq(values){
 function sortOptions(values){
     return uniq(values).sort(comparePaperTitle)
 }
-function hasChinese(value){return /\p{Script=Han}/u.test(clean(value))}
-function hasEnglish(value){return /[A-Za-z]/.test(clean(value))}
-
-/*
- * 编码设计原则（重要）：
- * 1. 编码是每条 Papers 记录自身持久保存的数据，不是由其它字段反复推导的“计算属性”。
- * 2. codeRangeForEntry() 只决定“新编码从哪个区间分配”，绝不决定既有编码是否应被改写。
- * 3. normalizeData()/render()/fingerprint()/缓存/同步/导入/导出都不得生成、修复、去重或重排编码。
- * 4. 只有两个显式写入入口：
- *    - 新增记录时，为这一条新记录分配编码；
- *    - 编辑时，用户明确修改编码，或明确清空编码后保存，仅处理这一条记录。
- * 5. 因此，将来即使调整编码判断规则，也不会触碰任何既有记录的 code。
- */
-
-function codeRangeForEntry(entry){
-    // 编码规则与区间保持不变：
-    // 中文标题或中文刊名 -> 310001–319999；
-    // 英文标题或英文刊名 -> 350001–359999；
-    // 其它情况沿用英文区间。
-    if(hasChinese(entry?.title)||hasChinese(entry?.journal))return [310001,319999];
-    if(hasEnglish(entry?.title)||hasEnglish(entry?.journal))return [350001,359999];
-    return [350001,359999];
-}
-
-function validCode(value){
-    // 只用于“新写入编码”的校验，不用于改写既有编码。
-    return /^\d{6}$/.test(String(value||''))&&(
-        (Number(value)>=310001&&Number(value)<=319999)||
-        (Number(value)>=350001&&Number(value)<=359999)
-    )
-}
-
-function usedCodeSet(entries=data.entries,exceptId=''){
-    const used=new Set();
-    for(const item of entries||[]){
-        if(exceptId&&item?.id===exceptId)continue;
-        const code=clean(item?.code);
-        if(code)used.add(code);
-    }
-    return used;
-}
-
-function removeReleasedCode(code){
-    const targetCode=clean(code);
-    if(!targetCode||!Array.isArray(data.releasedCodes))return;
-    data.releasedCodes=data.releasedCodes.filter(x=>clean(x)!==targetCode);
-}
-
-function rememberReleasedCode(code){
-    const released=clean(code);
-    if(!validCode(released))return;
-    const pool=Array.isArray(data.releasedCodes)?data.releasedCodes:[];
-    if(!pool.some(x=>clean(x)===released))data.releasedCodes=[...pool,released];
-}
-
-function allocateCodeForEntry(entry,usedSet=usedCodeSet()){
-    const range=codeRangeForEntry(entry);
-    for(let i=range[0];i<=range[1];i++){
-        const code=String(i);
-        if(!usedSet.has(code)){
-            removeReleasedCode(code);
-            return code;
-        }
-    }
-    throw new Error('对应语言编码区间已用完');
-}
 
 function normalizeEntry(x){
     if(!x||typeof x!=='object')return null;
-
-    // 关键：只清理字段格式，原样保留该条记录自己的编码。
-    // 不验证、不去重、不补号，更不会根据标题/刊名重新计算编码。
     return{
         id:clean(x.id)||uid(),
         title:clean(x.title),
         year:clean(x.year),
         journal:clean(x.journal),
         issue:clean(x.issue),
-        journalNote:clean(x.journalNote??x.note),
-        code:clean(x.code),
-        codeManualEdited:Boolean(x.codeManualEdited)
+        journalNote:clean(x.journalNote??x.note)
     };
 }
 
@@ -1024,8 +932,6 @@ function deriveProfiles(entries){
 function normalizeData(value){
     const source=Array.isArray(value)?{entries:value}:(value&&typeof value==='object'?value:{});
 
-    // 结构规范化与编码分配彻底解耦。
-    // 无论此函数被调用多少次，都不会写入或替换任何 entry.code。
     const entries=(Array.isArray(source.entries)?source.entries:[])
         .map(normalizeEntry)
         .filter(Boolean)
@@ -1045,30 +951,9 @@ function normalizeData(value){
     const profileMap=new Map();
     for(const p of profiles)profileMap.set(key(p.journal),p);
 
-    // 释放池同样只做字符串清理和去重，不拿当前编码规则去“修理”历史数据。
-    const releasedCodes=uniq(Array.isArray(source.releasedCodes)?source.releasedCodes:[]);
-
-    return{entries,histories,profiles:[...profileMap.values()],releasedCodes};
+    return{entries,histories,profiles:[...profileMap.values()]};
 }
 
-function inspectCodeIntegrity(entries=data.entries){
-    // 只诊断，不修改。规则变化最多改变诊断结果，绝不能改变数据本身。
-    const seen=new Map(),issues=[];
-    for(const item of entries||[]){
-        const code=clean(item?.code);
-        if(!code){
-            issues.push({id:item?.id||'',type:'missing',code:''});
-            continue;
-        }
-        if(!validCode(code))issues.push({id:item?.id||'',type:'out-of-range',code});
-        if(seen.has(code)){
-            issues.push({id:item?.id||'',type:'duplicate',code,withId:seen.get(code)});
-        }else{
-            seen.set(code,item?.id||'');
-        }
-    }
-    return issues;
-}
 
 function fingerprint(value=data){return JSON.stringify(normalizeData(value))}
 function formatDate(iso){
@@ -1627,18 +1512,15 @@ function render(){
     }
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
-            item.year?`<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`:'',
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
             item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
+            item.year?`<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`:'',
             item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
         ].join('');
-        const codeRow=`<div class="meta-row code-row">
-            <span class="code-main"><span class="meta-label">编码：</span>${esc(item.code)}</span>
-            ${unlocked?`<button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:''}
-        </div>`;
+        const actions=unlocked?`<div class="paper-actions"><button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button></div>`:'';
         return `<article class="paper-item">
             <h3 class="paper-title">${esc(item.title||'（无标题）')}</h3>
-            <div class="paper-meta">${rows}${codeRow}</div>
+            <div class="paper-meta">${rows}${actions}</div>
         </article>`;
     }).join('');
     publicLoaded=true;exportBtn.disabled=false;renderAllCombos();
@@ -1665,15 +1547,6 @@ function addEntry(){
     const issue=clean(issueInput.value);
     const journalNote=clean(journalNoteInput.value);
 
-    let code='';
-    try{
-        // 新增是自动分配编码的唯一常规入口，只给这一条新记录分配。
-        code=allocateCodeForEntry({title,journal},usedCodeSet());
-    }catch(error){
-        console.error(error);
-        show(error.message||'编码分配失败','error');
-        return;
-    }
 
     rememberOption('journal',journal);
     rememberOption('issue',issue);
@@ -1686,9 +1559,7 @@ function addEntry(){
         year,
         journal,
         issue,
-        journalNote,
-        code,
-        codeManualEdited:false
+        journalNote
     });
 
     titleInput.value='';
@@ -1696,11 +1567,10 @@ function addEntry(){
     journalInput.value='';
     issueInput.value='';
     journalNoteInput.value='';
-    codeInput.value='';
 
     markLocalChange();
     titleInput.focus();
-    show(`已提交，编码 ${code}`,'success');
+    show('已提交','success');
 }
 
 function editSnapshot(){
@@ -1709,8 +1579,7 @@ function editSnapshot(){
         year:editYear.value,
         journal:editJournal.value,
         issue:editIssue.value,
-        journalNote:editJournalNote.value,
-        code:editCode.value
+        journalNote:editJournalNote.value
     });
 }
 
@@ -1732,11 +1601,6 @@ function openEdit(id){
     editJournal.value=item.journal;
     editIssue.value=item.issue;
     editJournalNote.value=item.journalNote;
-    editCode.value=item.code;
-
-    // 编码允许显式人工修改；只要用户不改这个输入框，保存其它字段绝不会碰 code。
-    editCode.readOnly=false;
-
     editInitialSnapshot=editSnapshot();
     editModal.classList.remove('hidden');
     renderAllCombos();
@@ -1763,68 +1627,13 @@ function saveEditEntry(){
         return;
     }
 
-    const currentCode=clean(item.code);
-    const requestedCode=clean(editCode.value);
-    let finalCode=currentCode;
-    let finalManual=Boolean(item.codeManualEdited);
-
-    if(requestedCode!==currentCode){
-        const used=usedCodeSet(data.entries,item.id);
-
-        if(!requestedCode){
-            /*
-             * 用户明确删除本条已提交编码并保存：
-             * - 旧编码在“这一次重新分配”中临时不可用，防止刚删掉又立刻分回自己；
-             * - 当前条目按现行编码规则，从目标区间选择其余可用编码中的最小值；
-             * - 保存完成后，旧编码立即恢复为普通可用空号，
-             *   因而下一次有符合该区间的编码分配时，可以再次被使用。
-             */
-            const temporarilyBlocked=new Set(used);
-            if(validCode(currentCode))temporarilyBlocked.add(currentCode);
-
-            try{
-                finalCode=allocateCodeForEntry(
-                    {title:next.title,journal:next.journal},
-                    temporarilyBlocked
-                );
-                finalManual=false;
-
-                // 仅记录“已释放”这一事实；它不会阻止后续分配重新使用该编码。
-                rememberReleasedCode(currentCode);
-            }catch(error){
-                console.error(error);
-                show(error.message||'编码分配失败','error');
-                editCode.focus();
-                return;
-            }
-        }else{
-            // 用户明确输入新编码：只校验并写入当前这一条。
-            if(!validCode(requestedCode)){
-                show('编码必须是 310001–319999 或 350001–359999 范围内的六位数字','error');
-                editCode.focus();
-                return;
-            }
-            if(used.has(requestedCode)){
-                show('该编码已被占用','error');
-                editCode.focus();
-                return;
-            }
-            finalCode=requestedCode;
-            finalManual=true;
-            removeReleasedCode(finalCode);
-        }
-    }
-
     // 所有校验通过后再一次性提交，避免校验失败造成“半保存”。
     rememberOption('journal',next.journal);
     rememberOption('issue',next.issue);
     rememberOption('note',next.journalNote);
     upsertProfile(next.journal,next.issue,next.journalNote);
 
-    Object.assign(item,next,{
-        code:finalCode,
-        codeManualEdited:finalManual
-    });
+    Object.assign(item,next);
 
     closeEdit();
     markLocalChange();
@@ -1838,21 +1647,11 @@ function deleteEntry(){
     if(!item)return;
     if(!confirm(`确定删除论文“${item.title}”吗？`))return;
 
-    const releasedCode=clean(item.code);
     data.entries=data.entries.filter(x=>x.id!==editingId);
-
-    // 删除只释放被删除这一条的编码，不触碰其它任何条目。
-    rememberReleasedCode(releasedCode);
-
     data.entries.sort(comparePaperEntry);
     closeEdit();
     markLocalChange();
-    show(
-        validCode(releasedCode)
-            ? `已删除，编码 ${releasedCode} 已释放`
-            : '已删除',
-        'success'
-    );
+    show('已删除','success');
 }
 
 function downloadJson(){
@@ -1871,7 +1670,7 @@ function importFile(file){
         try{
             const next=normalizeData(JSON.parse(String(e.target.result||'')));
             if(!confirm(`将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`))return;
-            data=next;markLocalChange();show('导入完成；原有编码已原样保留','success');
+            data=next;markLocalChange();show('导入完成','success');
         }catch(error){console.error(error);show('导入失败：JSON 格式不正确','error')}
     };
     reader.readAsText(file,'utf-8');
@@ -1969,7 +1768,6 @@ editDelete.addEventListener('click',deleteEntry);
 editCancel.addEventListener('click',closeEdit);
 editSave.addEventListener('click',saveEditEntry);
 clearEditYear.addEventListener('click',()=>{editYear.value=''});
-clearEditCode.addEventListener('click',()=>{editCode.value='';editCode.focus()});
 editModal.addEventListener('pointerdown',event=>{editModal.dataset.outside=event.target===editModal?'1':'0'});
 editModal.addEventListener('pointerup',event=>{
     const genuine=editModal.dataset.outside==='1'&&event.target===editModal;editModal.dataset.outside='0';
