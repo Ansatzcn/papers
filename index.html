@@ -609,19 +609,6 @@ button{cursor:pointer}
                     <input class="input" id="editTitle" type="text" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="editIssue">刊号</label>
-                    <div class="combo" id="editIssueCombo">
-                        <div class="combo-row">
-                            <input class="input" id="editIssue" type="text" autocomplete="off">
-                            <button class="combo-toggle" id="editIssueToggle" type="button">▾</button>
-                        </div>
-                        <div class="combo-panel hidden" id="editIssuePanel">
-                            <div id="editIssueOptions"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="editJournal">刊名</label>
                     <div class="combo" id="editJournalCombo">
                         <div class="combo-row">
@@ -639,7 +626,20 @@ button{cursor:pointer}
                     <div class="clearable-input"><input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off"><button class="input-clear" id="clearEditYear" type="button">×</button></div>
                 </div>
 
-                <div class="form-group full">
+                <div class="form-group">
+                    <label for="editIssue">刊号</label>
+                    <div class="combo" id="editIssueCombo">
+                        <div class="combo-row">
+                            <input class="input" id="editIssue" type="text" autocomplete="off">
+                            <button class="combo-toggle" id="editIssueToggle" type="button">▾</button>
+                        </div>
+                        <div class="combo-panel hidden" id="editIssuePanel">
+                            <div id="editIssueOptions"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="editJournalNote">刊注</label>
                     <div class="combo" id="editJournalNoteCombo">
                         <div class="combo-row">
