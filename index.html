@@ -320,6 +320,7 @@ button{cursor:pointer}
 }
 .edit-btn{
     flex:0 0 auto;
+    margin-left:auto;
     padding:0;
     border:0;
     border-radius:0;
@@ -553,6 +554,11 @@ button{cursor:pointer}
             </div>
 
             <div class="form-group">
+                <label for="yearInput">刊期</label>
+                <input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
+            </div>
+
+            <div class="form-group">
                 <label for="issueInput">刊号</label>
                 <div class="combo" id="issueCombo">
                     <div class="combo-row">
@@ -563,11 +569,6 @@ button{cursor:pointer}
                         <div id="issueOptions"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="yearInput">刊期</label>
-                <input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
             </div>
 
             <div class="form-group">
@@ -608,8 +609,16 @@ button{cursor:pointer}
                     <input class="input" id="editTitle" type="text" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="editYear">刊期</label>
-                    <div class="clearable-input"><input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off"><button class="input-clear" id="clearEditYear" type="button">×</button></div>
+                    <label for="editIssue">刊号</label>
+                    <div class="combo" id="editIssueCombo">
+                        <div class="combo-row">
+                            <input class="input" id="editIssue" type="text" autocomplete="off">
+                            <button class="combo-toggle" id="editIssueToggle" type="button">▾</button>
+                        </div>
+                        <div class="combo-panel hidden" id="editIssuePanel">
+                            <div id="editIssueOptions"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -626,16 +635,8 @@ button{cursor:pointer}
                 </div>
 
                 <div class="form-group">
-                    <label for="editIssue">刊号</label>
-                    <div class="combo" id="editIssueCombo">
-                        <div class="combo-row">
-                            <input class="input" id="editIssue" type="text" autocomplete="off">
-                            <button class="combo-toggle" id="editIssueToggle" type="button">▾</button>
-                        </div>
-                        <div class="combo-panel hidden" id="editIssuePanel">
-                            <div id="editIssueOptions"></div>
-                        </div>
-                    </div>
+                    <label for="editYear">刊期</label>
+                    <div class="clearable-input"><input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off"><button class="input-clear" id="clearEditYear" type="button">×</button></div>
                 </div>
 
                 <div class="form-group full">
@@ -1513,14 +1514,16 @@ function render(){
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
-            item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
             item.year?`<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`:'',
+            item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
             item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
-        ].join('');
-        const actions=unlocked?`<div class="paper-actions"><button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button></div>`:'';
+        ].filter(Boolean);
+        const editButton=unlocked?`<button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:'';
+        if(editButton&&rows.length)rows[rows.length-1]=rows[rows.length-1].replace('</div>',`${editButton}</div>`);
+        const actions=editButton&&!rows.length?`<div class="paper-actions">${editButton}</div>`:'';
         return `<article class="paper-item">
             <h3 class="paper-title">${esc(item.title||'（无标题）')}</h3>
-            <div class="paper-meta">${rows}${actions}</div>
+            <div class="paper-meta">${rows.join('')}${actions}</div>
         </article>`;
     }).join('');
     publicLoaded=true;exportBtn.disabled=false;renderAllCombos();
