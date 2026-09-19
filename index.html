@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-17-zero-web-storage-v1">
+<meta name="app-build" content="2026-09-19-paper-checkbox-v2">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -314,10 +314,20 @@ button{cursor:pointer}
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
 .paper-checkbox{
+    /* 使用浏览器原生 Checkbox 外观，并强制保持可见。 */
+    display:inline-block;
     flex:0 0 auto;
     width:16px;
     height:16px;
-    margin:.2rem 0 0 .1rem;
+    margin:.16rem 0 0 .1rem;
+    padding:0;
+    position:static;
+    opacity:1;
+    visibility:visible;
+    appearance:auto;
+    -webkit-appearance:checkbox;
+    vertical-align:middle;
+    cursor:pointer;
 }
 .paper-actions{
     display:flex;
@@ -1521,7 +1531,7 @@ function render(){
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
-            `<div class="meta-row"><span class="meta-label">刊期：</span><span>${esc(item.year)}</span><input class="paper-checkbox" type="checkbox" data-check-id="${attr(item.id)}" aria-label="条目勾选" ${item.checked?'checked':''} ${unlocked?'':'disabled'}></div>`,
+            `<div class="meta-row"><span class="meta-label">刊期：</span><span>${esc(item.year)}</span><input class="paper-checkbox" type="checkbox" data-check-id="${attr(item.id)}" aria-label="${attr(item.title||'条目')} 勾选" ${item.checked?'checked':''}></div>`,
             item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
             item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
         ].filter(Boolean);
