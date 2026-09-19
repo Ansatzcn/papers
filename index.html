@@ -313,6 +313,12 @@ button{cursor:pointer}
     word-break:break-word;
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
+.paper-checkbox{
+    flex:0 0 auto;
+    width:16px;
+    height:16px;
+    margin:.2rem 0 0 .1rem;
+}
 .paper-actions{
     display:flex;
     justify-content:flex-end;
@@ -910,7 +916,8 @@ function normalizeEntry(x){
         year:clean(x.year),
         journal:clean(x.journal),
         issue:clean(x.issue),
-        journalNote:clean(x.journalNote??x.note)
+        journalNote:clean(x.journalNote??x.note),
+        checked:Boolean(x.checked)
     };
 }
 
@@ -1514,7 +1521,7 @@ function render(){
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
-            item.year?`<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`:'',
+            `<div class="meta-row"><span class="meta-label">刊期：</span><span>${esc(item.year)}</span><input class="paper-checkbox" type="checkbox" data-check-id="${attr(item.id)}" aria-label="条目勾选" ${item.checked?'checked':''} ${unlocked?'':'disabled'}></div>`,
             item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
             item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
         ].filter(Boolean);
@@ -1562,7 +1569,8 @@ function addEntry(){
         year,
         journal,
         issue,
-        journalNote
+        journalNote,
+        checked:false
     });
 
     titleInput.value='';
@@ -1765,6 +1773,20 @@ papersList.addEventListener('keydown',event=>{
         event.preventDefault();
         if(!hasActiveTextSelection())openEdit(btn.dataset.id);
     }
+});
+
+// 勾选状态只在总表中直接修改，不进入“添加”或“编辑”表单。
+papersList.addEventListener('change',event=>{
+    const checkbox=event.target.closest('.paper-checkbox[data-check-id]');
+    if(!checkbox)return;
+    if(!requireEditAccess()){
+        checkbox.checked=!checkbox.checked;
+        return;
+    }
+    const item=data.entries.find(x=>x.id===checkbox.dataset.checkId);
+    if(!item)return;
+    item.checked=checkbox.checked;
+    markLocalChange();
 });
 addBtn.addEventListener('click',addEntry);
 editDelete.addEventListener('click',deleteEntry);
