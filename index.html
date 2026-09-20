@@ -313,7 +313,7 @@ button{cursor:pointer}
     word-break:break-word;
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
-.year-check{display:inline-flex;align-items:flex-start;gap:0;min-width:0}
+.issue-check{display:inline-flex;align-items:flex-start;gap:0;min-width:0}
 .paper-checkbox{
     /* 使用浏览器原生 Checkbox 外观，并强制保持可见。 */
     display:inline-block;
@@ -1532,8 +1532,8 @@ function render(){
     papersList.innerHTML=data.entries.map(item=>{
         const rows=[
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
-            `<div class="meta-row"><span class="meta-label">刊期：</span><span class="year-check"><span>${esc(item.year)}</span><input class="paper-checkbox" type="checkbox" data-check-id="${attr(item.id)}" aria-label="${attr(item.title||'条目')} 勾选" ${item.checked?'checked':''}></span></div>`,
-            item.issue?`<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`:'',
+            `<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`,
+            `<div class="meta-row"><span class="meta-label">刊号：</span><span class="issue-check"><span>${esc(item.issue)}</span><input class="paper-checkbox" type="checkbox" data-check-id="${attr(item.id)}" aria-label="${attr(item.title||'条目')} 勾选" ${item.checked?'checked':''}></span></div>`,
             item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
         ].filter(Boolean);
         const editButton=unlocked?`<button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:'';
