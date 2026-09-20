@@ -1525,7 +1525,9 @@ for(const context of ['add','edit'])for(const type of ['journal','issue','note']
 document.addEventListener('click',closePanels);
 
 function render(){
-    data=normalizeData(data);countDisplay.textContent=String(data.entries.length);
+    data=normalizeData(data);
+    const checkedCount=data.entries.reduce((sum,item)=>sum+(item.checked?1:0),0);
+    countDisplay.textContent=`${checkedCount}/${data.entries.length}`;
     if(!data.entries.length){
         papersList.innerHTML='<div class="empty-state"></div>';renderAllCombos();return;
     }
