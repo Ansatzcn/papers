@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-19-paper-checkbox-v2">
+<meta name="app-build" content="2026-09-21-html-backup-v1">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -541,7 +541,7 @@ button{cursor:pointer}
             <button class="btn" id="configBtn" type="button">编辑登录</button>
             <button class="btn" id="exportBtn" type="button" disabled>导出</button>
             <button class="btn" id="importBtn" type="button" disabled>导入</button>
-            <input type="file" id="fileInput" accept=".json,application/json" hidden>
+            <input type="file" id="fileInput" accept=".html,text/html,.json,application/json" hidden>
         </div>
         <span class="last-sync" id="lastSyncTime">正在加载公开内容…</span>
     </section>
@@ -739,6 +739,9 @@ cfgToken=$('cfgToken'),rememberToken=$('rememberToken'),configCancel=$('configCa
 backToTopBtn=$('backToTopBtn'),toast=$('toast');
 
 const MAX_BYTES=900*1024;
+const MAX_HTML_BACKUP_BYTES=20*1024*1024;
+const BACKUP_FORMAT='papers-html-backup';
+const BACKUP_VERSION=1;
 const AUTO_DELAY=700;
 const API_VERSION='2026-03-10';
 const PUBLIC_DATA_FILE=String(document.querySelector('meta[name="papers-data-file"]')?.content||'papers_data.json').trim()||'papers_data.json';
@@ -1184,7 +1187,26 @@ function setUnlocked(on){
 }
 
 function publicDataUrl(){return new URL(PUBLIC_DATA_FILE,location.href).href}
+function parseHtmlBackupPayload(value){
+    if(!value||typeof value!=='object'||value.format!==BACKUP_FORMAT||Number(value.version)!==BACKUP_VERSION||!value.data){
+        throw new Error('HTML 备份格式不受支持');
+    }
+    return normalizeData(value.data);
+}
+function readEmbeddedBackup(doc=document){
+    const node=doc.getElementById('papersBackupData');
+    if(!node)return null;
+    try{return parseHtmlBackupPayload(JSON.parse(node.textContent||''))}
+    catch(error){console.error('内嵌 HTML 备份数据无效:',error);return null}
+}
 async function loadPublicView(){
+    const embedded=readEmbeddedBackup();
+    if(embedded){
+        data=embedded;publicLoaded=true;render();exportBtn.disabled=false;
+        void savePublicCache(data);
+        status('backup','HTML 备份');lastSyncTime.textContent='HTML 备份 · 当前显示导出时刻快照';return true;
+    }
+
     status('syncing','加载公开内容…');lastSyncTime.textContent='公开浏览 · 编辑需 Token';
     try{
         const response=await fetch(publicDataUrl(),{method:'GET',cache:'no-store',headers:{Accept:'application/json'}});
@@ -1229,9 +1251,14 @@ async function readRemote(){
         const result=await githubApi('GET',`contents/${pathEncode(config.file)}`);
         if(!result||result.type!=='file'||typeof result.content!=='string'||!result.sha)throw new Error('云端数据文件格式异常');
         if(Number.isFinite(result.size)&&result.size>MAX_BYTES)throw new Error('云端数据超过 900 KB');
-        return{exists:true,sha:result.sha,data:normalizeData(JSON.parse(base64ToUtf8(result.content)))};
+        try{
+            return{exists:true,invalid:false,sha:result.sha,data:normalizeData(JSON.parse(base64ToUtf8(result.content)))};
+        }catch(error){
+            console.error('云端 JSON 损坏:',error);
+            return{exists:true,invalid:true,sha:result.sha,data:null};
+        }
     }catch(error){
-        if(error.status===404)return{exists:false,sha:null,data:normalizeData({})};
+        if(error.status===404)return{exists:false,invalid:false,sha:null,data:normalizeData({})};
         throw error;
     }
 }
@@ -1254,6 +1281,14 @@ async function login(showResult=true){
     status('syncing','验证编辑权限…');syncBtn.disabled=true;exportBtn.disabled=true;importBtn.disabled=true;
     try{
         await verifyRepository();const remote=await readRemote();
+        if(remote.invalid){
+            const cache=await loadWorkingCopy(target());
+            if(cache)data=cache;
+            setUnlocked(true);render();
+            status('offline','数据文件异常');lastSyncTime.textContent='编辑已登录 · 云端 JSON 损坏，可导入 HTML 备份后点击“同步”修复';
+            if(showResult)show('Token 验证成功，但云端 JSON 已损坏；请导入 HTML 备份后点击“同步”修复','error');
+            return true;
+        }
         const remoteFp=fingerprint(remote.data),cache=await loadWorkingCopy(target()),sameTarget=meta.target===target();
         const cacheFp=cache?fingerprint(cache):null,cacheUnsynced=Boolean(cache)&&sameTarget&&meta.fingerprint!==null&&cacheFp!==meta.fingerprint&&cacheFp!==remoteFp;
         if(cacheUnsynced){
@@ -1285,6 +1320,17 @@ async function sync(showResult=true,interactive=showResult){
     try{
         const localSnapshot=normalizeData(data),localFp=fingerprint(localSnapshot),baseline=meta.target===target()?meta.fingerprint:null;
         const remote=await readRemote();
+        if(remote.invalid){
+            if(!interactive){
+                status('offline','数据文件异常');
+                lastSyncTime.textContent='云端 JSON 损坏 · 请点击“同步”确认用当前数据修复';
+                return false;
+            }
+            const repair=confirm('检测到云端数据文件 JSON 已损坏。\n\n确定：用当前网页数据覆盖损坏文件并修复。\n取消：暂不处理。');
+            if(!repair){status('offline','同步已取消');return false}
+            const sha=await writeRemote(localSnapshot,remote.sha);await record(localSnapshot,sha);status('online','编辑已登录');
+            if(showResult)show('云端 JSON 已用当前数据修复','success');return true;
+        }
         if(!remote.exists){
             const sha=await writeRemote(localSnapshot,null);await record(localSnapshot,sha);status('online','编辑已登录');
             if(showResult)show('同步完成','success');return true;
@@ -1678,24 +1724,69 @@ function deleteEntry(){
     show('已删除','success');
 }
 
-function downloadJson(){
+function safeBackupJson(value){
+    return JSON.stringify(value).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+}
+function buildHtmlBackup(unixTime){
+    const snapshot={schemaVersion:2,...normalizeData(data)};
+    const envelope={
+        format:BACKUP_FORMAT,
+        version:BACKUP_VERSION,
+        exportedAt:new Date(unixTime*1000).toISOString(),
+        unixTime,
+        data:snapshot
+    };
+    const clone=document.documentElement.cloneNode(true);
+    clone.querySelector('#papersBackupData')?.remove();
+
+    // 备份只保存 Papers 数据，不写入 GitHub Token 或登录配置。
+    for(const id of ['cfgOwner','cfgRepo','cfgFile','cfgToken']){
+        const input=clone.querySelector(`#${id}`);
+        if(input){input.value='';input.removeAttribute('value')}
+    }
+
+    const backupScript=document.createElement('script');
+    backupScript.id='papersBackupData';
+    backupScript.type='application/json';
+    backupScript.textContent=safeBackupJson(envelope);
+    clone.querySelector('head')?.appendChild(backupScript);
+    return '<!DOCTYPE html>\n'+clone.outerHTML;
+}
+function downloadHtmlBackup(){
     // 导出属于只读操作：访客在公开数据已经加载后也允许导出。
     if(!publicLoaded&&!unlocked)return;
-    const payload={schemaVersion:2,...normalizeData(data)};
-    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
+    const unixTime=Math.floor(Date.now()/1000);
+    const html=buildHtmlBackup(unixTime);
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');
-    a.href=url;a.download=`papers_backup_${formatDate(new Date().toISOString())}.json`;a.click();URL.revokeObjectURL(url);
+    a.href=url;a.download=`papers${unixTime}.html`;a.click();URL.revokeObjectURL(url);
+}
+function importDataFromText(text,file){
+    const raw=String(text||'');
+    const looksHtml=/\.html?$/i.test(file?.name||'')||/^\s*<!doctype\s+html\b/i.test(raw)||/^\s*<html\b/i.test(raw);
+    if(looksHtml){
+        const doc=new DOMParser().parseFromString(raw,'text/html');
+        const node=doc.getElementById('papersBackupData');
+        if(!node)throw new Error('该 HTML 中没有 Papers 备份数据');
+        let parsed;
+        try{parsed=JSON.parse(node.textContent||'')}catch{throw new Error('HTML 内嵌备份数据损坏')}
+        return parseHtmlBackupPayload(parsed);
+    }
+    try{return normalizeData(JSON.parse(raw))}
+    catch{throw new Error('JSON 格式不正确')}
 }
 function importFile(file){
     if(!requireEditAccess()||!file)return;
-    if(file.size>MAX_BYTES){show('文件超过 900 KB','error');return}
+    const htmlByName=/\.html?$/i.test(file.name||'')||file.type==='text/html';
+    const maxBytes=htmlByName?MAX_HTML_BACKUP_BYTES:MAX_BYTES;
+    if(file.size>maxBytes){show(htmlByName?'HTML 备份超过 20 MB':'文件超过 900 KB','error');return}
     const reader=new FileReader();
     reader.onload=e=>{
         try{
-            const next=normalizeData(JSON.parse(String(e.target.result||'')));
+            const next=importDataFromText(String(e.target.result||''),file);
             if(!confirm(`将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`))return;
             data=next;markLocalChange();show('导入完成','success');
-        }catch(error){console.error(error);show('导入失败：JSON 格式不正确','error')}
+        }catch(error){console.error(error);show(`导入失败：${error.message||'文件格式不正确'}`,'error')}
     };
     reader.readAsText(file,'utf-8');
 }
@@ -1815,7 +1906,7 @@ syncBtn.addEventListener('click',()=>sync(true,true));
 configBtn.addEventListener('click',openConfig);
 visitorLoginBtn.addEventListener('click',openConfig);
 configCancel.addEventListener('click',closeConfig);
-exportBtn.addEventListener('click',downloadJson);
+exportBtn.addEventListener('click',downloadHtmlBackup);
 importBtn.addEventListener('click',()=>fileInput.click());
 fileInput.addEventListener('change',()=>{const file=fileInput.files?.[0];if(file)importFile(file);fileInput.value=''});
 document.addEventListener('keydown',event=>{
