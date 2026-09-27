@@ -811,9 +811,7 @@ button{cursor:pointer}
 
             <div class="form-group full">
 
-                <label for="titleInput">
-                    标题
-                </label>
+                <label for="titleInput">标题</label>
 
                 <input
                     class="input"
@@ -827,9 +825,7 @@ button{cursor:pointer}
 
             <div class="form-group">
 
-                <label for="journalInput">
-                    刊名
-                </label>
+                <label for="journalInput">刊名</label>
 
                 <div
                     class="combo"
@@ -868,9 +864,7 @@ button{cursor:pointer}
 
             <div class="form-group">
 
-                <label for="yearInput">
-                    刊期
-                </label>
+                <label for="yearInput">刊期</label>
 
                 <input
                     class="input"
@@ -885,9 +879,7 @@ button{cursor:pointer}
 
             <div class="form-group">
 
-                <label for="issueInput">
-                    刊号
-                </label>
+                <label for="issueInput">刊号</label>
 
                 <div
                     class="combo"
@@ -926,9 +918,7 @@ button{cursor:pointer}
 
             <div class="form-group">
 
-                <label for="journalNoteInput">
-                    刊注
-                </label>
+                <label for="journalNoteInput">刊注</label>
 
                 <div
                     class="combo"
@@ -1017,9 +1007,7 @@ button{cursor:pointer}
 
                 <div class="form-group full">
 
-                    <label for="editTitle">
-                        标题
-                    </label>
+                    <label for="editTitle">标题</label>
 
                     <input
                         class="input"
@@ -1033,9 +1021,7 @@ button{cursor:pointer}
 
                 <div class="form-group">
 
-                    <label for="editJournal">
-                        刊名
-                    </label>
+                    <label for="editJournal">刊名</label>
 
                     <div
                         class="combo"
@@ -1073,9 +1059,7 @@ button{cursor:pointer}
 
                 <div class="form-group">
 
-                    <label for="editYear">
-                        刊期
-                    </label>
+                    <label for="editYear">刊期</label>
 
                     <div class="clearable-input">
 
@@ -1100,9 +1084,7 @@ button{cursor:pointer}
 
                 <div class="form-group">
 
-                    <label for="editIssue">
-                        刊号
-                    </label>
+                    <label for="editIssue">刊号</label>
 
                     <div
                         class="combo"
@@ -1140,9 +1122,7 @@ button{cursor:pointer}
 
                 <div class="form-group">
 
-                    <label for="editJournalNote">
-                        刊注
-                    </label>
+                    <label for="editJournalNote">刊注</label>
 
                     <div
                         class="combo"
@@ -1180,9 +1160,7 @@ button{cursor:pointer}
 
                 <div class="form-group full">
 
-                    <label for="editCode">
-                        编码
-                    </label>
+                    <label for="editCode">编码</label>
 
                     <input
                         class="input"
@@ -1242,9 +1220,7 @@ button{cursor:pointer}
 
         <div class="dialog-scroll">
 
-            <h3 id="configHeading">
-                GitHub 登录配置
-            </h3>
+            <h3 id="configHeading">GitHub 登录配置</h3>
 
             <p class="dialog-desc">
                 浏览 Papers 不需要 Token。Token 仅用于新增、编辑、删除、导入和同步。
@@ -1256,9 +1232,7 @@ button{cursor:pointer}
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgOwner">
-                    仓库所有者
-                </label>
+                <label for="cfgOwner">仓库所有者</label>
 
                 <input
                     class="input"
@@ -1276,9 +1250,7 @@ button{cursor:pointer}
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgRepo">
-                    仓库名称
-                </label>
+                <label for="cfgRepo">仓库名称</label>
 
                 <input
                     class="input"
@@ -1295,9 +1267,7 @@ button{cursor:pointer}
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgFile">
-                    数据文件路径
-                </label>
+                <label for="cfgFile">数据文件路径</label>
 
                 <input
                     class="input"
@@ -1315,9 +1285,7 @@ button{cursor:pointer}
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgToken">
-                    GitHub Personal Access Token
-                </label>
+                <label for="cfgToken">GitHub Personal Access Token</label>
 
                 <input
                     class="input"
@@ -1446,9 +1414,9 @@ editIssueCombo=$('editIssueCombo'),
 
 editJournalNote=$('editJournalNote'),
 editJournalNoteToggle=$('editJournalNoteToggle'),
-editJournalPanel=$('editJournalPanel'),
-editJournalOptions=$('editJournalOptions'),
-editJournalCombo=$('editJournalCombo'),
+editJournalNotePanel=$('editJournalNotePanel'),
+editJournalNoteOptions=$('editJournalNoteOptions'),
+editJournalNoteCombo=$('editJournalNoteCombo'),
 
 editDelete=$('editDelete'),
 editCancel=$('editCancel'),
@@ -1589,7 +1557,6 @@ let editingId='';
 let editInitialSnapshot='';
 
 let toastTimer=null;
-
 let idbPromise=null;
 
 let workingSaveChain=
@@ -1709,7 +1676,6 @@ function titleSortInfo(value){
         ){
 
             startIndex=i;
-
             break;
 
         }
@@ -1784,9 +1750,7 @@ function comparePaperTitle(a,b){
 
 
     if(x.type!==y.type){
-
         return x.type-y.type;
-
     }
 
 
@@ -1799,9 +1763,7 @@ function comparePaperTitle(a,b){
         );
 
         if(r!==0){
-
             return r;
-
         }
 
     }
@@ -1826,9 +1788,7 @@ function comparePaperTitle(a,b){
         );
 
         if(r!==0){
-
             return r;
-
         }
 
     }
@@ -1842,9 +1802,7 @@ function comparePaperTitle(a,b){
 
 
     if(r!==0){
-
         return r;
-
     }
 
 
