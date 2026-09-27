@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-27-code-lock-v3">
+<meta name="app-build" content="2026-09-27-code-lock-v4">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 body{
     min-height:100vh;
     padding:2rem 1rem 4rem;
@@ -15,9 +17,11 @@ body{
     color:#0f172a;
     font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
 }
+
 button,input{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
+
 .container{
     width:min(100%,1100px);
     margin:auto;
@@ -52,10 +56,19 @@ button{cursor:pointer}
     font-weight:500;
 }
 
-.status-dot{width:9px;height:9px;border-radius:50%;background:#94a3b8}
+.status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#94a3b8;
+}
+
 .status-dot.online{background:#22c55e}
 .status-dot.offline{background:#ef4444}
-.status-dot.syncing{background:#f59e0b;animation:pulse 1s infinite}
+.status-dot.syncing{
+    background:#f59e0b;
+    animation:pulse 1s infinite;
+}
 
 @keyframes pulse{
     0%,100%{opacity:1}
@@ -336,21 +349,29 @@ button{cursor:pointer}
 
 .add-button:hover{background:#0f172a}
 
+
+/* ===== 总表 ===== */
+
 .list-header{
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:12px;
     margin-bottom:.8rem;
+    color:#000;
 }
 
-.list-header h2{font-size:1.4rem}
+.list-header h2{
+    font-size:1.4rem;
+    color:#000;
+}
 
 .count-badge{
     min-width:38px;
     padding:.22rem .8rem;
     border-radius:999px;
     background:#e8edf4;
+    color:#000;
     text-align:center;
     font-size:.8rem;
     font-weight:650;
@@ -369,6 +390,7 @@ button{cursor:pointer}
     border:1px solid #e2e8f0;
     border-radius:20px;
     background:#fff;
+    color:#000;
     overflow:hidden;
     user-select:text;
     -webkit-user-select:text;
@@ -376,6 +398,9 @@ button{cursor:pointer}
 
 .paper-item:hover{background:#fafcff}
 
+/*
+ * 各条目标题仍维持原来的蓝色。
+ */
 .paper-title{
     margin-bottom:.6rem;
     color:#1E40AF;
@@ -390,14 +415,18 @@ button{cursor:pointer}
     display:grid;
     gap:.26rem;
     min-width:0;
+    color:#000;
 }
 
+/*
+ * 除标题外，总表所有字段内容全部使用纯黑色。
+ */
 .meta-row{
     display:flex;
     align-items:flex-start;
     gap:.4rem;
     min-width:0;
-    color:#475569;
+    color:#000;
     font-size:.9rem;
     font-weight:400;
     line-height:1.55;
@@ -407,7 +436,7 @@ button{cursor:pointer}
 
 .meta-label{
     flex:0 0 auto;
-    color:#64748b;
+    color:#000;
     font-weight:700;
 }
 
@@ -415,11 +444,12 @@ button{cursor:pointer}
     display:flex;
     justify-content:flex-end;
     min-width:0;
+    color:#000;
 }
 
 /*
- * 未填写编码时显示“链接”。
- * “链接”保持原有淡灰色按钮样式。
+ * 右下角“链接”改为纯黑色。
+ * 保持无下划线。
  */
 .edit-btn{
     flex:0 0 auto;
@@ -428,7 +458,7 @@ button{cursor:pointer}
     border:0;
     border-radius:0;
     background:transparent;
-    color:#94a3b8;
+    color:#000;
     font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
     font-size:.86rem;
     font-weight:400;
@@ -442,39 +472,28 @@ button{cursor:pointer}
 .edit-btn:hover,
 .edit-btn:focus-visible{
     background:transparent;
-    color:#64748b;
+    color:#000;
     outline:none;
     text-decoration:none;
 }
 
 /*
- * 已填写编码时：
- * 编码显示在原“链接”所在位置。
- *
- * 编码的字体、字号、颜色、字重和行高，
- * 强制与刊号字段正文保持一致：
- *
- * 字体：Times New Roman 优先
- * 字号：.9rem
- * 颜色：#475569
- * 字重：400
- * 行高：1.55
- *
- * 同时取消任何下划线。
+ * 编码保持与刊号字段内容相同的字号、字重、行高，
+ * 同时颜色改为纯黑色。
  */
 .edit-btn.code-label{
     font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
     font-size:.9rem;
     font-weight:400;
     line-height:1.55;
-    color:#475569;
+    color:#000;
     text-decoration:none;
 }
 
 .edit-btn.code-label:hover,
 .edit-btn.code-label:focus-visible{
     background:transparent;
-    color:#475569;
+    color:#000;
     font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
     font-size:.9rem;
     font-weight:400;
@@ -488,9 +507,12 @@ button{cursor:pointer}
     border:1px solid #e2e8f0;
     border-radius:20px;
     background:#fafcff;
-    color:#94a3b8;
+    color:#000;
     text-align:center;
 }
+
+
+/* ===== 弹窗 ===== */
 
 .overlay{
     position:fixed;
@@ -542,7 +564,10 @@ button{cursor:pointer}
 }
 
 #editDelete{margin-right:auto}
-.dialog-actions .btn{flex:0 0 auto}
+
+.dialog-actions .btn{
+    flex:0 0 auto;
+}
 
 .dialog-desc{
     margin-bottom:1rem;
@@ -606,14 +631,18 @@ button{cursor:pointer}
 
 .back-to-top:hover{opacity:1}
 
+
 @media(max-width:700px){
+
     html,body{
         width:100%;
         max-width:100%;
         overflow-x:hidden;
     }
 
-    body{padding:.8rem}
+    body{
+        padding:.8rem;
+    }
 
     .container{
         width:100%;
@@ -645,18 +674,35 @@ button{cursor:pointer}
         word-break:break-word;
     }
 
-    .page-title{font-size:1.8rem}
+    .page-title{
+        font-size:1.8rem;
+    }
 
     .toolbar{
         flex-direction:column;
         align-items:stretch;
     }
 
-    .toolbar-group{justify-content:center}
-    .last-sync{text-align:center}
-    .add-section{padding:1.2rem}
-    .form-grid{grid-template-columns:1fr}
-    .form-group.full,.add-button{grid-column:auto}
+    .toolbar-group{
+        justify-content:center;
+    }
+
+    .last-sync{
+        text-align:center;
+    }
+
+    .add-section{
+        padding:1.2rem;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full,
+    .add-button{
+        grid-column:auto;
+    }
 
     .dialog{
         width:100%;
@@ -672,10 +718,27 @@ button{cursor:pointer}
         padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom));
     }
 
-    .combo-panel{max-height:230px}
-    .combo-pill{grid-template-columns:minmax(0,1fr) 48px 48px}
-    .combo-pill-edit,.combo-pill-delete{min-width:0;padding:0 .45rem}
-    .back-to-top{right:3px;top:70%;width:24px;height:24px;font-size:.7rem}
+    .combo-panel{
+        max-height:230px;
+    }
+
+    .combo-pill{
+        grid-template-columns:minmax(0,1fr) 48px 48px;
+    }
+
+    .combo-pill-edit,
+    .combo-pill-delete{
+        min-width:0;
+        padding:0 .45rem;
+    }
+
+    .back-to-top{
+        right:3px;
+        top:70%;
+        width:24px;
+        height:24px;
+        font-size:.7rem;
+    }
 }
 </style>
 </head>
@@ -694,10 +757,33 @@ button{cursor:pointer}
 
     <section class="toolbar">
         <div class="toolbar-group">
-            <button class="btn btn-sync" id="syncBtn" type="button" disabled>同步</button>
-            <button class="btn" id="configBtn" type="button">编辑登录</button>
-            <button class="btn" id="exportBtn" type="button" disabled>导出</button>
-            <button class="btn" id="importBtn" type="button" disabled>导入</button>
+
+            <button
+                class="btn btn-sync"
+                id="syncBtn"
+                type="button"
+                disabled
+            >同步</button>
+
+            <button
+                class="btn"
+                id="configBtn"
+                type="button"
+            >编辑登录</button>
+
+            <button
+                class="btn"
+                id="exportBtn"
+                type="button"
+                disabled
+            >导出</button>
+
+            <button
+                class="btn"
+                id="importBtn"
+                type="button"
+                disabled
+            >导入</button>
 
             <input
                 type="file"
@@ -705,12 +791,21 @@ button{cursor:pointer}
                 accept=".html,text/html,.json,application/json"
                 hidden
             >
+
         </div>
 
-        <span class="last-sync" id="lastSyncTime">正在加载公开内容…</span>
+        <span
+            class="last-sync"
+            id="lastSyncTime"
+        >正在加载公开内容…</span>
+
     </section>
 
-    <section class="visitor-note" id="visitorNote">
+
+    <section
+        class="visitor-note"
+        id="visitorNote"
+    >
         <button
             class="visitor-login-link"
             id="visitorLoginBtn"
@@ -718,27 +813,42 @@ button{cursor:pointer}
         >编辑登录</button>
     </section>
 
-    <section class="add-section hidden" id="editorSection">
+
+    <section
+        class="add-section hidden"
+        id="editorSection"
+    >
 
         <h2>添加</h2>
 
         <div class="form-grid">
 
             <div class="form-group full">
-                <label for="titleInput">标题</label>
+
+                <label for="titleInput">
+                    标题
+                </label>
+
                 <input
                     class="input"
                     id="titleInput"
                     type="text"
                     autocomplete="off"
                 >
+
             </div>
+
 
             <div class="form-group">
 
-                <label for="journalInput">刊名</label>
+                <label for="journalInput">
+                    刊名
+                </label>
 
-                <div class="combo" id="journalCombo">
+                <div
+                    class="combo"
+                    id="journalCombo"
+                >
 
                     <div class="combo-row">
 
@@ -769,8 +879,12 @@ button{cursor:pointer}
 
             </div>
 
+
             <div class="form-group">
-                <label for="yearInput">刊期</label>
+
+                <label for="yearInput">
+                    刊期
+                </label>
 
                 <input
                     class="input"
@@ -779,13 +893,20 @@ button{cursor:pointer}
                     inputmode="numeric"
                     autocomplete="off"
                 >
+
             </div>
+
 
             <div class="form-group">
 
-                <label for="issueInput">刊号</label>
+                <label for="issueInput">
+                    刊号
+                </label>
 
-                <div class="combo" id="issueCombo">
+                <div
+                    class="combo"
+                    id="issueCombo"
+                >
 
                     <div class="combo-row">
 
@@ -816,11 +937,17 @@ button{cursor:pointer}
 
             </div>
 
+
             <div class="form-group">
 
-                <label for="journalNoteInput">刊注</label>
+                <label for="journalNoteInput">
+                    刊注
+                </label>
 
-                <div class="combo" id="journalNoteCombo">
+                <div
+                    class="combo"
+                    id="journalNoteCombo"
+                >
 
                     <div class="combo-row">
 
@@ -851,6 +978,7 @@ button{cursor:pointer}
 
             </div>
 
+
             <button
                 class="add-button"
                 id="addBtn"
@@ -861,14 +989,24 @@ button{cursor:pointer}
 
     </section>
 
+
     <section>
 
         <div class="list-header">
+
             <h2>总表</h2>
-            <span class="count-badge" id="countDisplay">0</span>
+
+            <span
+                class="count-badge"
+                id="countDisplay"
+            >0</span>
+
         </div>
 
-        <div class="papers-list" id="papersList">
+        <div
+            class="papers-list"
+            id="papersList"
+        >
             <div class="empty-state"></div>
         </div>
 
@@ -877,25 +1015,25 @@ button{cursor:pointer}
 </main>
 
 
+
 <section
     class="overlay hidden"
     id="editModal"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="editHeading"
 >
 
     <div class="dialog">
 
         <div class="dialog-scroll">
 
-            <h3 id="editHeading">编辑 Papers</h3>
-
             <div class="form-grid">
 
                 <div class="form-group full">
 
-                    <label for="editTitle">标题</label>
+                    <label for="editTitle">
+                        标题
+                    </label>
 
                     <input
                         class="input"
@@ -906,11 +1044,17 @@ button{cursor:pointer}
 
                 </div>
 
+
                 <div class="form-group">
 
-                    <label for="editJournal">刊名</label>
+                    <label for="editJournal">
+                        刊名
+                    </label>
 
-                    <div class="combo" id="editJournalCombo">
+                    <div
+                        class="combo"
+                        id="editJournalCombo"
+                    >
 
                         <div class="combo-row">
 
@@ -940,9 +1084,12 @@ button{cursor:pointer}
 
                 </div>
 
+
                 <div class="form-group">
 
-                    <label for="editYear">刊期</label>
+                    <label for="editYear">
+                        刊期
+                    </label>
 
                     <div class="clearable-input">
 
@@ -964,11 +1111,17 @@ button{cursor:pointer}
 
                 </div>
 
+
                 <div class="form-group">
 
-                    <label for="editIssue">刊号</label>
+                    <label for="editIssue">
+                        刊号
+                    </label>
 
-                    <div class="combo" id="editIssueCombo">
+                    <div
+                        class="combo"
+                        id="editIssueCombo"
+                    >
 
                         <div class="combo-row">
 
@@ -998,11 +1151,17 @@ button{cursor:pointer}
 
                 </div>
 
+
                 <div class="form-group">
 
-                    <label for="editJournalNote">刊注</label>
+                    <label for="editJournalNote">
+                        刊注
+                    </label>
 
-                    <div class="combo" id="editJournalNoteCombo">
+                    <div
+                        class="combo"
+                        id="editJournalNoteCombo"
+                    >
 
                         <div class="combo-row">
 
@@ -1032,13 +1191,12 @@ button{cursor:pointer}
 
                 </div>
 
-                <!--
-                    编码字段只存在于编辑框。
-                    添加板块不提供编码字段。
-                -->
+
                 <div class="form-group full">
 
-                    <label for="editCode">编码</label>
+                    <label for="editCode">
+                        编码
+                    </label>
 
                     <input
                         class="input"
@@ -1052,6 +1210,7 @@ button{cursor:pointer}
             </div>
 
         </div>
+
 
         <div class="dialog-actions">
 
@@ -1080,6 +1239,7 @@ button{cursor:pointer}
 </section>
 
 
+
 <section
     class="overlay hidden"
     id="configModal"
@@ -1096,7 +1256,9 @@ button{cursor:pointer}
 
         <div class="dialog-scroll">
 
-            <h3 id="configHeading">GitHub 登录配置</h3>
+            <h3 id="configHeading">
+                GitHub 登录配置
+            </h3>
 
             <p class="dialog-desc">
                 浏览 Papers 不需要 Token。Token 仅用于新增、编辑、删除、导入和同步。
@@ -1108,7 +1270,9 @@ button{cursor:pointer}
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgOwner">仓库所有者</label>
+                <label for="cfgOwner">
+                    仓库所有者
+                </label>
 
                 <input
                     class="input"
@@ -1120,12 +1284,15 @@ button{cursor:pointer}
 
             </div>
 
+
             <div
                 class="form-group"
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgRepo">仓库名称</label>
+                <label for="cfgRepo">
+                    仓库名称
+                </label>
 
                 <input
                     class="input"
@@ -1136,12 +1303,15 @@ button{cursor:pointer}
 
             </div>
 
+
             <div
                 class="form-group"
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgFile">数据文件路径</label>
+                <label for="cfgFile">
+                    数据文件路径
+                </label>
 
                 <input
                     class="input"
@@ -1153,12 +1323,15 @@ button{cursor:pointer}
 
             </div>
 
+
             <div
                 class="form-group"
                 style="margin-bottom:.9rem"
             >
 
-                <label for="cfgToken">GitHub Personal Access Token</label>
+                <label for="cfgToken">
+                    GitHub Personal Access Token
+                </label>
 
                 <input
                     class="input"
@@ -1179,6 +1352,7 @@ button{cursor:pointer}
             </p>
 
         </div>
+
 
         <div class="dialog-actions">
 
@@ -1201,6 +1375,7 @@ button{cursor:pointer}
 </section>
 
 
+
 <button
     class="back-to-top"
     id="backToTopBtn"
@@ -1208,12 +1383,14 @@ button{cursor:pointer}
     aria-label="回到顶部"
 ></button>
 
+
 <div
     class="toast hidden"
     id="toast"
     role="status"
     aria-live="polite"
 ></div>
+
 
 
 <script>
@@ -1428,6 +1605,7 @@ let editInitialSnapshot='';
 let toastTimer=null;
 
 let idbPromise=null;
+
 let workingSaveChain=
 Promise.resolve();
 
@@ -1698,16 +1876,12 @@ function paperTitleGroup(value){
 
 
     if(info.type===0){
-
         return 0;
-
     }
 
 
     if(info.type===2){
-
         return 1;
-
     }
 
 
@@ -1722,18 +1896,14 @@ function paperTitleGroup(value){
             if(
                 /^\p{Script=Han}$/u.test(ch)
             ){
-
                 return 0;
-
             }
 
 
             if(
                 /^[A-Za-z]$/.test(ch)
             ){
-
                 return 1;
-
             }
 
         }
@@ -1769,9 +1939,7 @@ function comparePaperField(a,b){
 
 
     if(!x&&!y){
-
         return 0;
-
     }
 
 
@@ -1783,9 +1951,7 @@ function comparePaperField(a,b){
 
 
     if(r!==0){
-
         return r;
-
     }
 
 
@@ -1810,9 +1976,7 @@ function comparePaperEntry(a,b){
 
 
     if(groupA!==groupB){
-
         return groupA-groupB;
-
     }
 
 
@@ -1860,9 +2024,7 @@ function comparePaperEntry(a,b){
 
 
         if(byTitle!==0){
-
             return byTitle;
-
         }
 
 
@@ -1882,9 +2044,7 @@ function comparePaperEntry(a,b){
 
 
     if(byIssue!==0){
-
         return byIssue;
-
     }
 
 
@@ -1896,9 +2056,7 @@ function comparePaperEntry(a,b){
 
 
     if(byYear!==0){
-
         return byYear;
-
     }
 
 
@@ -1910,9 +2068,7 @@ function comparePaperEntry(a,b){
 
 
     if(byTitle!==0){
-
         return byTitle;
-
     }
 
 
@@ -1947,14 +2103,11 @@ function uniq(values){
             !v||
             seen.has(k)
         ){
-
             continue;
-
         }
 
 
         seen.add(k);
-
         out.push(v);
 
     }
@@ -1975,26 +2128,13 @@ function sortOptions(values){
 }
 
 
-/*
- * code：
- * 编码内容。
- *
- * codeEditUsed：
- * false = 尚未使用唯一一次“修改已填写编码”的机会
- * true  = 已经手动修改过一次，此后永久只读
- *
- * 注意：
- * 第一次从空白填写编码并保存，不会把 codeEditUsed 设为 true。
- */
 function normalizeEntry(x){
 
     if(
         !x||
         typeof x!=='object'
     ){
-
         return null;
-
     }
 
 
@@ -2043,9 +2183,7 @@ function normalizeProfile(x){
         !x||
         typeof x!=='object'
     ){
-
         return null;
-
     }
 
 
@@ -2054,9 +2192,7 @@ function normalizeProfile(x){
 
 
     if(!journal){
-
         return null;
-
     }
 
 
@@ -2089,26 +2225,17 @@ function deriveProfiles(entries){
         of entries
     ){
 
-        if(
-            !x.journal
-        ){
-
+        if(!x.journal){
             continue;
-
         }
 
 
         map.set(
             key(x.journal),
             {
-                journal:
-                    x.journal,
-
-                issue:
-                    x.issue,
-
-                journalNote:
-                    x.journalNote
+                journal:x.journal,
+                issue:x.issue,
+                journalNote:x.journalNote
             }
         );
 
@@ -2271,9 +2398,7 @@ function formatDate(iso){
             d.getTime()
         )
     ){
-
         return '';
-
     }
 
 
@@ -2323,9 +2448,7 @@ function pathEncode(path){
 function openStorageDb(){
 
     if(idbPromise){
-
         return idbPromise;
-
     }
 
 
@@ -2645,9 +2768,7 @@ async function readOpfsWorkingCopy(){
 
 
         if(!root){
-
             return null;
-
         }
 
 
@@ -2705,9 +2826,7 @@ async function writeOpfsWorkingCopy(payload){
 
 
         if(!root){
-
             return false;
-
         }
 
 
@@ -2760,9 +2879,7 @@ function validWorkingEnvelope(
         typeof value!=='object'||
         !value.state
     ){
-
         return null;
-
     }
 
 
@@ -2777,9 +2894,7 @@ function validWorkingEnvelope(
         payloadTarget!==
         expectedTarget
     ){
-
         return null;
-
     }
 
 
@@ -2965,9 +3080,7 @@ async function loadWorkingCopy(
 
 
     if(!chosen){
-
         return null;
-
     }
 
 
@@ -3115,45 +3228,27 @@ function status(
 function formatError(error){
 
     if(!error){
-
         return '未知错误';
-
     }
 
 
-    if(
-        error.status===401
-    ){
-
+    if(error.status===401){
         return 'Token 无效或已过期';
-
     }
 
 
-    if(
-        error.status===403
-    ){
-
+    if(error.status===403){
         return 'Token 权限不足或仓库访问被拒绝';
-
     }
 
 
-    if(
-        error.status===404
-    ){
-
+    if(error.status===404){
         return '仓库或数据文件不存在，或 Token 无权访问';
-
     }
 
 
-    if(
-        error.status===409
-    ){
-
+    if(error.status===409){
         return '云端文件已被其他设备修改';
-
     }
 
 
@@ -3376,9 +3471,7 @@ async function record(
             ()=>{
 
                 if(!unlocked){
-
                     return;
-
                 }
 
 
@@ -3507,9 +3600,7 @@ function readEmbeddedBackup(
 
 
     if(!node){
-
         return null;
-
     }
 
 
@@ -3527,7 +3618,6 @@ function readEmbeddedBackup(
             '内嵌 HTML 备份数据无效:',
             error
         );
-
 
         return null;
 
@@ -3547,32 +3637,25 @@ async function loadPublicView(){
         data=
         embedded;
 
-
         publicLoaded=
         true;
 
-
         render();
-
 
         exportBtn.disabled=
         false;
 
-
         void savePublicCache(
             data
         );
-
 
         status(
             'backup',
             'HTML 备份'
         );
 
-
         lastSyncTime.textContent=
         'HTML 备份 · 当前显示导出时刻快照';
-
 
         return true;
 
@@ -3615,10 +3698,8 @@ async function loadPublicView(){
                 `公开数据加载失败：HTTP ${response.status}`
             );
 
-
             e.status=
             response.status;
-
 
             throw e;
 
@@ -3700,12 +3781,10 @@ async function loadPublicView(){
             exportBtn.disabled=
             false;
 
-
             status(
                 'offline',
                 '离线浏览'
             );
-
 
             lastSyncTime.textContent=
             '公开数据暂时不可用 · 当前显示本机缓存';
@@ -3715,12 +3794,10 @@ async function loadPublicView(){
             exportBtn.disabled=
             true;
 
-
             status(
                 'offline',
                 '公开数据不可用'
             );
-
 
             lastSyncTime.textContent=
             '无法加载 papers_data.json · 编辑登录仍可使用';
@@ -4103,10 +4180,7 @@ async function writeRemote(
 
 
     if(sha){
-
-        body.sha=
-        sha;
-
+        body.sha=sha;
     }
 
 
@@ -4181,14 +4255,9 @@ async function login(
     );
 
 
-    syncBtn.disabled=
-    true;
-
-    exportBtn.disabled=
-    true;
-
-    importBtn.disabled=
-    true;
+    syncBtn.disabled=true;
+    exportBtn.disabled=true;
+    importBtn.disabled=true;
 
 
     try{
@@ -4209,10 +4278,7 @@ async function login(
 
 
             if(cache){
-
-                data=
-                cache;
-
+                data=cache;
             }
 
 
@@ -4467,9 +4533,7 @@ async function sync(
 
 
     if(syncing){
-
         return false;
-
     }
 
 
@@ -4479,9 +4543,7 @@ async function sync(
 
 
     autoTimer=null;
-
     syncing=true;
-
     syncBtn.disabled=true;
 
 
@@ -4907,9 +4969,7 @@ function scheduleSync(){
 
 
     if(!unlocked){
-
         return;
-
     }
 
 
@@ -5011,9 +5071,7 @@ function rememberOption(
 
 
     if(!v){
-
         return;
-
     }
 
 
@@ -5066,9 +5124,7 @@ function upsertProfile(
 
 
     if(!j){
-
         return;
-
     }
 
 
@@ -5146,9 +5202,7 @@ function applyJournalProfile(
 
 
     if(!profile){
-
         return false;
-
     }
 
 
@@ -5212,9 +5266,7 @@ function editHistoryOption(
         key(next)===
         key(oldValue)
     ){
-
         return;
-
     }
 
 
@@ -5316,6 +5368,7 @@ function editHistoryOption(
 
     scheduleSync();
 
+
     renderAllCombos();
 
 
@@ -5341,9 +5394,7 @@ function deleteHistoryOption(
             `确定从${meta.label}下拉菜单删除“${value}”吗？\n\n已经保存的论文条目不会改变。`
         )
     ){
-
         return;
-
     }
 
 
@@ -5410,6 +5461,7 @@ function deleteHistoryOption(
 
     scheduleSync();
 
+
     renderAllCombos();
 
 
@@ -5450,6 +5502,7 @@ const comboRegistry={
         }
 
     },
+
 
     edit:{
 
@@ -5914,9 +5967,7 @@ function setupCombo(
 
 
                 if(!options.length){
-
                     return;
-
                 }
 
 
@@ -6061,9 +6112,7 @@ function setupCombo(
 
 
             if(!select){
-
                 return;
-
             }
 
 
@@ -6117,17 +6166,6 @@ document.addEventListener(
 );
 
 
-/*
- * 渲染总表。
- *
- * 如果条目没有编码：
- * 原“编辑”位置显示“链接”。
- *
- * 如果条目已有编码：
- * 原位置直接显示编码。
- *
- * 点击位置及编辑行为不变。
- */
 function render(){
 
     data=
@@ -6224,10 +6262,6 @@ function render(){
             :'';
 
 
-            /*
-             * 与原来“编辑”所在位置保持一致。
-             * 编码只替换按钮文字，不改变点击关系。
-             */
             if(
                 editButton&&
                 rows.length
@@ -6296,9 +6330,7 @@ function requireEditAccess(){
         unlocked&&
         adminConfigured()
     ){
-
         return true;
-
     }
 
 
@@ -6313,19 +6345,12 @@ function requireEditAccess(){
 }
 
 
-/*
- * 添加板块没有编码字段。
- * 新建记录的 code 初始为空；
- * codeEditUsed 初始为 false。
- */
 function addEntry(){
 
     if(
         !requireEditAccess()
     ){
-
         return;
-
     }
 
 
@@ -6481,11 +6506,6 @@ function closeEdit(){
     editInitialSnapshot='';
 
 
-    /*
-     * 关闭编辑框时恢复 DOM 控件状态。
-     * 下次打开时根据对应条目的 codeEditUsed
-     * 再判断是否只读。
-     */
     editCode.readOnly=
     false;
 
@@ -6500,26 +6520,12 @@ function closeEdit(){
 }
 
 
-/*
- * 打开编辑框：
- *
- * 没填写过编码：
- * 可以填写。
- *
- * 已填写编码但还没有修改过：
- * 仍然可以修改一次。
- *
- * 已经修改过一次：
- * 编码框立即永久只读。
- */
 function openEdit(id){
 
     if(
         !requireEditAccess()
     ){
-
         return;
-
     }
 
 
@@ -6530,9 +6536,7 @@ function openEdit(id){
 
 
     if(!item){
-
         return;
-
     }
 
 
@@ -6590,33 +6594,12 @@ function openEdit(id){
 }
 
 
-/*
- * 编码规则：
- *
- * 1. 原编码为空：
- *    填写编码并保存属于“首次填写”，
- *    不消耗修改机会。
- *
- * 2. 原编码已经有值，并且 codeEditUsed=false：
- *    如果这次保存时编码发生变化，
- *    视为唯一的一次手动修改；
- *    保存成功后 codeEditUsed=true。
- *
- * 3. codeEditUsed=true：
- *    编码永久只读，不能再次更改。
- *
- * 因此：
- * 第一次填写 -> 仍然可改一次
- * 第一次修改 -> 立即锁定
- */
 function saveEditEntry(){
 
     if(
         !requireEditAccess()
     ){
-
         return;
-
     }
 
 
@@ -6627,9 +6610,7 @@ function saveEditEntry(){
 
 
     if(!item){
-
         return;
-
     }
 
 
@@ -6645,11 +6626,6 @@ function saveEditEntry(){
     );
 
 
-    /*
-     * 理论上只读框已经无法输入，
-     * 此处仍做数据层保护，
-     * 防止通过开发者工具强行修改 DOM。
-     */
     if(
         item.codeEditUsed&&
         nextCode!==originalCode
@@ -6704,13 +6680,6 @@ function saveEditEntry(){
         code:
             nextCode,
 
-        /*
-         * 只有“原来已经有编码，
-         * 且这次改成了不同编码”
-         * 才算使用唯一一次修改机会。
-         *
-         * 从空白填写编码不算修改。
-         */
         codeEditUsed:
             Boolean(
                 item.codeEditUsed
@@ -6797,9 +6766,7 @@ function deleteEntry(){
         !requireEditAccess()||
         !editingId
     ){
-
         return;
-
     }
 
 
@@ -6810,9 +6777,7 @@ function deleteEntry(){
 
 
     if(!item){
-
         return;
-
     }
 
 
@@ -6821,9 +6786,7 @@ function deleteEntry(){
             `确定删除论文“${item.title}”吗？`
         )
     ){
-
         return;
-
     }
 
 
@@ -6918,9 +6881,6 @@ function buildHtmlBackup(
     ?.remove();
 
 
-    /*
-     * HTML 备份不写入 GitHub 登录信息。
-     */
     for(
         const id
         of[
@@ -6993,9 +6953,7 @@ function downloadHtmlBackup(){
         !publicLoaded&&
         !unlocked
     ){
-
         return;
-
     }
 
 
@@ -7148,9 +7106,7 @@ function importFile(file){
         !requireEditAccess()||
         !file
     ){
-
         return;
-
     }
 
 
@@ -7209,9 +7165,7 @@ function importFile(file){
                     `将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`
                 )
             ){
-
                 return;
-
             }
 
 
@@ -7333,12 +7287,6 @@ configForm.addEventListener(
 );
 
 
-/*
- * 总表允许自由选择文字。
- *
- * “链接/编码”按钮只有在真正短点击时才打开编辑框。
- * 拖动选中文字不会误触编辑。
- */
 let paperEditPointer=null;
 
 
@@ -7413,9 +7361,7 @@ papersList.addEventListener(
             event.pointerId!==
             paperEditPointer.pointerId
         ){
-
             return;
-
         }
 
 
@@ -7450,9 +7396,7 @@ papersList.addEventListener(
             event.pointerId!==
             paperEditPointer.pointerId
         ){
-
             return;
-
         }
 
 
@@ -7503,9 +7447,6 @@ papersList.addEventListener(
 );
 
 
-/*
- * 屏蔽浏览器在拖选后合成的 click。
- */
 papersList.addEventListener(
     'click',
     event=>{
@@ -7528,10 +7469,6 @@ papersList.addEventListener(
 );
 
 
-/*
- * 键盘仍然可以通过 Enter / Space
- * 打开“链接/编码”对应编辑框。
- */
 papersList.addEventListener(
     'keydown',
     event=>{
@@ -7543,9 +7480,7 @@ papersList.addEventListener(
 
 
         if(!btn){
-
             return;
-
         }
 
 
