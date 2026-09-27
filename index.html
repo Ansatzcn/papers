@@ -398,9 +398,6 @@ button{cursor:pointer}
 
 .paper-item:hover{background:#fafcff}
 
-/*
- * 各条目标题仍维持原来的蓝色。
- */
 .paper-title{
     margin-bottom:.6rem;
     color:#1E40AF;
@@ -418,9 +415,6 @@ button{cursor:pointer}
     color:#000;
 }
 
-/*
- * 除标题外，总表所有字段内容全部使用纯黑色。
- */
 .meta-row{
     display:flex;
     align-items:flex-start;
@@ -447,10 +441,6 @@ button{cursor:pointer}
     color:#000;
 }
 
-/*
- * 右下角“链接”改为纯黑色。
- * 保持无下划线。
- */
 .edit-btn{
     flex:0 0 auto;
     margin-left:auto;
@@ -477,10 +467,6 @@ button{cursor:pointer}
     text-decoration:none;
 }
 
-/*
- * 编码保持与刊号字段内容相同的字号、字重、行高，
- * 同时颜色改为纯黑色。
- */
 .edit-btn.code-label{
     font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
     font-size:.9rem;
@@ -999,7 +985,7 @@ button{cursor:pointer}
             <span
                 class="count-badge"
                 id="countDisplay"
-            >0</span>
+            >0/0</span>
 
         </div>
 
@@ -1460,9 +1446,9 @@ editIssueCombo=$('editIssueCombo'),
 
 editJournalNote=$('editJournalNote'),
 editJournalNoteToggle=$('editJournalNoteToggle'),
-editJournalNotePanel=$('editJournalNotePanel'),
-editJournalNoteOptions=$('editJournalNoteOptions'),
-editJournalNoteCombo=$('editJournalNoteCombo'),
+editJournalPanel=$('editJournalPanel'),
+editJournalOptions=$('editJournalOptions'),
+editJournalCombo=$('editJournalCombo'),
 
 editDelete=$('editDelete'),
 editCancel=$('editCancel'),
@@ -6174,10 +6160,14 @@ function render(){
     );
 
 
+    const codedCount=
+    data.entries.filter(
+        item=>Boolean(item.code)
+    ).length;
+
+
     countDisplay.textContent=
-    String(
-        data.entries.length
-    );
+    `${codedCount}/${data.entries.length}`;
 
 
     if(
