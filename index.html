@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-21-html-backup-v1">
+<meta name="app-build" content="2026-09-27-code-lock-v2">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -313,23 +313,6 @@ button{cursor:pointer}
     word-break:break-word;
 }
 .meta-label{flex:0 0 auto;color:#64748b;font-weight:700}
-.issue-check{display:inline-flex;align-items:flex-start;gap:0;min-width:0}
-.paper-checkbox{
-    /* 使用浏览器原生 Checkbox 外观，并强制保持可见。 */
-    display:inline-block;
-    flex:0 0 auto;
-    width:16px;
-    height:16px;
-    margin:.16rem 0 0 0;
-    padding:0;
-    position:static;
-    opacity:1;
-    visibility:visible;
-    appearance:auto;
-    -webkit-appearance:checkbox;
-    vertical-align:middle;
-    cursor:pointer;
-}
 .paper-actions{
     display:flex;
     justify-content:flex-end;
@@ -346,11 +329,13 @@ button{cursor:pointer}
     font-size:.86rem;
     font-weight:400;
     line-height:1.55;
-    text-decoration:underline;
-    text-underline-offset:2px;
+    text-decoration:none;
     user-select:none;
     -webkit-user-select:none;
     touch-action:manipulation;
+}
+.edit-btn.code-label{
+    font-family:"Times New Roman",serif;
 }
 .edit-btn:hover,
 .edit-btn:focus-visible{
@@ -416,16 +401,6 @@ button{cursor:pointer}
     font-size:.86rem;
     line-height:1.6;
 }
-.remember-row{
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
-    color:#334155;
-    font-size:.82rem;
-    line-height:1.5;
-}
-.remember-row input{margin-top:.2rem;accent-color:#1E40AF}
-
 .toast{
     position:fixed;
     left:50%;
@@ -668,6 +643,11 @@ button{cursor:pointer}
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group full">
+                    <label for="editCode">编码</label>
+                    <input class="input" id="editCode" type="text" autocomplete="off">
+                </div>
             </div>
         </div>
         <div class="dialog-actions">
@@ -702,10 +682,7 @@ button{cursor:pointer}
                 <label for="cfgToken">GitHub Personal Access Token</label>
                 <input class="input" id="cfgToken" name="github-token" type="password" autocomplete="current-password" spellcheck="false">
             </div>
-            <label class="remember-row">
-                <input type="checkbox" id="rememberToken" checked>
-                <span>在本设备保存 Token；取消勾选则仅保留在当前页面内存，刷新或关闭页面后失效。</span>
-            </label>
+            <p class="dialog-desc" style="margin:0;padding:0;border:0">Token 将保存在本设备，用于后续编辑登录。</p>
         </div>
         <div class="dialog-actions">
             <button class="btn" id="configCancel" type="button">取消</button>
@@ -729,13 +706,13 @@ journalInput=$('journalInput'),journalToggle=$('journalToggle'),journalPanel=$('
 issueInput=$('issueInput'),issueToggle=$('issueToggle'),issuePanel=$('issuePanel'),issueOptions=$('issueOptions'),issueCombo=$('issueCombo'),
 journalNoteInput=$('journalNoteInput'),journalNoteToggle=$('journalNoteToggle'),journalNotePanel=$('journalNotePanel'),journalNoteOptions=$('journalNoteOptions'),journalNoteCombo=$('journalNoteCombo'),
 addBtn=$('addBtn'),countDisplay=$('countDisplay'),papersList=$('papersList'),
-editModal=$('editModal'),editTitle=$('editTitle'),editYear=$('editYear'),clearEditYear=$('clearEditYear'),
+editModal=$('editModal'),editTitle=$('editTitle'),editYear=$('editYear'),clearEditYear=$('clearEditYear'),editCode=$('editCode'),
 editJournal=$('editJournal'),editJournalToggle=$('editJournalToggle'),editJournalPanel=$('editJournalPanel'),editJournalOptions=$('editJournalOptions'),editJournalCombo=$('editJournalCombo'),
 editIssue=$('editIssue'),editIssueToggle=$('editIssueToggle'),editIssuePanel=$('editIssuePanel'),editIssueOptions=$('editIssueOptions'),editIssueCombo=$('editIssueCombo'),
 editJournalNote=$('editJournalNote'),editJournalNoteToggle=$('editJournalNoteToggle'),editJournalNotePanel=$('editJournalNotePanel'),editJournalNoteOptions=$('editJournalNoteOptions'),editJournalNoteCombo=$('editJournalNoteCombo'),
 editDelete=$('editDelete'),editCancel=$('editCancel'),editSave=$('editSave'),
 configModal=$('configModal'),configForm=$('configForm'),cfgOwner=$('cfgOwner'),cfgRepo=$('cfgRepo'),cfgFile=$('cfgFile'),
-cfgToken=$('cfgToken'),rememberToken=$('rememberToken'),configCancel=$('configCancel'),configSave=$('configSave'),
+cfgToken=$('cfgToken'),configCancel=$('configCancel'),configSave=$('configSave'),
 backToTopBtn=$('backToTopBtn'),toast=$('toast');
 
 const MAX_BYTES=900*1024;
@@ -770,7 +747,7 @@ const OPFS_WORKING_FILE=`papers-working-${PAGE_INSTANCE_ID}.json`;
 let data={entries:[],histories:{journals:[],issues:[],notes:[]},profiles:[]};
 let config={owner:'',repo:'',file:'papers_data.json',token:''};
 let meta={target:'',fingerprint:null,sha:null,lastSyncAt:null};
-let unlocked=false,publicLoaded=false,syncing=false,autoTimer=null,editingId='',editInitialSnapshot='',toastTimer=null,rememberTokenPreference=true;
+let unlocked=false,publicLoaded=false,syncing=false,autoTimer=null,editingId='',editInitialSnapshot='',toastTimer=null;
 let idbPromise=null,workingSaveChain=Promise.resolve();
 
 function clean(v){return String(v??'').trim()}
@@ -931,7 +908,8 @@ function normalizeEntry(x){
         journal:clean(x.journal),
         issue:clean(x.issue),
         journalNote:clean(x.journalNote??x.note),
-        checked:Boolean(x.checked)
+        code:clean(x.code),
+        codeEditUsed:Boolean(x.codeEditUsed)
     };
 }
 
@@ -1134,12 +1112,10 @@ async function loadConfig(){
     config.owner=clean(saved.owner);config.repo=clean(saved.repo);
     config.file=clean(saved.file)||'papers_data.json';
     config.token=storedToken;
-    rememberTokenPreference=typeof saved.rememberToken==='boolean'?saved.rememberToken:true;
 }
 async function saveConfig(){
-    rememberTokenPreference=rememberToken.checked;
-    await idbSet(CONFIG_KEY,{owner:config.owner,repo:config.repo,file:config.file,rememberToken:rememberTokenPreference});
-    if(rememberTokenPreference&&config.token){
+    await idbSet(CONFIG_KEY,{owner:config.owner,repo:config.repo,file:config.file});
+    if(config.token){
         await idbSet(TOKEN_KEY,config.token);
     }else{
         await idbDelete(TOKEN_KEY);
@@ -1572,8 +1548,7 @@ document.addEventListener('click',closePanels);
 
 function render(){
     data=normalizeData(data);
-    const checkedCount=data.entries.reduce((sum,item)=>sum+(item.checked?1:0),0);
-    countDisplay.textContent=`${checkedCount}/${data.entries.length}`;
+    countDisplay.textContent=String(data.entries.length);
     if(!data.entries.length){
         papersList.innerHTML='<div class="empty-state"></div>';renderAllCombos();return;
     }
@@ -1581,10 +1556,12 @@ function render(){
         const rows=[
             item.journal?`<div class="meta-row"><span class="meta-label">刊名：</span>${esc(item.journal)}</div>`:'',
             `<div class="meta-row"><span class="meta-label">刊期：</span>${esc(item.year)}</div>`,
-            `<div class="meta-row"><span class="meta-label">刊号：</span><span class="issue-check"><span>${esc(item.issue)}</span><input class="paper-checkbox" type="checkbox" data-check-id="${attr(item.id)}" aria-label="${attr(item.title||'条目')} 勾选" ${item.checked?'checked':''}></span></div>`,
+            `<div class="meta-row"><span class="meta-label">刊号：</span>${esc(item.issue)}</div>`,
             item.journalNote?`<div class="meta-row"><span class="meta-label">刊注：</span>${esc(item.journalNote)}</div>`:''
         ].filter(Boolean);
-        const editButton=unlocked?`<button class="edit-btn" data-id="${attr(item.id)}" type="button">编辑</button>`:'';
+        const buttonText=item.code?esc(item.code):'链接';
+        const buttonClass=item.code?'edit-btn code-label':'edit-btn';
+        const editButton=unlocked?`<button class="${buttonClass}" data-id="${attr(item.id)}" type="button">${buttonText}</button>`:'';
         if(editButton&&rows.length)rows[rows.length-1]=rows[rows.length-1].replace('</div>',`${editButton}</div>`);
         const actions=editButton&&!rows.length?`<div class="paper-actions">${editButton}</div>`:'';
         return `<article class="paper-item">
@@ -1616,7 +1593,6 @@ function addEntry(){
     const issue=clean(issueInput.value);
     const journalNote=clean(journalNoteInput.value);
 
-
     rememberOption('journal',journal);
     rememberOption('issue',issue);
     rememberOption('note',journalNote);
@@ -1629,7 +1605,8 @@ function addEntry(){
         journal,
         issue,
         journalNote,
-        checked:false
+        code:'',
+        codeEditUsed:false
     });
 
     titleInput.value='';
@@ -1649,13 +1626,15 @@ function editSnapshot(){
         year:editYear.value,
         journal:editJournal.value,
         issue:editIssue.value,
-        journalNote:editJournalNote.value
+        journalNote:editJournalNote.value,
+        code:editCode.value
     });
 }
 
 function closeEdit(){
     editingId='';
     editInitialSnapshot='';
+    editCode.readOnly=false;
     editModal.classList.add('hidden');
     closePanels();
 }
@@ -1671,6 +1650,8 @@ function openEdit(id){
     editJournal.value=item.journal;
     editIssue.value=item.issue;
     editJournalNote.value=item.journalNote;
+    editCode.value=item.code;
+    editCode.readOnly=Boolean(item.codeEditUsed);
     editInitialSnapshot=editSnapshot();
     editModal.classList.remove('hidden');
     renderAllCombos();
@@ -1683,12 +1664,24 @@ function saveEditEntry(){
     const item=data.entries.find(x=>x.id===editingId);
     if(!item)return;
 
+    const originalCode=clean(item.code);
+    const nextCode=clean(editCode.value);
+
+    if(item.codeEditUsed&&nextCode!==originalCode){
+        show('编码已锁定，不能再次修改','error');
+        editCode.value=originalCode;
+        editCode.readOnly=true;
+        return;
+    }
+
     const next={
         title:clean(editTitle.value),
         year:clean(editYear.value),
         journal:clean(editJournal.value),
         issue:clean(editIssue.value),
-        journalNote:clean(editJournalNote.value)
+        journalNote:clean(editJournalNote.value),
+        code:nextCode,
+        codeEditUsed:Boolean(item.codeEditUsed)||(Boolean(originalCode)&&nextCode!==originalCode)
     };
 
     if(!next.title){
@@ -1793,7 +1786,7 @@ function importFile(file){
 
 function openConfig(){
     cfgOwner.value=config.owner;cfgRepo.value=config.repo;cfgFile.value=config.file||'papers_data.json';cfgToken.value=config.token;
-    rememberToken.checked=rememberTokenPreference;configModal.classList.remove('hidden');
+    configModal.classList.remove('hidden');
 }
 function closeConfig(){configModal.classList.add('hidden')}
 configForm.addEventListener('submit',async event=>{
@@ -1803,7 +1796,7 @@ configForm.addEventListener('submit',async event=>{
 });
 
 // 总表文字必须可以自由拖选。
-// “编辑”只响应真正的短点击：按下和松开都必须在同一个编辑按钮上，
+// 条目右侧“链接/编码”只响应真正的短点击：按下和松开都必须在同一个按钮上，
 // 指针移动不能超过阈值，而且当前不能存在非折叠文字选区。
 let paperEditPointer=null;
 const EDIT_CLICK_MOVE_LIMIT=6;
@@ -1879,19 +1872,6 @@ papersList.addEventListener('keydown',event=>{
     }
 });
 
-// 勾选状态只在总表中直接修改，不进入“添加”或“编辑”表单。
-papersList.addEventListener('change',event=>{
-    const checkbox=event.target.closest('.paper-checkbox[data-check-id]');
-    if(!checkbox)return;
-    if(!requireEditAccess()){
-        checkbox.checked=!checkbox.checked;
-        return;
-    }
-    const item=data.entries.find(x=>x.id===checkbox.dataset.checkId);
-    if(!item)return;
-    item.checked=checkbox.checked;
-    markLocalChange();
-});
 addBtn.addEventListener('click',addEntry);
 editDelete.addEventListener('click',deleteEntry);
 editCancel.addEventListener('click',closeEdit);
