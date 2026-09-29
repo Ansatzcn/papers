@@ -2,6 +2,346 @@
   "schemaVersion": 2,
   "entries": [
     {
+      "id": "ba30ed55-f516-40f9-a251-7797652d2b5d",
+      "title": "高校思政课教师增强思政引领力的进路探究",
+      "year": "2026-16",
+      "journal": "学校党建与思想教育",
+      "issue": "1007-5968",
+      "journalNote": "马克思主义理论C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "9469c42f-b4e7-4609-97c6-6c2c6fc4afbb",
+      "title": "《社会民主党在民主革命中的两种策略》译本考证及历史地位——基于马克思主义传播史的考察",
+      "year": "2020-03",
+      "journal": "高校马克思主义理论研究",
+      "issue": "2096-1170",
+      "journalNote": "马克思主义理论C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "3a6f2021-6db1-4235-8ad0-49c0bb74585d",
+      "title": "习近平总书记关于宏观经济治理现代化重要论述的原创性贡献",
+      "year": "2026-05",
+      "journal": "习近平经济思想研究",
+      "issue": "2097-1729",
+      "journalNote": "马克思主义理论C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "08a50af9-474e-4a26-9cca-ac2b800b13b8",
+      "title": "“数字控制”下的劳动秩序——外卖骑手的劳动控制研究",
+      "year": "2020-06",
+      "journal": "社会学研究",
+      "issue": "1002-5936",
+      "journalNote": "社会学C刊",
+      "code": "330003",
+      "codeEditUsed": false
+    },
+    {
+      "id": "fae58d4c-0c5c-4448-87ae-01065ae7bfc8",
+      "title": "有关虚假的社会价值的几个争论问题",
+      "year": "1984-12",
+      "journal": "学术月刊",
+      "issue": "0439-8041",
+      "journalNote": "综合性社会科学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "e5d24b22-99cf-4a25-affb-b19146cae171",
+      "title": "马克思城乡问题研究的历史辩证法内涵探析",
+      "year": "2025-07",
+      "journal": "南京社会科学",
+      "issue": "1001-8263",
+      "journalNote": "综合性社会科学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "4556bbe3-a4b8-443d-b16c-12a7fa4a0cdb",
+      "title": "城市更新与共享社会发展",
+      "year": "2024-12",
+      "journal": "中国社会科学",
+      "issue": "1002-4921",
+      "journalNote": "综合性社会科学C刊",
+      "code": "330010",
+      "codeEditUsed": false
+    },
+    {
+      "id": "6bca59aa-a63e-414a-a23a-d90e52ae7454",
+      "title": "1964年民法典草案的政治经济学化",
+      "year": "2021-01",
+      "journal": "探索与争鸣",
+      "issue": "1004-2229",
+      "journalNote": "综合性社会科学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "64627e8c-80dd-45c9-81d0-ba38744b790a",
+      "title": "“半殖民地半封建社会”概念的讨论及反思",
+      "year": "2022-05",
+      "journal": "中国高校社会科学",
+      "issue": "2095-5804",
+      "journalNote": "综合性社会科学C刊",
+      "code": "330019",
+      "codeEditUsed": false
+    },
+    {
+      "id": "dde60ee9-b5f4-428a-9f90-b10a4f8f20ff",
+      "title": "现代化人民城市建设的内涵、难点与途径",
+      "year": "2025-06",
+      "journal": "新疆师范大学学报（哲学社会科学版）",
+      "issue": "1005-9245",
+      "journalNote": "高校学报C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "0e4c2c2a-7b8f-4cad-b0d7-6ecfaec2f7a8",
+      "title": "中美贸易战的背景、原因、本质及中国对策",
+      "year": "2018-05",
+      "journal": "武汉大学学报（哲学社会科学版）",
+      "issue": "1672-7320",
+      "journalNote": "高校学报C刊",
+      "code": "330009",
+      "codeEditUsed": false
+    },
+    {
+      "id": "f478ff49-cea9-492d-818c-34f591941297",
+      "title": "关于生产关系的两重性问题",
+      "year": "1979-10",
+      "journal": "经济研究",
+      "issue": "0577-9154",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "597f6a6d-5e77-4d87-baf0-1184790512f4",
+      "title": "对价值决定和价值规律的再探讨",
+      "year": "1982-01",
+      "journal": "经济研究",
+      "issue": "0577-9154",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "345e32ea-f2bd-44e5-9bb1-e5bef38deef8",
+      "title": "租税替代、财政收入与政府的房地产政策",
+      "year": "2012-08",
+      "journal": "经济研究",
+      "issue": "0577-9154",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "99a9309b-1a49-400d-9eb1-1776ed37e94e",
+      "title": "新质生产力论：一个历史唯物主义的阐释",
+      "year": "2024-03",
+      "journal": "经济研究",
+      "issue": "0577-9154",
+      "journalNote": "经济学C刊",
+      "code": "330025",
+      "codeEditUsed": false
+    },
+    {
+      "id": "bfeb605a-4510-4d9c-8099-25de5425c471",
+      "title": "关于新质生产力的理论",
+      "year": "2024-06",
+      "journal": "财经问题研究",
+      "issue": "1000-176X",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "39fd37bc-9646-4a2f-b0c9-72b4c2892048",
+      "title": "本土中间产品创新对国内大循环的影响研究",
+      "year": "2025-07",
+      "journal": "南开经济研究",
+      "issue": "1001-4691",
+      "journalNote": "经济学C刊",
+      "code": "330017",
+      "codeEditUsed": false
+    },
+    {
+      "id": "e0450869-28bb-42f1-a703-a59eb558626c",
+      "title": "陈翰笙与国立中央研究院无锡农村经济调查",
+      "year": "2020-05",
+      "journal": "中国经济史研究",
+      "issue": "1002-8005",
+      "journalNote": "经济学C刊",
+      "code": "330001",
+      "codeEditUsed": false
+    },
+    {
+      "id": "906d3003-dd37-4bd0-9095-7e64b10124e8",
+      "title": "对置盐定理的再审视",
+      "year": "2024-03",
+      "journal": "财贸经济",
+      "issue": "1002-8102",
+      "journalNote": "经济学C刊",
+      "code": "330022",
+      "codeEditUsed": false
+    },
+    {
+      "id": "f909aa31-3d5c-4bc0-88ab-da64a0fd120b",
+      "title": "对“置盐定理”的批判性考察",
+      "year": "2010-06",
+      "journal": "经济学动态",
+      "issue": "1002-8390",
+      "journalNote": "经济学C刊",
+      "code": "330002",
+      "codeEditUsed": false
+    },
+    {
+      "id": "c9890e6c-74de-4cf3-91b7-913b1c8283dc",
+      "title": "从新剑桥增长模型到新卡莱斯基增长模型",
+      "year": "2016-01",
+      "journal": "经济学动态",
+      "issue": "1002-8390",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "11a4b3bc-9a63-4ef8-a0d1-4daedc5f5b14",
+      "title": "检验劳动价值论：方法与证据",
+      "year": "2017-09",
+      "journal": "经济学动态",
+      "issue": "1002-8390",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "dd8620eb-7b14-4eb0-aad5-e0d56d1428d0",
+      "title": "建构性市场、政府内竞争与中国高铁的自主创新——基于社会主义政治经济学视角的阐释",
+      "year": "2023-04",
+      "journal": "经济学动态",
+      "issue": "1002-8390",
+      "journalNote": "经济学C刊",
+      "code": "330029",
+      "codeEditUsed": false
+    },
+    {
+      "id": "e88aa210-292a-4cf1-9e05-b1ef00f242ac",
+      "title": "社会主义基本经济制度新概括的学理逻辑研究",
+      "year": "2020-04",
+      "journal": "经济学家",
+      "issue": "1003-5656",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "65af20c2-37f7-43a7-8974-5843e9d453f8",
+      "title": "规范和引导资本健康发展：资本二重性及其矛盾的视角",
+      "year": "2022-08",
+      "journal": "改革",
+      "issue": "1003-7543",
+      "journalNote": "经济学C刊",
+      "code": "330030",
+      "codeEditUsed": false
+    },
+    {
+      "id": "c352de42-f5ec-4efc-9129-40f2b23e5949",
+      "title": "克罗蒂和布伦纳的破坏性竞争理论比较研究",
+      "year": "2013-05",
+      "journal": "经济纵横",
+      "issue": "1007-7685",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "d86c9bb7-4767-4d1d-ac4c-e903fdaea172",
+      "title": "《共产党宣言》中经济学和经济社会学学理问题探讨",
+      "year": "2022-09",
+      "journal": "经济纵横",
+      "issue": "1007-7685",
+      "journalNote": "经济学C刊",
+      "code": "330028",
+      "codeEditUsed": false
+    },
+    {
+      "id": "7302d939-4c80-4a92-9c33-90dcac817adf",
+      "title": "中国制造业企业的实际资本积累动能研究：经济、技术与制度的协同视角",
+      "year": "2024-01",
+      "journal": "政治经济学评论",
+      "issue": "1674-7542",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "75c7a3eb-de21-4d0a-a5b9-7e07ce7f0c89",
+      "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
+      "year": "2022-02",
+      "journal": "政治经济学研究",
+      "issue": "2096-9090",
+      "journalNote": "经济学C扩",
+      "code": "330004",
+      "codeEditUsed": false
+    },
+    {
+      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
+      "title": "价值转形与置盐定理：一个批评和自我批评",
+      "year": "2021-02",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "经济学C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
+      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
+      "year": "2023-04",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "经济学C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "e3c06ed5-74b7-4561-b0f2-3f764fda7eeb",
+      "title": "工商业发达地区土改后的农村经济发展路向——以苏南无锡县为中心的考察",
+      "year": "2018-02",
+      "journal": "史学月刊",
+      "issue": "0583-0214",
+      "journalNote": "历史学C刊",
+      "code": "330005",
+      "codeEditUsed": false
+    },
+    {
+      "id": "0c8346c8-5816-4444-a13d-b80f7b06c1e4",
+      "title": "瞿秋白与“领导权”的定名——Hegemony概念的中国革命旅程（1923-1927）",
+      "year": "2021-05",
+      "journal": "近代史研究",
+      "issue": "1001-6708",
+      "journalNote": "历史学C刊",
+      "code": "330027",
+      "codeEditUsed": false
+    },
+    {
+      "id": "5ef411c9-2f75-4df5-a42f-08124d830108",
+      "title": "陈翰笙与托尼的中国农村经济问题研究",
+      "year": "2020-01",
+      "journal": "史学理论研究",
+      "issue": "1004-0013",
+      "journalNote": "历史学C刊",
+      "code": "330007",
+      "codeEditUsed": false
+    },
+    {
       "id": "e1851cce-b37b-413b-8cda-cae000ae92b1",
       "title": "“大革命”称谓与共产国际",
       "year": "1997-11",
@@ -382,346 +722,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "ba30ed55-f516-40f9-a251-7797652d2b5d",
-      "title": "高校思政课教师增强思政引领力的进路探究",
-      "year": "2026-16",
-      "journal": "学校党建与思想教育",
-      "issue": "1007-5968",
-      "journalNote": "马克思主义理论C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "9469c42f-b4e7-4609-97c6-6c2c6fc4afbb",
-      "title": "《社会民主党在民主革命中的两种策略》译本考证及历史地位——基于马克思主义传播史的考察",
-      "year": "2020-03",
-      "journal": "高校马克思主义理论研究",
-      "issue": "2096-1170",
-      "journalNote": "马克思主义理论C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "3a6f2021-6db1-4235-8ad0-49c0bb74585d",
-      "title": "习近平总书记关于宏观经济治理现代化重要论述的原创性贡献",
-      "year": "2026-05",
-      "journal": "习近平经济思想研究",
-      "issue": "2097-1729",
-      "journalNote": "马克思主义理论C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "08a50af9-474e-4a26-9cca-ac2b800b13b8",
-      "title": "“数字控制”下的劳动秩序——外卖骑手的劳动控制研究",
-      "year": "2020-06",
-      "journal": "社会学研究",
-      "issue": "1002-5936",
-      "journalNote": "社会学C刊",
-      "code": "330003",
-      "codeEditUsed": false
-    },
-    {
-      "id": "fae58d4c-0c5c-4448-87ae-01065ae7bfc8",
-      "title": "有关虚假的社会价值的几个争论问题",
-      "year": "1984-12",
-      "journal": "学术月刊",
-      "issue": "0439-8041",
-      "journalNote": "综合性社会科学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "e5d24b22-99cf-4a25-affb-b19146cae171",
-      "title": "马克思城乡问题研究的历史辩证法内涵探析",
-      "year": "2025-07",
-      "journal": "南京社会科学",
-      "issue": "1001-8263",
-      "journalNote": "综合性社会科学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "4556bbe3-a4b8-443d-b16c-12a7fa4a0cdb",
-      "title": "城市更新与共享社会发展",
-      "year": "2024-12",
-      "journal": "中国社会科学",
-      "issue": "1002-4921",
-      "journalNote": "综合性社会科学C刊",
-      "code": "330010",
-      "codeEditUsed": false
-    },
-    {
-      "id": "6bca59aa-a63e-414a-a23a-d90e52ae7454",
-      "title": "1964年民法典草案的政治经济学化",
-      "year": "2021-01",
-      "journal": "探索与争鸣",
-      "issue": "1004-2229",
-      "journalNote": "综合性社会科学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "64627e8c-80dd-45c9-81d0-ba38744b790a",
-      "title": "“半殖民地半封建社会”概念的讨论及反思",
-      "year": "2022-05",
-      "journal": "中国高校社会科学",
-      "issue": "2095-5804",
-      "journalNote": "综合性社会科学C刊",
-      "code": "330019",
-      "codeEditUsed": false
-    },
-    {
-      "id": "dde60ee9-b5f4-428a-9f90-b10a4f8f20ff",
-      "title": "现代化人民城市建设的内涵、难点与途径",
-      "year": "2025-06",
-      "journal": "新疆师范大学学报（哲学社会科学版）",
-      "issue": "1005-9245",
-      "journalNote": "高校学报C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "0e4c2c2a-7b8f-4cad-b0d7-6ecfaec2f7a8",
-      "title": "中美贸易战的背景、原因、本质及中国对策",
-      "year": "2018-05",
-      "journal": "武汉大学学报（哲学社会科学版）",
-      "issue": "1672-7320",
-      "journalNote": "高校学报C刊",
-      "code": "330009",
-      "codeEditUsed": false
-    },
-    {
-      "id": "f478ff49-cea9-492d-818c-34f591941297",
-      "title": "关于生产关系的两重性问题",
-      "year": "1979-10",
-      "journal": "经济研究",
-      "issue": "0577-9154",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "597f6a6d-5e77-4d87-baf0-1184790512f4",
-      "title": "对价值决定和价值规律的再探讨",
-      "year": "1982-01",
-      "journal": "经济研究",
-      "issue": "0577-9154",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "345e32ea-f2bd-44e5-9bb1-e5bef38deef8",
-      "title": "租税替代、财政收入与政府的房地产政策",
-      "year": "2012-08",
-      "journal": "经济研究",
-      "issue": "0577-9154",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "99a9309b-1a49-400d-9eb1-1776ed37e94e",
-      "title": "新质生产力论：一个历史唯物主义的阐释",
-      "year": "2024-03",
-      "journal": "经济研究",
-      "issue": "0577-9154",
-      "journalNote": "经济学C刊",
-      "code": "330025",
-      "codeEditUsed": false
-    },
-    {
-      "id": "bfeb605a-4510-4d9c-8099-25de5425c471",
-      "title": "关于新质生产力的理论",
-      "year": "2024-06",
-      "journal": "财经问题研究",
-      "issue": "1000-176X",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "39fd37bc-9646-4a2f-b0c9-72b4c2892048",
-      "title": "本土中间产品创新对国内大循环的影响研究",
-      "year": "2025-07",
-      "journal": "南开经济研究",
-      "issue": "1001-4691",
-      "journalNote": "经济学C刊",
-      "code": "330017",
-      "codeEditUsed": false
-    },
-    {
-      "id": "e0450869-28bb-42f1-a703-a59eb558626c",
-      "title": "陈翰笙与国立中央研究院无锡农村经济调查",
-      "year": "2020-05",
-      "journal": "中国经济史研究",
-      "issue": "1002-8005",
-      "journalNote": "经济学C刊",
-      "code": "330001",
-      "codeEditUsed": false
-    },
-    {
-      "id": "906d3003-dd37-4bd0-9095-7e64b10124e8",
-      "title": "对置盐定理的再审视",
-      "year": "2024-03",
-      "journal": "财贸经济",
-      "issue": "1002-8102",
-      "journalNote": "经济学C刊",
-      "code": "330022",
-      "codeEditUsed": false
-    },
-    {
-      "id": "f909aa31-3d5c-4bc0-88ab-da64a0fd120b",
-      "title": "对“置盐定理”的批判性考察",
-      "year": "2010-06",
-      "journal": "经济学动态",
-      "issue": "1002-8390",
-      "journalNote": "经济学C刊",
-      "code": "330002",
-      "codeEditUsed": false
-    },
-    {
-      "id": "c9890e6c-74de-4cf3-91b7-913b1c8283dc",
-      "title": "从新剑桥增长模型到新卡莱斯基增长模型",
-      "year": "2016-01",
-      "journal": "经济学动态",
-      "issue": "1002-8390",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "11a4b3bc-9a63-4ef8-a0d1-4daedc5f5b14",
-      "title": "检验劳动价值论：方法与证据",
-      "year": "2017-09",
-      "journal": "经济学动态",
-      "issue": "1002-8390",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "dd8620eb-7b14-4eb0-aad5-e0d56d1428d0",
-      "title": "建构性市场、政府内竞争与中国高铁的自主创新——基于社会主义政治经济学视角的阐释",
-      "year": "2023-04",
-      "journal": "经济学动态",
-      "issue": "1002-8390",
-      "journalNote": "经济学C刊",
-      "code": "330029",
-      "codeEditUsed": false
-    },
-    {
-      "id": "e88aa210-292a-4cf1-9e05-b1ef00f242ac",
-      "title": "社会主义基本经济制度新概括的学理逻辑研究",
-      "year": "2020-04",
-      "journal": "经济学家",
-      "issue": "1003-5656",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "65af20c2-37f7-43a7-8974-5843e9d453f8",
-      "title": "规范和引导资本健康发展：资本二重性及其矛盾的视角",
-      "year": "2022-08",
-      "journal": "改革",
-      "issue": "1003-7543",
-      "journalNote": "经济学C刊",
-      "code": "330030",
-      "codeEditUsed": false
-    },
-    {
-      "id": "c352de42-f5ec-4efc-9129-40f2b23e5949",
-      "title": "克罗蒂和布伦纳的破坏性竞争理论比较研究",
-      "year": "2013-05",
-      "journal": "经济纵横",
-      "issue": "1007-7685",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "d86c9bb7-4767-4d1d-ac4c-e903fdaea172",
-      "title": "《共产党宣言》中经济学和经济社会学学理问题探讨",
-      "year": "2022-09",
-      "journal": "经济纵横",
-      "issue": "1007-7685",
-      "journalNote": "经济学C刊",
-      "code": "330028",
-      "codeEditUsed": false
-    },
-    {
-      "id": "7302d939-4c80-4a92-9c33-90dcac817adf",
-      "title": "中国制造业企业的实际资本积累动能研究：经济、技术与制度的协同视角",
-      "year": "2024-01",
-      "journal": "政治经济学评论",
-      "issue": "1674-7542",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "75c7a3eb-de21-4d0a-a5b9-7e07ce7f0c89",
-      "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
-      "year": "2022-02",
-      "journal": "政治经济学研究",
-      "issue": "2096-9090",
-      "journalNote": "经济学C扩",
-      "code": "330004",
-      "codeEditUsed": false
-    },
-    {
-      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
-      "title": "价值转形与置盐定理：一个批评和自我批评",
-      "year": "2021-02",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "经济学C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
-      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
-      "year": "2023-04",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "经济学C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "e3c06ed5-74b7-4561-b0f2-3f764fda7eeb",
-      "title": "工商业发达地区土改后的农村经济发展路向——以苏南无锡县为中心的考察",
-      "year": "2018-02",
-      "journal": "史学月刊",
-      "issue": "0583-0214",
-      "journalNote": "历史学C刊",
-      "code": "330005",
-      "codeEditUsed": false
-    },
-    {
-      "id": "0c8346c8-5816-4444-a13d-b80f7b06c1e4",
-      "title": "瞿秋白与“领导权”的定名——Hegemony概念的中国革命旅程（1923-1927）",
-      "year": "2021-05",
-      "journal": "近代史研究",
-      "issue": "1001-6708",
-      "journalNote": "历史学C刊",
-      "code": "330027",
-      "codeEditUsed": false
-    },
-    {
-      "id": "5ef411c9-2f75-4df5-a42f-08124d830108",
-      "title": "陈翰笙与托尼的中国农村经济问题研究",
-      "year": "2020-01",
-      "journal": "史学理论研究",
-      "issue": "1004-0013",
-      "journalNote": "历史学C刊",
-      "code": "330007",
-      "codeEditUsed": false
-    },
-    {
       "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
       "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
       "year": "2020-05",
@@ -908,12 +908,12 @@
       "2097-1729"
     ],
     "notes": [
-      "马克思主义理论C刊",
       "马克思主义理论C扩",
       "社会学C刊",
       "综合性社会科学C刊",
       "C刊【历史学】",
       "C刊【经济学】",
+      "C刊【马克思主义理论】",
       "C刊【高校学报】",
       "C扩【经济学】",
       "Q2【经济学】",
@@ -924,12 +924,12 @@
     {
       "journal": "教学与研究",
       "issue": "0257-2826",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "中共党史研究",
       "issue": "1003-3815",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "财经问题研究",
@@ -949,12 +949,12 @@
     {
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "马克思主义研究",
       "issue": "1006-5199",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "International Review of Applied Economics",
@@ -969,12 +969,12 @@
     {
       "journal": "社会主义研究",
       "issue": "1001-4527",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "党的文献",
       "issue": "1005-1597",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "经济纵横",
@@ -989,12 +989,12 @@
     {
       "journal": "国外理论动态",
       "issue": "1674-1277",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "世界社会主义研究",
       "issue": "2096-2630",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "探索与争鸣",
@@ -1009,7 +1009,7 @@
     {
       "journal": "毛泽东邓小平理论研究",
       "issue": "1005-8273",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "财贸经济",
@@ -1084,27 +1084,27 @@
     {
       "journal": "光明日报·理论版",
       "issue": "1002-3666",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "当代世界社会主义问题",
       "issue": "1001-5574",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "科学社会主义",
       "issue": "1002-1493",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "求是",
       "issue": "1002-4980",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "红旗文稿",
       "issue": "2095-1817",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "高校马克思主义理论研究",
@@ -1114,12 +1114,12 @@
     {
       "journal": "思想教育研究",
       "issue": "1002-5707",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "党建",
       "issue": "1002-9702",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "武汉大学学报（哲学社会科学版）",
@@ -1134,17 +1134,17 @@
     {
       "journal": "党史研究与教学",
       "issue": "1003-708X",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "中国特色社会主义研究",
       "issue": "1006-6470",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "思想理论教育",
       "issue": "1007-192X",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "学校党建与思想教育",
@@ -1154,27 +1154,27 @@
     {
       "journal": "理论视野",
       "issue": "1008-1747",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "思想理论教育导刊",
       "issue": "1009-2528",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "人民日报·理论版",
       "issue": "1672-8386",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "马克思主义理论学科研究",
       "issue": "2096-1138",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "统一战线学研究",
       "issue": "2096-3378",
-      "journalNote": "马克思主义理论C刊"
+      "journalNote": "C刊【马克思主义理论】"
     },
     {
       "journal": "习近平经济思想研究",
