@@ -2,6 +2,16 @@
   "schemaVersion": 2,
   "entries": [
     {
+      "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
+      "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
+      "year": "2020-05",
+      "journal": "东北农业大学学报（社会科学版）",
+      "issue": "1672-3805",
+      "journalNote": "认定期刊【第一批】",
+      "code": "330021",
+      "codeEditUsed": false
+    },
+    {
       "id": "dde60ee9-b5f4-428a-9f90-b10a4f8f20ff",
       "title": "现代化人民城市建设的内涵、难点与途径",
       "year": "2025-06",
@@ -722,16 +732,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
-      "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
-      "year": "2020-05",
-      "journal": "东北农业大学学报（社会科学版）",
-      "issue": "1672-3805",
-      "journalNote": "",
-      "code": "330021",
-      "codeEditUsed": false
-    },
-    {
       "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
       "title": "Competition A Marxist View",
       "year": "2017-06",
@@ -908,6 +908,7 @@
       "2097-1729"
     ],
     "notes": [
+      "认定期刊【第一批】",
       "C刊【高校学报】",
       "C刊【经济学】",
       "C刊【历史学】",
@@ -1184,7 +1185,7 @@
     {
       "journal": "东北农业大学学报（社会科学版）",
       "issue": "1672-3805",
-      "journalNote": ""
+      "journalNote": "认定期刊【第一批】"
     },
     {
       "journal": "南京社会科学",
