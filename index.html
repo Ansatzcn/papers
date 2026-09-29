@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-27-code-lock-v4">
+<meta name="app-build" content="2026-09-29-combo-pill-sort-v5">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -222,32 +222,37 @@ box-shadow:0 16px 34px rgba(15,23,42,.16);
 }
 .combo-option-list{
 display:flex;
-flex-direction:column;
-gap:6px;
+flex-wrap:wrap;
+align-items:center;
+gap:8px;
 width:100%;
 min-width:0;
 }
 .combo-pill{
-display:grid;
-grid-template-columns:minmax(0,1fr) auto auto;
+display:inline-flex;
 align-items:stretch;
-width:100%;
+width:auto;
 max-width:100%;
 min-width:0;
 min-height:38px;
 border:1px solid #cbd5e1;
-border-radius:12px;
+border-radius:14px;
 background:#f8fafc;
 overflow:hidden;
+vertical-align:middle;
 }
 .combo-pill-select{
-display:block;
-width:100%;
+display:inline-flex;
+align-items:center;
+width:auto;
+max-width:min(70vw,520px);
 min-width:0;
-padding:.52rem .75rem;
+padding:.5rem .72rem;
 border:0;
 background:transparent;
 color:#0f172a;
+font-size:.95rem;
+line-height:1.25;
 text-align:left;
 white-space:normal;
 overflow-wrap:anywhere;
@@ -260,52 +265,52 @@ font-weight:700;
 outline:2px solid #D98A9B;
 outline-offset:-2px;
 }
-.combo-pill-edit,
 .combo-pill-delete{
 display:inline-flex;
 align-items:center;
 justify-content:center;
-min-width:48px;
-padding:0 .65rem;
+flex:0 0 34px;
+width:34px;
+min-width:34px;
+padding:0;
 border:0;
 border-left:1px solid #e2e8f0;
 background:transparent;
-font-size:.75rem;
-font-weight:650;
+color:#991b1b;
+font-size:1.05rem;
+font-weight:700;
+line-height:1;
 white-space:nowrap;
 }
-.combo-pill-edit{color:#475569}
-.combo-pill-edit:hover{background:#e2e8f0;color:#334155}
-.combo-pill-delete{color:#991b1b}
 .combo-pill-delete:hover{background:#fee2e2}
 .combo-pill.note-draggable{
-grid-template-columns:minmax(0,1fr) 42px;
 cursor:grab;
 }
-.combo-pill.note-draggable .note-delete{
-min-width:42px;
-padding:0;
-font-size:1.05rem;
-line-height:1;
+.combo-pill.note-draggable .combo-pill-delete{
 cursor:pointer;
 }
 .combo-pill.note-draggable:active{cursor:grabbing}
 .combo-pill.note-draggable.dragging{opacity:.45}
 .combo-pill.note-draggable.drag-over-before{
-box-shadow:inset 0 3px 0 #1E40AF;
+box-shadow:inset 3px 0 0 #1E40AF;
 }
 .combo-pill.note-draggable.drag-over-after{
-box-shadow:inset 0 -3px 0 #1E40AF;
+box-shadow:inset -3px 0 0 #1E40AF;
 }
 .combo-pill.note-draggable .combo-pill-select{cursor:inherit}
 .combo-add-note{
-width:100%;
+display:inline-flex;
+align-items:center;
+width:auto;
+max-width:100%;
 min-height:38px;
-padding:.52rem .75rem;
+padding:.5rem .72rem;
 border:1px dashed #93b4ff;
-border-radius:12px;
+border-radius:14px;
 background:#f8fbff;
 color:#1E40AF;
+font-size:.95rem;
+line-height:1.25;
 text-align:left;
 font-weight:700;
 }
@@ -643,13 +648,8 @@ padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom));
 .combo-panel{
 max-height:230px;
 }
-.combo-pill{
-grid-template-columns:minmax(0,1fr) 48px 48px;
-}
-.combo-pill-edit,
-.combo-pill-delete{
-min-width:0;
-padding:0 .45rem;
+.combo-pill-select{
+max-width:calc(100vw - 120px);
 }
 .back-to-top{
 right:3px;
@@ -1606,6 +1606,76 @@ return uniq(values)
 comparePaperTitle
 );
 }
+function journalOptionSortInfo(value){
+const text=
+clean(value)
+.normalize('NFKC');
+for(const ch of Array.from(text)){
+if(/^\p{Script=Han}$/u.test(ch)){
+return{group:0,text};
+}
+if(/^[A-Za-z]$/.test(ch)){
+return{group:1,text};
+}
+}
+return{group:2,text};
+}
+function compareJournalOption(a,b){
+const x=
+journalOptionSortInfo(a);
+const y=
+journalOptionSortInfo(b);
+if(x.group!==y.group){
+return x.group-y.group;
+}
+const primary=
+x.group===0
+?pinyinCollator
+:x.group===1
+?latinCollator
+:collator;
+const r=
+primary.compare(
+x.text,
+y.text
+);
+if(r!==0){
+return r;
+}
+return x.text<y.text
+?-1
+:(x.text>y.text?1:0);
+}
+function sortJournalOptions(values){
+return uniq(values)
+.sort(
+compareJournalOption
+);
+}
+function sortIssueOptions(values){
+return uniq(values)
+.sort(
+(a,b)=>{
+const x=
+clean(a)
+.normalize('NFKC');
+const y=
+clean(b)
+.normalize('NFKC');
+const r=
+collator.compare(
+x,
+y
+);
+if(r!==0){
+return r;
+}
+return x<y
+?-1
+:(x>y?1:0);
+}
+);
+}
 function preserveJournalNoteOptions(values){
 return uniq(
 values||[]
@@ -1725,10 +1795,10 @@ journals:
 Array.isArray(
 rawHist.journals
 )
-?sortOptions(
+?sortJournalOptions(
 rawHist.journals
 )
-:sortOptions(
+:sortJournalOptions(
 entries.map(
 x=>x.journal
 )
@@ -1737,10 +1807,10 @@ issues:
 Array.isArray(
 rawHist.issues
 )
-?sortOptions(
+?sortIssueOptions(
 rawHist.issues
 )
-:sortOptions(
+:sortIssueOptions(
 entries.map(
 x=>x.issue
 )
@@ -3502,7 +3572,11 @@ type==='note'
 ?preserveJournalNoteOptions(
 values
 )
-:sortOptions(
+:type==='journal'
+?sortJournalOptions(
+values
+)
+:sortIssueOptions(
 values
 );
 }
@@ -3625,89 +3699,6 @@ renderCombo(
 context
 );
 return true;
-}
-function editHistoryOption(
-type,
-oldValue
-){
-if(type==='note'){
-return;
-}
-const meta=
-historyMeta(type);
-const next=
-clean(
-prompt(
-`编辑${meta.label}：`,
-oldValue
-)
-);
-if(
-!next||
-key(next)===
-key(oldValue)
-){
-return;
-}
-const exists=
-getHistory(type)
-.some(
-v=>
-key(v)===key(next)&&
-key(v)!==key(oldValue)
-);
-if(exists){
-show(
-`“${next}”已存在于${meta.label}下拉菜单`,
-'error'
-);
-return;
-}
-setHistory(
-type,
-getHistory(type)
-.map(
-v=>
-key(v)===key(oldValue)
-?next
-:v
-)
-);
-if(type==='journal'){
-for(
-const p
-of data.profiles
-){
-if(
-key(p.journal)===
-key(oldValue)
-){
-p.journal=
-next;
-}
-}
-}else if(
-type==='issue'
-){
-for(
-const p
-of data.profiles
-){
-if(
-key(p.issue)===
-key(oldValue)
-){
-p.issue=
-next;
-}
-}
-}
-scheduleSync();
-render();
-show(
-`已修改${meta.label}选项`,
-'success'
-);
 }
 function deleteHistoryOption(
 type,
@@ -3912,51 +3903,33 @@ canAddNote
 )
 ?`
 <div class="combo-option-list">
-${values.map(v=>
+${values.map(v=>{
+const noteAttrs=
 type==='note'
 ?`
-<span
 class="combo-pill note-draggable"
 data-note-value="${attr(v)}"
 draggable="${canDragNote?'true':'false'}"
 title="${canDragNote?'拖拽调整刊注顺序':'清空输入内容后可拖拽排序'}"
->
-<button
-class="combo-pill-select"
-type="button"
-data-select="${attr(v)}"
->${esc(v)}</button>
-<button
-class="combo-pill-delete note-delete"
-type="button"
-draggable="false"
-data-delete="${attr(v)}"
-aria-label="移除此刊注选项"
->×</button>
-</span>
 `
-:`
-<span class="combo-pill">
+:`class="combo-pill"`;
+return`
+<span ${noteAttrs}>
 <button
 class="combo-pill-select"
 type="button"
 data-select="${attr(v)}"
 >${esc(v)}</button>
-<button
-class="combo-pill-edit"
-type="button"
-data-edit="${attr(v)}"
-aria-label="编辑${attr(v)}"
->编辑</button>
 <button
 class="combo-pill-delete"
 type="button"
+draggable="false"
 data-delete="${attr(v)}"
-aria-label="删除${attr(v)}"
->删除</button>
+aria-label="移除${historyMeta(type).label}选项 ${attr(v)}"
+>×</button>
 </span>
-`
-).join('')}
+`;
+}).join('')}
 ${canAddNote
 ?`
 <button
@@ -4477,20 +4450,6 @@ clearKeyboardActive();
 return deleteHistoryOption(
 type,
 del.dataset.delete
-);
-}
-const edit=
-event.target.closest(
-'[data-edit]'
-);
-if(
-edit&&
-type!=='note'
-){
-clearKeyboardActive();
-return editHistoryOption(
-type,
-edit.dataset.edit
 );
 }
 const select=
