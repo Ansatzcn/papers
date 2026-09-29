@@ -2,36 +2,6 @@
   "schemaVersion": 2,
   "entries": [
     {
-      "id": "e3c06ed5-74b7-4561-b0f2-3f764fda7eeb",
-      "title": "工商业发达地区土改后的农村经济发展路向——以苏南无锡县为中心的考察",
-      "year": "2018-02",
-      "journal": "史学月刊",
-      "issue": "0583-0214",
-      "journalNote": "历史学C刊",
-      "code": "330005",
-      "codeEditUsed": false
-    },
-    {
-      "id": "0c8346c8-5816-4444-a13d-b80f7b06c1e4",
-      "title": "瞿秋白与“领导权”的定名——Hegemony概念的中国革命旅程（1923-1927）",
-      "year": "2021-05",
-      "journal": "近代史研究",
-      "issue": "1001-6708",
-      "journalNote": "历史学C刊",
-      "code": "330027",
-      "codeEditUsed": false
-    },
-    {
-      "id": "5ef411c9-2f75-4df5-a42f-08124d830108",
-      "title": "陈翰笙与托尼的中国农村经济问题研究",
-      "year": "2020-01",
-      "journal": "史学理论研究",
-      "issue": "1004-0013",
-      "journalNote": "历史学C刊",
-      "code": "330007",
-      "codeEditUsed": false
-    },
-    {
       "id": "e1851cce-b37b-413b-8cda-cae000ae92b1",
       "title": "“大革命”称谓与共产国际",
       "year": "1997-11",
@@ -722,6 +692,36 @@
       "codeEditUsed": false
     },
     {
+      "id": "e3c06ed5-74b7-4561-b0f2-3f764fda7eeb",
+      "title": "工商业发达地区土改后的农村经济发展路向——以苏南无锡县为中心的考察",
+      "year": "2018-02",
+      "journal": "史学月刊",
+      "issue": "0583-0214",
+      "journalNote": "历史学C刊",
+      "code": "330005",
+      "codeEditUsed": false
+    },
+    {
+      "id": "0c8346c8-5816-4444-a13d-b80f7b06c1e4",
+      "title": "瞿秋白与“领导权”的定名——Hegemony概念的中国革命旅程（1923-1927）",
+      "year": "2021-05",
+      "journal": "近代史研究",
+      "issue": "1001-6708",
+      "journalNote": "历史学C刊",
+      "code": "330027",
+      "codeEditUsed": false
+    },
+    {
+      "id": "5ef411c9-2f75-4df5-a42f-08124d830108",
+      "title": "陈翰笙与托尼的中国农村经济问题研究",
+      "year": "2020-01",
+      "journal": "史学理论研究",
+      "issue": "1004-0013",
+      "journalNote": "历史学C刊",
+      "code": "330007",
+      "codeEditUsed": false
+    },
+    {
       "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
       "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
       "year": "2020-05",
@@ -908,11 +908,11 @@
       "2097-1729"
     ],
     "notes": [
-      "历史学C刊",
       "马克思主义理论C刊",
       "马克思主义理论C扩",
       "社会学C刊",
       "综合性社会科学C刊",
+      "C刊【历史学",
       "C刊【经济学】",
       "C刊【高校学报】",
       "C扩【经济学】",
@@ -1069,7 +1069,7 @@
     {
       "journal": "史学月刊",
       "issue": "0583-0214",
-      "journalNote": "历史学C刊"
+      "journalNote": "C刊【历史学"
     },
     {
       "journal": "政治经济学研究",
@@ -1079,7 +1079,7 @@
     {
       "journal": "史学理论研究",
       "issue": "1004-0013",
-      "journalNote": "历史学C刊"
+      "journalNote": "C刊【历史学"
     },
     {
       "journal": "光明日报·理论版",
@@ -1194,7 +1194,7 @@
     {
       "journal": "近代史研究",
       "issue": "1001-6708",
-      "journalNote": "历史学C刊"
+      "journalNote": "C刊【历史学"
     }
   ]
 }
