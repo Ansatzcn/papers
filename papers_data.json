@@ -2,36 +2,6 @@
   "schemaVersion": 2,
   "entries": [
     {
-      "id": "75c7a3eb-de21-4d0a-a5b9-7e07ce7f0c89",
-      "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
-      "year": "2022-02",
-      "journal": "政治经济学研究",
-      "issue": "2096-9090",
-      "journalNote": "经济学C扩",
-      "code": "330004",
-      "codeEditUsed": false
-    },
-    {
-      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
-      "title": "价值转形与置盐定理：一个批评和自我批评",
-      "year": "2021-02",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "经济学C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
-      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
-      "year": "2023-04",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "经济学C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
       "id": "e3c06ed5-74b7-4561-b0f2-3f764fda7eeb",
       "title": "工商业发达地区土改后的农村经济发展路向——以苏南无锡县为中心的考察",
       "year": "2018-02",
@@ -722,6 +692,36 @@
       "codeEditUsed": false
     },
     {
+      "id": "75c7a3eb-de21-4d0a-a5b9-7e07ce7f0c89",
+      "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
+      "year": "2022-02",
+      "journal": "政治经济学研究",
+      "issue": "2096-9090",
+      "journalNote": "经济学C扩",
+      "code": "330004",
+      "codeEditUsed": false
+    },
+    {
+      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
+      "title": "价值转形与置盐定理：一个批评和自我批评",
+      "year": "2021-02",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "经济学C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
+      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
+      "year": "2023-04",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "经济学C扩",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
       "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
       "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
       "year": "2020-05",
@@ -908,7 +908,6 @@
       "2097-1729"
     ],
     "notes": [
-      "经济学C扩",
       "经济学Q2",
       "经济学Q3",
       "历史学C刊",
@@ -917,7 +916,8 @@
       "社会学C刊",
       "综合性社会科学C刊",
       "C刊【经济学】",
-      "C刊【高校学报】"
+      "C刊【高校学报】",
+      "C扩【经济学】"
     ]
   },
   "profiles": [
@@ -1039,7 +1039,7 @@
     {
       "journal": "经济思想史学刊",
       "issue": "2096-9627",
-      "journalNote": "经济学C扩"
+      "journalNote": "C扩【经济学】"
     },
     {
       "journal": "经济学家",
@@ -1074,7 +1074,7 @@
     {
       "journal": "政治经济学研究",
       "issue": "2096-9090",
-      "journalNote": "经济学C扩"
+      "journalNote": "C扩【经济学】"
     },
     {
       "journal": "史学理论研究",
