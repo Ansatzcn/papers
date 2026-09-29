@@ -378,8 +378,10 @@ button{cursor:pointer}
 }
 
 .papers-list{
-    display:grid;
-    gap:1rem;
+    border:1px solid #e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+    background:#fff;
 }
 
 .paper-item{
@@ -387,13 +389,15 @@ button{cursor:pointer}
     max-width:100%;
     min-width:0;
     padding:1.15rem 1.2rem .95rem;
-    border:1px solid #e2e8f0;
-    border-radius:20px;
     background:#fff;
     color:#000;
     overflow:hidden;
     user-select:text;
     -webkit-user-select:text;
+}
+
+.paper-item+.paper-item{
+    border-top:2px solid #dbe3ed;
 }
 
 .paper-item:hover{background:#fafcff}
@@ -490,8 +494,6 @@ button{cursor:pointer}
 
 .empty-state{
     padding:2.8rem 1rem;
-    border:1px solid #e2e8f0;
-    border-radius:20px;
     background:#fafcff;
     color:#000;
     text-align:center;
