@@ -2,26 +2,6 @@
   "schemaVersion": 2,
   "entries": [
     {
-      "id": "dde60ee9-b5f4-428a-9f90-b10a4f8f20ff",
-      "title": "现代化人民城市建设的内涵、难点与途径",
-      "year": "2025-06",
-      "journal": "新疆师范大学学报（哲学社会科学版）",
-      "issue": "1005-9245",
-      "journalNote": "高校学报C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "0e4c2c2a-7b8f-4cad-b0d7-6ecfaec2f7a8",
-      "title": "中美贸易战的背景、原因、本质及中国对策",
-      "year": "2018-05",
-      "journal": "武汉大学学报（哲学社会科学版）",
-      "issue": "1672-7320",
-      "journalNote": "高校学报C刊",
-      "code": "330009",
-      "codeEditUsed": false
-    },
-    {
       "id": "f478ff49-cea9-492d-818c-34f591941297",
       "title": "关于生产关系的两重性问题",
       "year": "1979-10",
@@ -722,6 +702,26 @@
       "codeEditUsed": false
     },
     {
+      "id": "dde60ee9-b5f4-428a-9f90-b10a4f8f20ff",
+      "title": "现代化人民城市建设的内涵、难点与途径",
+      "year": "2025-06",
+      "journal": "新疆师范大学学报（哲学社会科学版）",
+      "issue": "1005-9245",
+      "journalNote": "高校学报C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "0e4c2c2a-7b8f-4cad-b0d7-6ecfaec2f7a8",
+      "title": "中美贸易战的背景、原因、本质及中国对策",
+      "year": "2018-05",
+      "journal": "武汉大学学报（哲学社会科学版）",
+      "issue": "1672-7320",
+      "journalNote": "高校学报C刊",
+      "code": "330009",
+      "codeEditUsed": false
+    },
+    {
       "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
       "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
       "year": "2020-05",
@@ -908,7 +908,6 @@
       "2097-1729"
     ],
     "notes": [
-      "高校学报C刊",
       "经济学C刊",
       "经济学C扩",
       "经济学Q2",
@@ -917,7 +916,8 @@
       "马克思主义理论C刊",
       "马克思主义理论C扩",
       "社会学C刊",
-      "综合性社会科学C刊"
+      "综合性社会科学C刊",
+      "C刊【高校学报】"
     ]
   },
   "profiles": [
@@ -1054,7 +1054,7 @@
     {
       "journal": "新疆师范大学学报（哲学社会科学版）",
       "issue": "1005-9245",
-      "journalNote": "高校学报C刊"
+      "journalNote": "C刊【高校学报】"
     },
     {
       "journal": "中国经济史研究",
@@ -1124,7 +1124,7 @@
     {
       "journal": "武汉大学学报（哲学社会科学版）",
       "issue": "1672-7320",
-      "journalNote": "高校学报C刊"
+      "journalNote": "C刊【高校学报】"
     },
     {
       "journal": "Metroeconomica",
