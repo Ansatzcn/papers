@@ -2020,6 +2020,18 @@ function comparePaperEntry(
     }
 
 
+    const byYear=
+    comparePaperField(
+        a?.year,
+        b?.year
+    );
+
+
+    if(byYear!==0){
+        return byYear;
+    }
+
+
     const byTitle=
     comparePaperTitle(
         a?.title,
