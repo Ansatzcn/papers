@@ -2,16 +2,6 @@
   "schemaVersion": 2,
   "entries": [
     {
-      "id": "08a50af9-474e-4a26-9cca-ac2b800b13b8",
-      "title": "“数字控制”下的劳动秩序——外卖骑手的劳动控制研究",
-      "year": "2020-06",
-      "journal": "社会学研究",
-      "issue": "1002-5936",
-      "journalNote": "社会学C刊",
-      "code": "330003",
-      "codeEditUsed": false
-    },
-    {
       "id": "fae58d4c-0c5c-4448-87ae-01065ae7bfc8",
       "title": "有关虚假的社会价值的几个争论问题",
       "year": "1984-12",
@@ -722,6 +712,16 @@
       "codeEditUsed": false
     },
     {
+      "id": "08a50af9-474e-4a26-9cca-ac2b800b13b8",
+      "title": "“数字控制”下的劳动秩序——外卖骑手的劳动控制研究",
+      "year": "2020-06",
+      "journal": "社会学研究",
+      "issue": "1002-5936",
+      "journalNote": "社会学C刊",
+      "code": "330003",
+      "codeEditUsed": false
+    },
+    {
       "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
       "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
       "year": "2020-05",
@@ -908,9 +908,9 @@
       "2097-1729"
     ],
     "notes": [
-      "社会学C刊",
       "综合性社会科学C刊",
       "C刊【历史学】",
+      "C刊【社会学】",
       "C刊【经济学】",
       "C刊【马克思主义理论】",
       "C刊【高校学报】",
@@ -1024,7 +1024,7 @@
     {
       "journal": "社会学研究",
       "issue": "1002-5936",
-      "journalNote": "社会学C刊"
+      "journalNote": "C刊【社会学】"
     },
     {
       "journal": "学术月刊",
