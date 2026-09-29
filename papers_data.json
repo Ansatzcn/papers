@@ -732,16 +732,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
-      "title": "Competition A Marxist View",
-      "year": "2017-06",
-      "journal": "Cambridge Journal of Economics",
-      "issue": "0309-166X",
-      "journalNote": "经济学Q2",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
       "id": "32954d98-0b32-4016-8634-a4f894cf16c7",
       "title": "Is the NAIRU Theory a Monetarist New Keynesian Post Keynesian or a Marxist Theory",
       "year": "2008-03",
@@ -779,6 +769,16 @@
       "issue": "0160-3477",
       "journalNote": "经济学Q3",
       "code": "370001",
+      "codeEditUsed": false
+    },
+    {
+      "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
+      "title": "Competition A Marxist View",
+      "year": "2017-06",
+      "journal": "Cambridge Journal of Economics",
+      "issue": "0309-166X",
+      "journalNote": "经济学Q2",
+      "code": "",
       "codeEditUsed": false
     },
     {
@@ -908,7 +908,6 @@
       "2097-1729"
     ],
     "notes": [
-      "经济学Q2",
       "经济学Q3",
       "历史学C刊",
       "马克思主义理论C刊",
@@ -917,7 +916,8 @@
       "综合性社会科学C刊",
       "C刊【经济学】",
       "C刊【高校学报】",
-      "C扩【经济学】"
+      "C扩【经济学】",
+      "Q2【经济学】"
     ]
   },
   "profiles": [
@@ -964,7 +964,7 @@
     {
       "journal": "Cambridge Journal of Economics",
       "issue": "0309-166X",
-      "journalNote": "经济学Q2"
+      "journalNote": "Q2【经济学】"
     },
     {
       "journal": "社会主义研究",
