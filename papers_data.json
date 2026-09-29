@@ -592,16 +592,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
-      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
-      "year": "2023-04",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "经济学C扩",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
       "id": "f53ef9c4-159f-4fec-9e06-70f3bdf37e0e",
       "title": "马克思关于东方国家现代化进程的理论思考及启示",
       "year": "2022-06",
@@ -728,6 +718,16 @@
       "journal": "国外理论动态",
       "issue": "1674-1277",
       "journalNote": "马克思主义理论C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
+      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
+      "year": "2023-04",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "",
       "code": "",
       "codeEditUsed": false
     },
@@ -1040,7 +1040,7 @@
     {
       "journal": "经济思想史学刊",
       "issue": "2096-9627",
-      "journalNote": "C刊【经济学】"
+      "journalNote": ""
     },
     {
       "journal": "经济学家",
