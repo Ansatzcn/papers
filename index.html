@@ -2100,6 +2100,58 @@ function sortOptions(values){
 }
 
 
+function compareJournalNoteOption(a,b){
+
+    const x=
+    clean(a)
+        .normalize('NFKC');
+
+    const y=
+    clean(b)
+        .normalize('NFKC');
+
+
+    const byPinyin=
+    pinyinCollator.compare(
+        x,
+        y
+    );
+
+
+    if(byPinyin!==0){
+        return byPinyin;
+    }
+
+
+    const byLatin=
+    latinCollator.compare(
+        x,
+        y
+    );
+
+
+    if(byLatin!==0){
+        return byLatin;
+    }
+
+
+    return x<y
+        ?-1
+        :(x>y?1:0);
+
+}
+
+
+function sortJournalNoteOptions(values){
+
+    return uniq(values)
+        .sort(
+            compareJournalNoteOption
+        );
+
+}
+
+
 function normalizeEntry(x){
 
     if(
@@ -2289,10 +2341,10 @@ function normalizeData(value){
             Array.isArray(
                 rawHist.notes
             )
-            ?sortOptions(
+            ?sortJournalNoteOptions(
                 rawHist.notes
             )
-            :sortOptions(
+            :sortJournalNoteOptions(
                 entries.map(
                     x=>x.journalNote
                 )
@@ -5033,7 +5085,11 @@ function setHistory(
     data.histories[
         historyMeta(type).key
     ]=
-    sortOptions(
+    type==='note'
+    ?sortJournalNoteOptions(
+        values
+    )
+    :sortOptions(
         values
     );
 
@@ -5326,6 +5382,24 @@ function editHistoryOption(
     }else{
 
         for(
+            const item
+            of data.entries
+        ){
+
+            if(
+                key(item.journalNote)===
+                key(oldValue)
+            ){
+
+                item.journalNote=
+                next;
+
+            }
+
+        }
+
+
+        for(
             const p
             of data.profiles
         ){
@@ -5339,6 +5413,28 @@ function editHistoryOption(
                 next;
 
             }
+
+        }
+
+
+        if(
+            key(journalNoteInput.value)===
+            key(oldValue)
+        ){
+
+            journalNoteInput.value=
+            next;
+
+        }
+
+
+        if(
+            key(editJournalNote.value)===
+            key(oldValue)
+        ){
+
+            editJournalNote.value=
+            next;
 
         }
 
@@ -5368,9 +5464,15 @@ function deleteHistoryOption(
     historyMeta(type);
 
 
+    const confirmText=
+    type==='note'
+    ?`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n所有使用该刊注的论文条目会同步清空刊注。`
+    :`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n已经保存的论文条目不会改变。`;
+
+
     if(
         !confirm(
-            `确定从${meta.label}下拉菜单删除“${value}”吗？\n\n已经保存的论文条目不会改变。`
+            confirmText
         )
     ){
         return;
@@ -5420,6 +5522,23 @@ function deleteHistoryOption(
     }else{
 
         for(
+            const item
+            of data.entries
+        ){
+
+            if(
+                key(item.journalNote)===
+                key(value)
+            ){
+
+                item.journalNote='';
+
+            }
+
+        }
+
+
+        for(
             const p
             of data.profiles
         ){
@@ -5432,6 +5551,26 @@ function deleteHistoryOption(
                 p.journalNote='';
 
             }
+
+        }
+
+
+        if(
+            key(journalNoteInput.value)===
+            key(value)
+        ){
+
+            journalNoteInput.value='';
+
+        }
+
+
+        if(
+            key(editJournalNote.value)===
+            key(value)
+        ){
+
+            editJournalNote.value='';
 
         }
 
