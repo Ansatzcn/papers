@@ -1908,7 +1908,43 @@ function comparePaperField(a,b){
 }
 
 
-function comparePaperEntry(a,b){
+function journalNoteSortRank(
+    value,
+    options
+){
+
+    const list=
+    Array.isArray(options)
+    ?options
+    :[];
+
+    const k=
+    key(value);
+
+
+    if(!k){
+        return list.length+1;
+    }
+
+
+    const index=
+    list.findIndex(
+        x=>key(x)===k
+    );
+
+
+    return index>=0
+        ?index
+        :list.length;
+
+}
+
+
+function comparePaperEntry(
+    a,
+    b,
+    noteOptions
+){
 
     const groupA=
     paperTitleGroup(
@@ -1926,83 +1962,61 @@ function comparePaperEntry(a,b){
     }
 
 
-    const issueA=
-    clean(a?.issue);
-
-    const issueB=
-    clean(b?.issue);
-
-    const yearA=
-    clean(a?.year);
-
-    const yearB=
-    clean(b?.year);
-
-
-    const bothBlankA=
-    !issueA&&!yearA;
-
-    const bothBlankB=
-    !issueB&&!yearB;
+    const notes=
+    Array.isArray(noteOptions)
+    ?noteOptions
+    :(
+        Array.isArray(
+            data?.histories?.notes
+        )
+        ?data.histories.notes
+        :[]
+    );
 
 
-    if(
-        bothBlankA!==bothBlankB
-    ){
+    const noteRankA=
+    journalNoteSortRank(
+        a?.journalNote,
+        notes
+    );
 
-        return bothBlankA
-            ?1
-            :-1;
+    const noteRankB=
+    journalNoteSortRank(
+        b?.journalNote,
+        notes
+    );
 
+
+    if(noteRankA!==noteRankB){
+        return noteRankA-noteRankB;
     }
 
 
-    if(
-        bothBlankA&&
-        bothBlankB
-    ){
+    if(noteRankA>=notes.length){
 
-        const byTitle=
-        comparePaperTitle(
-            a?.title,
-            b?.title
+        const byNote=
+        comparePaperField(
+            a?.journalNote,
+            b?.journalNote
         );
 
 
-        if(byTitle!==0){
-            return byTitle;
+        if(byNote!==0){
+            return byNote;
         }
-
-
-        return String(a?.id||'')
-            .localeCompare(
-                String(b?.id||'')
-            );
 
     }
 
 
     const byIssue=
     comparePaperField(
-        issueA,
-        issueB
+        a?.issue,
+        b?.issue
     );
 
 
     if(byIssue!==0){
         return byIssue;
-    }
-
-
-    const byYear=
-    comparePaperField(
-        yearA,
-        yearB
-    );
-
-
-    if(byYear!==0){
-        return byYear;
     }
 
 
@@ -2221,10 +2235,7 @@ function normalizeData(value){
     .map(
         normalizeEntry
     )
-    .filter(Boolean)
-    .sort(
-        comparePaperEntry
-    );
+    .filter(Boolean);
 
 
     const rawHist=
@@ -2276,6 +2287,16 @@ function normalizeData(value){
             )
 
     };
+
+
+    entries.sort(
+        (a,b)=>
+            comparePaperEntry(
+                a,
+                b,
+                histories.notes
+            )
+    );
 
 
     const profiles=
@@ -5315,7 +5336,7 @@ function editHistoryOption(
     scheduleSync();
 
 
-    renderAllCombos();
+    render();
 
 
     show(
@@ -5408,7 +5429,7 @@ function deleteHistoryOption(
     scheduleSync();
 
 
-    renderAllCombos();
+    render();
 
 
     show(
