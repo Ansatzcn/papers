@@ -452,6 +452,16 @@
       "codeEditUsed": false
     },
     {
+      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
+      "title": "价值转形与置盐定理：一个批评和自我批评",
+      "year": "2021-02",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "C刊【经济学】",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
       "id": "75c7a3eb-de21-4d0a-a5b9-7e07ce7f0c89",
       "title": "“党支部领办合作社”与社会主义初级阶段的政治-经济制度",
       "year": "2022-02",
@@ -579,16 +589,6 @@
       "issue": "1672-3805",
       "journalNote": "认定【第一批】",
       "code": "330021",
-      "codeEditUsed": false
-    },
-    {
-      "id": "53f67e04-ec92-4acd-876d-90845962f1a4",
-      "title": "价值转形与置盐定理：一个批评和自我批评",
-      "year": "2021-02",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "经济学C扩",
-      "code": "",
       "codeEditUsed": false
     },
     {
@@ -1040,7 +1040,7 @@
     {
       "journal": "经济思想史学刊",
       "issue": "2096-9627",
-      "journalNote": "C扩【经济学】"
+      "journalNote": "C刊【经济学】"
     },
     {
       "journal": "经济学家",
