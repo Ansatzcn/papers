@@ -3,92 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-29-combo-pill-sort-v5">
+<meta name="app-build" content="2026-09-30-submit-save-code-only-v7">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-    min-height:100vh;
-    padding:2rem 1rem 4rem;
-    background:#f5f7fa;
-    color:#0f172a;
-    font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
+min-height:100vh;
+padding:2rem 1rem 4rem;
+background:#f5f7fa;
+color:#0f172a;
+font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
 }
 button,input{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 .container{
-    width:min(100%,1100px);
-    margin:auto;
-    padding:2rem 1.8rem;
-    background:#fff;
-    border-radius:32px;
-    box-shadow:0 20px 40px -12px rgba(0,0,0,.15);
+width:min(100%,1100px);
+margin:auto;
+padding:2rem 1.8rem;
+background:#fff;
+border-radius:32px;
+box-shadow:0 20px 40px -12px rgba(0,0,0,.15);
 }
 .page-title{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:12px;
-    margin-bottom:1.45rem;
-    padding-bottom:.8rem;
-    border-bottom:2px solid #e8edf4;
-    color:#1e293b;
-    font-size:2.2rem;
-    font-weight:600;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:12px;
+margin-bottom:1.45rem;
+padding-bottom:.8rem;
+border-bottom:2px solid #e8edf4;
+color:#1e293b;
+font-size:2.2rem;
+font-weight:600;
 }
 .cloud-status{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:.35rem .9rem;
-    border-radius:999px;
-    background:#f1f5f9;
-    color:#475569;
-    font-size:.82rem;
-    font-weight:500;
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:.35rem .9rem;
+border-radius:999px;
+background:#f1f5f9;
+color:#475569;
+font-size:.82rem;
+font-weight:500;
 }
 .status-dot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#94a3b8;
+width:9px;
+height:9px;
+border-radius:50%;
+background:#94a3b8;
 }
 .status-dot.online{background:#22c55e}
 .status-dot.offline{background:#ef4444}
 .status-dot.syncing{
-    background:#f59e0b;
-    animation:pulse 1s infinite;
+background:#f59e0b;
+animation:pulse 1s infinite;
 }
 @keyframes pulse{
-    0%,100%{opacity:1}
-    50%{opacity:.3}
+0%,100%{opacity:1}
+50%{opacity:.3}
 }
 .toolbar{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:1.7rem;
-    padding-bottom:1rem;
-    border-bottom:1px solid #e8edf4;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+margin-bottom:1.7rem;
+padding-bottom:1rem;
+border-bottom:1px solid #e8edf4;
 }
 .toolbar-group{
-    display:flex;
-    flex-wrap:wrap;
-    gap:9px;
+display:flex;
+flex-wrap:wrap;
+gap:9px;
 }
 .btn{
-    min-height:36px;
-    padding:.45rem 1.1rem;
-    border:1px solid #cbd5e1;
-    border-radius:999px;
-    background:#fff;
-    color:#334155;
-    font-size:.86rem;
-    font-weight:650;
+min-height:36px;
+padding:.45rem 1.1rem;
+border:1px solid #cbd5e1;
+border-radius:999px;
+background:#fff;
+color:#334155;
+font-size:.86rem;
+font-weight:650;
 }
 .btn:hover{background:#f1f5f9}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -99,983 +99,981 @@ button{cursor:pointer}
 .btn-danger{border-color:#fecaca;background:#fee2e2;color:#991b1b}
 .btn-danger:hover{background:#fecaca}
 .last-sync{
-    color:#94a3b8;
-    font-size:.8rem;
+color:#94a3b8;
+font-size:.8rem;
 }
 .visitor-note{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:8px;
-    margin:-.55rem 0 .9rem;
-    color:#94a3b8;
-    font-size:.76rem;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+gap:8px;
+margin:-.55rem 0 .9rem;
+color:#94a3b8;
+font-size:.76rem;
 }
 .visitor-login-link{
-    padding:0;
-    border:0;
-    background:transparent;
-    color:#64748b;
-    font-size:.76rem;
-    text-decoration:underline;
-    text-underline-offset:2px;
+padding:0;
+border:0;
+background:transparent;
+color:#64748b;
+font-size:.76rem;
+text-decoration:underline;
+text-underline-offset:2px;
 }
 .visitor-login-link:hover{color:#334155}
 .add-section{
-    margin-bottom:2rem;
-    padding:1.5rem;
-    border:1px solid #e2e8f0;
-    border-radius:24px;
-    background:#f8fafc;
+margin-bottom:2rem;
+padding:1.5rem;
+border:1px solid #e2e8f0;
+border-radius:24px;
+background:#f8fafc;
 }
 .add-section h2{
-    margin-bottom:1rem;
-    font-size:1.3rem;
+margin-bottom:1rem;
+font-size:1.3rem;
 }
 .form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:1rem;
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:1rem;
 }
 .form-group{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    min-width:0;
+display:flex;
+flex-direction:column;
+gap:6px;
+min-width:0;
 }
 .form-group.full{grid-column:1/-1}
 .form-group label{
-    color:#475569;
-    font-size:.78rem;
-    font-weight:700;
-    letter-spacing:.04em;
+color:#475569;
+font-size:.78rem;
+font-weight:700;
+letter-spacing:.04em;
 }
 .input{
-    width:100%;
-    min-height:44px;
-    padding:.72rem 1rem;
-    border:1px solid #cbd5e1;
-    border-radius:15px;
-    background:#fff;
-    color:#0f172a;
-    outline:none;
+width:100%;
+min-height:44px;
+padding:.72rem 1rem;
+border:1px solid #cbd5e1;
+border-radius:15px;
+background:#fff;
+color:#0f172a;
+outline:none;
 }
 .input:focus{
-    outline:2px solid #93b4ff;
-    outline-offset:1px;
-    border-color:transparent;
+outline:2px solid #93b4ff;
+outline-offset:1px;
+border-color:transparent;
 }
 .input[readonly]{
-    background:#f1f5f9;
-    color:#64748b;
+background:#f1f5f9;
+color:#64748b;
 }
 .clearable-input{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) 36px;
-    gap:6px;
-    align-items:center;
-    width:100%;
+display:grid;
+grid-template-columns:minmax(0,1fr) 36px;
+gap:6px;
+align-items:center;
+width:100%;
 }
 .input-clear{
-    height:44px;
-    width:36px;
-    border:1px solid #cbd5e1;
-    border-radius:12px;
-    background:#fff;
-    color:#64748b;
-    font-weight:800;
-    cursor:pointer;
+height:44px;
+width:36px;
+border:1px solid #cbd5e1;
+border-radius:12px;
+background:#fff;
+color:#64748b;
+font-weight:800;
+cursor:pointer;
 }
 .input-clear:hover{
-    background:#f1f5f9;
-    color:#0f172a;
+background:#f1f5f9;
+color:#0f172a;
 }
 .combo{
-    position:relative;
-    min-width:0;
+position:relative;
+min-width:0;
 }
 .combo-row{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) 42px;
-    gap:6px;
+display:grid;
+grid-template-columns:minmax(0,1fr) 42px;
+gap:6px;
 }
 .combo-toggle{
-    border:1px solid #cbd5e1;
-    border-radius:13px;
-    background:#fff;
-    color:#64748b;
+border:1px solid #cbd5e1;
+border-radius:13px;
+background:#fff;
+color:#64748b;
 }
 .combo-toggle:hover{background:#f1f5f9}
 .combo-panel{
-    position:absolute;
-    left:0;
-    right:0;
-    top:calc(44px + 7px);
-    z-index:700;
-    max-height:270px;
-    overflow-y:auto;
-    padding:.65rem;
-    border:1px solid #cbd5e1;
-    border-radius:16px;
-    background:#fff;
-    box-shadow:0 16px 34px rgba(15,23,42,.16);
+position:absolute;
+left:0;
+right:0;
+top:calc(44px + 7px);
+z-index:700;
+max-height:270px;
+overflow-y:auto;
+padding:.65rem;
+border:1px solid #cbd5e1;
+border-radius:16px;
+background:#fff;
+box-shadow:0 16px 34px rgba(15,23,42,.16);
 }
 .combo-option-list{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:8px;
-    width:100%;
-    min-width:0;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:8px;
+width:100%;
+min-width:0;
 }
 .combo-pill{
-    display:inline-flex;
-    align-items:stretch;
-    width:auto;
-    max-width:100%;
-    min-width:0;
-    min-height:38px;
-    border:1px solid #cbd5e1;
-    border-radius:14px;
-    background:#f8fafc;
-    overflow:hidden;
-    vertical-align:middle;
+display:inline-flex;
+align-items:stretch;
+width:auto;
+max-width:100%;
+min-width:0;
+min-height:38px;
+border:1px solid #cbd5e1;
+border-radius:14px;
+background:#f8fafc;
+overflow:hidden;
+vertical-align:middle;
 }
 .combo-pill-select{
-    display:inline-flex;
-    align-items:center;
-    width:auto;
-    max-width:min(70vw,520px);
-    min-width:0;
-    padding:.5rem .72rem;
-    border:0;
-    background:transparent;
-    color:#0f172a;
-    font-size:.95rem;
-    line-height:1.25;
-    text-align:left;
-    white-space:normal;
-    overflow-wrap:anywhere;
+display:inline-flex;
+align-items:center;
+width:auto;
+max-width:min(70vw,520px);
+min-width:0;
+padding:.5rem .72rem;
+border:0;
+background:transparent;
+color:#0f172a;
+font-size:.95rem;
+line-height:1.25;
+text-align:left;
+white-space:normal;
+overflow-wrap:anywhere;
 }
 .combo-pill-select:hover{background:#eef2f7}
 .combo-pill-select.keyboard-active{
-    background:#F8E8EC;
-    color:#1E40AF;
-    font-weight:700;
-    outline:2px solid #D98A9B;
-    outline-offset:-2px;
+background:#F8E8EC;
+color:#1E40AF;
+font-weight:700;
+outline:2px solid #D98A9B;
+outline-offset:-2px;
 }
 .combo-pill-delete{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    flex:0 0 34px;
-    width:34px;
-    min-width:34px;
-    padding:0;
-    border:0;
-    border-left:1px solid #e2e8f0;
-    background:transparent;
-    color:#991b1b;
-    font-size:1.05rem;
-    font-weight:700;
-    line-height:1;
-    white-space:nowrap;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+flex:0 0 34px;
+width:34px;
+min-width:34px;
+padding:0;
+border:0;
+border-left:1px solid #e2e8f0;
+background:transparent;
+color:#991b1b;
+font-size:1.05rem;
+font-weight:700;
+line-height:1;
+white-space:nowrap;
 }
 .combo-pill-delete:hover{background:#fee2e2}
 .combo-pill.note-draggable{
-    cursor:grab;
+cursor:grab;
 }
 .combo-pill.note-draggable .combo-pill-delete{
-    cursor:pointer;
+cursor:pointer;
 }
 .combo-pill.note-draggable:active{cursor:grabbing}
 .combo-pill.note-draggable.dragging{opacity:.45}
 .combo-pill.note-draggable.drag-over-before{
-    box-shadow:inset 3px 0 0 #1E40AF;
+box-shadow:inset 3px 0 0 #1E40AF;
 }
 .combo-pill.note-draggable.drag-over-after{
-    box-shadow:inset -3px 0 0 #1E40AF;
+box-shadow:inset -3px 0 0 #1E40AF;
 }
 .combo-pill.note-draggable .combo-pill-select{cursor:inherit}
 .combo-add-note{
-    display:inline-flex;
-    align-items:center;
-    width:auto;
-    max-width:100%;
-    min-height:38px;
-    padding:.5rem .72rem;
-    border:1px dashed #93b4ff;
-    border-radius:14px;
-    background:#f8fbff;
-    color:#1E40AF;
-    font-size:.95rem;
-    line-height:1.25;
-    text-align:left;
-    font-weight:700;
+display:inline-flex;
+align-items:center;
+width:auto;
+max-width:100%;
+min-height:38px;
+padding:.5rem .72rem;
+border:1px dashed #93b4ff;
+border-radius:14px;
+background:#f8fbff;
+color:#1E40AF;
+font-size:.95rem;
+line-height:1.25;
+text-align:left;
+font-weight:700;
 }
 .combo-add-note:hover{background:#eef4ff}
 .combo-empty{
-    width:100%;
-    padding:.72rem;
-    color:#94a3b8;
-    text-align:center;
-    font-size:.82rem;
+width:100%;
+padding:.72rem;
+color:#94a3b8;
+text-align:center;
+font-size:.82rem;
 }
 .combo-help{
-    margin-top:.35rem;
-    color:#94a3b8;
-    font-size:.73rem;
-    line-height:1.45;
+margin-top:.35rem;
+color:#94a3b8;
+font-size:.73rem;
+line-height:1.45;
 }
 .add-button{
-    grid-column:1/-1;
-    width:100%;
-    min-height:46px;
-    margin-top:.2rem;
-    border:0;
-    border-radius:999px;
-    background:#1e293b;
-    color:#fff;
-    font-weight:700;
+grid-column:1/-1;
+width:100%;
+min-height:46px;
+margin-top:.2rem;
+border:0;
+border-radius:999px;
+background:#1e293b;
+color:#fff;
+font-weight:700;
 }
 .add-button:hover{background:#0f172a}
 /* ===== 总表 ===== */
 .list-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:.8rem;
-    color:#000;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+margin-bottom:.8rem;
+color:#000;
 }
 .list-header h2{
-    font-size:1.4rem;
-    color:#000;
+font-size:1.4rem;
+color:#000;
 }
 .count-badge{
-    min-width:38px;
-    padding:.22rem .8rem;
-    border-radius:999px;
-    background:#e8edf4;
-    color:#000;
-    text-align:center;
-    font-size:.8rem;
-    font-weight:650;
+min-width:38px;
+padding:.22rem .8rem;
+border-radius:999px;
+background:#e8edf4;
+color:#000;
+text-align:center;
+font-size:.8rem;
+font-weight:650;
 }
 .papers-list{
-    border:1px solid #e2e8f0;
-    border-radius:20px;
-    overflow:hidden;
-    background:#fff;
+border:1px solid #e2e8f0;
+border-radius:20px;
+overflow:hidden;
+background:#fff;
 }
 .paper-item{
-    width:100%;
-    max-width:100%;
-    min-width:0;
-    padding:1.15rem 1.2rem .95rem;
-    background:#fff;
-    color:#000;
-    overflow:hidden;
-    user-select:text;
-    -webkit-user-select:text;
+width:100%;
+max-width:100%;
+min-width:0;
+padding:1.15rem 1.2rem .95rem;
+background:#fff;
+color:#000;
+overflow:hidden;
+user-select:text;
+-webkit-user-select:text;
 }
 .paper-item+.paper-item{
-    border-top:2px solid #dbe3ed;
+border-top:2px solid #dbe3ed;
 }
 .paper-item:hover{background:#fafcff}
 .paper-title{
-    margin-bottom:.6rem;
-    color:#1E40AF;
-    font-size:1.15rem;
-    font-weight:750;
-    line-height:1.45;
-    overflow-wrap:anywhere;
-    word-break:break-word;
+margin-bottom:.6rem;
+color:#1E40AF;
+font-size:1.15rem;
+font-weight:750;
+line-height:1.45;
+overflow-wrap:anywhere;
+word-break:break-word;
 }
 .paper-meta{
-    display:grid;
-    gap:.26rem;
-    min-width:0;
-    color:#000;
+display:grid;
+gap:.26rem;
+min-width:0;
+color:#000;
 }
 .meta-row{
-    display:flex;
-    align-items:flex-start;
-    gap:.4rem;
-    min-width:0;
-    color:#000;
-    font-size:.9rem;
-    font-weight:400;
-    line-height:1.55;
-    overflow-wrap:anywhere;
-    word-break:break-word;
+display:flex;
+align-items:flex-start;
+gap:.4rem;
+min-width:0;
+color:#000;
+font-size:.9rem;
+font-weight:400;
+line-height:1.55;
+overflow-wrap:anywhere;
+word-break:break-word;
 }
 .meta-label{
-    flex:0 0 auto;
-    color:#000;
-    font-weight:700;
+flex:0 0 auto;
+color:#000;
+font-weight:700;
 }
 .paper-actions{
-    display:flex;
-    justify-content:flex-end;
-    min-width:0;
-    color:#000;
+display:flex;
+justify-content:flex-end;
+min-width:0;
+color:#000;
 }
 .edit-btn{
-    flex:0 0 auto;
-    margin-left:auto;
-    padding:0;
-    border:0;
-    border-radius:0;
-    background:transparent;
-    color:#000;
-    font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
-    font-size:.86rem;
-    font-weight:400;
-    line-height:1.55;
-    text-decoration:none;
-    user-select:none;
-    -webkit-user-select:none;
-    touch-action:manipulation;
+flex:0 0 auto;
+margin-left:auto;
+padding:0;
+border:0;
+border-radius:0;
+background:transparent;
+color:#000;
+font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
+font-size:.86rem;
+font-weight:400;
+line-height:1.55;
+text-decoration:none;
+user-select:none;
+-webkit-user-select:none;
+touch-action:manipulation;
 }
 .edit-btn:hover,
 .edit-btn:focus-visible{
-    background:transparent;
-    color:#000;
-    outline:none;
-    text-decoration:none;
+background:transparent;
+color:#000;
+outline:none;
+text-decoration:none;
 }
 .empty-state{
-    padding:2.8rem 1rem;
-    background:#fafcff;
-    color:#000;
-    text-align:center;
+padding:2.8rem 1rem;
+background:#fafcff;
+color:#000;
+text-align:center;
 }
 /* ===== 弹窗 ===== */
 .overlay{
-    position:fixed;
-    inset:0;
-    z-index:1000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:max(12px,env(safe-area-inset-top))
-            max(12px,env(safe-area-inset-right))
-            max(12px,env(safe-area-inset-bottom))
-            max(12px,env(safe-area-inset-left));
-    background:rgba(15,23,42,.45);
-    backdrop-filter:blur(5px);
+position:fixed;
+inset:0;
+z-index:1000;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:max(12px,env(safe-area-inset-top))
+max(12px,env(safe-area-inset-right))
+max(12px,env(safe-area-inset-bottom))
+max(12px,env(safe-area-inset-left));
+background:rgba(15,23,42,.45);
+backdrop-filter:blur(5px);
 }
 .dialog{
-    width:min(100%,700px);
-    max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-    background:#fff;
-    border-radius:26px;
-    box-shadow:0 30px 70px rgba(15,23,42,.28);
+width:min(100%,700px);
+max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+display:flex;
+flex-direction:column;
+overflow:hidden;
+background:#fff;
+border-radius:26px;
+box-shadow:0 30px 70px rgba(15,23,42,.28);
 }
 .dialog-scroll{
-    flex:1 1 auto;
-    min-height:0;
-    overflow-y:auto;
-    padding:1.7rem 1.7rem 1rem;
-    scrollbar-gutter:stable;
+flex:1 1 auto;
+min-height:0;
+overflow-y:auto;
+padding:1.7rem 1.7rem 1rem;
+scrollbar-gutter:stable;
 }
 .dialog h3{
-    margin-bottom:1rem;
-    font-size:1.3rem;
+margin-bottom:1rem;
+font-size:1.3rem;
 }
 .dialog-actions{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:9px;
-    padding:.95rem 1.7rem max(.95rem,env(safe-area-inset-bottom));
-    border-top:1px solid #e8edf4;
-    background:#fff;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+gap:9px;
+padding:.95rem 1.7rem max(.95rem,env(safe-area-inset-bottom));
+border-top:1px solid #e8edf4;
+background:#fff;
 }
 #editDelete{margin-right:auto}
 .dialog-actions .btn{
-    flex:0 0 auto;
+flex:0 0 auto;
 }
 .dialog-desc{
-    margin-bottom:1rem;
-    padding-bottom:.8rem;
-    border-bottom:1px solid #e2e8f0;
-    color:#64748b;
-    font-size:.86rem;
-    line-height:1.6;
+margin-bottom:1rem;
+padding-bottom:.8rem;
+border-bottom:1px solid #e2e8f0;
+color:#64748b;
+font-size:.86rem;
+line-height:1.6;
 }
 .toast{
-    position:fixed;
-    left:50%;
-    bottom:28px;
-    z-index:1500;
-    max-width:min(90vw,680px);
-    padding:.78rem 1.5rem;
-    transform:translateX(-50%);
-    border-radius:999px;
-    background:#1E40AF;
-    color:#fff;
-    font-size:.88rem;
-    font-weight:600;
-    text-align:center;
-    box-shadow:0 12px 34px rgba(15,23,42,.25);
+position:fixed;
+left:50%;
+bottom:28px;
+z-index:1500;
+max-width:min(90vw,680px);
+padding:.78rem 1.5rem;
+transform:translateX(-50%);
+border-radius:999px;
+background:#1E40AF;
+color:#fff;
+font-size:.88rem;
+font-weight:600;
+text-align:center;
+box-shadow:0 12px 34px rgba(15,23,42,.25);
 }
 .toast.success{background:#16a34a}
 .toast.error{background:#dc2626}
 .toast.info{background:#1E40AF}
 .back-to-top{
-    position:fixed;
-    right:16px;
-    top:70%;
-    transform:translateY(-50%);
-    z-index:900;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:30px;
-    height:30px;
-    padding:0;
-    border:0;
-    border-radius:50%;
-    background:#1E40AF;
-    color:#fff;
-    font-size:0;
-    line-height:1;
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-    transition:.05s;
+position:fixed;
+right:16px;
+top:70%;
+transform:translateY(-50%);
+z-index:900;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:30px;
+height:30px;
+padding:0;
+border:0;
+border-radius:50%;
+background:#1E40AF;
+color:#fff;
+font-size:0;
+line-height:1;
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+transition:.05s;
 }
 .back-to-top.visible{
-    opacity:.55;
-    visibility:visible;
-    pointer-events:auto;
+opacity:.55;
+visibility:visible;
+pointer-events:auto;
 }
 .back-to-top:hover{opacity:1}
 @media(max-width:700px){
-    html,body{
-        width:100%;
-        max-width:100%;
-        overflow-x:hidden;
-    }
-    body{
-        padding:.8rem;
-    }
-    .container{
-        width:100%;
-        max-width:100%;
-        min-width:0;
-        padding:1.25rem;
-        border-radius:22px;
-    }
-    .papers-list{
-        width:100%;
-        max-width:100%;
-        min-width:0;
-    }
-    .paper-item{
-        width:100%;
-        max-width:100%;
-        min-width:0;
-        padding:1rem;
-    }
-    .paper-title,
-    .paper-meta,
-    .meta-row{
-        max-width:100%;
-        min-width:0;
-        overflow-wrap:anywhere;
-        word-break:break-word;
-    }
-    .page-title{
-        font-size:1.8rem;
-    }
-    .toolbar{
-        flex-direction:column;
-        align-items:stretch;
-    }
-    .toolbar-group{
-        justify-content:center;
-    }
-    .last-sync{
-        text-align:center;
-    }
-    .add-section{
-        padding:1.2rem;
-    }
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-    .form-group.full,
-    .add-button{
-        grid-column:auto;
-    }
-    .dialog{
-        width:100%;
-        max-height:calc(100dvh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-        border-radius:20px;
-    }
-    .dialog-scroll{
-        padding:1.2rem 1.2rem .8rem;
-    }
-    .dialog-actions{
-        padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom));
-    }
-    .combo-panel{
-        max-height:230px;
-    }
-    .combo-pill-select{
-        max-width:calc(100vw - 120px);
-    }
-    .back-to-top{
-        right:3px;
-        top:70%;
-        width:24px;
-        height:24px;
-        font-size:.7rem;
-    }
+html,body{
+width:100%;
+max-width:100%;
+overflow-x:hidden;
+}
+body{
+padding:.8rem;
+}
+.container{
+width:100%;
+max-width:100%;
+min-width:0;
+padding:1.25rem;
+border-radius:22px;
+}
+.papers-list{
+width:100%;
+max-width:100%;
+min-width:0;
+}
+.paper-item{
+width:100%;
+max-width:100%;
+min-width:0;
+padding:1rem;
+}
+.paper-title,
+.paper-meta,
+.meta-row{
+max-width:100%;
+min-width:0;
+overflow-wrap:anywhere;
+word-break:break-word;
+}
+.page-title{
+font-size:1.8rem;
+}
+.toolbar{
+flex-direction:column;
+align-items:stretch;
+}
+.toolbar-group{
+justify-content:center;
+}
+.last-sync{
+text-align:center;
+}
+.add-section{
+padding:1.2rem;
+}
+.form-grid{
+grid-template-columns:1fr;
+}
+.form-group.full,
+.add-button{
+grid-column:auto;
+}
+.dialog{
+width:100%;
+max-height:calc(100dvh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+border-radius:20px;
+}
+.dialog-scroll{
+padding:1.2rem 1.2rem .8rem;
+}
+.dialog-actions{
+padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom));
+}
+.combo-panel{
+max-height:230px;
+}
+.combo-pill-select{
+max-width:calc(100vw - 120px);
+}
+.back-to-top{
+right:3px;
+top:70%;
+width:24px;
+height:24px;
+font-size:.7rem;
+}
 }
 </style>
 </head>
 <body>
 <main class="container">
-    <h1 class="page-title">
-        Papers
-        <span class="cloud-status">
-            <span class="status-dot" id="statusDot"></span>
-            <span id="statusText">公开浏览</span>
-        </span>
-    </h1>
-    <section class="toolbar">
-        <div class="toolbar-group">
-            <button
-                class="btn btn-sync"
-                id="syncBtn"
-                type="button"
-                disabled
-            >同步</button>
-            <button
-                class="btn"
-                id="configBtn"
-                type="button"
-            >编辑登录</button>
-            <button
-                class="btn"
-                id="exportBtn"
-                type="button"
-                disabled
-            >导出</button>
-            <button
-                class="btn"
-                id="importBtn"
-                type="button"
-                disabled
-            >导入</button>
-            <input
-                type="file"
-                id="fileInput"
-                accept=".html,text/html,.json,application/json"
-                hidden
-            >
-        </div>
-        <span
-            class="last-sync"
-            id="lastSyncTime"
-        >正在加载公开内容…</span>
-    </section>
-    <section
-        class="visitor-note"
-        id="visitorNote"
-    >
-        <button
-            class="visitor-login-link"
-            id="visitorLoginBtn"
-            type="button"
-        >编辑登录</button>
-    </section>
-    <section
-        class="add-section hidden"
-        id="editorSection"
-    >
-        <h2>添加</h2>
-        <div class="form-grid">
-            <div class="form-group full">
-                <label for="titleInput">标题</label>
-                <input
-                    class="input"
-                    id="titleInput"
-                    type="text"
-                    autocomplete="off"
-                >
-            </div>
-            <div class="form-group">
-                <label for="journalInput">刊名</label>
-                <div
-                    class="combo"
-                    id="journalCombo"
-                >
-                    <div class="combo-row">
-                        <input
-                            class="input"
-                            id="journalInput"
-                            type="text"
-                            autocomplete="off"
-                        >
-                        <button
-                            class="combo-toggle"
-                            id="journalToggle"
-                            type="button"
-                            aria-label="展开刊名历史"
-                        >▾</button>
-                    </div>
-                    <div
-                        class="combo-panel hidden"
-                        id="journalPanel"
-                    >
-                        <div id="journalOptions"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="yearInput">刊期</label>
-                <input
-                    class="input"
-                    id="yearInput"
-                    type="text"
-                    inputmode="numeric"
-                    autocomplete="off"
-                >
-            </div>
-            <div class="form-group">
-                <label for="issueInput">刊号</label>
-                <div
-                    class="combo"
-                    id="issueCombo"
-                >
-                    <div class="combo-row">
-                        <input
-                            class="input"
-                            id="issueInput"
-                            type="text"
-                            autocomplete="off"
-                        >
-                        <button
-                            class="combo-toggle"
-                            id="issueToggle"
-                            type="button"
-                            aria-label="展开刊号历史"
-                        >▾</button>
-                    </div>
-                    <div
-                        class="combo-panel hidden"
-                        id="issuePanel"
-                    >
-                        <div id="issueOptions"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="journalNoteInput">刊注</label>
-                <div
-                    class="combo"
-                    id="journalNoteCombo"
-                >
-                    <div class="combo-row">
-                        <input
-                            class="input"
-                            id="journalNoteInput"
-                            type="text"
-                            autocomplete="off"
-                        >
-                        <button
-                            class="combo-toggle"
-                            id="journalNoteToggle"
-                            type="button"
-                            aria-label="展开刊注历史"
-                        >▾</button>
-                    </div>
-                    <div
-                        class="combo-panel hidden"
-                        id="journalNotePanel"
-                    >
-                        <div id="journalNoteOptions"></div>
-                    </div>
-                </div>
-            </div>
-            <button
-                class="add-button"
-                id="addBtn"
-                type="button"
-            >提交</button>
-        </div>
-    </section>
-    <section>
-        <div class="list-header">
-            <h2>总表</h2>
-            <span
-                class="count-badge"
-                id="countDisplay"
-            >0/0</span>
-        </div>
-        <div
-            class="papers-list"
-            id="papersList"
-        >
-            <div class="empty-state"></div>
-        </div>
-    </section>
+<h1 class="page-title">
+Papers
+<span class="cloud-status">
+<span class="status-dot" id="statusDot"></span>
+<span id="statusText">公开浏览</span>
+</span>
+</h1>
+<section class="toolbar">
+<div class="toolbar-group">
+<button
+class="btn btn-sync"
+id="syncBtn"
+type="button"
+disabled
+>同步</button>
+<button
+class="btn"
+id="configBtn"
+type="button"
+>编辑登录</button>
+<button
+class="btn"
+id="exportBtn"
+type="button"
+disabled
+>导出</button>
+<button
+class="btn"
+id="importBtn"
+type="button"
+disabled
+>导入</button>
+<input
+type="file"
+id="fileInput"
+accept=".html,text/html,.json,application/json"
+hidden
+>
+</div>
+<span
+class="last-sync"
+id="lastSyncTime"
+>正在加载公开内容…</span>
+</section>
+<section
+class="visitor-note"
+id="visitorNote"
+>
+<button
+class="visitor-login-link"
+id="visitorLoginBtn"
+type="button"
+>编辑登录</button>
+</section>
+<section
+class="add-section hidden"
+id="editorSection"
+>
+<h2>添加</h2>
+<div class="form-grid">
+<div class="form-group full">
+<label for="titleInput">标题</label>
+<input
+class="input"
+id="titleInput"
+type="text"
+autocomplete="off"
+>
+</div>
+<div class="form-group">
+<label for="journalInput">刊名</label>
+<div
+class="combo"
+id="journalCombo"
+>
+<div class="combo-row">
+<input
+class="input"
+id="journalInput"
+type="text"
+autocomplete="off"
+>
+<button
+class="combo-toggle"
+id="journalToggle"
+type="button"
+aria-label="展开刊名历史"
+>▾</button>
+</div>
+<div
+class="combo-panel hidden"
+id="journalPanel"
+>
+<div id="journalOptions"></div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label for="yearInput">刊期</label>
+<input
+class="input"
+id="yearInput"
+type="text"
+inputmode="numeric"
+autocomplete="off"
+>
+</div>
+<div class="form-group">
+<label for="issueInput">刊号</label>
+<div
+class="combo"
+id="issueCombo"
+>
+<div class="combo-row">
+<input
+class="input"
+id="issueInput"
+type="text"
+autocomplete="off"
+>
+<button
+class="combo-toggle"
+id="issueToggle"
+type="button"
+aria-label="展开刊号历史"
+>▾</button>
+</div>
+<div
+class="combo-panel hidden"
+id="issuePanel"
+>
+<div id="issueOptions"></div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label for="journalNoteInput">刊注</label>
+<div
+class="combo"
+id="journalNoteCombo"
+>
+<div class="combo-row">
+<input
+class="input"
+id="journalNoteInput"
+type="text"
+autocomplete="off"
+>
+<button
+class="combo-toggle"
+id="journalNoteToggle"
+type="button"
+aria-label="展开刊注历史"
+>▾</button>
+</div>
+<div
+class="combo-panel hidden"
+id="journalNotePanel"
+>
+<div id="journalNoteOptions"></div>
+</div>
+</div>
+</div>
+<button
+class="add-button"
+id="addBtn"
+type="button"
+>提交</button>
+</div>
+</section>
+<section>
+<div class="list-header">
+<h2>总表</h2>
+<span
+class="count-badge"
+id="countDisplay"
+>0/0</span>
+</div>
+<div
+class="papers-list"
+id="papersList"
+>
+<div class="empty-state"></div>
+</div>
+</section>
 </main>
 <section
-    class="overlay hidden"
-    id="editModal"
-    role="dialog"
-    aria-modal="true"
+class="overlay hidden"
+id="editModal"
+role="dialog"
+aria-modal="true"
 >
-    <div class="dialog">
-        <div class="dialog-scroll">
-            <div class="form-grid">
-                <div class="form-group full">
-                    <label for="editTitle">标题</label>
-                    <input
-                        class="input"
-                        id="editTitle"
-                        type="text"
-                        autocomplete="off"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="editJournal">刊名</label>
-                    <div
-                        class="combo"
-                        id="editJournalCombo"
-                    >
-                        <div class="combo-row">
-                            <input
-                                class="input"
-                                id="editJournal"
-                                type="text"
-                                autocomplete="off"
-                            >
-                            <button
-                                class="combo-toggle"
-                                id="editJournalToggle"
-                                type="button"
-                            >▾</button>
-                        </div>
-                        <div
-                            class="combo-panel hidden"
-                            id="editJournalPanel"
-                        >
-                            <div id="editJournalOptions"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="editYear">刊期</label>
-                    <div class="clearable-input">
-                        <input
-                            class="input"
-                            id="editYear"
-                            type="text"
-                            inputmode="numeric"
-                            autocomplete="off"
-                        >
-                        <button
-                            class="input-clear"
-                            id="clearEditYear"
-                            type="button"
-                        >×</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="editIssue">刊号</label>
-                    <div
-                        class="combo"
-                        id="editIssueCombo"
-                    >
-                        <div class="combo-row">
-                            <input
-                                class="input"
-                                id="editIssue"
-                                type="text"
-                                autocomplete="off"
-                            >
-                            <button
-                                class="combo-toggle"
-                                id="editIssueToggle"
-                                type="button"
-                            >▾</button>
-                        </div>
-                        <div
-                            class="combo-panel hidden"
-                            id="editIssuePanel"
-                        >
-                            <div id="editIssueOptions"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="editJournalNote">刊注</label>
-                    <div
-                        class="combo"
-                        id="editJournalNoteCombo"
-                    >
-                        <div class="combo-row">
-                            <input
-                                class="input"
-                                id="editJournalNote"
-                                type="text"
-                                autocomplete="off"
-                            >
-                            <button
-                                class="combo-toggle"
-                                id="editJournalNoteToggle"
-                                type="button"
-                            >▾</button>
-                        </div>
-                        <div
-                            class="combo-panel hidden"
-                            id="editJournalNotePanel"
-                        >
-                            <div id="editJournalNoteOptions"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dialog-actions">
-            <button
-                class="btn btn-danger"
-                id="editDelete"
-                type="button"
-            >删除</button>
-            <button
-                class="btn"
-                id="editCancel"
-                type="button"
-            >取消</button>
-            <button
-                class="btn btn-primary"
-                id="editSave"
-                type="button"
-            >保存</button>
-        </div>
-    </div>
+<div class="dialog">
+<div class="dialog-scroll">
+<div class="form-grid">
+<div class="form-group full">
+<label for="editTitle">标题</label>
+<input
+class="input"
+id="editTitle"
+type="text"
+autocomplete="off"
+>
+</div>
+<div class="form-group">
+<label for="editJournal">刊名</label>
+<div
+class="combo"
+id="editJournalCombo"
+>
+<div class="combo-row">
+<input
+class="input"
+id="editJournal"
+type="text"
+autocomplete="off"
+>
+<button
+class="combo-toggle"
+id="editJournalToggle"
+type="button"
+>▾</button>
+</div>
+<div
+class="combo-panel hidden"
+id="editJournalPanel"
+>
+<div id="editJournalOptions"></div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label for="editYear">刊期</label>
+<div class="clearable-input">
+<input
+class="input"
+id="editYear"
+type="text"
+inputmode="numeric"
+autocomplete="off"
+>
+<button
+class="input-clear"
+id="clearEditYear"
+type="button"
+>×</button>
+</div>
+</div>
+<div class="form-group">
+<label for="editIssue">刊号</label>
+<div
+class="combo"
+id="editIssueCombo"
+>
+<div class="combo-row">
+<input
+class="input"
+id="editIssue"
+type="text"
+autocomplete="off"
+>
+<button
+class="combo-toggle"
+id="editIssueToggle"
+type="button"
+>▾</button>
+</div>
+<div
+class="combo-panel hidden"
+id="editIssuePanel"
+>
+<div id="editIssueOptions"></div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label for="editJournalNote">刊注</label>
+<div
+class="combo"
+id="editJournalNoteCombo"
+>
+<div class="combo-row">
+<input
+class="input"
+id="editJournalNote"
+type="text"
+autocomplete="off"
+>
+<button
+class="combo-toggle"
+id="editJournalNoteToggle"
+type="button"
+>▾</button>
+</div>
+<div
+class="combo-panel hidden"
+id="editJournalNotePanel"
+>
+<div id="editJournalNoteOptions"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dialog-actions">
+<button
+class="btn btn-danger"
+id="editDelete"
+type="button"
+>删除</button>
+<button
+class="btn"
+id="editCancel"
+type="button"
+>取消</button>
+<button
+class="btn btn-primary"
+id="editSave"
+type="button"
+>保存</button>
+</div>
+</div>
 </section>
 <section
-    class="overlay hidden"
-    id="configModal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="configHeading"
+class="overlay hidden"
+id="configModal"
+role="dialog"
+aria-modal="true"
+aria-labelledby="configHeading"
 >
-    <form
-        class="dialog"
-        id="configForm"
-        autocomplete="on"
-    >
-        <div class="dialog-scroll">
-            <h3 id="configHeading">GitHub 登录配置</h3>
-            <p class="dialog-desc">
-                浏览 Papers 不需要 Token。Token 仅用于新增、编辑、删除、导入和同步。
-                公开数据文件默认为 papers_data.json。
-            </p>
-            <div
-                class="form-group"
-                style="margin-bottom:.9rem"
-            >
-                <label for="cfgOwner">仓库所有者</label>
-                <input
-                    class="input"
-                    id="cfgOwner"
-                    name="github-owner"
-                    type="text"
-                    autocomplete="username"
-                >
-            </div>
-            <div
-                class="form-group"
-                style="margin-bottom:.9rem"
-            >
-                <label for="cfgRepo">仓库名称</label>
-                <input
-                    class="input"
-                    id="cfgRepo"
-                    type="text"
-                    autocomplete="off"
-                >
-            </div>
-            <div
-                class="form-group"
-                style="margin-bottom:.9rem"
-            >
-                <label for="cfgFile">数据文件路径</label>
-                <input
-                    class="input"
-                    id="cfgFile"
-                    type="text"
-                    value="papers_data.json"
-                    autocomplete="off"
-                >
-            </div>
-            <div
-                class="form-group"
-                style="margin-bottom:.9rem"
-            >
-                <label for="cfgToken">GitHub Personal Access Token</label>
-                <input
-                    class="input"
-                    id="cfgToken"
-                    name="github-token"
-                    type="password"
-                    autocomplete="current-password"
-                    spellcheck="false"
-                >
-            </div>
-            <p
-                class="dialog-desc"
-                style="margin:0;padding:0;border:0"
-            >
-                Token 将保存在本设备，用于后续编辑登录。
-            </p>
-        </div>
-        <div class="dialog-actions">
-            <button
-                class="btn"
-                id="configCancel"
-                type="button"
-            >取消</button>
-            <button
-                class="btn btn-primary"
-                id="configSave"
-                type="submit"
-            >保存并登录</button>
-        </div>
-    </form>
+<form
+class="dialog"
+id="configForm"
+autocomplete="on"
+>
+<div class="dialog-scroll">
+<h3 id="configHeading">GitHub 登录配置</h3>
+<p class="dialog-desc">
+浏览 Papers 不需要 Token。Token 仅用于新增、编辑、删除、导入和同步。
+公开数据文件默认为 papers_data.json。
+</p>
+<div
+class="form-group"
+style="margin-bottom:.9rem"
+>
+<label for="cfgOwner">仓库所有者</label>
+<input
+class="input"
+id="cfgOwner"
+name="github-owner"
+type="text"
+autocomplete="username"
+>
+</div>
+<div
+class="form-group"
+style="margin-bottom:.9rem"
+>
+<label for="cfgRepo">仓库名称</label>
+<input
+class="input"
+id="cfgRepo"
+type="text"
+autocomplete="off"
+>
+</div>
+<div
+class="form-group"
+style="margin-bottom:.9rem"
+>
+<label for="cfgFile">数据文件路径</label>
+<input
+class="input"
+id="cfgFile"
+type="text"
+value="papers_data.json"
+autocomplete="off"
+>
+</div>
+<div
+class="form-group"
+style="margin-bottom:.9rem"
+>
+<label for="cfgToken">GitHub Personal Access Token</label>
+<input
+class="input"
+id="cfgToken"
+name="github-token"
+type="password"
+autocomplete="current-password"
+spellcheck="false"
+>
+</div>
+<p
+class="dialog-desc"
+style="margin:0;padding:0;border:0"
+>
+Token 将保存在本设备，用于后续编辑登录。
+</p>
+</div>
+<div class="dialog-actions">
+<button
+class="btn"
+id="configCancel"
+type="button"
+>取消</button>
+<button
+class="btn btn-primary"
+id="configSave"
+type="submit"
+>保存并登录</button>
+</div>
+</form>
 </section>
 <button
-    class="back-to-top"
-    id="backToTopBtn"
-    type="button"
-    aria-label="回到顶部"
+class="back-to-top"
+id="backToTopBtn"
+type="button"
+aria-label="回到顶部"
 ></button>
 <div
-    class="toast hidden"
-    id="toast"
-    role="status"
-    aria-live="polite"
+class="toast hidden"
+id="toast"
+role="status"
+aria-live="polite"
 ></div>
 <script>
 (()=>{
 'use strict';
-
 const $=id=>document.getElementById(id);
-
 const
 statusDot=$('statusDot'),
 statusText=$('statusText'),
@@ -1140,98 +1138,89 @@ configCancel=$('configCancel'),
 configSave=$('configSave'),
 backToTopBtn=$('backToTopBtn'),
 toast=$('toast');
-
 const MAX_BYTES=900*1024;
 const MAX_HTML_BACKUP_BYTES=20*1024*1024;
 const BACKUP_FORMAT='papers-html-backup';
 const BACKUP_VERSION=1;
 const AUTO_DELAY=700;
 const API_VERSION='2026-03-10';
-
 const PUBLIC_DATA_FILE=
 String(
-    document.querySelector('meta[name="papers-data-file"]')?.content||
-    'papers_data.json'
+document.querySelector('meta[name="papers-data-file"]')?.content||
+'papers_data.json'
 ).trim()||'papers_data.json';
-
 function pageIdentity(){
-    let p=(location.pathname||'/')
-        .replace(/\\/g,'/')
-        .replace(/\/+/g,'/')
-        .replace(/\/(?:index\.html?)$/i,'/');
-
-    if(
-        p.length>1&&
-        p.endsWith('/')
-    ){
-        p=p.slice(0,-1);
-    }
-
-    return `${location.origin}${p}`;
+let p=(location.pathname||'/')
+.replace(/\\/g,'/')
+.replace(/\/+/g,'/')
+.replace(/\/(?:index\.html?)$/i,'/');
+if(
+p.length>1&&
+p.endsWith('/')
+){
+p=p.slice(0,-1);
 }
-
+return `${location.origin}${p}`;
+}
 function hashIdentity(value){
-    let hash=0x811c9dc5;
-
-    for(
-        let i=0;
-        i<value.length;
-        i++
-    ){
-        hash^=value.charCodeAt(i);
-
-        hash=Math.imul(
-            hash,
-            0x01000193
-        );
-    }
-
-    return (hash>>>0)
-        .toString(16)
-        .padStart(8,'0');
+let hash=0x811c9dc5;
+for(
+let i=0;
+i<value.length;
+i++
+){
+hash^=value.charCodeAt(i);
+hash=Math.imul(
+hash,
+0x01000193
+);
 }
-
+return (hash>>>0)
+.toString(16)
+.padStart(8,'0');
+}
 const PAGE_INSTANCE_ID=
 hashIdentity(
-    pageIdentity()
+pageIdentity()
 );
-
-const NS=`papers_private:${PAGE_INSTANCE_ID}`;
-const CONFIG_KEY=`${NS}:config`;
-const TOKEN_KEY=`${NS}:token`;
-const META_KEY=`${NS}:meta`;
-const PUBLIC_CACHE_KEY=`${NS}:public_cache`;
-const WORKING_COPY_KEY=`${NS}:working_copy`;
-const IDB_NAME=`${NS}:indexeddb_v1`;
+const NS=
+`papers_private:${PAGE_INSTANCE_ID}`;
+const CONFIG_KEY=
+`${NS}:config`;
+const TOKEN_KEY=
+`${NS}:token`;
+const META_KEY=
+`${NS}:meta`;
+const PUBLIC_CACHE_KEY=
+`${NS}:public_cache`;
+const WORKING_COPY_KEY=
+`${NS}:working_copy`;
+const IDB_NAME=
+`${NS}:indexeddb_v1`;
 const IDB_STORE='kv';
-
 const OPFS_WORKING_FILE=
 `papers-working-${PAGE_INSTANCE_ID}.json`;
-
 let data={
-    entries:[],
-    histories:{
-        journals:[],
-        issues:[],
-        notes:[]
-    },
-    profiles:[]
+entries:[],
+histories:{
+journals:[],
+issues:[],
+notes:[]
+},
+profiles:[]
 };
-
 let config={
-    owner:'',
-    repo:'',
-    file:'papers_data.json',
-    token:''
+owner:'',
+repo:'',
+file:'papers_data.json',
+token:''
 };
-
 let meta={
-    target:'',
-    fingerprint:null,
-    sha:null,
-    lastSyncAt:null
+target:'',
+fingerprint:null,
+sha:null,
+lastSyncAt:null
 };
-
 let unlocked=false;
 let publicLoaded=false;
 let syncing=false;
@@ -1240,4543 +1229,4475 @@ let editingId='';
 let editInitialSnapshot='';
 let toastTimer=null;
 let idbPromise=null;
-let workingSaveChain=Promise.resolve();
-
+let workingSaveChain=
+Promise.resolve();
 function clean(v){
-    return String(v??'').trim();
+return String(v??'').trim();
 }
-
 function key(v){
-    return clean(v)
-        .normalize('NFKC')
-        .toLocaleLowerCase('zh-CN');
+return clean(v)
+.normalize('NFKC')
+.toLocaleLowerCase('zh-CN');
 }
-
 function esc(v){
-    const d=document.createElement('div');
-    d.textContent=String(v??'');
-    return d.innerHTML;
+const d=
+document.createElement('div');
+d.textContent=
+String(v??'');
+return d.innerHTML;
 }
-
 function attr(v){
-    return esc(v)
-        .replace(/"/g,'&quot;');
+return esc(v)
+.replace(/"/g,'&quot;');
 }
-
 function uid(){
-    return crypto?.randomUUID
-        ?crypto.randomUUID()
-        :`papers_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
+return crypto?.randomUUID
+?crypto.randomUUID()
+:`papers_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
 }
-
 const collator=
 new Intl.Collator(
-    'zh-CN',
-    {
-        numeric:true,
-        sensitivity:'base'
-    }
+'zh-CN',
+{
+numeric:true,
+sensitivity:'base'
+}
 );
-
 const pinyinCollator=
 new Intl.Collator(
-    'zh-CN-u-co-pinyin',
-    {
-        numeric:true,
-        sensitivity:'base'
-    }
+'zh-CN-u-co-pinyin',
+{
+numeric:true,
+sensitivity:'base'
+}
 );
-
 const latinCollator=
 new Intl.Collator(
-    'en',
-    {
-        numeric:true,
-        sensitivity:'base'
-    }
+'en',
+{
+numeric:true,
+sensitivity:'base'
+}
 );
-
 function titleSortInfo(value){
-    const raw=
-    clean(value)
-        .normalize('NFKC');
-
-    if(!raw){
-        return{
-            type:99,
-            text:'',
-            number:null
-        };
-    }
-
-    const chars=Array.from(raw);
-    let startIndex=-1;
-
-    for(
-        let i=0;
-        i<chars.length;
-        i++
-    ){
-        const ch=chars[i];
-
-        if(
-            /^\p{Script=Han}$/u.test(ch)||
-            /^\d$/.test(ch)||
-            /^[A-Za-z]$/.test(ch)
-        ){
-            startIndex=i;
-            break;
-        }
-    }
-
-    if(startIndex<0){
-        return{
-            type:3,
-            text:raw,
-            number:null
-        };
-    }
-
-    const text=
-    chars.slice(startIndex).join('');
-
-    const first=chars[startIndex];
-
-    if(/^\p{Script=Han}$/u.test(first)){
-        return{
-            type:0,
-            text,
-            number:null
-        };
-    }
-
-    if(/^\d$/.test(first)){
-        const numberMatch=
-        text.match(/^\d+(?:\.\d+)?/);
-
-        return{
-            type:1,
-            text,
-            number:
-                numberMatch
-                ?Number(numberMatch[0])
-                :Number(first)
-        };
-    }
-
-    return{
-        type:2,
-        text,
-        number:null
-    };
+const raw=
+clean(value)
+.normalize('NFKC');
+if(!raw){
+return{
+type:99,
+text:'',
+number:null
+};
 }
-
+const chars=
+Array.from(raw);
+let startIndex=-1;
+for(
+let i=0;
+i<chars.length;
+i++
+){
+const ch=
+chars[i];
+if(
+/^\p{Script=Han}$/u.test(ch)||
+/^\d$/.test(ch)||
+/^[A-Za-z]$/.test(ch)
+){
+startIndex=i;
+break;
+}
+}
+if(startIndex<0){
+return{
+type:3,
+text:raw,
+number:null
+};
+}
+const text=
+chars.slice(startIndex).join('');
+const first=
+chars[startIndex];
+if(
+/^\p{Script=Han}$/u.test(first)
+){
+return{
+type:0,
+text,
+number:null
+};
+}
+if(/^\d$/.test(first)){
+const numberMatch=
+text.match(/^\d+(?:\.\d+)?/);
+return{
+type:1,
+text,
+number:
+numberMatch
+?Number(numberMatch[0])
+:Number(first)
+};
+}
+return{
+type:2,
+text,
+number:null
+};
+}
 function comparePaperTitle(a,b){
-    const x=titleSortInfo(a);
-    const y=titleSortInfo(b);
-
-    if(x.type!==y.type){
-        return x.type-y.type;
-    }
-
-    if(x.type===0){
-        const r=
-        pinyinCollator.compare(
-            x.text,
-            y.text
-        );
-
-        if(r!==0){
-            return r;
-        }
-    }
-
-    if(
-        x.type===1&&
-        x.number!==y.number
-    ){
-        return x.number-y.number;
-    }
-
-    if(x.type===2){
-        const r=
-        latinCollator.compare(
-            x.text,
-            y.text
-        );
-
-        if(r!==0){
-            return r;
-        }
-    }
-
-    const r=
-    collator.compare(
-        x.text,
-        y.text
-    );
-
-    if(r!==0){
-        return r;
-    }
-
-    return x.text<y.text
-        ?-1
-        :(x.text>y.text?1:0);
+const x=
+titleSortInfo(a);
+const y=
+titleSortInfo(b);
+if(x.type!==y.type){
+return x.type-y.type;
 }
-
+if(x.type===0){
+const r=
+pinyinCollator.compare(
+x.text,
+y.text
+);
+if(r!==0){
+return r;
+}
+}
+if(
+x.type===1&&
+x.number!==y.number
+){
+return x.number-y.number;
+}
+if(x.type===2){
+const r=
+latinCollator.compare(
+x.text,
+y.text
+);
+if(r!==0){
+return r;
+}
+}
+const r=
+collator.compare(
+x.text,
+y.text
+);
+if(r!==0){
+return r;
+}
+return x.text<y.text
+?-1
+:(x.text>y.text?1:0);
+}
 function paperTitleGroup(value){
-    const info=titleSortInfo(value);
-
-    if(info.type===0){
-        return 0;
-    }
-
-    if(info.type===2){
-        return 1;
-    }
-
-    if(info.type===1){
-        const chars=Array.from(info.text);
-
-        for(const ch of chars){
-            if(/^\p{Script=Han}$/u.test(ch)){
-                return 0;
-            }
-
-            if(/^[A-Za-z]$/.test(ch)){
-                return 1;
-            }
-        }
-    }
-
-    return 2;
+const info=
+titleSortInfo(value);
+if(info.type===0){
+return 0;
 }
-
+if(info.type===2){
+return 1;
+}
+if(info.type===1){
+const chars=
+Array.from(info.text);
+for(const ch of chars){
+if(
+/^\p{Script=Han}$/u.test(ch)
+){
+return 0;
+}
+if(
+/^[A-Za-z]$/.test(ch)
+){
+return 1;
+}
+}
+}
+return 2;
+}
 function comparePaperField(a,b){
-    const x=
-    clean(a)
-        .normalize('NFKC');
-
-    const y=
-    clean(b)
-        .normalize('NFKC');
-
-    if(Boolean(x)!==Boolean(y)){
-        return x?-1:1;
-    }
-
-    if(!x&&!y){
-        return 0;
-    }
-
-    const r=collator.compare(x,y);
-
-    if(r!==0){
-        return r;
-    }
-
-    return x<y?-1:(x>y?1:0);
+const x=
+clean(a)
+.normalize('NFKC');
+const y=
+clean(b)
+.normalize('NFKC');
+if(
+Boolean(x)!==Boolean(y)
+){
+return x
+?-1
+:1;
 }
-
-function journalNoteSortRank(value,options){
-    const list=
-    Array.isArray(options)
-    ?options
-    :[];
-
-    const k=key(value);
-
-    if(!k){
-        return list.length+1;
-    }
-
-    const index=
-    list.findIndex(
-        x=>key(x)===k
-    );
-
-    return index>=0
-        ?index
-        :list.length;
+if(!x&&!y){
+return 0;
 }
-
-function comparePaperEntry(a,b,noteOptions){
-    const groupA=
-    paperTitleGroup(
-        a?.title
-    );
-
-    const groupB=
-    paperTitleGroup(
-        b?.title
-    );
-
-    if(groupA!==groupB){
-        return groupA-groupB;
-    }
-
-    const notes=
-    Array.isArray(noteOptions)
-    ?noteOptions
-    :(
-        Array.isArray(
-            data?.histories?.notes
-        )
-        ?data.histories.notes
-        :[]
-    );
-
-    const noteRankA=
-    journalNoteSortRank(
-        a?.journalNote,
-        notes
-    );
-
-    const noteRankB=
-    journalNoteSortRank(
-        b?.journalNote,
-        notes
-    );
-
-    if(noteRankA!==noteRankB){
-        return noteRankA-noteRankB;
-    }
-
-    if(noteRankA>=notes.length){
-        const byNote=
-        comparePaperField(
-            a?.journalNote,
-            b?.journalNote
-        );
-
-        if(byNote!==0){
-            return byNote;
-        }
-    }
-
-    const byIssue=
-    comparePaperField(
-        a?.issue,
-        b?.issue
-    );
-
-    if(byIssue!==0){
-        return byIssue;
-    }
-
-    const byYear=
-    comparePaperField(
-        a?.year,
-        b?.year
-    );
-
-    if(byYear!==0){
-        return byYear;
-    }
-
-    const byTitle=
-    comparePaperTitle(
-        a?.title,
-        b?.title
-    );
-
-    if(byTitle!==0){
-        return byTitle;
-    }
-
-    return String(a?.id||'')
-        .localeCompare(
-            String(b?.id||'')
-        );
+const r=
+collator.compare(
+x,
+y
+);
+if(r!==0){
+return r;
 }
-
+return x<y
+?-1
+:(x>y?1:0);
+}
+function journalNoteSortRank(
+value,
+options
+){
+const list=
+Array.isArray(options)
+?options
+:[];
+const k=
+key(value);
+if(!k){
+return list.length+1;
+}
+const index=
+list.findIndex(
+x=>key(x)===k
+);
+return index>=0
+?index
+:list.length;
+}
+function comparePaperEntry(
+a,
+b,
+noteOptions
+){
+const groupA=
+paperTitleGroup(
+a?.title
+);
+const groupB=
+paperTitleGroup(
+b?.title
+);
+if(groupA!==groupB){
+return groupA-groupB;
+}
+const notes=
+Array.isArray(noteOptions)
+?noteOptions
+:(
+Array.isArray(
+data?.histories?.notes
+)
+?data.histories.notes
+:[]
+);
+const noteRankA=
+journalNoteSortRank(
+a?.journalNote,
+notes
+);
+const noteRankB=
+journalNoteSortRank(
+b?.journalNote,
+notes
+);
+if(noteRankA!==noteRankB){
+return noteRankA-noteRankB;
+}
+if(noteRankA>=notes.length){
+const byNote=
+comparePaperField(
+a?.journalNote,
+b?.journalNote
+);
+if(byNote!==0){
+return byNote;
+}
+}
+const byIssue=
+comparePaperField(
+a?.issue,
+b?.issue
+);
+if(byIssue!==0){
+return byIssue;
+}
+const byYear=
+comparePaperField(
+a?.year,
+b?.year
+);
+if(byYear!==0){
+return byYear;
+}
+const byTitle=
+comparePaperTitle(
+a?.title,
+b?.title
+);
+if(byTitle!==0){
+return byTitle;
+}
+return String(a?.id||'')
+.localeCompare(
+String(b?.id||'')
+);
+}
 function uniq(values){
-    const out=[];
-    const seen=new Set();
-
-    for(const raw of values||[]){
-        const v=clean(raw);
-        const k=key(v);
-
-        if(!v||seen.has(k)){
-            continue;
-        }
-
-        seen.add(k);
-        out.push(v);
-    }
-
-    return out;
+const out=[];
+const seen=
+new Set();
+for(
+const raw
+of values||[]
+){
+const v=
+clean(raw);
+const k=
+key(v);
+if(
+!v||
+seen.has(k)
+){
+continue;
 }
-
+seen.add(k);
+out.push(v);
+}
+return out;
+}
 function sortOptions(values){
-    return uniq(values)
-        .sort(comparePaperTitle);
+return uniq(values)
+.sort(
+comparePaperTitle
+);
 }
-
 function journalOptionSortInfo(value){
-    const text=
-    clean(value)
-        .normalize('NFKC');
-
-    for(const ch of Array.from(text)){
-        if(/^\p{Script=Han}$/u.test(ch)){
-            return{group:0,text};
-        }
-
-        if(/^[A-Za-z]$/.test(ch)){
-            return{group:1,text};
-        }
-    }
-
-    return{group:2,text};
+const text=
+clean(value)
+.normalize('NFKC');
+for(const ch of Array.from(text)){
+if(/^\p{Script=Han}$/u.test(ch)){
+return{group:0,text};
 }
-
+if(/^[A-Za-z]$/.test(ch)){
+return{group:1,text};
+}
+}
+return{group:2,text};
+}
 function compareJournalOption(a,b){
-    const x=journalOptionSortInfo(a);
-    const y=journalOptionSortInfo(b);
-
-    if(x.group!==y.group){
-        return x.group-y.group;
-    }
-
-    const primary=
-    x.group===0
-    ?pinyinCollator
-    :x.group===1
-    ?latinCollator
-    :collator;
-
-    const r=
-    primary.compare(
-        x.text,
-        y.text
-    );
-
-    if(r!==0){
-        return r;
-    }
-
-    return x.text<y.text
-        ?-1
-        :(x.text>y.text?1:0);
+const x=
+journalOptionSortInfo(a);
+const y=
+journalOptionSortInfo(b);
+if(x.group!==y.group){
+return x.group-y.group;
 }
-
+const primary=
+x.group===0
+?pinyinCollator
+:x.group===1
+?latinCollator
+:collator;
+const r=
+primary.compare(
+x.text,
+y.text
+);
+if(r!==0){
+return r;
+}
+return x.text<y.text
+?-1
+:(x.text>y.text?1:0);
+}
 function sortJournalOptions(values){
-    return uniq(values)
-        .sort(compareJournalOption);
+return uniq(values)
+.sort(
+compareJournalOption
+);
 }
-
 function sortIssueOptions(values){
-    return uniq(values)
-        .sort(
-            (a,b)=>{
-                const x=
-                clean(a)
-                    .normalize('NFKC');
-
-                const y=
-                clean(b)
-                    .normalize('NFKC');
-
-                const r=
-                collator.compare(
-                    x,
-                    y
-                );
-
-                if(r!==0){
-                    return r;
-                }
-
-                return x<y
-                    ?-1
-                    :(x>y?1:0);
-            }
-        );
+return uniq(values)
+.sort(
+(a,b)=>{
+const x=
+clean(a)
+.normalize('NFKC');
+const y=
+clean(b)
+.normalize('NFKC');
+const r=
+collator.compare(
+x,
+y
+);
+if(r!==0){
+return r;
 }
-
+return x<y
+?-1
+:(x>y?1:0);
+}
+);
+}
 function preserveJournalNoteOptions(values){
-    return uniq(values||[]);
+return uniq(
+values||[]
+);
+}
+const PAPER_CODE_RULES=Object.freeze({
+zhIssue:{
+key:'zhIssue',
+ranges:[
+[330001,339999],
+[370001,379999]
+]
+},
+zhNoIssue:{
+key:'zhNoIssue',
+ranges:[
+[310001,319999]
+]
+},
+enIssue:{
+key:'enIssue',
+ranges:[
+[350001,359999]
+]
+},
+enNoJournal:{
+key:'enNoJournal',
+ranges:[
+[340001,349999]
+]
+},
+zhNoJournal:{
+key:'zhNoJournal',
+ranges:[
+[380001,389999]
+]
+}
+});
+function paperTitleLanguage(title){
+const group=
+paperTitleGroup(
+title
+);
+return group===0
+?'zh'
+:group===1
+?'en'
+:'';
+}
+function automaticCodeRule(entry){
+const language=
+paperTitleLanguage(
+entry?.title
+);
+if(!language){
+return null;
+}
+const hasJournal=
+Boolean(
+clean(
+entry?.journal
+)
+);
+const hasIssue=
+Boolean(
+clean(
+entry?.issue
+)
+);
+if(!hasJournal){
+return language==='zh'
+?PAPER_CODE_RULES.zhNoJournal
+:PAPER_CODE_RULES.enNoJournal;
+}
+if(language==='zh'){
+return hasIssue
+?PAPER_CODE_RULES.zhIssue
+:PAPER_CODE_RULES.zhNoIssue;
+}
+if(
+language==='en'&&
+hasIssue
+){
+return PAPER_CODE_RULES.enIssue;
+}
+return null;
+}
+function normalizeAutomaticCode(value){
+const code=
+clean(value);
+return /^\d{6}$/.test(code)
+?code
+:'';
+}
+function codeBelongsToRule(code,rule){
+if(!rule){
+return false;
+}
+const normalized=
+normalizeAutomaticCode(
+code
+);
+if(!normalized){
+return false;
+}
+const number=
+Number(normalized);
+return rule.ranges
+.some(
+([start,end])=>
+number>=start&&
+number<=end
+);
+}
+function usedAutomaticCodes(entries,excludeId=''){
+const used=
+new Set();
+for(
+const item
+of entries||[]
+){
+if(
+excludeId&&
+item?.id===excludeId
+){
+continue;
+}
+const code=
+normalizeAutomaticCode(
+item?.code
+);
+if(code){
+used.add(
+Number(code)
+);
+}
+}
+return used;
+}
+function nextAutomaticCode(entry,entries,excludeId=''){
+const rule=
+automaticCodeRule(
+entry
+);
+if(!rule){
+return '';
+}
+const used=
+usedAutomaticCodes(
+entries,
+excludeId
+);
+const current=
+normalizeAutomaticCode(
+entry?.code
+);
+if(
+current&&
+codeBelongsToRule(
+current,
+rule
+)&&
+!used.has(
+Number(current)
+)
+){
+return current;
+}
+for(
+const [start,end]
+of rule.ranges
+){
+for(
+let number=start;
+number<=end;
+number++
+){
+if(!used.has(number)){
+return String(number);
+}
+}
+}
+return '';
 }
 
 function normalizeEntry(x){
-    if(
-        !x||
-        typeof x!=='object'
-    ){
-        return null;
-    }
-
-    return{
-        id:
-            clean(x.id)||
-            uid(),
-
-        title:
-            clean(x.title),
-
-        year:
-            clean(x.year),
-
-        journal:
-            clean(x.journal),
-
-        issue:
-            clean(x.issue),
-
-        journalNote:
-            clean(
-                x.journalNote??
-                x.note
-            )
-    };
-}
-
-function normalizeProfile(x){
-    if(
-        !x||
-        typeof x!=='object'
-    ){
-        return null;
-    }
-
-    const journal=clean(x.journal);
-
-    if(!journal){
-        return null;
-    }
-
-    return{
-        journal,
-
-        issue:
-            clean(x.issue),
-
-        journalNote:
-            clean(
-                x.journalNote??
-                x.note
-            )
-    };
-}
-
-function deriveProfiles(entries){
-    const map=new Map();
-
-    for(const x of entries){
-        if(!x.journal){
-            continue;
-        }
-
-        map.set(
-            key(x.journal),
-            {
-                journal:x.journal,
-                issue:x.issue,
-                journalNote:x.journalNote
-            }
-        );
-    }
-
-    return [...map.values()];
-}
-
-function normalizeData(value){
-    const source=
-    Array.isArray(value)
-    ?{entries:value}
-    :(
-        value&&
-        typeof value==='object'
-        ?value
-        :{}
-    );
-
-    const entries=
-    (
-        Array.isArray(
-            source.entries
-        )
-        ?source.entries
-        :[]
-    )
-    .map(normalizeEntry)
-    .filter(Boolean);
-
-    const rawHist=
-    source.histories&&
-    typeof source.histories==='object'
-    ?source.histories
-    :{};
-
-    const histories={
-        journals:
-            Array.isArray(
-                rawHist.journals
-            )
-            ?sortJournalOptions(
-                rawHist.journals
-            )
-            :sortJournalOptions(
-                entries.map(
-                    x=>x.journal
-                )
-            ),
-
-        issues:
-            Array.isArray(
-                rawHist.issues
-            )
-            ?sortIssueOptions(
-                rawHist.issues
-            )
-            :sortIssueOptions(
-                entries.map(
-                    x=>x.issue
-                )
-            ),
-
-        notes:
-            Array.isArray(
-                rawHist.notes
-            )
-            ?preserveJournalNoteOptions(
-                rawHist.notes
-            )
-            :preserveJournalNoteOptions(
-                entries.map(
-                    x=>x.journalNote
-                )
-            )
-    };
-
-    entries.sort(
-        (a,b)=>
-            comparePaperEntry(
-                a,
-                b,
-                histories.notes
-            )
-    );
-
-    const profiles=
-    Array.isArray(
-        source.profiles
-    )
-    ?source.profiles
-        .map(normalizeProfile)
-        .filter(Boolean)
-    :deriveProfiles(entries);
-
-    const profileMap=new Map();
-
-    for(const p of profiles){
-        profileMap.set(
-            key(p.journal),
-            p
-        );
-    }
-
-    return{
-        entries,
-        histories,
-        profiles:[
-            ...profileMap.values()
-        ]
-    };
-}
-
-function fingerprint(value=data){
-    return JSON.stringify(
-        normalizeData(value)
-    );
-}
-
-function formatDate(iso){
-    const d=new Date(iso);
-
-    if(
-        Number.isNaN(
-            d.getTime()
-        )
-    ){
-        return '';
-    }
-
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-function target(){
-    return(
-        config.owner&&
-        config.repo&&
-        config.file
-    )
-    ?`${config.owner}/${config.repo}/${config.file}`
-    :'';
-}
-
-function adminConfigured(){
-    return Boolean(
-        config.owner&&
-        config.repo&&
-        config.file&&
-        config.token
-    );
-}
-
-function pathEncode(path){
-    return String(path)
-        .split('/')
-        .filter(Boolean)
-        .map(encodeURIComponent)
-        .join('/');
-}
-
-function openStorageDb(){
-    if(idbPromise){
-        return idbPromise;
-    }
-
-    idbPromise=
-    new Promise(
-        (
-            resolve,
-            reject
-        )=>{
-            const request=
-            indexedDB.open(
-                IDB_NAME,
-                1
-            );
-
-            request.onupgradeneeded=
-            ()=>{
-                const db=request.result;
-
-                if(
-                    !db.objectStoreNames
-                    .contains(IDB_STORE)
-                ){
-                    db.createObjectStore(
-                        IDB_STORE
-                    );
-                }
-            };
-
-            request.onsuccess=
-            ()=>resolve(
-                request.result
-            );
-
-            request.onerror=
-            ()=>reject(
-                request.error||
-                new Error(
-                    'IndexedDB 打开失败'
-                )
-            );
-
-            request.onblocked=
-            ()=>console.warn(
-                'IndexedDB 打开被阻塞'
-            );
-        }
-    );
-
-    return idbPromise;
-}
-
-async function idbGet(k){
-    try{
-        const db=
-        await openStorageDb();
-
-        return await new Promise(
-            (
-                resolve,
-                reject
-            )=>{
-                const tx=
-                db.transaction(
-                    IDB_STORE,
-                    'readonly'
-                );
-
-                const req=
-                tx.objectStore(
-                    IDB_STORE
-                ).get(k);
-
-                req.onsuccess=
-                ()=>resolve(
-                    req.result
-                );
-
-                req.onerror=
-                ()=>reject(
-                    req.error||
-                    new Error(
-                        'IndexedDB 读取失败'
-                    )
-                );
-            }
-        );
-    }catch(error){
-        console.error(
-            'IndexedDB 读取失败:',
-            error
-        );
-
-        return undefined;
-    }
-}
-
-async function idbSet(k,v){
-    try{
-        const db=
-        await openStorageDb();
-
-        await new Promise(
-            (
-                resolve,
-                reject
-            )=>{
-                const tx=
-                db.transaction(
-                    IDB_STORE,
-                    'readwrite'
-                );
-
-                tx.objectStore(
-                    IDB_STORE
-                ).put(
-                    v,
-                    k
-                );
-
-                tx.oncomplete=
-                ()=>resolve();
-
-                tx.onerror=
-                ()=>reject(
-                    tx.error||
-                    new Error(
-                        'IndexedDB 写入失败'
-                    )
-                );
-
-                tx.onabort=
-                ()=>reject(
-                    tx.error||
-                    new Error(
-                        'IndexedDB 写入中止'
-                    )
-                );
-            }
-        );
-
-        return true;
-    }catch(error){
-        console.error(
-            'IndexedDB 写入失败:',
-            error
-        );
-
-        return false;
-    }
-}
-
-async function idbDelete(k){
-    try{
-        const db=
-        await openStorageDb();
-
-        await new Promise(
-            (
-                resolve,
-                reject
-            )=>{
-                const tx=
-                db.transaction(
-                    IDB_STORE,
-                    'readwrite'
-                );
-
-                tx.objectStore(
-                    IDB_STORE
-                ).delete(k);
-
-                tx.oncomplete=
-                ()=>resolve();
-
-                tx.onerror=
-                ()=>reject(
-                    tx.error||
-                    new Error(
-                        'IndexedDB 删除失败'
-                    )
-                );
-
-                tx.onabort=
-                ()=>reject(
-                    tx.error||
-                    new Error(
-                        'IndexedDB 删除中止'
-                    )
-                );
-            }
-        );
-
-        return true;
-    }catch(error){
-        console.error(
-            'IndexedDB 删除失败:',
-            error
-        );
-
-        return false;
-    }
-}
-
-async function requestPersistentStorage(){
-    try{
-        if(navigator.storage?.persist){
-            await navigator.storage.persist();
-        }
-    }catch(error){
-        console.warn(
-            '无法申请持久存储:',
-            error
-        );
-    }
-}
-
-async function opfsRoot(){
-    try{
-        return navigator.storage?.getDirectory
-            ?await navigator.storage.getDirectory()
-            :null;
-    }catch(error){
-        console.warn(
-            'OPFS 不可用:',
-            error
-        );
-
-        return null;
-    }
-}
-
-async function readOpfsWorkingCopy(){
-    try{
-        const root=await opfsRoot();
-
-        if(!root){
-            return null;
-        }
-
-        const handle=
-        await root.getFileHandle(
-            OPFS_WORKING_FILE
-        );
-
-        const file=
-        await handle.getFile();
-
-        const parsed=
-        JSON.parse(
-            await file.text()
-        );
-
-        return(
-            parsed&&
-            typeof parsed==='object'
-        )
-        ?parsed
-        :null;
-    }catch(error){
-        if(error?.name!=='NotFoundError'){
-            console.warn(
-                '读取 OPFS 工作副本失败:',
-                error
-            );
-        }
-
-        return null;
-    }
-}
-
-async function writeOpfsWorkingCopy(payload){
-    try{
-        const root=await opfsRoot();
-
-        if(!root){
-            return false;
-        }
-
-        const handle=
-        await root.getFileHandle(
-            OPFS_WORKING_FILE,
-            {
-                create:true
-            }
-        );
-
-        const writable=
-        await handle.createWritable();
-
-        await writable.write(
-            JSON.stringify(payload)
-        );
-
-        await writable.close();
-
-        return true;
-    }catch(error){
-        console.warn(
-            '写入 OPFS 工作副本失败:',
-            error
-        );
-
-        return false;
-    }
-}
-
-function validWorkingEnvelope(
-    value,
-    expectedTarget=''
+if(
+!x||
+typeof x!=='object'
 ){
-    if(
-        !value||
-        typeof value!=='object'||
-        !value.state
-    ){
-        return null;
-    }
-
-    const payloadTarget=
-    clean(value.target);
-
-    if(
-        expectedTarget&&
-        payloadTarget!==expectedTarget
-    ){
-        return null;
-    }
-
-    const savedAt=
-    Number(value.savedAt)||0;
-
-    return{
-        version:
-            Number(value.version)||1,
-
-        target:
-            payloadTarget,
-
-        savedAt,
-
-        state:
-            normalizeData(
-                value.state
-            )
-    };
+return null;
 }
-
-async function persistWorkingEnvelope(payload){
-    const results=
-    await Promise.allSettled(
-        [
-            idbSet(
-                WORKING_COPY_KEY,
-                payload
-            ),
-
-            writeOpfsWorkingCopy(
-                payload
-            )
-        ]
-    );
-
-    const idbOk=
-    results[0].status==='fulfilled'&&
-    results[0].value===true;
-
-    const opfsOk=
-    results[1].status==='fulfilled'&&
-    results[1].value===true;
-
-    if(!idbOk&&!opfsOk){
-        throw new Error(
-            '本机工作副本保存失败'
-        );
-    }
-
-    return{
-        idbOk,
-        opfsOk
-    };
-}
-
-function saveWorkingCopy(snapshot=data){
-    const currentTarget=target();
-
-    if(!currentTarget){
-        return Promise.resolve(false);
-    }
-
-    const normalized=
-    normalizeData(snapshot);
-
-    const payload={
-        version:1,
-        target:currentTarget,
-        savedAt:Date.now(),
-        state:normalized
-    };
-
-    workingSaveChain=
-    workingSaveChain
-    .catch(()=>{})
-    .then(
-        ()=>persistWorkingEnvelope(
-            payload
-        )
-    );
-
-    return workingSaveChain;
-}
-
-async function loadWorkingCopy(
-    expectedTarget=target()
-){
-    const[
-        idbRaw,
-        opfsRaw
-    ]=
-    await Promise.all(
-        [
-            idbGet(
-                WORKING_COPY_KEY
-            ),
-
-            readOpfsWorkingCopy()
-        ]
-    );
-
-    const idbCopy=
-    validWorkingEnvelope(
-        idbRaw,
-        expectedTarget
-    );
-
-    const opfsCopy=
-    validWorkingEnvelope(
-        opfsRaw,
-        expectedTarget
-    );
-
-    const chosen=
-    !idbCopy
-    ?opfsCopy
-    :(
-        !opfsCopy
-        ?idbCopy
-        :(
-            opfsCopy.savedAt>
-            idbCopy.savedAt
-            ?opfsCopy
-            :idbCopy
-        )
-    );
-
-    if(!chosen){
-        return null;
-    }
-
-    const needsIdb=
-    !idbCopy||
-    idbCopy.savedAt!==chosen.savedAt;
-
-    const needsOpfs=
-    !opfsCopy||
-    opfsCopy.savedAt!==chosen.savedAt;
-
-    if(needsIdb||needsOpfs){
-        const tasks=[];
-
-        if(needsIdb){
-            tasks.push(
-                idbSet(
-                    WORKING_COPY_KEY,
-                    chosen
-                )
-            );
-        }
-
-        if(needsOpfs){
-            tasks.push(
-                writeOpfsWorkingCopy(
-                    chosen
-                )
-            );
-        }
-
-        void Promise.allSettled(tasks);
-    }
-
-    return chosen.state;
-}
-
-async function savePublicCache(snapshot=data){
-    return idbSet(
-        PUBLIC_CACHE_KEY,
-        {
-            version:1,
-            savedAt:Date.now(),
-            state:
-                normalizeData(snapshot)
-        }
-    );
-}
-
-async function loadPublicCache(){
-    const value=
-    await idbGet(
-        PUBLIC_CACHE_KEY
-    );
-
-    return(
-        value&&
-        typeof value==='object'&&
-        value.state
-    )
-    ?normalizeData(value.state)
-    :normalizeData({});
-}
-
-function show(msg,type='info'){
-    toast.textContent=msg;
-    toast.className=`toast ${type}`;
-
-    clearTimeout(toastTimer);
-
-    toastTimer=
-    setTimeout(
-        ()=>toast.classList.add(
-            'hidden'
-        ),
-        3200
-    );
-}
-
-function status(kind,text){
-    statusDot.className=
-    `status-dot ${kind}`;
-
-    statusText.textContent=text;
-}
-
-function formatError(error){
-    if(!error){
-        return '未知错误';
-    }
-
-    if(error.status===401){
-        return 'Token 无效或已过期';
-    }
-
-    if(error.status===403){
-        return 'Token 权限不足或仓库访问被拒绝';
-    }
-
-    if(error.status===404){
-        return '仓库或数据文件不存在，或 Token 无权访问';
-    }
-
-    if(error.status===409){
-        return '云端文件已被其他设备修改';
-    }
-
-    return(
-        error.message||
-        String(error)
-    );
-}
-
-async function loadConfig(){
-    const saved=
-    await idbGet(CONFIG_KEY)||{};
-
-    const storedToken=
-    clean(
-        await idbGet(TOKEN_KEY)||''
-    );
-
-    config.owner=clean(saved.owner);
-    config.repo=clean(saved.repo);
-    config.file=
-    clean(saved.file)||
-    'papers_data.json';
-    config.token=storedToken;
-}
-
-async function saveConfig(){
-    await idbSet(
-        CONFIG_KEY,
-        {
-            owner:config.owner,
-            repo:config.repo,
-            file:config.file
-        }
-    );
-
-    if(config.token){
-        await idbSet(
-            TOKEN_KEY,
-            config.token
-        );
-    }else{
-        await idbDelete(
-            TOKEN_KEY
-        );
-    }
-}
-
-async function loadMeta(){
-    const x=
-    await idbGet(META_KEY)||{};
-
-    meta={
-        target:
-            clean(x.target),
-
-        fingerprint:
-            typeof x.fingerprint==='string'
-            ?x.fingerprint
-            :null,
-
-        sha:
-            clean(x.sha)||null,
-
-        lastSyncAt:
-            clean(x.lastSyncAt)||null
-    };
-}
-
-async function saveMeta(){
-    return idbSet(
-        META_KEY,
-        meta
-    );
-}
-
-async function record(snapshot,sha){
-    const normalized=
-    normalizeData(snapshot);
-
-    const baselineFingerprint=
-    fingerprint(normalized);
-
-    meta={
-        target:target(),
-        fingerprint:baselineFingerprint,
-        sha:sha||null,
-        lastSyncAt:
-            new Date().toISOString()
-    };
-
-    const currentSnapshot=
-    normalizeData(data);
-
-    const changedDuringSync=
-    fingerprint(currentSnapshot)!==
-    baselineFingerprint;
-
-    const metaSaved=
-    await saveMeta();
-
-    try{
-        await saveWorkingCopy(
-            changedDuringSync
-            ?currentSnapshot
-            :normalized
-        );
-    }catch(error){
-        console.error(
-            '保存本机工作副本失败:',
-            error
-        );
-    }
-
-    if(!metaSaved){
-        console.warn(
-            '同步元数据未能持久保存'
-        );
-    }
-
-    lastSyncTime.textContent=
-    `已同步 ${new Date(meta.lastSyncAt).toLocaleString()}`;
-
-    if(changedDuringSync){
-        setTimeout(
-            ()=>{
-                if(!unlocked){
-                    return;
-                }
-
-                status(
-                    'offline',
-                    '待同步'
-                );
-
-                lastSyncTime.textContent=
-                '有未同步修改';
-
-                clearTimeout(autoTimer);
-
-                autoTimer=
-                setTimeout(
-                    ()=>{
-                        autoTimer=null;
-
-                        sync(
-                            false,
-                            false
-                        );
-                    },
-                    AUTO_DELAY
-                );
-            },
-            0
-        );
-    }
-}
-
-function setUnlocked(on){
-    unlocked=Boolean(on);
-
-    editorSection.classList.toggle(
-        'hidden',
-        !unlocked
-    );
-
-    visitorNote.classList.toggle(
-        'hidden',
-        unlocked
-    );
-
-    syncBtn.disabled=!unlocked;
-    importBtn.disabled=!unlocked;
-
-    exportBtn.disabled=
-    !publicLoaded&&!unlocked;
-
-    configBtn.textContent=
-    unlocked
-    ?'配置'
-    :'编辑登录';
-}
-
-function publicDataUrl(){
-    return new URL(
-        PUBLIC_DATA_FILE,
-        location.href
-    ).href;
-}
-
-function parseHtmlBackupPayload(value){
-    if(
-        !value||
-        typeof value!=='object'||
-        value.format!==BACKUP_FORMAT||
-        Number(value.version)!==BACKUP_VERSION||
-        !value.data
-    ){
-        throw new Error(
-            'HTML 备份格式不受支持'
-        );
-    }
-
-    return normalizeData(value.data);
-}
-
-function readEmbeddedBackup(doc=document){
-    const node=
-    doc.getElementById(
-        'papersBackupData'
-    );
-
-    if(!node){
-        return null;
-    }
-
-    try{
-        return parseHtmlBackupPayload(
-            JSON.parse(
-                node.textContent||''
-            )
-        );
-    }catch(error){
-        console.error(
-            '内嵌 HTML 备份数据无效:',
-            error
-        );
-
-        return null;
-    }
-}
-
-async function loadPublicView(){
-    const embedded=
-    readEmbeddedBackup();
-
-    if(embedded){
-        data=embedded;
-        publicLoaded=true;
-        render();
-        exportBtn.disabled=false;
-
-        void savePublicCache(data);
-
-        status(
-            'backup',
-            'HTML 备份'
-        );
-
-        lastSyncTime.textContent=
-        'HTML 备份 · 当前显示导出时刻快照';
-
-        return true;
-    }
-
-    status(
-        'syncing',
-        '加载公开内容…'
-    );
-
-    lastSyncTime.textContent=
-    '公开浏览 · 编辑需 Token';
-
-    try{
-        const response=
-        await fetch(
-            publicDataUrl(),
-            {
-                method:'GET',
-                cache:'no-store',
-                headers:{
-                    Accept:'application/json'
-                }
-            }
-        );
-
-        const raw=
-        await response.text();
-
-        if(!response.ok){
-            const e=
-            new Error(
-                `公开数据加载失败：HTTP ${response.status}`
-            );
-
-            e.status=response.status;
-            throw e;
-        }
-
-        if(
-            new TextEncoder()
-            .encode(raw)
-            .length>
-            MAX_BYTES
-        ){
-            throw new Error(
-                '公开数据超过 900 KB'
-            );
-        }
-
-        data=
-        normalizeData(
-            JSON.parse(raw)
-        );
-
-        publicLoaded=true;
-        render();
-        exportBtn.disabled=false;
-
-        void savePublicCache(data);
-
-        status(
-            'online',
-            '公开浏览'
-        );
-
-        lastSyncTime.textContent=
-        '公开浏览 · 编辑需 Token';
-
-        return true;
-    }catch(error){
-        console.error(error);
-
-        const cached=
-        await loadPublicCache();
-
-        data=cached;
-
-        publicLoaded=
-        cached.entries.length>0;
-
-        render();
-
-        if(publicLoaded){
-            exportBtn.disabled=false;
-
-            status(
-                'offline',
-                '离线浏览'
-            );
-
-            lastSyncTime.textContent=
-            '公开数据暂时不可用 · 当前显示本机缓存';
-        }else{
-            exportBtn.disabled=true;
-
-            status(
-                'offline',
-                '公开数据不可用'
-            );
-
-            lastSyncTime.textContent=
-            '无法加载 papers_data.json · 编辑登录仍可使用';
-        }
-
-        return false;
-    }
-}
-
-async function githubApi(
-    method,
-    endpoint='',
-    body=null
-){
-    const owner=
-    encodeURIComponent(
-        config.owner
-    );
-
-    const repo=
-    encodeURIComponent(
-        config.repo
-    );
-
-    const suffix=
-    endpoint
-    ?`/${endpoint}`
-    :'';
-
-    const url=
-    `https://api.github.com/repos/${owner}/${repo}${suffix}`;
-
-    const headers={
-        'Authorization':
-            `Bearer ${config.token}`,
-
-        'Accept':
-            'application/vnd.github+json',
-
-        'X-GitHub-Api-Version':
-            API_VERSION
-    };
-
-    const options={
-        method,
-        headers
-    };
-
-    if(body!==null){
-        headers['Content-Type']=
-        'application/json';
-
-        options.body=
-        JSON.stringify(body);
-    }
-
-    const response=
-    await fetch(
-        url,
-        options
-    );
-
-    const raw=
-    await response.text();
-
-    let result=null;
-
-    if(raw){
-        try{
-            result=JSON.parse(raw);
-        }catch(e){
-            result={
-                message:raw
-            };
-        }
-    }
-
-    if(!response.ok){
-        const e=
-        new Error(
-            result?.message||
-            `HTTP ${response.status}`
-        );
-
-        e.status=response.status;
-        throw e;
-    }
-
-    return result;
-}
-
-function utf8ToBase64(text){
-    const bytes=
-    new TextEncoder()
-    .encode(text);
-
-    let binary='';
-
-    for(
-        let i=0;
-        i<bytes.length;
-        i+=0x8000
-    ){
-        binary+=
-        String.fromCharCode(
-            ...bytes.subarray(
-                i,
-                i+0x8000
-            )
-        );
-    }
-
-    return btoa(binary);
-}
-
-function base64ToUtf8(base64){
-    const binary=
-    atob(
-        String(base64||'')
-        .replace(/\s/g,'')
-    );
-
-    const bytes=
-    new Uint8Array(
-        binary.length
-    );
-
-    for(
-        let i=0;
-        i<binary.length;
-        i++
-    ){
-        bytes[i]=
-        binary.charCodeAt(i);
-    }
-
-    return new TextDecoder(
-        'utf-8'
-    ).decode(bytes);
-}
-
-async function verifyRepository(){
-    return githubApi('GET');
-}
-
-async function readRemote(){
-    try{
-        const result=
-        await githubApi(
-            'GET',
-            `contents/${pathEncode(config.file)}`
-        );
-
-        if(
-            !result||
-            result.type!=='file'||
-            typeof result.content!=='string'||
-            !result.sha
-        ){
-            throw new Error(
-                '云端数据文件格式异常'
-            );
-        }
-
-        if(
-            Number.isFinite(result.size)&&
-            result.size>MAX_BYTES
-        ){
-            throw new Error(
-                '云端数据超过 900 KB'
-            );
-        }
-
-        try{
-            return{
-                exists:true,
-                invalid:false,
-                sha:result.sha,
-                data:
-                    normalizeData(
-                        JSON.parse(
-                            base64ToUtf8(
-                                result.content
-                            )
-                        )
-                    )
-            };
-        }catch(error){
-            console.error(
-                '云端 JSON 损坏:',
-                error
-            );
-
-            return{
-                exists:true,
-                invalid:true,
-                sha:result.sha,
-                data:null
-            };
-        }
-    }catch(error){
-        if(error.status===404){
-            return{
-                exists:false,
-                invalid:false,
-                sha:null,
-                data:normalizeData({})
-            };
-        }
-
-        throw error;
-    }
-}
-
-async function writeRemote(snapshot,sha){
-    const normalized=
-    normalizeData(snapshot);
-
-    const raw=
-    JSON.stringify(
-        {
-            schemaVersion:2,
-            ...normalized
-        },
-        null,
-        2
-    );
-
-    if(
-        new TextEncoder()
-        .encode(raw)
-        .length>
-        MAX_BYTES
-    ){
-        throw new Error(
-            '数据超过 900 KB'
-        );
-    }
-
-    const body={
-        message:
-            `更新 Papers 数据 - ${new Date().toLocaleString()}`,
-
-        content:
-            utf8ToBase64(raw)
-    };
-
-    if(sha){
-        body.sha=sha;
-    }
-
-    const result=
-    await githubApi(
-        'PUT',
-        `contents/${pathEncode(config.file)}`,
-        body
-    );
-
-    return(
-        result?.content?.sha||
-        null
-    );
-}
-
-async function login(showResult=true){
-    if(!adminConfigured()){
-        setUnlocked(false);
-
-        if(
-            publicLoaded||
-            data.entries.length
-        ){
-            render();
-        }
-
-        status(
-            publicLoaded
-            ?'online'
-            :'offline',
-
-            publicLoaded
-            ?'公开浏览'
-            :'公开数据不可用'
-        );
-
-        if(showResult){
-            show(
-                '请填写仓库和 Token 以启用编辑',
-                'error'
-            );
-        }
-
-        return false;
-    }
-
-    status(
-        'syncing',
-        '验证编辑权限…'
-    );
-
-    syncBtn.disabled=true;
-    exportBtn.disabled=true;
-    importBtn.disabled=true;
-
-    try{
-        await verifyRepository();
-
-        const remote=
-        await readRemote();
-
-        if(remote.invalid){
-            const cache=
-            await loadWorkingCopy(
-                target()
-            );
-
-            if(cache){
-                data=cache;
-            }
-
-            setUnlocked(true);
-            render();
-
-            status(
-                'offline',
-                '数据文件异常'
-            );
-
-            lastSyncTime.textContent=
-            '编辑已登录 · 云端 JSON 损坏，可导入 HTML 备份后点击“同步”修复';
-
-            if(showResult){
-                show(
-                    'Token 验证成功，但云端 JSON 已损坏；请导入 HTML 备份后点击“同步”修复',
-                    'error'
-                );
-            }
-
-            return true;
-        }
-
-        const remoteFp=
-        fingerprint(remote.data);
-
-        const cache=
-        await loadWorkingCopy(
-            target()
-        );
-
-        const sameTarget=
-        meta.target===target();
-
-        const cacheFp=
-        cache
-        ?fingerprint(cache)
-        :null;
-
-        const cacheUnsynced=
-        Boolean(cache)&&
-        sameTarget&&
-        meta.fingerprint!==null&&
-        cacheFp!==meta.fingerprint&&
-        cacheFp!==remoteFp;
-
-        if(cacheUnsynced){
-            data=cache;
-            setUnlocked(true);
-            render();
-
-            if(
-                remote.exists&&
-                remoteFp!==meta.fingerprint
-            ){
-                status(
-                    'offline',
-                    '存在同步冲突'
-                );
-
-                lastSyncTime.textContent=
-                '编辑已登录 · 本地和云端均有修改';
-
-                if(showResult){
-                    show(
-                        '编辑登录成功，但检测到同步冲突，请点击“同步”处理',
-                        'error'
-                    );
-                }
-            }else{
-                status(
-                    'offline',
-                    '有未同步修改'
-                );
-
-                lastSyncTime.textContent=
-                '编辑已登录 · 正在恢复未同步修改';
-
-                scheduleSync();
-
-                if(showResult){
-                    show(
-                        '编辑登录成功，已恢复本地未同步修改',
-                        'success'
-                    );
-                }
-            }
-        }else{
-            data=remote.data;
-
-            setUnlocked(true);
-            render();
-
-            await record(
-                data,
-                remote.sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            if(!remote.exists){
-                lastSyncTime.textContent=
-                '编辑已登录 · 数据文件尚未创建';
-            }
-
-            if(showResult){
-                show(
-                    'Token 验证成功，已启用编辑',
-                    'success'
-                );
-            }
-        }
-
-        return true;
-    }catch(error){
-        console.error(error);
-
-        setUnlocked(false);
-
-        if(
-            publicLoaded||
-            data.entries.length
-        ){
-            render();
-        }
-
-        status(
-            publicLoaded
-            ?'online'
-            :'offline',
-
-            publicLoaded
-            ?'公开浏览'
-            :'公开数据不可用'
-        );
-
-        if(showResult){
-            show(
-                `编辑登录失败：${formatError(error)}`,
-                'error'
-            );
-        }
-
-        return false;
-    }
-}
-
-async function sync(
-    showResult=true,
-    interactive=showResult
-){
-    if(
-        !unlocked||
-        !adminConfigured()
-    ){
-        show(
-            '请先使用 Token 登录',
-            'error'
-        );
-
-        return false;
-    }
-
-    if(syncing){
-        return false;
-    }
-
-    clearTimeout(autoTimer);
-
-    autoTimer=null;
-    syncing=true;
-    syncBtn.disabled=true;
-
-    status(
-        'syncing',
-        '同步中…'
-    );
-
-    try{
-        const localSnapshot=
-        normalizeData(data);
-
-        const localFp=
-        fingerprint(localSnapshot);
-
-        const baseline=
-        meta.target===target()
-        ?meta.fingerprint
-        :null;
-
-        const remote=
-        await readRemote();
-
-        if(remote.invalid){
-            if(!interactive){
-                status(
-                    'offline',
-                    '数据文件异常'
-                );
-
-                lastSyncTime.textContent=
-                '云端 JSON 损坏 · 请点击“同步”确认用当前数据修复';
-
-                return false;
-            }
-
-            const repair=
-            confirm(
-                '检测到云端数据文件 JSON 已损坏。\n\n确定：用当前网页数据覆盖损坏文件并修复。\n取消：暂不处理。'
-            );
-
-            if(!repair){
-                status(
-                    'offline',
-                    '同步已取消'
-                );
-
-                return false;
-            }
-
-            const sha=
-            await writeRemote(
-                localSnapshot,
-                remote.sha
-            );
-
-            await record(
-                localSnapshot,
-                sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            if(showResult){
-                show(
-                    '云端 JSON 已用当前数据修复',
-                    'success'
-                );
-            }
-
-            return true;
-        }
-
-        if(!remote.exists){
-            const sha=
-            await writeRemote(
-                localSnapshot,
-                null
-            );
-
-            await record(
-                localSnapshot,
-                sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            if(showResult){
-                show(
-                    '同步完成',
-                    'success'
-                );
-            }
-
-            return true;
-        }
-
-        const remoteFp=
-        fingerprint(remote.data);
-
-        if(localFp===remoteFp){
-            await record(
-                localSnapshot,
-                remote.sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            if(showResult){
-                show(
-                    '本地与云端已一致',
-                    'success'
-                );
-            }
-
-            return true;
-        }
-
-        const localChanged=
-        baseline===null||
-        localFp!==baseline;
-
-        const remoteChanged=
-        baseline===null||
-        remoteFp!==baseline;
-
-        if(
-            baseline!==null&&
-            localChanged&&
-            !remoteChanged
-        ){
-            const sha=
-            await writeRemote(
-                localSnapshot,
-                remote.sha
-            );
-
-            await record(
-                localSnapshot,
-                sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            if(showResult){
-                show(
-                    '同步完成',
-                    'success'
-                );
-            }
-
-            return true;
-        }
-
-        if(
-            baseline!==null&&
-            !localChanged&&
-            remoteChanged
-        ){
-            data=remote.data;
-            render();
-
-            await record(
-                data,
-                remote.sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            if(showResult){
-                show(
-                    '已采用云端最新数据',
-                    'success'
-                );
-            }
-
-            return true;
-        }
-
-        if(!interactive){
-            status(
-                'offline',
-                '存在同步冲突'
-            );
-
-            show(
-                '本地和云端都发生了修改，请点击“同步”选择版本',
-                'error'
-            );
-
-            return false;
-        }
-
-        const useLocal=
-        confirm(
-            '检测到本地和云端数据不同。\n\n确定：用当前网页数据覆盖云端。\n取消：继续选择是否采用云端数据。'
-        );
-
-        if(useLocal){
-            const sha=
-            await writeRemote(
-                localSnapshot,
-                remote.sha
-            );
-
-            await record(
-                localSnapshot,
-                sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            show(
-                '已用当前网页数据覆盖云端',
-                'success'
-            );
-
-            return true;
-        }
-
-        const useRemote=
-        confirm(
-            '是否采用云端数据覆盖当前网页？\n\n确定：采用云端最新数据。\n取消：暂不处理。'
-        );
-
-        if(useRemote){
-            data=remote.data;
-            render();
-
-            await record(
-                data,
-                remote.sha
-            );
-
-            status(
-                'online',
-                '编辑已登录'
-            );
-
-            show(
-                '已采用云端数据',
-                'success'
-            );
-
-            return true;
-        }
-
-        status(
-            'offline',
-            '同步已取消'
-        );
-
-        return false;
-    }catch(error){
-        console.error(error);
-
-        status(
-            'offline',
-            '同步失败'
-        );
-
-        show(
-            `同步失败：${formatError(error)}`,
-            'error'
-        );
-
-        return false;
-    }finally{
-        syncing=false;
-        syncBtn.disabled=!unlocked;
-    }
-}
-
-function scheduleSync(){
-    if(target()){
-        void saveWorkingCopy(data)
-        .catch(
-            error=>
-                console.error(
-                    '保存本机工作副本失败:',
-                    error
-                )
-        );
-    }
-
-    if(!unlocked){
-        return;
-    }
-
-    clearTimeout(autoTimer);
-
-    autoTimer=
-    setTimeout(
-        ()=>{
-            autoTimer=null;
-
-            sync(
-                false,
-                false
-            );
-        },
-        AUTO_DELAY
-    );
-}
-
-function markLocalChange(){
-    render();
-
-    status(
-        'offline',
-        '待同步'
-    );
-
-    lastSyncTime.textContent=
-    '有未同步修改';
-
-    scheduleSync();
-}
-
-function historyMeta(type){
-    return type==='journal'
-    ?{
-        key:'journals',
-        label:'刊名'
-    }
-    :type==='issue'
-    ?{
-        key:'issues',
-        label:'刊号'
-    }
-    :{
-        key:'notes',
-        label:'刊注'
-    };
-}
-
-function getHistory(type){
-    return data.histories[
-        historyMeta(type).key
-    ];
-}
-
-function setHistory(type,values){
-    data.histories[
-        historyMeta(type).key
-    ]=
-    type==='note'
-    ?preserveJournalNoteOptions(values)
-    :type==='journal'
-    ?sortJournalOptions(values)
-    :sortIssueOptions(values);
-}
-
-function rememberOption(type,value){
-    const v=clean(value);
-
-    if(!v){
-        return;
-    }
-
-    const list=getHistory(type);
-
-    if(
-        !list.some(
-            x=>key(x)===key(v)
-        )
-    ){
-        setHistory(
-            type,
-            [
-                ...list,
-                v
-            ]
-        );
-    }
-}
-
-function findProfile(journal){
-    const k=key(journal);
-
-    return data.profiles.find(
-        x=>
-            key(x.journal)===k
-    )||null;
-}
-
-function upsertProfile(
-    journal,
-    issue,
-    journalNote
-){
-    const j=clean(journal);
-
-    if(!j){
-        return;
-    }
-
-    const existing=
-    findProfile(j);
-
-    if(existing){
-        existing.journal=j;
-        existing.issue=clean(issue);
-        existing.journalNote=
-        clean(journalNote);
-    }else{
-        data.profiles.push(
-            {
-                journal:j,
-                issue:clean(issue),
-                journalNote:
-                    clean(journalNote)
-            }
-        );
-    }
-
-    const map=new Map();
-
-    for(const p of data.profiles){
-        if(p.journal){
-            map.set(
-                key(p.journal),
-                normalizeProfile(p)
-            );
-        }
-    }
-
-    data.profiles=[
-        ...map.values()
-    ];
-}
-
-function applyJournalProfile(
-    journal,
-    context
-){
-    const profile=
-    findProfile(journal);
-
-    if(!profile){
-        return false;
-    }
-
-    const issue=
-    context==='edit'
-    ?editIssue
-    :issueInput;
-
-    const note=
-    context==='edit'
-    ?editJournalNote
-    :journalNoteInput;
-
-    issue.value=
-    profile.issue||'';
-
-    note.value=
-    profile.journalNote||'';
-
-    renderCombo(
-        'issue',
-        context
-    );
-
-    renderCombo(
-        'note',
-        context
-    );
-
-    return true;
-}
-
-function deleteHistoryOption(
-    type,
-    value
-){
-    const meta=historyMeta(type);
-
-    const confirmText=
-    type==='note'
-    ?`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n所有使用该刊注的论文条目会同步清空刊注。`
-    :`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n已经保存的论文条目不会改变。`;
-
-    if(!confirm(confirmText)){
-        return;
-    }
-
-    setHistory(
-        type,
-        getHistory(type)
-        .filter(
-            v=>
-                key(v)!==key(value)
-        )
-    );
-
-    if(type==='journal'){
-        data.profiles=
-        data.profiles.filter(
-            p=>
-                key(p.journal)!==
-                key(value)
-        );
-    }else if(type==='issue'){
-        for(const p of data.profiles){
-            if(
-                key(p.issue)===
-                key(value)
-            ){
-                p.issue='';
-            }
-        }
-    }else{
-        for(const item of data.entries){
-            if(
-                key(item.journalNote)===
-                key(value)
-            ){
-                item.journalNote='';
-            }
-        }
-
-        for(const p of data.profiles){
-            if(
-                key(p.journalNote)===
-                key(value)
-            ){
-                p.journalNote='';
-            }
-        }
-
-        if(
-            key(journalNoteInput.value)===
-            key(value)
-        ){
-            journalNoteInput.value='';
-        }
-
-        if(
-            key(editJournalNote.value)===
-            key(value)
-        ){
-            editJournalNote.value='';
-        }
-    }
-
-    scheduleSync();
-    render();
-
-    show(
-        `已删除${meta.label}选项`,
-        'success'
-    );
-}
-
-const comboRegistry={
-    add:{
-        journal:{
-            input:journalInput,
-            toggle:journalToggle,
-            panel:journalPanel,
-            options:journalOptions,
-            combo:journalCombo
-        },
-        issue:{
-            input:issueInput,
-            toggle:issueToggle,
-            panel:issuePanel,
-            options:issueOptions,
-            combo:issueCombo
-        },
-        note:{
-            input:journalNoteInput,
-            toggle:journalNoteToggle,
-            panel:journalNotePanel,
-            options:journalNoteOptions,
-            combo:journalNoteCombo
-        }
-    },
-
-    edit:{
-        journal:{
-            input:editJournal,
-            toggle:editJournalToggle,
-            panel:editJournalPanel,
-            options:editJournalOptions,
-            combo:editJournalCombo
-        },
-        issue:{
-            input:editIssue,
-            toggle:editIssueToggle,
-            panel:editIssuePanel,
-            options:editIssueOptions,
-            combo:editIssueCombo
-        },
-        note:{
-            input:editJournalNote,
-            toggle:editJournalNoteToggle,
-            panel:editJournalNotePanel,
-            options:editJournalNoteOptions,
-            combo:editJournalNoteCombo
-        }
-    }
+return{
+id:
+clean(x.id)||
+uid(),
+title:
+clean(x.title),
+year:
+clean(x.year),
+journal:
+clean(x.journal),
+issue:
+clean(x.issue),
+journalNote:
+clean(
+x.journalNote??
+x.note
+),
+code:
+normalizeAutomaticCode(
+x.code
+)
 };
-
-function allPanels(){
-    return Object.values(
-        comboRegistry
-    )
-    .flatMap(
-        group=>
-            Object.values(group)
-            .map(
-                x=>x.panel
-            )
-    );
 }
-
-function closePanels(){
-    allPanels()
-    .forEach(
-        p=>
-            p.classList.add(
-                'hidden'
-            )
-    );
+function normalizeProfile(x){
+if(
+!x||
+typeof x!=='object'
+){
+return null;
 }
-
-function renderCombo(type,context){
-    const cfg=
-    comboRegistry[
-        context
-    ][type];
-
-    const query=
-    key(cfg.input.value);
-
-    const values=
-    getHistory(type)
-    .filter(
-        v=>
-            !query||
-            key(v).includes(query)
-    );
-
-    const canDragNote=
-    type==='note'&&!query;
-
-    const noteDraft=
-    type==='note'
-    ?clean(cfg.input.value)
-    :'';
-
-    const canAddNote=
-    Boolean(noteDraft)&&
-    type==='note'&&
-    !getHistory('note')
-    .some(
-        value=>
-            key(value)===
-            key(noteDraft)
-    );
-
-    cfg.options.innerHTML=
-    (
-        values.length||
-        canAddNote
-    )
-    ?`
-        <div class="combo-option-list">
-            ${values.map(v=>{
-                const noteAttrs=
-                type==='note'
-                ?`
-                    class="combo-pill note-draggable"
-                    data-note-value="${attr(v)}"
-                    draggable="${canDragNote?'true':'false'}"
-                    title="${canDragNote?'拖拽调整刊注顺序':'清空输入内容后可拖拽排序'}"
-                `
-                :`class="combo-pill"`;
-
-                return`
-                    <span ${noteAttrs}>
-                        <button
-                            class="combo-pill-select"
-                            type="button"
-                            data-select="${attr(v)}"
-                        >${esc(v)}</button>
-
-                        <button
-                            class="combo-pill-delete"
-                            type="button"
-                            draggable="false"
-                            data-delete="${attr(v)}"
-                            aria-label="移除${historyMeta(type).label}选项 ${attr(v)}"
-                        >×</button>
-                    </span>
-                `;
-            }).join('')}
-
-            ${canAddNote
-                ?`
-                    <button
-                        class="combo-add-note"
-                        type="button"
-                        data-add-note="${attr(noteDraft)}"
-                    >添加刊注“${esc(noteDraft)}”</button>
-                `
-                :''
-            }
-        </div>
-    `
-    :`
-        <div class="combo-empty">
-            暂无${historyMeta(type).label}
-        </div>
-    `;
+const journal=
+clean(x.journal);
+if(!journal){
+return null;
 }
-
-function renderAllCombos(){
-    for(
-        const context
-        of[
-            'add',
-            'edit'
-        ]
-    ){
-        for(
-            const type
-            of[
-                'journal',
-                'issue',
-                'note'
-            ]
-        ){
-            renderCombo(
-                type,
-                context
-            );
-        }
-    }
+return{
+journal,
+issue:
+clean(x.issue),
+journalNote:
+clean(
+x.journalNote??
+x.note
+)
+};
 }
-
-function setupCombo(type,context){
-    const cfg=
-    comboRegistry[
-        context
-    ][type];
-
-    let keyboardIndex=-1;
-    let draggedNoteValue='';
-
-    function clearNoteDragClasses(){
-        cfg.options
-        .querySelectorAll(
-            '.note-draggable'
-        )
-        .forEach(
-            row=>
-                row.classList.remove(
-                    'dragging',
-                    'drag-over-before',
-                    'drag-over-after'
-                )
-        );
-    }
-
-    function commitNoteOrder(
-        sourceValue,
-        targetValue,
-        placeAfter
-    ){
-        if(
-            type!=='note'||
-            !sourceValue||
-            !targetValue||
-            key(sourceValue)===
-            key(targetValue)
-        ){
-            return false;
-        }
-
-        const current=
-        [...getHistory('note')];
-
-        const sourceIndex=
-        current.findIndex(
-            value=>
-                key(value)===
-                key(sourceValue)
-        );
-
-        if(sourceIndex<0){
-            return false;
-        }
-
-        const [moved]=
-        current.splice(
-            sourceIndex,
-            1
-        );
-
-        const targetIndex=
-        current.findIndex(
-            value=>
-                key(value)===
-                key(targetValue)
-        );
-
-        if(targetIndex<0){
-            return false;
-        }
-
-        current.splice(
-            targetIndex+
-            (placeAfter?1:0),
-            0,
-            moved
-        );
-
-        setHistory(
-            'note',
-            current
-        );
-
-        markLocalChange();
-
-        show(
-            '刊注顺序已更新',
-            'success'
-        );
-
-        return true;
-    }
-
-    function selectableOptions(){
-        return[
-            ...cfg.options
-            .querySelectorAll(
-                '.combo-pill-select[data-select]'
-            )
-        ];
-    }
-
-    function clearKeyboardActive(){
-        keyboardIndex=-1;
-
-        selectableOptions()
-        .forEach(
-            option=>{
-                option.classList.remove(
-                    'keyboard-active'
-                );
-
-                option.removeAttribute(
-                    'aria-selected'
-                );
-            }
-        );
-    }
-
-    function setKeyboardActive(nextIndex){
-        const options=
-        selectableOptions();
-
-        if(!options.length){
-            keyboardIndex=-1;
-            return false;
-        }
-
-        keyboardIndex=
-        (
-            (
-                nextIndex%
-                options.length
-            )+
-            options.length
-        )%
-        options.length;
-
-        options.forEach(
-            (
-                option,
-                index
-            )=>{
-                const active=
-                index===keyboardIndex;
-
-                option.classList.toggle(
-                    'keyboard-active',
-                    active
-                );
-
-                if(active){
-                    option.setAttribute(
-                        'aria-selected',
-                        'true'
-                    );
-                }else{
-                    option.removeAttribute(
-                        'aria-selected'
-                    );
-                }
-            }
-        );
-
-        options[
-            keyboardIndex
-        ].scrollIntoView(
-            {
-                block:'nearest'
-            }
-        );
-
-        return true;
-    }
-
-    function selectValue(value){
-        cfg.input.value=value;
-
-        if(type==='journal'){
-            applyJournalProfile(
-                cfg.input.value,
-                context
-            );
-        }
-
-        clearKeyboardActive();
-
-        cfg.panel.classList.add(
-            'hidden'
-        );
-
-        cfg.input.focus();
-    }
-
-    function openForKeyboard(){
-        if(
-            cfg.panel.classList
-            .contains('hidden')
-        ){
-            closePanels();
-
-            cfg.panel.classList.remove(
-                'hidden'
-            );
-
-            renderCombo(
-                type,
-                context
-            );
-
-            keyboardIndex=-1;
-        }
-    }
-
-    cfg.toggle.addEventListener(
-        'click',
-        event=>{
-            event.stopPropagation();
-
-            const open=
-            cfg.panel.classList
-            .contains('hidden');
-
-            closePanels();
-            keyboardIndex=-1;
-
-            if(open){
-                cfg.panel.classList.remove(
-                    'hidden'
-                );
-
-                renderCombo(
-                    type,
-                    context
-                );
-            }
-        }
-    );
-
-    cfg.input.addEventListener(
-        'click',
-        event=>{
-            event.stopPropagation();
-            closePanels();
-
-            cfg.panel.classList.remove(
-                'hidden'
-            );
-
-            renderCombo(
-                type,
-                context
-            );
-
-            keyboardIndex=-1;
-        }
-    );
-
-    cfg.input.addEventListener(
-        'input',
-        ()=>{
-            renderCombo(
-                type,
-                context
-            );
-
-            keyboardIndex=-1;
-
-            if(type==='journal'){
-                applyJournalProfile(
-                    cfg.input.value,
-                    context
-                );
-            }
-        }
-    );
-
-    cfg.input.addEventListener(
-        'keydown',
-        event=>{
-            if(
-                event.key==='ArrowDown'||
-                event.key==='ArrowUp'
-            ){
-                event.preventDefault();
-                event.stopPropagation();
-
-                openForKeyboard();
-
-                const options=
-                selectableOptions();
-
-                if(!options.length){
-                    return;
-                }
-
-                if(keyboardIndex<0){
-                    setKeyboardActive(
-                        event.key==='ArrowDown'
-                        ?0
-                        :options.length-1
-                    );
-                }else{
-                    setKeyboardActive(
-                        keyboardIndex+
-                        (
-                            event.key==='ArrowDown'
-                            ?1
-                            :-1
-                        )
-                    );
-                }
-
-                return;
-            }
-
-            if(
-                event.key==='Enter'&&
-                !cfg.panel.classList
-                .contains('hidden')&&
-                keyboardIndex>=0
-            ){
-                const option=
-                selectableOptions()[
-                    keyboardIndex
-                ];
-
-                if(option){
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    selectValue(
-                        option.dataset.select
-                    );
-                }
-
-                return;
-            }
-
-            if(
-                event.key==='Escape'&&
-                !cfg.panel.classList
-                .contains('hidden')
-            ){
-                event.preventDefault();
-                event.stopPropagation();
-
-                clearKeyboardActive();
-
-                cfg.panel.classList.add(
-                    'hidden'
-                );
-            }
-        }
-    );
-
-    cfg.options.addEventListener(
-        'dragstart',
-        event=>{
-            if(type!=='note'){
-                return;
-            }
-
-            if(
-                event.target.closest(
-                    '[data-delete]'
-                )
-            ){
-                event.preventDefault();
-                return;
-            }
-
-            const row=
-            event.target.closest(
-                '.note-draggable[draggable="true"]'
-            );
-
-            if(!row){
-                event.preventDefault();
-                return;
-            }
-
-            draggedNoteValue=
-            row.dataset.noteValue||'';
-
-            clearNoteDragClasses();
-
-            row.classList.add(
-                'dragging'
-            );
-
-            if(event.dataTransfer){
-                event.dataTransfer.effectAllowed=
-                'move';
-
-                event.dataTransfer.setData(
-                    'text/plain',
-                    draggedNoteValue
-                );
-            }
-        }
-    );
-
-    cfg.options.addEventListener(
-        'dragover',
-        event=>{
-            if(
-                type!=='note'||
-                !draggedNoteValue
-            ){
-                return;
-            }
-
-            const row=
-            event.target.closest(
-                '.note-draggable'
-            );
-
-            if(
-                !row||
-                key(row.dataset.noteValue)===
-                key(draggedNoteValue)
-            ){
-                return;
-            }
-
-            event.preventDefault();
-
-            if(event.dataTransfer){
-                event.dataTransfer.dropEffect=
-                'move';
-            }
-
-            clearNoteDragClasses();
-
-            const rect=
-            row.getBoundingClientRect();
-
-            const after=
-            event.clientY>
-            rect.top+
-            rect.height/2;
-
-            row.classList.add(
-                after
-                ?'drag-over-after'
-                :'drag-over-before'
-            );
-        }
-    );
-
-    cfg.options.addEventListener(
-        'drop',
-        event=>{
-            if(
-                type!=='note'||
-                !draggedNoteValue
-            ){
-                return;
-            }
-
-            const row=
-            event.target.closest(
-                '.note-draggable'
-            );
-
-            if(!row){
-                return;
-            }
-
-            event.preventDefault();
-
-            const rect=
-            row.getBoundingClientRect();
-
-            const after=
-            event.clientY>
-            rect.top+
-            rect.height/2;
-
-            const sourceValue=
-            draggedNoteValue;
-
-            const targetValue=
-            row.dataset.noteValue||'';
-
-            draggedNoteValue='';
-
-            clearNoteDragClasses();
-
-            commitNoteOrder(
-                sourceValue,
-                targetValue,
-                after
-            );
-        }
-    );
-
-    cfg.options.addEventListener(
-        'dragend',
-        ()=>{
-            draggedNoteValue='';
-            clearNoteDragClasses();
-        }
-    );
-
-    cfg.options.addEventListener(
-        'click',
-        event=>{
-            event.stopPropagation();
-
-            const addNote=
-            event.target.closest(
-                '[data-add-note]'
-            );
-
-            if(
-                addNote&&
-                type==='note'
-            ){
-                const value=
-                clean(
-                    addNote.dataset.addNote
-                );
-
-                rememberOption(
-                    'note',
-                    value
-                );
-
-                cfg.input.value=value;
-
-                clearKeyboardActive();
-
-                renderCombo(
-                    'note',
-                    context
-                );
-
-                markLocalChange();
-
-                show(
-                    '已添加刊注选项',
-                    'success'
-                );
-
-                return;
-            }
-
-            const del=
-            event.target.closest(
-                '[data-delete]'
-            );
-
-            if(del){
-                clearKeyboardActive();
-
-                return deleteHistoryOption(
-                    type,
-                    del.dataset.delete
-                );
-            }
-
-            const select=
-            event.target.closest(
-                '[data-select]'
-            );
-
-            if(!select){
-                return;
-            }
-
-            selectValue(
-                select.dataset.select
-            );
-        }
-    );
-
-    cfg.combo.addEventListener(
-        'click',
-        event=>
-            event.stopPropagation()
-    );
-}
-
+function deriveProfiles(entries){
+const map=
+new Map();
 for(
-    const context
-    of[
-        'add',
-        'edit'
-    ]
+const x
+of entries
 ){
-    for(
-        const type
-        of[
-            'journal',
-            'issue',
-            'note'
-        ]
-    ){
-        setupCombo(
-            type,
-            context
-        );
-    }
+if(!x.journal){
+continue;
 }
-
+map.set(
+key(x.journal),
+{
+journal:x.journal,
+issue:x.issue,
+journalNote:x.journalNote
+}
+);
+}
+return[
+...map.values()
+];
+}
+function normalizeData(value){
+const source=
+Array.isArray(value)
+?{
+entries:value
+}
+:(
+value&&
+typeof value==='object'
+?value
+:{}
+);
+const entries=
+(
+Array.isArray(
+source.entries
+)
+?source.entries
+:[]
+)
+.map(
+normalizeEntry
+)
+.filter(Boolean);
+const rawHist=
+source.histories&&
+typeof source.histories==='object'
+?source.histories
+:{};
+const histories={
+journals:
+Array.isArray(
+rawHist.journals
+)
+?sortJournalOptions(
+rawHist.journals
+)
+:sortJournalOptions(
+entries.map(
+x=>x.journal
+)
+),
+issues:
+Array.isArray(
+rawHist.issues
+)
+?sortIssueOptions(
+rawHist.issues
+)
+:sortIssueOptions(
+entries.map(
+x=>x.issue
+)
+),
+notes:
+Array.isArray(
+rawHist.notes
+)
+?preserveJournalNoteOptions(
+rawHist.notes
+)
+:preserveJournalNoteOptions(
+entries.map(
+x=>x.journalNote
+)
+)
+};
+entries.sort(
+(a,b)=>
+comparePaperEntry(
+a,
+b,
+histories.notes
+)
+);
+const profiles=
+Array.isArray(
+source.profiles
+)
+?source.profiles
+.map(
+normalizeProfile
+)
+.filter(Boolean)
+:deriveProfiles(
+entries
+);
+const profileMap=
+new Map();
+for(
+const p
+of profiles
+){
+profileMap.set(
+key(p.journal),
+p
+);
+}
+return{
+entries,
+histories,
+profiles:[
+...profileMap.values()
+]
+};
+}
+function fingerprint(value=data){
+return JSON.stringify(
+normalizeData(value)
+);
+}
+function formatDate(iso){
+const d=
+new Date(iso);
+if(
+Number.isNaN(
+d.getTime()
+)
+){
+return '';
+}
+return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function target(){
+return(
+config.owner&&
+config.repo&&
+config.file
+)
+?`${config.owner}/${config.repo}/${config.file}`
+:'';
+}
+function adminConfigured(){
+return Boolean(
+config.owner&&
+config.repo&&
+config.file&&
+config.token
+);
+}
+function pathEncode(path){
+return String(path)
+.split('/')
+.filter(Boolean)
+.map(
+encodeURIComponent
+)
+.join('/');
+}
+function openStorageDb(){
+if(idbPromise){
+return idbPromise;
+}
+idbPromise=
+new Promise(
+(
+resolve,
+reject
+)=>{
+const request=
+indexedDB.open(
+IDB_NAME,
+1
+);
+request.onupgradeneeded=
+()=>{
+const db=
+request.result;
+if(
+!db.objectStoreNames
+.contains(
+IDB_STORE
+)
+){
+db.createObjectStore(
+IDB_STORE
+);
+}
+};
+request.onsuccess=
+()=>resolve(
+request.result
+);
+request.onerror=
+()=>reject(
+request.error||
+new Error(
+'IndexedDB 打开失败'
+)
+);
+request.onblocked=
+()=>console.warn(
+'IndexedDB 打开被阻塞'
+);
+}
+);
+return idbPromise;
+}
+async function idbGet(k){
+try{
+const db=
+await openStorageDb();
+return await new Promise(
+(
+resolve,
+reject
+)=>{
+const tx=
+db.transaction(
+IDB_STORE,
+'readonly'
+);
+const req=
+tx.objectStore(
+IDB_STORE
+).get(k);
+req.onsuccess=
+()=>resolve(
+req.result
+);
+req.onerror=
+()=>reject(
+req.error||
+new Error(
+'IndexedDB 读取失败'
+)
+);
+}
+);
+}catch(error){
+console.error(
+'IndexedDB 读取失败:',
+error
+);
+return undefined;
+}
+}
+async function idbSet(k,v){
+try{
+const db=
+await openStorageDb();
+await new Promise(
+(
+resolve,
+reject
+)=>{
+const tx=
+db.transaction(
+IDB_STORE,
+'readwrite'
+);
+tx.objectStore(
+IDB_STORE
+).put(
+v,
+k
+);
+tx.oncomplete=
+()=>resolve();
+tx.onerror=
+()=>reject(
+tx.error||
+new Error(
+'IndexedDB 写入失败'
+)
+);
+tx.onabort=
+()=>reject(
+tx.error||
+new Error(
+'IndexedDB 写入中止'
+)
+);
+}
+);
+return true;
+}catch(error){
+console.error(
+'IndexedDB 写入失败:',
+error
+);
+return false;
+}
+}
+async function idbDelete(k){
+try{
+const db=
+await openStorageDb();
+await new Promise(
+(
+resolve,
+reject
+)=>{
+const tx=
+db.transaction(
+IDB_STORE,
+'readwrite'
+);
+tx.objectStore(
+IDB_STORE
+).delete(k);
+tx.oncomplete=
+()=>resolve();
+tx.onerror=
+()=>reject(
+tx.error||
+new Error(
+'IndexedDB 删除失败'
+)
+);
+tx.onabort=
+()=>reject(
+tx.error||
+new Error(
+'IndexedDB 删除中止'
+)
+);
+}
+);
+return true;
+}catch(error){
+console.error(
+'IndexedDB 删除失败:',
+error
+);
+return false;
+}
+}
+async function requestPersistentStorage(){
+try{
+if(
+navigator.storage?.persist
+){
+await navigator.storage.persist();
+}
+}catch(error){
+console.warn(
+'无法申请持久存储:',
+error
+);
+}
+}
+async function opfsRoot(){
+try{
+return navigator.storage?.getDirectory
+?await navigator.storage.getDirectory()
+:null;
+}catch(error){
+console.warn(
+'OPFS 不可用:',
+error
+);
+return null;
+}
+}
+async function readOpfsWorkingCopy(){
+try{
+const root=
+await opfsRoot();
+if(!root){
+return null;
+}
+const handle=
+await root.getFileHandle(
+OPFS_WORKING_FILE
+);
+const file=
+await handle.getFile();
+const parsed=
+JSON.parse(
+await file.text()
+);
+return(
+parsed&&
+typeof parsed==='object'
+)
+?parsed
+:null;
+}catch(error){
+if(
+error?.name!==
+'NotFoundError'
+){
+console.warn(
+'读取 OPFS 工作副本失败:',
+error
+);
+}
+return null;
+}
+}
+async function writeOpfsWorkingCopy(payload){
+try{
+const root=
+await opfsRoot();
+if(!root){
+return false;
+}
+const handle=
+await root.getFileHandle(
+OPFS_WORKING_FILE,
+{
+create:true
+}
+);
+const writable=
+await handle.createWritable();
+await writable.write(
+JSON.stringify(
+payload
+)
+);
+await writable.close();
+return true;
+}catch(error){
+console.warn(
+'写入 OPFS 工作副本失败:',
+error
+);
+return false;
+}
+}
+function validWorkingEnvelope(
+value,
+expectedTarget=''
+){
+if(
+!value||
+typeof value!=='object'||
+!value.state
+){
+return null;
+}
+const payloadTarget=
+clean(
+value.target
+);
+if(
+expectedTarget&&
+payloadTarget!==
+expectedTarget
+){
+return null;
+}
+const savedAt=
+Number(
+value.savedAt
+)||0;
+return{
+version:
+Number(
+value.version
+)||1,
+target:
+payloadTarget,
+savedAt,
+state:
+normalizeData(
+value.state
+)
+};
+}
+async function persistWorkingEnvelope(
+payload
+){
+const results=
+await Promise.allSettled(
+[
+idbSet(
+WORKING_COPY_KEY,
+payload
+),
+writeOpfsWorkingCopy(
+payload
+)
+]
+);
+const idbOk=
+results[0].status==='fulfilled'&&
+results[0].value===true;
+const opfsOk=
+results[1].status==='fulfilled'&&
+results[1].value===true;
+if(
+!idbOk&&
+!opfsOk
+){
+throw new Error(
+'本机工作副本保存失败'
+);
+}
+return{
+idbOk,
+opfsOk
+};
+}
+function saveWorkingCopy(
+snapshot=data
+){
+const currentTarget=
+target();
+if(!currentTarget){
+return Promise.resolve(
+false
+);
+}
+const normalized=
+normalizeData(
+snapshot
+);
+const payload={
+version:1,
+target:
+currentTarget,
+savedAt:
+Date.now(),
+state:
+normalized
+};
+workingSaveChain=
+workingSaveChain
+.catch(
+()=>{}
+)
+.then(
+()=>persistWorkingEnvelope(
+payload
+)
+);
+return workingSaveChain;
+}
+async function loadWorkingCopy(
+expectedTarget=target()
+){
+const[
+idbRaw,
+opfsRaw
+]=
+await Promise.all(
+[
+idbGet(
+WORKING_COPY_KEY
+),
+readOpfsWorkingCopy()
+]
+);
+const idbCopy=
+validWorkingEnvelope(
+idbRaw,
+expectedTarget
+);
+const opfsCopy=
+validWorkingEnvelope(
+opfsRaw,
+expectedTarget
+);
+const chosen=
+!idbCopy
+?opfsCopy
+:(
+!opfsCopy
+?idbCopy
+:(
+opfsCopy.savedAt>
+idbCopy.savedAt
+?opfsCopy
+:idbCopy
+)
+);
+if(!chosen){
+return null;
+}
+const needsIdb=
+!idbCopy||
+idbCopy.savedAt!==
+chosen.savedAt;
+const needsOpfs=
+!opfsCopy||
+opfsCopy.savedAt!==
+chosen.savedAt;
+if(
+needsIdb||
+needsOpfs
+){
+const tasks=[];
+if(needsIdb){
+tasks.push(
+idbSet(
+WORKING_COPY_KEY,
+chosen
+)
+);
+}
+if(needsOpfs){
+tasks.push(
+writeOpfsWorkingCopy(
+chosen
+)
+);
+}
+void Promise.allSettled(
+tasks
+);
+}
+return chosen.state;
+}
+async function savePublicCache(
+snapshot=data
+){
+return idbSet(
+PUBLIC_CACHE_KEY,
+{
+version:1,
+savedAt:Date.now(),
+state:
+normalizeData(
+snapshot
+)
+}
+);
+}
+async function loadPublicCache(){
+const value=
+await idbGet(
+PUBLIC_CACHE_KEY
+);
+return(
+value&&
+typeof value==='object'&&
+value.state
+)
+?normalizeData(
+value.state
+)
+:normalizeData(
+{}
+);
+}
+function show(
+msg,
+type='info'
+){
+toast.textContent=
+msg;
+toast.className=
+`toast ${type}`;
+clearTimeout(
+toastTimer
+);
+toastTimer=
+setTimeout(
+()=>toast.classList.add(
+'hidden'
+),
+3200
+);
+}
+function status(
+kind,
+text
+){
+statusDot.className=
+`status-dot ${kind}`;
+statusText.textContent=
+text;
+}
+function formatError(error){
+if(!error){
+return '未知错误';
+}
+if(error.status===401){
+return 'Token 无效或已过期';
+}
+if(error.status===403){
+return 'Token 权限不足或仓库访问被拒绝';
+}
+if(error.status===404){
+return '仓库或数据文件不存在，或 Token 无权访问';
+}
+if(error.status===409){
+return '云端文件已被其他设备修改';
+}
+return(
+error.message||
+String(error)
+);
+}
+async function loadConfig(){
+const saved=
+await idbGet(
+CONFIG_KEY
+)||{};
+const storedToken=
+clean(
+await idbGet(
+TOKEN_KEY
+)||''
+);
+config.owner=
+clean(
+saved.owner
+);
+config.repo=
+clean(
+saved.repo
+);
+config.file=
+clean(
+saved.file
+)||
+'papers_data.json';
+config.token=
+storedToken;
+}
+async function saveConfig(){
+await idbSet(
+CONFIG_KEY,
+{
+owner:
+config.owner,
+repo:
+config.repo,
+file:
+config.file
+}
+);
+if(config.token){
+await idbSet(
+TOKEN_KEY,
+config.token
+);
+}else{
+await idbDelete(
+TOKEN_KEY
+);
+}
+}
+async function loadMeta(){
+const x=
+await idbGet(
+META_KEY
+)||{};
+meta={
+target:
+clean(
+x.target
+),
+fingerprint:
+typeof x.fingerprint===
+'string'
+?x.fingerprint
+:null,
+sha:
+clean(
+x.sha
+)||null,
+lastSyncAt:
+clean(
+x.lastSyncAt
+)||null
+};
+}
+async function saveMeta(){
+return idbSet(
+META_KEY,
+meta
+);
+}
+async function record(
+snapshot,
+sha
+){
+const normalized=
+normalizeData(
+snapshot
+);
+const baselineFingerprint=
+fingerprint(
+normalized
+);
+meta={
+target:
+target(),
+fingerprint:
+baselineFingerprint,
+sha:
+sha||null,
+lastSyncAt:
+new Date()
+.toISOString()
+};
+const currentSnapshot=
+normalizeData(
+data
+);
+const changedDuringSync=
+fingerprint(
+currentSnapshot
+)!==
+baselineFingerprint;
+const metaSaved=
+await saveMeta();
+try{
+await saveWorkingCopy(
+changedDuringSync
+?currentSnapshot
+:normalized
+);
+}catch(error){
+console.error(
+'保存本机工作副本失败:',
+error
+);
+}
+if(!metaSaved){
+console.warn(
+'同步元数据未能持久保存'
+);
+}
+lastSyncTime.textContent=
+`已同步 ${new Date(meta.lastSyncAt).toLocaleString()}`;
+if(changedDuringSync){
+setTimeout(
+()=>{
+if(!unlocked){
+return;
+}
+status(
+'offline',
+'待同步'
+);
+lastSyncTime.textContent=
+'有未同步修改';
+clearTimeout(
+autoTimer
+);
+autoTimer=
+setTimeout(
+()=>{
+autoTimer=null;
+sync(
+false,
+false
+);
+},
+AUTO_DELAY
+);
+},
+0
+);
+}
+}
+function setUnlocked(on){
+unlocked=
+Boolean(on);
+editorSection.classList.toggle(
+'hidden',
+!unlocked
+);
+visitorNote.classList.toggle(
+'hidden',
+unlocked
+);
+syncBtn.disabled=
+!unlocked;
+importBtn.disabled=
+!unlocked;
+exportBtn.disabled=
+!publicLoaded&&
+!unlocked;
+configBtn.textContent=
+unlocked
+?'配置'
+:'编辑登录';
+}
+function publicDataUrl(){
+return new URL(
+PUBLIC_DATA_FILE,
+location.href
+).href;
+}
+function parseHtmlBackupPayload(
+value
+){
+if(
+!value||
+typeof value!=='object'||
+value.format!==BACKUP_FORMAT||
+Number(value.version)!==BACKUP_VERSION||
+!value.data
+){
+throw new Error(
+'HTML 备份格式不受支持'
+);
+}
+return normalizeData(
+value.data
+);
+}
+function readEmbeddedBackup(
+doc=document
+){
+const node=
+doc.getElementById(
+'papersBackupData'
+);
+if(!node){
+return null;
+}
+try{
+return parseHtmlBackupPayload(
+JSON.parse(
+node.textContent||''
+)
+);
+}catch(error){
+console.error(
+'内嵌 HTML 备份数据无效:',
+error
+);
+return null;
+}
+}
+async function loadPublicView(){
+const embedded=
+readEmbeddedBackup();
+if(embedded){
+data=
+embedded;
+publicLoaded=
+true;
+render();
+exportBtn.disabled=
+false;
+void savePublicCache(
+data
+);
+status(
+'backup',
+'HTML 备份'
+);
+lastSyncTime.textContent=
+'HTML 备份 · 当前显示导出时刻快照';
+return true;
+}
+status(
+'syncing',
+'加载公开内容…'
+);
+lastSyncTime.textContent=
+'公开浏览 · 编辑需 Token';
+try{
+const response=
+await fetch(
+publicDataUrl(),
+{
+method:'GET',
+cache:'no-store',
+headers:{
+Accept:'application/json'
+}
+}
+);
+const raw=
+await response.text();
+if(!response.ok){
+const e=
+new Error(
+`公开数据加载失败：HTTP ${response.status}`
+);
+e.status=
+response.status;
+throw e;
+}
+if(
+new TextEncoder()
+.encode(raw)
+.length>
+MAX_BYTES
+){
+throw new Error(
+'公开数据超过 900 KB'
+);
+}
+data=
+normalizeData(
+JSON.parse(raw)
+);
+publicLoaded=
+true;
+render();
+exportBtn.disabled=
+false;
+void savePublicCache(
+data
+);
+status(
+'online',
+'公开浏览'
+);
+lastSyncTime.textContent=
+'公开浏览 · 编辑需 Token';
+return true;
+}catch(error){
+console.error(
+error
+);
+const cached=
+await loadPublicCache();
+data=
+cached;
+publicLoaded=
+cached.entries.length>0;
+render();
+if(publicLoaded){
+exportBtn.disabled=
+false;
+status(
+'offline',
+'离线浏览'
+);
+lastSyncTime.textContent=
+'公开数据暂时不可用 · 当前显示本机缓存';
+}else{
+exportBtn.disabled=
+true;
+status(
+'offline',
+'公开数据不可用'
+);
+lastSyncTime.textContent=
+'无法加载 papers_data.json · 编辑登录仍可使用';
+}
+return false;
+}
+}
+async function githubApi(
+method,
+endpoint='',
+body=null
+){
+const owner=
+encodeURIComponent(
+config.owner
+);
+const repo=
+encodeURIComponent(
+config.repo
+);
+const suffix=
+endpoint
+?`/${endpoint}`
+:'';
+const url=
+`https://api.github.com/repos/${owner}/${repo}${suffix}`;
+const headers={
+'Authorization':
+`Bearer ${config.token}`,
+'Accept':
+'application/vnd.github+json',
+'X-GitHub-Api-Version':
+API_VERSION
+};
+const options={
+method,
+headers
+};
+if(body!==null){
+headers['Content-Type']=
+'application/json';
+options.body=
+JSON.stringify(
+body
+);
+}
+const response=
+await fetch(
+url,
+options
+);
+const raw=
+await response.text();
+let result=null;
+if(raw){
+try{
+result=
+JSON.parse(raw);
+}catch(e){
+result={
+message:raw
+};
+}
+}
+if(!response.ok){
+const e=
+new Error(
+result?.message||
+`HTTP ${response.status}`
+);
+e.status=
+response.status;
+throw e;
+}
+return result;
+}
+function utf8ToBase64(text){
+const bytes=
+new TextEncoder()
+.encode(text);
+let binary='';
+for(
+let i=0;
+i<bytes.length;
+i+=0x8000
+){
+binary+=
+String.fromCharCode(
+...bytes.subarray(
+i,
+i+0x8000
+)
+);
+}
+return btoa(
+binary
+);
+}
+function base64ToUtf8(
+base64
+){
+const binary=
+atob(
+String(
+base64||''
+).replace(
+/\s/g,
+''
+)
+);
+const bytes=
+new Uint8Array(
+binary.length
+);
+for(
+let i=0;
+i<binary.length;
+i++
+){
+bytes[i]=
+binary.charCodeAt(i);
+}
+return new TextDecoder(
+'utf-8'
+).decode(
+bytes
+);
+}
+async function verifyRepository(){
+return githubApi(
+'GET'
+);
+}
+async function readRemote(){
+try{
+const result=
+await githubApi(
+'GET',
+`contents/${pathEncode(config.file)}`
+);
+if(
+!result||
+result.type!=='file'||
+typeof result.content!=='string'||
+!result.sha
+){
+throw new Error(
+'云端数据文件格式异常'
+);
+}
+if(
+Number.isFinite(
+result.size
+)&&
+result.size>
+MAX_BYTES
+){
+throw new Error(
+'云端数据超过 900 KB'
+);
+}
+try{
+return{
+exists:true,
+invalid:false,
+sha:
+result.sha,
+data:
+normalizeData(
+JSON.parse(
+base64ToUtf8(
+result.content
+)
+)
+)
+};
+}catch(error){
+console.error(
+'云端 JSON 损坏:',
+error
+);
+return{
+exists:true,
+invalid:true,
+sha:
+result.sha,
+data:null
+};
+}
+}catch(error){
+if(
+error.status===404
+){
+return{
+exists:false,
+invalid:false,
+sha:null,
+data:
+normalizeData(
+{}
+)
+};
+}
+throw error;
+}
+}
+async function writeRemote(
+snapshot,
+sha
+){
+const normalized=
+normalizeData(
+snapshot
+);
+const raw=
+JSON.stringify(
+{
+schemaVersion:2,
+...normalized
+},
+null,
+2
+);
+if(
+new TextEncoder()
+.encode(raw)
+.length>
+MAX_BYTES
+){
+throw new Error(
+'数据超过 900 KB'
+);
+}
+const body={
+message:
+`更新 Papers 数据 - ${new Date().toLocaleString()}`,
+content:
+utf8ToBase64(
+raw
+)
+};
+if(sha){
+body.sha=sha;
+}
+const result=
+await githubApi(
+'PUT',
+`contents/${pathEncode(config.file)}`,
+body
+);
+return(
+result?.content?.sha||
+null
+);
+}
+async function login(
+showResult=true
+){
+if(
+!adminConfigured()
+){
+setUnlocked(
+false
+);
+if(
+publicLoaded||
+data.entries.length
+){
+render();
+}
+status(
+publicLoaded
+?'online'
+:'offline',
+publicLoaded
+?'公开浏览'
+:'公开数据不可用'
+);
+if(showResult){
+show(
+'请填写仓库和 Token 以启用编辑',
+'error'
+);
+}
+return false;
+}
+status(
+'syncing',
+'验证编辑权限…'
+);
+syncBtn.disabled=true;
+exportBtn.disabled=true;
+importBtn.disabled=true;
+try{
+await verifyRepository();
+const remote=
+await readRemote();
+if(remote.invalid){
+const cache=
+await loadWorkingCopy(
+target()
+);
+if(cache){
+data=cache;
+}
+setUnlocked(
+true
+);
+render();
+status(
+'offline',
+'数据文件异常'
+);
+lastSyncTime.textContent=
+'编辑已登录 · 云端 JSON 损坏，可导入 HTML 备份后点击“同步”修复';
+if(showResult){
+show(
+'Token 验证成功，但云端 JSON 已损坏；请导入 HTML 备份后点击“同步”修复',
+'error'
+);
+}
+return true;
+}
+const remoteFp=
+fingerprint(
+remote.data
+);
+const cache=
+await loadWorkingCopy(
+target()
+);
+const sameTarget=
+meta.target===
+target();
+const cacheFp=
+cache
+?fingerprint(cache)
+:null;
+const cacheUnsynced=
+Boolean(cache)&&
+sameTarget&&
+meta.fingerprint!==null&&
+cacheFp!==meta.fingerprint&&
+cacheFp!==remoteFp;
+if(cacheUnsynced){
+data=
+cache;
+setUnlocked(
+true
+);
+render();
+if(
+remote.exists&&
+remoteFp!==
+meta.fingerprint
+){
+status(
+'offline',
+'存在同步冲突'
+);
+lastSyncTime.textContent=
+'编辑已登录 · 本地和云端均有修改';
+if(showResult){
+show(
+'编辑登录成功，但检测到同步冲突，请点击“同步”处理',
+'error'
+);
+}
+}else{
+status(
+'offline',
+'有未同步修改'
+);
+lastSyncTime.textContent=
+'编辑已登录 · 正在恢复未同步修改';
+scheduleSync();
+if(showResult){
+show(
+'编辑登录成功，已恢复本地未同步修改',
+'success'
+);
+}
+}
+}else{
+data=
+remote.data;
+setUnlocked(
+true
+);
+render();
+await record(
+data,
+remote.sha
+);
+status(
+'online',
+'编辑已登录'
+);
+if(
+!remote.exists
+){
+lastSyncTime.textContent=
+'编辑已登录 · 数据文件尚未创建';
+}
+if(showResult){
+show(
+'Token 验证成功，已启用编辑',
+'success'
+);
+}
+}
+return true;
+}catch(error){
+console.error(
+error
+);
+setUnlocked(
+false
+);
+if(
+publicLoaded||
+data.entries.length
+){
+render();
+}
+status(
+publicLoaded
+?'online'
+:'offline',
+publicLoaded
+?'公开浏览'
+:'公开数据不可用'
+);
+if(showResult){
+show(
+`编辑登录失败：${formatError(error)}`,
+'error'
+);
+}
+return false;
+}
+}
+async function sync(
+showResult=true,
+interactive=showResult
+){
+if(
+!unlocked||
+!adminConfigured()
+){
+show(
+'请先使用 Token 登录',
+'error'
+);
+return false;
+}
+if(syncing){
+return false;
+}
+clearTimeout(
+autoTimer
+);
+autoTimer=null;
+syncing=true;
+syncBtn.disabled=true;
+status(
+'syncing',
+'同步中…'
+);
+try{
+const localSnapshot=
+normalizeData(
+data
+);
+const localFp=
+fingerprint(
+localSnapshot
+);
+const baseline=
+meta.target===target()
+?meta.fingerprint
+:null;
+const remote=
+await readRemote();
+if(remote.invalid){
+if(!interactive){
+status(
+'offline',
+'数据文件异常'
+);
+lastSyncTime.textContent=
+'云端 JSON 损坏 · 请点击“同步”确认用当前数据修复';
+return false;
+}
+const repair=
+confirm(
+'检测到云端数据文件 JSON 已损坏。\n\n确定：用当前网页数据覆盖损坏文件并修复。\n取消：暂不处理。'
+);
+if(!repair){
+status(
+'offline',
+'同步已取消'
+);
+return false;
+}
+const sha=
+await writeRemote(
+localSnapshot,
+remote.sha
+);
+await record(
+localSnapshot,
+sha
+);
+status(
+'online',
+'编辑已登录'
+);
+if(showResult){
+show(
+'云端 JSON 已用当前数据修复',
+'success'
+);
+}
+return true;
+}
+if(!remote.exists){
+const sha=
+await writeRemote(
+localSnapshot,
+null
+);
+await record(
+localSnapshot,
+sha
+);
+status(
+'online',
+'编辑已登录'
+);
+if(showResult){
+show(
+'同步完成',
+'success'
+);
+}
+return true;
+}
+const remoteFp=
+fingerprint(
+remote.data
+);
+if(
+localFp===
+remoteFp
+){
+await record(
+localSnapshot,
+remote.sha
+);
+status(
+'online',
+'编辑已登录'
+);
+if(showResult){
+show(
+'本地与云端已一致',
+'success'
+);
+}
+return true;
+}
+const localChanged=
+baseline===null||
+localFp!==baseline;
+const remoteChanged=
+baseline===null||
+remoteFp!==baseline;
+if(
+baseline!==null&&
+localChanged&&
+!remoteChanged
+){
+const sha=
+await writeRemote(
+localSnapshot,
+remote.sha
+);
+await record(
+localSnapshot,
+sha
+);
+status(
+'online',
+'编辑已登录'
+);
+if(showResult){
+show(
+'同步完成',
+'success'
+);
+}
+return true;
+}
+if(
+baseline!==null&&
+!localChanged&&
+remoteChanged
+){
+data=
+remote.data;
+render();
+await record(
+data,
+remote.sha
+);
+status(
+'online',
+'编辑已登录'
+);
+if(showResult){
+show(
+'已采用云端最新数据',
+'success'
+);
+}
+return true;
+}
+if(!interactive){
+status(
+'offline',
+'存在同步冲突'
+);
+show(
+'本地和云端都发生了修改，请点击“同步”选择版本',
+'error'
+);
+return false;
+}
+const useLocal=
+confirm(
+'检测到本地和云端数据不同。\n\n确定：用当前网页数据覆盖云端。\n取消：继续选择是否采用云端数据。'
+);
+if(useLocal){
+const sha=
+await writeRemote(
+localSnapshot,
+remote.sha
+);
+await record(
+localSnapshot,
+sha
+);
+status(
+'online',
+'编辑已登录'
+);
+show(
+'已用当前网页数据覆盖云端',
+'success'
+);
+return true;
+}
+const useRemote=
+confirm(
+'是否采用云端数据覆盖当前网页？\n\n确定：采用云端最新数据。\n取消：暂不处理。'
+);
+if(useRemote){
+data=
+remote.data;
+render();
+await record(
+data,
+remote.sha
+);
+status(
+'online',
+'编辑已登录'
+);
+show(
+'已采用云端数据',
+'success'
+);
+return true;
+}
+status(
+'offline',
+'同步已取消'
+);
+return false;
+}catch(error){
+console.error(
+error
+);
+status(
+'offline',
+'同步失败'
+);
+show(
+`同步失败：${formatError(error)}`,
+'error'
+);
+return false;
+}finally{
+syncing=
+false;
+syncBtn.disabled=
+!unlocked;
+}
+}
+function scheduleSync(){
+if(target()){
+void saveWorkingCopy(
+data
+).catch(
+error=>
+console.error(
+'保存本机工作副本失败:',
+error
+)
+);
+}
+if(!unlocked){
+return;
+}
+clearTimeout(
+autoTimer
+);
+autoTimer=
+setTimeout(
+()=>{
+autoTimer=null;
+sync(
+false,
+false
+);
+},
+AUTO_DELAY
+);
+}
+function markLocalChange(){
+render();
+status(
+'offline',
+'待同步'
+);
+lastSyncTime.textContent=
+'有未同步修改';
+scheduleSync();
+}
+function historyMeta(type){
+return type==='journal'
+?{
+key:'journals',
+label:'刊名'
+}
+:type==='issue'
+?{
+key:'issues',
+label:'刊号'
+}
+:{
+key:'notes',
+label:'刊注'
+};
+}
+function getHistory(type){
+return data.histories[
+historyMeta(type).key
+];
+}
+function setHistory(
+type,
+values
+){
+data.histories[
+historyMeta(type).key
+]=
+type==='note'
+?preserveJournalNoteOptions(
+values
+)
+:type==='journal'
+?sortJournalOptions(
+values
+)
+:sortIssueOptions(
+values
+);
+}
+function rememberOption(
+type,
+value
+){
+const v=
+clean(value);
+if(!v){
+return;
+}
+const list=
+getHistory(type);
+if(
+!list.some(
+x=>key(x)===key(v)
+)
+){
+setHistory(
+type,
+[
+...list,
+v
+]
+);
+}
+}
+function findProfile(journal){
+const k=
+key(journal);
+return data.profiles.find(
+x=>
+key(x.journal)===
+k
+)||null;
+}
+function upsertProfile(
+journal,
+issue,
+journalNote
+){
+const j=
+clean(journal);
+if(!j){
+return;
+}
+const existing=
+findProfile(j);
+if(existing){
+existing.journal=
+j;
+existing.issue=
+clean(issue);
+existing.journalNote=
+clean(
+journalNote
+);
+}else{
+data.profiles.push(
+{
+journal:j,
+issue:
+clean(issue),
+journalNote:
+clean(
+journalNote
+)
+}
+);
+}
+const map=
+new Map();
+for(
+const p
+of data.profiles
+){
+if(
+p.journal
+){
+map.set(
+key(p.journal),
+normalizeProfile(p)
+);
+}
+}
+data.profiles=[
+...map.values()
+];
+}
+function applyJournalProfile(
+journal,
+context
+){
+const profile=
+findProfile(
+journal
+);
+if(!profile){
+return false;
+}
+const issue=
+context==='edit'
+?editIssue
+:issueInput;
+const note=
+context==='edit'
+?editJournalNote
+:journalNoteInput;
+issue.value=
+profile.issue||'';
+note.value=
+profile.journalNote||'';
+renderCombo(
+'issue',
+context
+);
+renderCombo(
+'note',
+context
+);
+return true;
+}
+function deleteHistoryOption(
+type,
+value
+){
+const meta=
+historyMeta(type);
+const confirmText=
+type==='note'
+?`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n所有使用该刊注的论文条目会同步清空刊注。`
+:`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n已经保存的论文条目不会改变。`;
+if(
+!confirm(
+confirmText
+)
+){
+return;
+}
+setHistory(
+type,
+getHistory(type)
+.filter(
+v=>
+key(v)!==
+key(value)
+)
+);
+if(type==='journal'){
+data.profiles=
+data.profiles.filter(
+p=>
+key(p.journal)!==
+key(value)
+);
+}else if(
+type==='issue'
+){
+for(
+const p
+of data.profiles
+){
+if(
+key(p.issue)===
+key(value)
+){
+p.issue='';
+}
+}
+}else{
+for(
+const item
+of data.entries
+){
+if(
+key(item.journalNote)===
+key(value)
+){
+item.journalNote='';
+}
+}
+for(
+const p
+of data.profiles
+){
+if(
+key(p.journalNote)===
+key(value)
+){
+p.journalNote='';
+}
+}
+if(
+key(journalNoteInput.value)===
+key(value)
+){
+journalNoteInput.value='';
+}
+if(
+key(editJournalNote.value)===
+key(value)
+){
+editJournalNote.value='';
+}
+}
+scheduleSync();
+render();
+show(
+`已删除${meta.label}选项`,
+'success'
+);
+}
+const comboRegistry={
+add:{
+journal:{
+input:journalInput,
+toggle:journalToggle,
+panel:journalPanel,
+options:journalOptions,
+combo:journalCombo
+},
+issue:{
+input:issueInput,
+toggle:issueToggle,
+panel:issuePanel,
+options:issueOptions,
+combo:issueCombo
+},
+note:{
+input:journalNoteInput,
+toggle:journalNoteToggle,
+panel:journalNotePanel,
+options:journalNoteOptions,
+combo:journalNoteCombo
+}
+},
+edit:{
+journal:{
+input:editJournal,
+toggle:editJournalToggle,
+panel:editJournalPanel,
+options:editJournalOptions,
+combo:editJournalCombo
+},
+issue:{
+input:editIssue,
+toggle:editIssueToggle,
+panel:editIssuePanel,
+options:editIssueOptions,
+combo:editIssueCombo
+},
+note:{
+input:editJournalNote,
+toggle:editJournalNoteToggle,
+panel:editJournalNotePanel,
+options:editJournalNoteOptions,
+combo:editJournalNoteCombo
+}
+}
+};
+function allPanels(){
+return Object.values(
+comboRegistry
+)
+.flatMap(
+group=>
+Object.values(group)
+.map(
+x=>x.panel
+)
+);
+}
+function closePanels(){
+allPanels()
+.forEach(
+p=>
+p.classList.add(
+'hidden'
+)
+);
+}
+function renderCombo(
+type,
+context
+){
+const cfg=
+comboRegistry[
+context
+][type];
+const query=
+key(
+cfg.input.value
+);
+const values=
+getHistory(type)
+.filter(
+v=>
+!query||
+key(v).includes(query)
+);
+const canDragNote=
+type==='note'&&
+!query;
+const noteDraft=
+type==='note'
+?clean(
+cfg.input.value
+)
+:'';
+const canAddNote=
+Boolean(noteDraft)&&
+type==='note'&&
+!getHistory('note')
+.some(
+value=>
+key(value)===
+key(noteDraft)
+);
+cfg.options.innerHTML=
+(
+values.length||
+canAddNote
+)
+?`
+<div class="combo-option-list">
+${values.map(v=>{
+const noteAttrs=
+type==='note'
+?`
+class="combo-pill note-draggable"
+data-note-value="${attr(v)}"
+draggable="${canDragNote?'true':'false'}"
+title="${canDragNote?'拖拽调整刊注顺序':'清空输入内容后可拖拽排序'}"
+`
+:`class="combo-pill"`;
+return`
+<span ${noteAttrs}>
+<button
+class="combo-pill-select"
+type="button"
+data-select="${attr(v)}"
+>${esc(v)}</button>
+<button
+class="combo-pill-delete"
+type="button"
+draggable="false"
+data-delete="${attr(v)}"
+aria-label="移除${historyMeta(type).label}选项 ${attr(v)}"
+>×</button>
+</span>
+`;
+}).join('')}
+${canAddNote
+?`
+<button
+class="combo-add-note"
+type="button"
+data-add-note="${attr(noteDraft)}"
+>添加刊注“${esc(noteDraft)}”</button>
+`
+:''
+}
+</div>
+`
+:`
+<div class="combo-empty">
+暂无${historyMeta(type).label}
+</div>
+`;
+}
+function renderAllCombos(){
+for(
+const context
+of[
+'add',
+'edit'
+]
+){
+for(
+const type
+of[
+'journal',
+'issue',
+'note'
+]
+){
+renderCombo(
+type,
+context
+);
+}
+}
+}
+function setupCombo(
+type,
+context
+){
+const cfg=
+comboRegistry[
+context
+][type];
+let keyboardIndex=-1;
+let draggedNoteValue='';
+function clearNoteDragClasses(){
+cfg.options
+.querySelectorAll(
+'.note-draggable'
+)
+.forEach(
+row=>
+row.classList.remove(
+'dragging',
+'drag-over-before',
+'drag-over-after'
+)
+);
+}
+function commitNoteOrder(
+sourceValue,
+targetValue,
+placeAfter
+){
+if(
+type!=='note'||
+!sourceValue||
+!targetValue||
+key(sourceValue)===
+key(targetValue)
+){
+return false;
+}
+const current=
+[...getHistory('note')];
+const sourceIndex=
+current.findIndex(
+value=>
+key(value)===
+key(sourceValue)
+);
+if(sourceIndex<0){
+return false;
+}
+const [moved]=
+current.splice(
+sourceIndex,
+1
+);
+const targetIndex=
+current.findIndex(
+value=>
+key(value)===
+key(targetValue)
+);
+if(targetIndex<0){
+return false;
+}
+current.splice(
+targetIndex+
+(placeAfter?1:0),
+0,
+moved
+);
+setHistory(
+'note',
+current
+);
+markLocalChange();
+show(
+'刊注顺序已更新',
+'success'
+);
+return true;
+}
+function selectableOptions(){
+return[
+...cfg.options
+.querySelectorAll(
+'.combo-pill-select[data-select]'
+)
+];
+}
+function clearKeyboardActive(){
+keyboardIndex=-1;
+selectableOptions()
+.forEach(
+option=>{
+option.classList.remove(
+'keyboard-active'
+);
+option.removeAttribute(
+'aria-selected'
+);
+}
+);
+}
+function setKeyboardActive(
+nextIndex
+){
+const options=
+selectableOptions();
+if(!options.length){
+keyboardIndex=-1;
+return false;
+}
+keyboardIndex=
+(
+(
+nextIndex%
+options.length
+)+
+options.length
+)%
+options.length;
+options.forEach(
+(
+option,
+index
+)=>{
+const active=
+index===
+keyboardIndex;
+option.classList.toggle(
+'keyboard-active',
+active
+);
+if(active){
+option.setAttribute(
+'aria-selected',
+'true'
+);
+}else{
+option.removeAttribute(
+'aria-selected'
+);
+}
+}
+);
+options[
+keyboardIndex
+].scrollIntoView(
+{
+block:'nearest'
+}
+);
+return true;
+}
+function selectValue(
+value
+){
+cfg.input.value=
+value;
+if(
+type==='journal'
+){
+applyJournalProfile(
+cfg.input.value,
+context
+);
+}
+clearKeyboardActive();
+cfg.panel.classList.add(
+'hidden'
+);
+cfg.input.focus();
+}
+function openForKeyboard(){
+if(
+cfg.panel.classList
+.contains(
+'hidden'
+)
+){
+closePanels();
+cfg.panel.classList.remove(
+'hidden'
+);
+renderCombo(
+type,
+context
+);
+keyboardIndex=-1;
+}
+}
+cfg.toggle.addEventListener(
+'click',
+event=>{
+event.stopPropagation();
+const open=
+cfg.panel.classList
+.contains(
+'hidden'
+);
+closePanels();
+keyboardIndex=-1;
+if(open){
+cfg.panel.classList.remove(
+'hidden'
+);
+renderCombo(
+type,
+context
+);
+}
+}
+);
+cfg.input.addEventListener(
+'click',
+event=>{
+event.stopPropagation();
+closePanels();
+cfg.panel.classList.remove(
+'hidden'
+);
+renderCombo(
+type,
+context
+);
+keyboardIndex=-1;
+}
+);
+cfg.input.addEventListener(
+'input',
+()=>{
+renderCombo(
+type,
+context
+);
+keyboardIndex=-1;
+if(
+type==='journal'
+){
+applyJournalProfile(
+cfg.input.value,
+context
+);
+}
+}
+);
+cfg.input.addEventListener(
+'keydown',
+event=>{
+if(
+event.key==='ArrowDown'||
+event.key==='ArrowUp'
+){
+event.preventDefault();
+event.stopPropagation();
+openForKeyboard();
+const options=
+selectableOptions();
+if(!options.length){
+return;
+}
+if(
+keyboardIndex<0
+){
+setKeyboardActive(
+event.key==='ArrowDown'
+?0
+:options.length-1
+);
+}else{
+setKeyboardActive(
+keyboardIndex+
+(
+event.key==='ArrowDown'
+?1
+:-1
+)
+);
+}
+return;
+}
+if(
+event.key==='Enter'&&
+!cfg.panel.classList
+.contains(
+'hidden'
+)&&
+keyboardIndex>=0
+){
+const option=
+selectableOptions()[
+keyboardIndex
+];
+if(option){
+event.preventDefault();
+event.stopPropagation();
+selectValue(
+option.dataset.select
+);
+}
+return;
+}
+if(
+event.key==='Escape'&&
+!cfg.panel.classList
+.contains(
+'hidden'
+)
+){
+event.preventDefault();
+event.stopPropagation();
+clearKeyboardActive();
+cfg.panel.classList.add(
+'hidden'
+);
+}
+}
+);
+cfg.options.addEventListener(
+'dragstart',
+event=>{
+if(type!=='note'){
+return;
+}
+if(
+event.target.closest(
+'[data-delete]'
+)
+){
+event.preventDefault();
+return;
+}
+const row=
+event.target.closest(
+'.note-draggable[draggable="true"]'
+);
+if(!row){
+event.preventDefault();
+return;
+}
+draggedNoteValue=
+row.dataset.noteValue||'';
+clearNoteDragClasses();
+row.classList.add(
+'dragging'
+);
+if(event.dataTransfer){
+event.dataTransfer.effectAllowed=
+'move';
+event.dataTransfer.setData(
+'text/plain',
+draggedNoteValue
+);
+}
+}
+);
+cfg.options.addEventListener(
+'dragover',
+event=>{
+if(
+type!=='note'||
+!draggedNoteValue
+){
+return;
+}
+const row=
+event.target.closest(
+'.note-draggable'
+);
+if(
+!row||
+key(row.dataset.noteValue)===
+key(draggedNoteValue)
+){
+return;
+}
+event.preventDefault();
+if(event.dataTransfer){
+event.dataTransfer.dropEffect='move';
+}
+clearNoteDragClasses();
+const rect=
+row.getBoundingClientRect();
+const after=
+event.clientY>
+rect.top+
+rect.height/2;
+row.classList.add(
+after
+?'drag-over-after'
+:'drag-over-before'
+);
+}
+);
+cfg.options.addEventListener(
+'drop',
+event=>{
+if(
+type!=='note'||
+!draggedNoteValue
+){
+return;
+}
+const row=
+event.target.closest(
+'.note-draggable'
+);
+if(!row){
+return;
+}
+event.preventDefault();
+const rect=
+row.getBoundingClientRect();
+const after=
+event.clientY>
+rect.top+
+rect.height/2;
+const sourceValue=
+draggedNoteValue;
+const targetValue=
+row.dataset.noteValue||'';
+draggedNoteValue='';
+clearNoteDragClasses();
+commitNoteOrder(
+sourceValue,
+targetValue,
+after
+);
+}
+);
+cfg.options.addEventListener(
+'dragend',
+()=>{
+draggedNoteValue='';
+clearNoteDragClasses();
+}
+);
+cfg.options.addEventListener(
+'click',
+event=>{
+event.stopPropagation();
+const addNote=
+event.target.closest(
+'[data-add-note]'
+);
+if(
+addNote&&
+type==='note'
+){
+const value=
+clean(
+addNote.dataset.addNote
+);
+rememberOption(
+'note',
+value
+);
+cfg.input.value=
+value;
+clearKeyboardActive();
+renderCombo(
+'note',
+context
+);
+markLocalChange();
+show(
+'已添加刊注选项',
+'success'
+);
+return;
+}
+const del=
+event.target.closest(
+'[data-delete]'
+);
+if(del){
+clearKeyboardActive();
+return deleteHistoryOption(
+type,
+del.dataset.delete
+);
+}
+const select=
+event.target.closest(
+'[data-select]'
+);
+if(!select){
+return;
+}
+selectValue(
+select.dataset.select
+);
+}
+);
+cfg.combo.addEventListener(
+'click',
+event=>
+event.stopPropagation()
+);
+}
+for(
+const context
+of[
+'add',
+'edit'
+]
+){
+for(
+const type
+of[
+'journal',
+'issue',
+'note'
+]
+){
+setupCombo(
+type,
+context
+);
+}
+}
 document.addEventListener(
-    'click',
-    closePanels
+'click',
+closePanels
 );
-
 function render(){
-    data=
-    normalizeData(data);
-
-    countDisplay.textContent=
-    `0/${data.entries.length}`;
-
-    if(!data.entries.length){
-        papersList.innerHTML=
-        '<div class="empty-state"></div>';
-
-        renderAllCombos();
-        return;
-    }
-
-    papersList.innerHTML=
-    data.entries
-    .map(
-        item=>{
-            const rows=[
-                item.journal
-                ?`
-                    <div class="meta-row">
-                        <span class="meta-label">刊名：</span>
-                        ${esc(item.journal)}
-                    </div>
-                `
-                :'',
-
-                `
-                    <div class="meta-row">
-                        <span class="meta-label">刊期：</span>
-                        ${esc(item.year)}
-                    </div>
-                `,
-
-                `
-                    <div class="meta-row">
-                        <span class="meta-label">刊号：</span>
-                        ${esc(item.issue)}
-                    </div>
-                `,
-
-                item.journalNote
-                ?`
-                    <div class="meta-row">
-                        <span class="meta-label">刊注：</span>
-                        ${esc(item.journalNote)}
-                    </div>
-                `
-                :''
-            ].filter(Boolean);
-
-            const editButton=
-            unlocked
-            ?`
-                <button
-                    class="edit-btn"
-                    data-id="${attr(item.id)}"
-                    type="button"
-                >编辑</button>
-            `
-            :'';
-
-            if(
-                editButton&&
-                rows.length
-            ){
-                rows[
-                    rows.length-1
-                ]=
-                rows[
-                    rows.length-1
-                ].replace(
-                    '</div>',
-                    `${editButton}</div>`
-                );
-            }
-
-            const actions=
-            editButton&&
-            !rows.length
-            ?`
-                <div class="paper-actions">
-                    ${editButton}
-                </div>
-            `
-            :'';
-
-            return`
-                <article class="paper-item">
-                    <h3 class="paper-title">
-                        ${esc(item.title||'')}
-                    </h3>
-                    <div class="paper-meta">
-                        ${rows.join('')}
-                        ${actions}
-                    </div>
-                </article>
-            `;
-        }
-    )
-    .join('');
-
-    publicLoaded=true;
-    exportBtn.disabled=false;
-
-    renderAllCombos();
-}
-
-function requireEditAccess(){
-    if(
-        unlocked&&
-        adminConfigured()
-    ){
-        return true;
-    }
-
-    show(
-        '请先使用 Token 登录后再编辑',
-        'error'
-    );
-
-    return false;
-}
-
-function addEntry(){
-    if(!requireEditAccess()){
-        return;
-    }
-
-    const title=
-    clean(titleInput.value);
-
-    if(!title){
-        show(
-            '标题不能为空',
-            'error'
-        );
-
-        titleInput.focus();
-        return;
-    }
-
-    const year=
-    clean(yearInput.value);
-
-    const journal=
-    clean(journalInput.value);
-
-    const issue=
-    clean(issueInput.value);
-
-    const journalNote=
-    clean(journalNoteInput.value);
-
-    rememberOption(
-        'journal',
-        journal
-    );
-
-    rememberOption(
-        'issue',
-        issue
-    );
-
-    rememberOption(
-        'note',
-        journalNote
-    );
-
-    upsertProfile(
-        journal,
-        issue,
-        journalNote
-    );
-
-    data.entries.push(
-        {
-            id:uid(),
-            title,
-            year,
-            journal,
-            issue,
-            journalNote
-        }
-    );
-
-    titleInput.value='';
-    yearInput.value='';
-    journalInput.value='';
-    issueInput.value='';
-    journalNoteInput.value='';
-
-    markLocalChange();
-
-    titleInput.focus();
-
-    show(
-        '已提交',
-        'success'
-    );
-}
-
-function editSnapshot(){
-    return JSON.stringify(
-        {
-            title:
-                editTitle.value,
-
-            year:
-                editYear.value,
-
-            journal:
-                editJournal.value,
-
-            issue:
-                editIssue.value,
-
-            journalNote:
-                editJournalNote.value
-        }
-    );
-}
-
-function closeEdit(){
-    editingId='';
-    editInitialSnapshot='';
-
-    editModal.classList.add(
-        'hidden'
-    );
-
-    closePanels();
-}
-
-function openEdit(id){
-    if(!requireEditAccess()){
-        return;
-    }
-
-    const item=
-    data.entries.find(
-        x=>x.id===id
-    );
-
-    if(!item){
-        return;
-    }
-
-    editingId=id;
-
-    editTitle.value=item.title;
-    editYear.value=item.year;
-    editJournal.value=item.journal;
-    editIssue.value=item.issue;
-    editJournalNote.value=item.journalNote;
-
-    editInitialSnapshot=
-    editSnapshot();
-
-    editModal.classList.remove(
-        'hidden'
-    );
-
-    renderAllCombos();
-
-    setTimeout(
-        ()=>editTitle.focus(),
-        30
-    );
-}
-
-function saveEditEntry(){
-    if(!requireEditAccess()){
-        return;
-    }
-
-    const item=
-    data.entries.find(
-        x=>x.id===editingId
-    );
-
-    if(!item){
-        return;
-    }
-
-    const next={
-        title:
-            clean(editTitle.value),
-
-        year:
-            clean(editYear.value),
-
-        journal:
-            clean(editJournal.value),
-
-        issue:
-            clean(editIssue.value),
-
-        journalNote:
-            clean(editJournalNote.value)
-    };
-
-    if(!next.title){
-        show(
-            '标题不能为空',
-            'error'
-        );
-
-        editTitle.focus();
-        return;
-    }
-
-    rememberOption(
-        'journal',
-        next.journal
-    );
-
-    rememberOption(
-        'issue',
-        next.issue
-    );
-
-    rememberOption(
-        'note',
-        next.journalNote
-    );
-
-    upsertProfile(
-        next.journal,
-        next.issue,
-        next.journalNote
-    );
-
-    Object.assign(
-        item,
-        next
-    );
-
-    closeEdit();
-    markLocalChange();
-
-    show(
-        '已保存',
-        'success'
-    );
-}
-
-function deleteEntry(){
-    if(
-        !requireEditAccess()||
-        !editingId
-    ){
-        return;
-    }
-
-    const item=
-    data.entries.find(
-        x=>x.id===editingId
-    );
-
-    if(!item){
-        return;
-    }
-
-    if(
-        !confirm(
-            `确定删除论文“${item.title}”吗？`
-        )
-    ){
-        return;
-    }
-
-    data.entries=
-    data.entries.filter(
-        x=>x.id!==editingId
-    );
-
-    data.entries.sort(
-        comparePaperEntry
-    );
-
-    closeEdit();
-    markLocalChange();
-
-    show(
-        '已删除',
-        'success'
-    );
-}
-
-function safeBackupJson(value){
-    return JSON.stringify(value)
-    .replace(
-        /</g,
-        '\\u003c'
-    )
-    .replace(
-        /\u2028/g,
-        '\\u2028'
-    )
-    .replace(
-        /\u2029/g,
-        '\\u2029'
-    );
-}
-
-function buildHtmlBackup(unixTime){
-    const snapshot={
-        schemaVersion:2,
-        ...normalizeData(data)
-    };
-
-    const envelope={
-        format:BACKUP_FORMAT,
-        version:BACKUP_VERSION,
-
-        exportedAt:
-            new Date(
-                unixTime*1000
-            ).toISOString(),
-
-        unixTime,
-        data:snapshot
-    };
-
-    const clone=
-    document.documentElement
-    .cloneNode(true);
-
-    clone
-    .querySelector(
-        '#papersBackupData'
-    )
-    ?.remove();
-
-    for(
-        const id
-        of[
-            'cfgOwner',
-            'cfgRepo',
-            'cfgFile',
-            'cfgToken'
-        ]
-    ){
-        const input=
-        clone.querySelector(
-            `#${id}`
-        );
-
-        if(input){
-            input.value='';
-            input.removeAttribute(
-                'value'
-            );
-        }
-    }
-
-    const backupScript=
-    document.createElement(
-        'script'
-    );
-
-    backupScript.id=
-    'papersBackupData';
-
-    backupScript.type=
-    'application/json';
-
-    backupScript.textContent=
-    safeBackupJson(envelope);
-
-    clone
-    .querySelector('head')
-    ?.appendChild(
-        backupScript
-    );
-
-    return(
-        '<!DOCTYPE html>\n'+
-        clone.outerHTML
-    );
-}
-
-function downloadHtmlBackup(){
-    if(
-        !publicLoaded&&
-        !unlocked
-    ){
-        return;
-    }
-
-    const unixTime=
-    Math.floor(
-        Date.now()/1000
-    );
-
-    const html=
-    buildHtmlBackup(unixTime);
-
-    const blob=
-    new Blob(
-        [html],
-        {
-            type:
-                'text/html;charset=utf-8'
-        }
-    );
-
-    const url=
-    URL.createObjectURL(blob);
-
-    const a=
-    document.createElement('a');
-
-    a.href=url;
-    a.download=
-    `papers${unixTime}.html`;
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-}
-
-function importDataFromText(
-    text,
-    file
-){
-    const raw=String(text||'');
-
-    const looksHtml=
-    /\.html?$/i.test(
-        file?.name||''
-    )||
-    /^\s*<!doctype\s+html\b/i.test(raw)||
-    /^\s*<html\b/i.test(raw);
-
-    if(looksHtml){
-        const doc=
-        new DOMParser()
-        .parseFromString(
-            raw,
-            'text/html'
-        );
-
-        const node=
-        doc.getElementById(
-            'papersBackupData'
-        );
-
-        if(!node){
-            throw new Error(
-                '该 HTML 中没有 Papers 备份数据'
-            );
-        }
-
-        let parsed;
-
-        try{
-            parsed=
-            JSON.parse(
-                node.textContent||''
-            );
-        }catch{
-            throw new Error(
-                'HTML 内嵌备份数据损坏'
-            );
-        }
-
-        return parseHtmlBackupPayload(
-            parsed
-        );
-    }
-
-    try{
-        return normalizeData(
-            JSON.parse(raw)
-        );
-    }catch{
-        throw new Error(
-            'JSON 格式不正确'
-        );
-    }
-}
-
-function importFile(file){
-    if(
-        !requireEditAccess()||
-        !file
-    ){
-        return;
-    }
-
-    const htmlByName=
-    /\.html?$/i.test(
-        file.name||''
-    )||
-    file.type==='text/html';
-
-    const maxBytes=
-    htmlByName
-    ?MAX_HTML_BACKUP_BYTES
-    :MAX_BYTES;
-
-    if(file.size>maxBytes){
-        show(
-            htmlByName
-            ?'HTML 备份超过 20 MB'
-            :'文件超过 900 KB',
-            'error'
-        );
-
-        return;
-    }
-
-    const reader=
-    new FileReader();
-
-    reader.onload=
-    e=>{
-        try{
-            const next=
-            importDataFromText(
-                String(
-                    e.target.result||''
-                ),
-                file
-            );
-
-            if(
-                !confirm(
-                    `将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`
-                )
-            ){
-                return;
-            }
-
-            data=next;
-
-            markLocalChange();
-
-            show(
-                '导入完成',
-                'success'
-            );
-        }catch(error){
-            console.error(error);
-
-            show(
-                `导入失败：${error.message||'文件格式不正确'}`,
-                'error'
-            );
-        }
-    };
-
-    reader.readAsText(
-        file,
-        'utf-8'
-    );
-}
-
-function openConfig(){
-    cfgOwner.value=config.owner;
-    cfgRepo.value=config.repo;
-
-    cfgFile.value=
-    config.file||
-    'papers_data.json';
-
-    cfgToken.value=config.token;
-
-    configModal.classList.remove(
-        'hidden'
-    );
-}
-
-function closeConfig(){
-    configModal.classList.add(
-        'hidden'
-    );
-}
-
-configForm.addEventListener(
-    'submit',
-    async event=>{
-        event.preventDefault();
-
-        config.owner=
-        clean(cfgOwner.value);
-
-        config.repo=
-        clean(cfgRepo.value);
-
-        config.file=
-        clean(cfgFile.value)||
-        'papers_data.json';
-
-        config.token=
-        clean(cfgToken.value);
-
-        await saveConfig();
-
-        closeConfig();
-
-        await login(true);
-    }
+data=
+normalizeData(
+data
 );
-
+const codedCount=
+data.entries
+.filter(
+item=>
+Boolean(
+item.code
+)
+)
+.length;
+countDisplay.textContent=
+`${codedCount}/${data.entries.length}`;
+if(
+!data.entries.length
+){
+papersList.innerHTML=
+'<div class="empty-state"></div>';
+renderAllCombos();
+return;
+}
+papersList.innerHTML=
+data.entries
+.map(
+item=>{
+const rows=[
+item.journal
+?`
+<div class="meta-row">
+<span class="meta-label">刊名：</span>
+${esc(item.journal)}
+</div>
+`
+:'',
+`
+<div class="meta-row">
+<span class="meta-label">刊期：</span>
+${esc(item.year)}
+</div>
+`,
+`
+<div class="meta-row">
+<span class="meta-label">刊号：</span>
+${esc(item.issue)}
+</div>
+`,
+item.journalNote
+?`
+<div class="meta-row">
+<span class="meta-label">刊注：</span>
+${esc(item.journalNote)}
+</div>
+`
+:''
+].filter(Boolean);
+const editLabel=
+item.code||
+'编辑';
+const editButton=
+unlocked
+?`
+<button
+class="edit-btn"
+data-id="${attr(item.id)}"
+type="button"
+>${esc(editLabel)}</button>
+`
+:'';
+if(
+editButton&&
+rows.length
+){
+rows[
+rows.length-1
+]=
+rows[
+rows.length-1
+].replace(
+'</div>',
+`${editButton}</div>`
+);
+}
+const actions=
+editButton&&
+!rows.length
+?`
+<div class="paper-actions">
+${editButton}
+</div>
+`
+:'';
+return`
+<article class="paper-item">
+<h3 class="paper-title">
+${esc(item.title||'')}
+</h3>
+<div class="paper-meta">
+${rows.join('')}
+${actions}
+</div>
+</article>
+`;
+}
+)
+.join('');
+publicLoaded=
+true;
+exportBtn.disabled=
+false;
+renderAllCombos();
+}
+function requireEditAccess(){
+if(
+unlocked&&
+adminConfigured()
+){
+return true;
+}
+show(
+'请先使用 Token 登录后再编辑',
+'error'
+);
+return false;
+}
+function addEntry(){
+if(
+!requireEditAccess()
+){
+return;
+}
+const title=
+clean(
+titleInput.value
+);
+if(!title){
+show(
+'标题不能为空',
+'error'
+);
+titleInput.focus();
+return;
+}
+const year=
+clean(
+yearInput.value
+);
+const journal=
+clean(
+journalInput.value
+);
+const issue=
+clean(
+issueInput.value
+);
+const journalNote=
+clean(
+journalNoteInput.value
+);
+const entry={
+id:
+uid(),
+title,
+year,
+journal,
+issue,
+journalNote,
+code:''
+};
+const codeRule=
+automaticCodeRule(
+entry
+);
+entry.code=
+nextAutomaticCode(
+entry,
+data.entries
+);
+if(
+codeRule&&
+!entry.code
+){
+show(
+'对应编码区间已无可用编码',
+'error'
+);
+return;
+}
+rememberOption(
+'journal',
+journal
+);
+rememberOption(
+'issue',
+issue
+);
+rememberOption(
+'note',
+journalNote
+);
+upsertProfile(
+journal,
+issue,
+journalNote
+);
+data.entries.push(
+entry
+);
+titleInput.value='';
+yearInput.value='';
+journalInput.value='';
+issueInput.value='';
+journalNoteInput.value='';
+markLocalChange();
+titleInput.focus();
+show(
+'已提交',
+'success'
+);
+}
+function editSnapshot(){
+return JSON.stringify(
+{
+title:
+editTitle.value,
+year:
+editYear.value,
+journal:
+editJournal.value,
+issue:
+editIssue.value,
+journalNote:
+editJournalNote.value
+}
+);
+}
+function closeEdit(){
+editingId='';
+editInitialSnapshot='';
+editModal.classList.add(
+'hidden'
+);
+closePanels();
+}
+function openEdit(id){
+if(
+!requireEditAccess()
+){
+return;
+}
+const item=
+data.entries.find(
+x=>x.id===id
+);
+if(!item){
+return;
+}
+editingId=
+id;
+editTitle.value=
+item.title;
+editYear.value=
+item.year;
+editJournal.value=
+item.journal;
+editIssue.value=
+item.issue;
+editJournalNote.value=
+item.journalNote;
+editInitialSnapshot=
+editSnapshot();
+editModal.classList.remove(
+'hidden'
+);
+renderAllCombos();
+setTimeout(
+()=>editTitle.focus(),
+30
+);
+}
+function saveEditEntry(){
+if(
+!requireEditAccess()
+){
+return;
+}
+const item=
+data.entries.find(
+x=>x.id===editingId
+);
+if(!item){
+return;
+}
+const next={
+id:
+item.id,
+title:
+clean(
+editTitle.value
+),
+year:
+clean(
+editYear.value
+),
+journal:
+clean(
+editJournal.value
+),
+issue:
+clean(
+editIssue.value
+),
+journalNote:
+clean(
+editJournalNote.value
+),
+code:
+item.code||''
+};
+if(!next.title){
+show(
+'标题不能为空',
+'error'
+);
+editTitle.focus();
+return;
+}
+const codeRule=
+automaticCodeRule(
+next
+);
+next.code=
+nextAutomaticCode(
+next,
+data.entries,
+item.id
+);
+if(
+codeRule&&
+!next.code
+){
+show(
+'对应编码区间已无可用编码',
+'error'
+);
+return;
+}
+rememberOption(
+'journal',
+next.journal
+);
+rememberOption(
+'issue',
+next.issue
+);
+rememberOption(
+'note',
+next.journalNote
+);
+upsertProfile(
+next.journal,
+next.issue,
+next.journalNote
+);
+Object.assign(
+item,
+next
+);
+closeEdit();
+markLocalChange();
+show(
+'已保存',
+'success'
+);
+}
+function deleteEntry(){
+if(
+!requireEditAccess()||
+!editingId
+){
+return;
+}
+const item=
+data.entries.find(
+x=>x.id===editingId
+);
+if(!item){
+return;
+}
+if(
+!confirm(
+`确定删除论文“${item.title}”吗？`
+)
+){
+return;
+}
+data.entries=
+data.entries.filter(
+x=>x.id!==editingId
+);
+data.entries.sort(
+comparePaperEntry
+);
+closeEdit();
+markLocalChange();
+show(
+'已删除',
+'success'
+);
+}
+function safeBackupJson(value){
+return JSON.stringify(
+value
+)
+.replace(
+/</g,
+'\\u003c'
+)
+.replace(
+/\u2028/g,
+'\\u2028'
+)
+.replace(
+/\u2029/g,
+'\\u2029'
+);
+}
+function buildHtmlBackup(
+unixTime
+){
+const snapshot={
+schemaVersion:2,
+...normalizeData(data)
+};
+const envelope={
+format:
+BACKUP_FORMAT,
+version:
+BACKUP_VERSION,
+exportedAt:
+new Date(
+unixTime*1000
+).toISOString(),
+unixTime,
+data:
+snapshot
+};
+const clone=
+document.documentElement
+.cloneNode(
+true
+);
+clone
+.querySelector(
+'#papersBackupData'
+)
+?.remove();
+for(
+const id
+of[
+'cfgOwner',
+'cfgRepo',
+'cfgFile',
+'cfgToken'
+]
+){
+const input=
+clone.querySelector(
+`#${id}`
+);
+if(input){
+input.value='';
+input.removeAttribute(
+'value'
+);
+}
+}
+const backupScript=
+document.createElement(
+'script'
+);
+backupScript.id=
+'papersBackupData';
+backupScript.type=
+'application/json';
+backupScript.textContent=
+safeBackupJson(
+envelope
+);
+clone
+.querySelector(
+'head'
+)
+?.appendChild(
+backupScript
+);
+return(
+'<!DOCTYPE html>\n'+
+clone.outerHTML
+);
+}
+function downloadHtmlBackup(){
+if(
+!publicLoaded&&
+!unlocked
+){
+return;
+}
+const unixTime=
+Math.floor(
+Date.now()/1000
+);
+const html=
+buildHtmlBackup(
+unixTime
+);
+const blob=
+new Blob(
+[html],
+{
+type:
+'text/html;charset=utf-8'
+}
+);
+const url=
+URL.createObjectURL(
+blob
+);
+const a=
+document.createElement(
+'a'
+);
+a.href=
+url;
+a.download=
+`papers${unixTime}.html`;
+a.click();
+URL.revokeObjectURL(
+url
+);
+}
+function importDataFromText(
+text,
+file
+){
+const raw=
+String(
+text||''
+);
+const looksHtml=
+/\.html?$/i.test(
+file?.name||''
+)||
+/^\s*<!doctype\s+html\b/i.test(
+raw
+)||
+/^\s*<html\b/i.test(
+raw
+);
+if(looksHtml){
+const doc=
+new DOMParser()
+.parseFromString(
+raw,
+'text/html'
+);
+const node=
+doc.getElementById(
+'papersBackupData'
+);
+if(!node){
+throw new Error(
+'该 HTML 中没有 Papers 备份数据'
+);
+}
+let parsed;
+try{
+parsed=
+JSON.parse(
+node.textContent||''
+);
+}catch{
+throw new Error(
+'HTML 内嵌备份数据损坏'
+);
+}
+return parseHtmlBackupPayload(
+parsed
+);
+}
+try{
+return normalizeData(
+JSON.parse(raw)
+);
+}catch{
+throw new Error(
+'JSON 格式不正确'
+);
+}
+}
+function importFile(file){
+if(
+!requireEditAccess()||
+!file
+){
+return;
+}
+const htmlByName=
+/\.html?$/i.test(
+file.name||''
+)||
+file.type===
+'text/html';
+const maxBytes=
+htmlByName
+?MAX_HTML_BACKUP_BYTES
+:MAX_BYTES;
+if(
+file.size>
+maxBytes
+){
+show(
+htmlByName
+?'HTML 备份超过 20 MB'
+:'文件超过 900 KB',
+'error'
+);
+return;
+}
+const reader=
+new FileReader();
+reader.onload=
+e=>{
+try{
+const next=
+importDataFromText(
+String(
+e.target.result||''
+),
+file
+);
+if(
+!confirm(
+`将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`
+)
+){
+return;
+}
+data=
+next;
+markLocalChange();
+show(
+'导入完成',
+'success'
+);
+}catch(error){
+console.error(
+error
+);
+show(
+`导入失败：${error.message||'文件格式不正确'}`,
+'error'
+);
+}
+};
+reader.readAsText(
+file,
+'utf-8'
+);
+}
+function openConfig(){
+cfgOwner.value=
+config.owner;
+cfgRepo.value=
+config.repo;
+cfgFile.value=
+config.file||
+'papers_data.json';
+cfgToken.value=
+config.token;
+configModal.classList.remove(
+'hidden'
+);
+}
+function closeConfig(){
+configModal.classList.add(
+'hidden'
+);
+}
+configForm.addEventListener(
+'submit',
+async event=>{
+event.preventDefault();
+config.owner=
+clean(
+cfgOwner.value
+);
+config.repo=
+clean(
+cfgRepo.value
+);
+config.file=
+clean(
+cfgFile.value
+)||
+'papers_data.json';
+config.token=
+clean(
+cfgToken.value
+);
+await saveConfig();
+closeConfig();
+await login(
+true
+);
+}
+);
 let paperEditPointer=null;
 const EDIT_CLICK_MOVE_LIMIT=6;
-
 function hasActiveTextSelection(){
-    const selection=
-    window.getSelection?.();
-
-    return Boolean(
-        selection&&
-        selection.rangeCount>0&&
-        !selection.isCollapsed&&
-        String(selection).length
-    );
+const selection=
+window.getSelection?.();
+return Boolean(
+selection&&
+selection.rangeCount>0&&
+!selection.isCollapsed&&
+String(selection).length
+);
 }
-
 papersList.addEventListener(
-    'pointerdown',
-    event=>{
-        const btn=
-        event.target.closest(
-            '.edit-btn[data-id]'
-        );
-
-        if(!btn){
-            paperEditPointer=null;
-            return;
-        }
-
-        paperEditPointer={
-            pointerId:event.pointerId,
-            button:btn,
-            x:event.clientX,
-            y:event.clientY,
-            moved:false
-        };
-    }
+'pointerdown',
+event=>{
+const btn=
+event.target.closest(
+'.edit-btn[data-id]'
 );
-
+if(!btn){
+paperEditPointer=
+null;
+return;
+}
+paperEditPointer={
+pointerId:
+event.pointerId,
+button:
+btn,
+x:
+event.clientX,
+y:
+event.clientY,
+moved:false
+};
+}
+);
 papersList.addEventListener(
-    'pointermove',
-    event=>{
-        if(
-            !paperEditPointer||
-            event.pointerId!==
-            paperEditPointer.pointerId
-        ){
-            return;
-        }
-
-        if(
-            Math.abs(
-                event.clientX-
-                paperEditPointer.x
-            )>
-            EDIT_CLICK_MOVE_LIMIT||
-            Math.abs(
-                event.clientY-
-                paperEditPointer.y
-            )>
-            EDIT_CLICK_MOVE_LIMIT
-        ){
-            paperEditPointer.moved=true;
-        }
-    }
+'pointermove',
+event=>{
+if(
+!paperEditPointer||
+event.pointerId!==
+paperEditPointer.pointerId
+){
+return;
+}
+if(
+Math.abs(
+event.clientX-
+paperEditPointer.x
+)>
+EDIT_CLICK_MOVE_LIMIT||
+Math.abs(
+event.clientY-
+paperEditPointer.y
+)>
+EDIT_CLICK_MOVE_LIMIT
+){
+paperEditPointer.moved=
+true;
+}
+}
 );
-
 papersList.addEventListener(
-    'pointerup',
-    event=>{
-        if(
-            !paperEditPointer||
-            event.pointerId!==
-            paperEditPointer.pointerId
-        ){
-            return;
-        }
-
-        const state=paperEditPointer;
-        paperEditPointer=null;
-
-        const releasedBtn=
-        event.target.closest(
-            '.edit-btn[data-id]'
-        );
-
-        const genuineClick=
-        !state.moved&&
-        releasedBtn===state.button&&
-        !hasActiveTextSelection();
-
-        if(genuineClick){
-            event.preventDefault();
-
-            openEdit(
-                state.button.dataset.id
-            );
-        }
-    }
+'pointerup',
+event=>{
+if(
+!paperEditPointer||
+event.pointerId!==
+paperEditPointer.pointerId
+){
+return;
+}
+const state=
+paperEditPointer;
+paperEditPointer=
+null;
+const releasedBtn=
+event.target.closest(
+'.edit-btn[data-id]'
 );
-
+const genuineClick=
+!state.moved&&
+releasedBtn===
+state.button&&
+!hasActiveTextSelection();
+if(genuineClick){
+event.preventDefault();
+openEdit(
+state.button.dataset.id
+);
+}
+}
+);
 papersList.addEventListener(
-    'pointercancel',
-    ()=>{
-        paperEditPointer=null;
-    }
+'pointercancel',
+()=>{
+paperEditPointer=
+null;
+}
 );
-
 papersList.addEventListener(
-    'click',
-    event=>{
-        const btn=
-        event.target.closest(
-            '.edit-btn[data-id]'
-        );
-
-        if(btn){
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    }
+'click',
+event=>{
+const btn=
+event.target.closest(
+'.edit-btn[data-id]'
 );
-
+if(btn){
+event.preventDefault();
+event.stopPropagation();
+}
+}
+);
 papersList.addEventListener(
-    'keydown',
-    event=>{
-        const btn=
-        event.target.closest(
-            '.edit-btn[data-id]'
-        );
-
-        if(!btn){
-            return;
-        }
-
-        if(
-            event.key==='Enter'||
-            event.key===' '
-        ){
-            event.preventDefault();
-
-            if(!hasActiveTextSelection()){
-                openEdit(
-                    btn.dataset.id
-                );
-            }
-        }
-    }
+'keydown',
+event=>{
+const btn=
+event.target.closest(
+'.edit-btn[data-id]'
 );
-
+if(!btn){
+return;
+}
+if(
+event.key==='Enter'||
+event.key===' '
+){
+event.preventDefault();
+if(
+!hasActiveTextSelection()
+){
+openEdit(
+btn.dataset.id
+);
+}
+}
+}
+);
 addBtn.addEventListener(
-    'click',
-    addEntry
+'click',
+addEntry
 );
-
 editDelete.addEventListener(
-    'click',
-    deleteEntry
+'click',
+deleteEntry
 );
-
 editCancel.addEventListener(
-    'click',
-    closeEdit
+'click',
+closeEdit
 );
-
 editSave.addEventListener(
-    'click',
-    saveEditEntry
+'click',
+saveEditEntry
 );
-
 clearEditYear.addEventListener(
-    'click',
-    ()=>{
-        editYear.value='';
-    }
-);
-
-editModal.addEventListener(
-    'pointerdown',
-    event=>{
-        editModal.dataset.outside=
-        event.target===editModal
-        ?'1'
-        :'0';
-    }
-);
-
-editModal.addEventListener(
-    'pointerup',
-    event=>{
-        const genuine=
-        editModal.dataset.outside==='1'&&
-        event.target===editModal;
-
-        editModal.dataset.outside='0';
-
-        if(
-            genuine&&
-            editingId&&
-            editSnapshot()===
-            editInitialSnapshot
-        ){
-            closeEdit();
-        }
-    }
-);
-
-syncBtn.addEventListener(
-    'click',
-    ()=>sync(
-        true,
-        true
-    )
-);
-
-configBtn.addEventListener(
-    'click',
-    openConfig
-);
-
-visitorLoginBtn.addEventListener(
-    'click',
-    openConfig
-);
-
-configCancel.addEventListener(
-    'click',
-    closeConfig
-);
-
-exportBtn.addEventListener(
-    'click',
-    downloadHtmlBackup
-);
-
-importBtn.addEventListener(
-    'click',
-    ()=>fileInput.click()
-);
-
-fileInput.addEventListener(
-    'change',
-    ()=>{
-        const file=
-        fileInput.files?.[0];
-
-        if(file){
-            importFile(file);
-        }
-
-        fileInput.value='';
-    }
-);
-
-document.addEventListener(
-    'keydown',
-    event=>{
-        if(event.key==='Escape'){
-            closePanels();
-
-            if(
-                !editModal.classList
-                .contains('hidden')&&
-                editSnapshot()===
-                editInitialSnapshot
-            ){
-                closeEdit();
-            }else{
-                closeConfig();
-            }
-        }
-    }
-);
-
-backToTopBtn.addEventListener(
-    'click',
-    ()=>{
-        const start=scrollY;
-        const t=performance.now();
-
-        function go(now){
-            const p=
-            Math.min(
-                (now-t)/10,
-                1
-            );
-
-            scrollTo(
-                0,
-                start*(1-p)
-            );
-
-            if(p<1){
-                requestAnimationFrame(go);
-            }
-        }
-
-        requestAnimationFrame(go);
-    }
-);
-
-addEventListener(
-    'scroll',
-    ()=>{
-        backToTopBtn
-        .classList
-        .toggle(
-            'visible',
-            scrollY>260
-        );
-    },
-    {
-        passive:true
-    }
-);
-
-(async()=>{
-    await requestPersistentStorage();
-    await loadConfig();
-    await loadMeta();
-
-    setUnlocked(false);
-
-    await loadPublicView();
-
-    if(adminConfigured()){
-        await login(false);
-    }
-
-    render();
-})();
-
-function persistCurrentWorkingCopyBestEffort(){
-    if(
-        unlocked&&
-        target()
-    ){
-        void saveWorkingCopy(data)
-        .catch(()=>{});
-    }
+'click',
+()=>{
+editYear.value='';
 }
-
+);
+editModal.addEventListener(
+'pointerdown',
+event=>{
+editModal.dataset.outside=
+event.target===editModal
+?'1'
+:'0';
+}
+);
+editModal.addEventListener(
+'pointerup',
+event=>{
+const genuine=
+editModal.dataset.outside==='1'&&
+event.target===editModal;
+editModal.dataset.outside='0';
+if(
+genuine&&
+editingId&&
+editSnapshot()===
+editInitialSnapshot
+){
+closeEdit();
+}
+}
+);
+syncBtn.addEventListener(
+'click',
+()=>sync(
+true,
+true
+)
+);
+configBtn.addEventListener(
+'click',
+openConfig
+);
+visitorLoginBtn.addEventListener(
+'click',
+openConfig
+);
+configCancel.addEventListener(
+'click',
+closeConfig
+);
+exportBtn.addEventListener(
+'click',
+downloadHtmlBackup
+);
+importBtn.addEventListener(
+'click',
+()=>fileInput.click()
+);
+fileInput.addEventListener(
+'change',
+()=>{
+const file=
+fileInput.files?.[0];
+if(file){
+importFile(
+file
+);
+}
+fileInput.value='';
+}
+);
 document.addEventListener(
-    'visibilitychange',
-    ()=>{
-        if(
-            document.visibilityState===
-            'hidden'
-        ){
-            persistCurrentWorkingCopyBestEffort();
-        }
-    }
+'keydown',
+event=>{
+if(
+event.key===
+'Escape'
+){
+closePanels();
+if(
+!editModal.classList
+.contains(
+'hidden'
+)&&
+editSnapshot()===
+editInitialSnapshot
+){
+closeEdit();
+}else{
+closeConfig();
+}
+}
+}
 );
-
+backToTopBtn.addEventListener(
+'click',
+()=>{
+const start=
+scrollY;
+const t=
+performance.now();
+function go(now){
+const p=
+Math.min(
+(now-t)/10,
+1
+);
+scrollTo(
+0,
+start*(1-p)
+);
+if(p<1){
+requestAnimationFrame(
+go
+);
+}
+}
+requestAnimationFrame(
+go
+);
+}
+);
+addEventListener(
+'scroll',
+()=>{
+backToTopBtn
+.classList
+.toggle(
+'visible',
+scrollY>260
+);
+},
+{
+passive:true
+}
+);
+(async()=>{
+await requestPersistentStorage();
+await loadConfig();
+await loadMeta();
+setUnlocked(
+false
+);
+await loadPublicView();
+if(
+adminConfigured()
+){
+await login(
+false
+);
+}
+render();
+})();
+function persistCurrentWorkingCopyBestEffort(){
+if(
+unlocked&&
+target()
+){
+void saveWorkingCopy(
+data
+).catch(
+()=>{}
+);
+}
+}
+document.addEventListener(
+'visibilitychange',
+()=>{
+if(
+document.visibilityState===
+'hidden'
+){
+persistCurrentWorkingCopyBestEffort();
+}
+}
+);
 window.addEventListener(
-    'pagehide',
-    persistCurrentWorkingCopyBestEffort
+'pagehide',
+persistCurrentWorkingCopyBestEffort
 );
-
 })();
 </script>
 </body>
