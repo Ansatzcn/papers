@@ -22,6 +22,16 @@
       "codeEditUsed": false
     },
     {
+      "id": "f478ff49-cea9-492d-818c-34f591941297",
+      "title": "关于生产关系的两重性问题",
+      "year": "1979-10",
+      "journal": "经济研究",
+      "issue": "0577-9154",
+      "journalNote": "经济学C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
       "id": "597f6a6d-5e77-4d87-baf0-1184790512f4",
       "title": "对价值决定和价值规律的再探讨",
       "year": "1982-01",
@@ -32,9 +42,9 @@
       "codeEditUsed": false
     },
     {
-      "id": "f478ff49-cea9-492d-818c-34f591941297",
-      "title": "关于生产关系的两重性问题",
-      "year": "1979-10",
+      "id": "345e32ea-f2bd-44e5-9bb1-e5bef38deef8",
+      "title": "租税替代、财政收入与政府的房地产政策",
+      "year": "2012-08",
       "journal": "经济研究",
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
@@ -49,16 +59,6 @@
       "issue": "0577-9154",
       "journalNote": "经济学C刊",
       "code": "330025",
-      "codeEditUsed": false
-    },
-    {
-      "id": "345e32ea-f2bd-44e5-9bb1-e5bef38deef8",
-      "title": "租税替代、财政收入与政府的房地产政策",
-      "year": "2012-08",
-      "journal": "经济研究",
-      "issue": "0577-9154",
-      "journalNote": "经济学C刊",
-      "code": "",
       "codeEditUsed": false
     },
     {
@@ -102,16 +102,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "c9890e6c-74de-4cf3-91b7-913b1c8283dc",
-      "title": "从新剑桥增长模型到新卡莱斯基增长模型",
-      "year": "2016-01",
-      "journal": "经济学动态",
-      "issue": "1002-8390",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
       "id": "f909aa31-3d5c-4bc0-88ab-da64a0fd120b",
       "title": "对“置盐定理”的批判性考察",
       "year": "2010-06",
@@ -119,6 +109,16 @@
       "issue": "1002-8390",
       "journalNote": "经济学C刊",
       "code": "330002",
+      "codeEditUsed": false
+    },
+    {
+      "id": "c9890e6c-74de-4cf3-91b7-913b1c8283dc",
+      "title": "从新剑桥增长模型到新卡莱斯基增长模型",
+      "year": "2016-01",
+      "journal": "经济学动态",
+      "issue": "1002-8390",
+      "journalNote": "经济学C刊",
+      "code": "",
       "codeEditUsed": false
     },
     {
@@ -162,16 +162,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "d86c9bb7-4767-4d1d-ac4c-e903fdaea172",
-      "title": "《共产党宣言》中经济学和经济社会学学理问题探讨",
-      "year": "2022-09",
-      "journal": "经济纵横",
-      "issue": "1007-7685",
-      "journalNote": "经济学C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
       "id": "c352de42-f5ec-4efc-9129-40f2b23e5949",
       "title": "克罗蒂和布伦纳的破坏性竞争理论比较研究",
       "year": "2013-05",
@@ -179,6 +169,16 @@
       "issue": "1007-7685",
       "journalNote": "经济学C刊",
       "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "d86c9bb7-4767-4d1d-ac4c-e903fdaea172",
+      "title": "《共产党宣言》中经济学和经济社会学学理问题探讨",
+      "year": "2022-09",
+      "journal": "经济纵横",
+      "issue": "1007-7685",
+      "journalNote": "经济学C刊",
+      "code": "330028",
       "codeEditUsed": false
     },
     {
@@ -342,16 +342,6 @@
       "codeEditUsed": false
     },
     {
-      "id": "82fd5725-524e-4414-a4cb-fce79a8c7737",
-      "title": "《爱尔福特纲领》及考茨基的“解说”在华早期传播与中共的关系",
-      "year": "2015-10",
-      "journal": "中共党史研究",
-      "issue": "1003-3815",
-      "journalNote": "马克思主义理论C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
       "id": "61d99b75-c22a-4c97-b694-52c4ab728cf7",
       "title": "“大跃进”期间的资产阶级法权讨论及影响——试析毛泽东对社会主义社会的一些构想",
       "year": "2006-03",
@@ -362,9 +352,9 @@
       "codeEditUsed": false
     },
     {
-      "id": "487ebe90-d6ed-4f9b-982b-556e45d07996",
-      "title": "农民问题、生产关系论与中国革命的政治经济学脉络——中国社会性质问题论战的思想和政治动能",
-      "year": "2021-01",
+      "id": "82fd5725-524e-4414-a4cb-fce79a8c7737",
+      "title": "《爱尔福特纲领》及考茨基的“解说”在华早期传播与中共的关系",
+      "year": "2015-10",
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
@@ -382,9 +372,19 @@
       "codeEditUsed": false
     },
     {
-      "id": "e079d707-2fe1-4d16-8281-d93c7741c637",
-      "title": "土地革命战争时期中央苏区财税政策的演变",
-      "year": "2024-03",
+      "id": "e43f9364-50c0-4813-95ca-b906b1dee17e",
+      "title": "一九七九年至一九八〇年的经济问题调查研究与改革总体规划",
+      "year": "2018-12",
+      "journal": "中共党史研究",
+      "issue": "1003-3815",
+      "journalNote": "马克思主义理论C刊",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
+      "id": "487ebe90-d6ed-4f9b-982b-556e45d07996",
+      "title": "农民问题、生产关系论与中国革命的政治经济学脉络——中国社会性质问题论战的思想和政治动能",
+      "year": "2021-01",
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
@@ -402,23 +402,13 @@
       "codeEditUsed": false
     },
     {
-      "id": "e43f9364-50c0-4813-95ca-b906b1dee17e",
-      "title": "一九七九年至一九八〇年的经济问题调查研究与改革总体规划",
-      "year": "2018-12",
+      "id": "e079d707-2fe1-4d16-8281-d93c7741c637",
+      "title": "土地革命战争时期中央苏区财税政策的演变",
+      "year": "2024-03",
       "journal": "中共党史研究",
       "issue": "1003-3815",
       "journalNote": "马克思主义理论C刊",
       "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "34ee64d2-0930-474c-b9fd-a379d11c0836",
-      "title": "比岱与杜梅尼尔“另一种马克思主义”观评析",
-      "year": "2022-05",
-      "journal": "马克思主义与现实",
-      "issue": "1004-5961",
-      "journalNote": "马克思主义理论C刊",
-      "code": "330015",
       "codeEditUsed": false
     },
     {
@@ -432,6 +422,16 @@
       "codeEditUsed": false
     },
     {
+      "id": "ddebd123-4b8e-41d3-b7b2-8be17bc15500",
+      "title": "关于《德意志意识形态》编排方式的考虑",
+      "year": "2020-03",
+      "journal": "马克思主义与现实",
+      "issue": "1004-5961",
+      "journalNote": "马克思主义理论C刊",
+      "code": "330006",
+      "codeEditUsed": false
+    },
+    {
       "id": "8626935d-3094-4a1c-bf48-93fbc5993e8c",
       "title": "党组织领办合作社是发展新型农村集体经济的有效路径——“烟台实践”的启示",
       "year": "2022-01",
@@ -442,13 +442,13 @@
       "codeEditUsed": false
     },
     {
-      "id": "ddebd123-4b8e-41d3-b7b2-8be17bc15500",
-      "title": "关于《德意志意识形态》编排方式的考虑",
-      "year": "2020-03",
+      "id": "34ee64d2-0930-474c-b9fd-a379d11c0836",
+      "title": "比岱与杜梅尼尔“另一种马克思主义”观评析",
+      "year": "2022-05",
       "journal": "马克思主义与现实",
       "issue": "1004-5961",
       "journalNote": "马克思主义理论C刊",
-      "code": "330006",
+      "code": "330015",
       "codeEditUsed": false
     },
     {
