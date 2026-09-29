@@ -562,6 +562,16 @@
       "codeEditUsed": false
     },
     {
+      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
+      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
+      "year": "2023-04",
+      "journal": "经济思想史学刊",
+      "issue": "2096-9627",
+      "journalNote": "C扩【经济学】",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
       "id": "e3c06ed5-74b7-4561-b0f2-3f764fda7eeb",
       "title": "工商业发达地区土改后的农村经济发展路向——以苏南无锡县为中心的考察",
       "year": "2018-02",
@@ -718,16 +728,6 @@
       "journal": "国外理论动态",
       "issue": "1674-1277",
       "journalNote": "马克思主义理论C刊",
-      "code": "",
-      "codeEditUsed": false
-    },
-    {
-      "id": "f6ae99cf-d567-4d61-ae23-6c30475ca0fe",
-      "title": "日本马克思主义经济学：发展历程、政策实践及启示",
-      "year": "2023-04",
-      "journal": "经济思想史学刊",
-      "issue": "2096-9627",
-      "journalNote": "",
       "code": "",
       "codeEditUsed": false
     },
@@ -1040,7 +1040,7 @@
     {
       "journal": "经济思想史学刊",
       "issue": "2096-9627",
-      "journalNote": ""
+      "journalNote": "C扩【经济学】"
     },
     {
       "journal": "经济学家",
