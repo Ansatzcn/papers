@@ -2,6 +2,16 @@
   "schemaVersion": 2,
   "entries": [
     {
+      "id": "e1851cce-b37b-413b-8cda-cae000ae92b1",
+      "title": "“大革命”称谓与共产国际",
+      "year": "1997-11",
+      "journal": "教学与研究",
+      "issue": "0257-2826",
+      "journalNote": "C刊【马克思主义理论】",
+      "code": "",
+      "codeEditUsed": false
+    },
+    {
       "id": "9876854b-da59-491a-a25a-c1fcbbbfc7a8",
       "title": "二十世纪二三十年代中国农村研究的“双峰并峙”：卜凯与陈翰笙比较略论",
       "year": "2020-05",
@@ -39,16 +49,6 @@
       "issue": "1672-7320",
       "journalNote": "C刊【高校学报】",
       "code": "330009",
-      "codeEditUsed": false
-    },
-    {
-      "id": "e1851cce-b37b-413b-8cda-cae000ae92b1",
-      "title": "“大革命”称谓与共产国际",
-      "year": "1997-11",
-      "journal": "教学与研究",
-      "issue": "0257-2826",
-      "journalNote": "C刊【马克思主义理论】",
-      "code": "",
       "codeEditUsed": false
     },
     {
@@ -908,11 +908,11 @@
       "2097-1729"
     ],
     "notes": [
+      "C刊【马克思主义理论】",
       "认定【第一批】",
       "C刊【经济学】",
       "C刊【高校学报】",
       "C刊【历史学】",
-      "C刊【马克思主义理论】",
       "C刊【社会学】",
       "C刊【综合性社会科学】",
       "C扩【经济学】",
