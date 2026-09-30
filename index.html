@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="app-build" content="2026-09-30-submit-save-code-only-v7">
+<meta name="app-build" content="2026-09-30-immutable-unique-code-v8">
 <meta name="papers-data-file" content="papers_data.json">
 <title>Papers</title>
 <style>
@@ -13,7 +13,7 @@ min-height:100vh;
 padding:2rem 1rem 4rem;
 background:#f5f7fa;
 color:#0f172a;
-font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif;
+font-family:"Times New Roman","Microsoft YaHei","PingFang SC",serif
 }
 button,input{font:inherit}
 button{cursor:pointer}
@@ -24,7 +24,7 @@ margin:auto;
 padding:2rem 1.8rem;
 background:#fff;
 border-radius:32px;
-box-shadow:0 20px 40px -12px rgba(0,0,0,.15);
+box-shadow:0 20px 40px -12px rgba(0,0,0,.15)
 }
 .page-title{
 display:flex;
@@ -36,7 +36,7 @@ padding-bottom:.8rem;
 border-bottom:2px solid #e8edf4;
 color:#1e293b;
 font-size:2.2rem;
-font-weight:600;
+font-weight:600
 }
 .cloud-status{
 display:inline-flex;
@@ -47,19 +47,19 @@ border-radius:999px;
 background:#f1f5f9;
 color:#475569;
 font-size:.82rem;
-font-weight:500;
+font-weight:500
 }
 .status-dot{
 width:9px;
 height:9px;
 border-radius:50%;
-background:#94a3b8;
+background:#94a3b8
 }
 .status-dot.online{background:#22c55e}
 .status-dot.offline{background:#ef4444}
 .status-dot.syncing{
 background:#f59e0b;
-animation:pulse 1s infinite;
+animation:pulse 1s infinite
 }
 @keyframes pulse{
 0%,100%{opacity:1}
@@ -73,12 +73,12 @@ justify-content:space-between;
 gap:12px;
 margin-bottom:1.7rem;
 padding-bottom:1rem;
-border-bottom:1px solid #e8edf4;
+border-bottom:1px solid #e8edf4
 }
 .toolbar-group{
 display:flex;
 flex-wrap:wrap;
-gap:9px;
+gap:9px
 }
 .btn{
 min-height:36px;
@@ -88,7 +88,7 @@ border-radius:999px;
 background:#fff;
 color:#334155;
 font-size:.86rem;
-font-weight:650;
+font-weight:650
 }
 .btn:hover{background:#f1f5f9}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -98,10 +98,7 @@ font-weight:650;
 .btn-sync:hover{background:#1E3A8A}
 .btn-danger{border-color:#fecaca;background:#fee2e2;color:#991b1b}
 .btn-danger:hover{background:#fecaca}
-.last-sync{
-color:#94a3b8;
-font-size:.8rem;
-}
+.last-sync{color:#94a3b8;font-size:.8rem}
 .visitor-note{
 display:flex;
 align-items:center;
@@ -109,7 +106,7 @@ justify-content:flex-end;
 gap:8px;
 margin:-.55rem 0 .9rem;
 color:#94a3b8;
-font-size:.76rem;
+font-size:.76rem
 }
 .visitor-login-link{
 padding:0;
@@ -118,7 +115,7 @@ background:transparent;
 color:#64748b;
 font-size:.76rem;
 text-decoration:underline;
-text-underline-offset:2px;
+text-underline-offset:2px
 }
 .visitor-login-link:hover{color:#334155}
 .add-section{
@@ -126,29 +123,26 @@ margin-bottom:2rem;
 padding:1.5rem;
 border:1px solid #e2e8f0;
 border-radius:24px;
-background:#f8fafc;
+background:#f8fafc
 }
-.add-section h2{
-margin-bottom:1rem;
-font-size:1.3rem;
-}
+.add-section h2{margin-bottom:1rem;font-size:1.3rem}
 .form-grid{
 display:grid;
 grid-template-columns:repeat(2,minmax(0,1fr));
-gap:1rem;
+gap:1rem
 }
 .form-group{
 display:flex;
 flex-direction:column;
 gap:6px;
-min-width:0;
+min-width:0
 }
 .form-group.full{grid-column:1/-1}
 .form-group label{
 color:#475569;
 font-size:.78rem;
 font-weight:700;
-letter-spacing:.04em;
+letter-spacing:.04em
 }
 .input{
 width:100%;
@@ -158,23 +152,20 @@ border:1px solid #cbd5e1;
 border-radius:15px;
 background:#fff;
 color:#0f172a;
-outline:none;
+outline:none
 }
 .input:focus{
 outline:2px solid #93b4ff;
 outline-offset:1px;
-border-color:transparent;
+border-color:transparent
 }
-.input[readonly]{
-background:#f1f5f9;
-color:#64748b;
-}
+.input[readonly]{background:#f1f5f9;color:#64748b}
 .clearable-input{
 display:grid;
 grid-template-columns:minmax(0,1fr) 36px;
 gap:6px;
 align-items:center;
-width:100%;
+width:100%
 }
 .input-clear{
 height:44px;
@@ -184,26 +175,20 @@ border-radius:12px;
 background:#fff;
 color:#64748b;
 font-weight:800;
-cursor:pointer;
+cursor:pointer
 }
-.input-clear:hover{
-background:#f1f5f9;
-color:#0f172a;
-}
-.combo{
-position:relative;
-min-width:0;
-}
+.input-clear:hover{background:#f1f5f9;color:#0f172a}
+.combo{position:relative;min-width:0}
 .combo-row{
 display:grid;
 grid-template-columns:minmax(0,1fr) 42px;
-gap:6px;
+gap:6px
 }
 .combo-toggle{
 border:1px solid #cbd5e1;
 border-radius:13px;
 background:#fff;
-color:#64748b;
+color:#64748b
 }
 .combo-toggle:hover{background:#f1f5f9}
 .combo-panel{
@@ -218,7 +203,7 @@ padding:.65rem;
 border:1px solid #cbd5e1;
 border-radius:16px;
 background:#fff;
-box-shadow:0 16px 34px rgba(15,23,42,.16);
+box-shadow:0 16px 34px rgba(15,23,42,.16)
 }
 .combo-option-list{
 display:flex;
@@ -226,7 +211,7 @@ flex-wrap:wrap;
 align-items:center;
 gap:8px;
 width:100%;
-min-width:0;
+min-width:0
 }
 .combo-pill{
 display:inline-flex;
@@ -239,7 +224,7 @@ border:1px solid #cbd5e1;
 border-radius:14px;
 background:#f8fafc;
 overflow:hidden;
-vertical-align:middle;
+vertical-align:middle
 }
 .combo-pill-select{
 display:inline-flex;
@@ -255,7 +240,7 @@ font-size:.95rem;
 line-height:1.25;
 text-align:left;
 white-space:normal;
-overflow-wrap:anywhere;
+overflow-wrap:anywhere
 }
 .combo-pill-select:hover{background:#eef2f7}
 .combo-pill-select.keyboard-active{
@@ -263,7 +248,7 @@ background:#F8E8EC;
 color:#1E40AF;
 font-weight:700;
 outline:2px solid #D98A9B;
-outline-offset:-2px;
+outline-offset:-2px
 }
 .combo-pill-delete{
 display:inline-flex;
@@ -280,23 +265,15 @@ color:#991b1b;
 font-size:1.05rem;
 font-weight:700;
 line-height:1;
-white-space:nowrap;
+white-space:nowrap
 }
 .combo-pill-delete:hover{background:#fee2e2}
-.combo-pill.note-draggable{
-cursor:grab;
-}
-.combo-pill.note-draggable .combo-pill-delete{
-cursor:pointer;
-}
+.combo-pill.note-draggable{cursor:grab}
+.combo-pill.note-draggable .combo-pill-delete{cursor:pointer}
 .combo-pill.note-draggable:active{cursor:grabbing}
 .combo-pill.note-draggable.dragging{opacity:.45}
-.combo-pill.note-draggable.drag-over-before{
-box-shadow:inset 3px 0 0 #1E40AF;
-}
-.combo-pill.note-draggable.drag-over-after{
-box-shadow:inset -3px 0 0 #1E40AF;
-}
+.combo-pill.note-draggable.drag-over-before{box-shadow:inset 3px 0 0 #1E40AF}
+.combo-pill.note-draggable.drag-over-after{box-shadow:inset -3px 0 0 #1E40AF}
 .combo-pill.note-draggable .combo-pill-select{cursor:inherit}
 .combo-add-note{
 display:inline-flex;
@@ -312,7 +289,7 @@ color:#1E40AF;
 font-size:.95rem;
 line-height:1.25;
 text-align:left;
-font-weight:700;
+font-weight:700
 }
 .combo-add-note:hover{background:#eef4ff}
 .combo-empty{
@@ -320,13 +297,7 @@ width:100%;
 padding:.72rem;
 color:#94a3b8;
 text-align:center;
-font-size:.82rem;
-}
-.combo-help{
-margin-top:.35rem;
-color:#94a3b8;
-font-size:.73rem;
-line-height:1.45;
+font-size:.82rem
 }
 .add-button{
 grid-column:1/-1;
@@ -337,22 +308,18 @@ border:0;
 border-radius:999px;
 background:#1e293b;
 color:#fff;
-font-weight:700;
+font-weight:700
 }
 .add-button:hover{background:#0f172a}
-/* ===== 总表 ===== */
 .list-header{
 display:flex;
 align-items:center;
 justify-content:space-between;
 gap:12px;
 margin-bottom:.8rem;
-color:#000;
+color:#000
 }
-.list-header h2{
-font-size:1.4rem;
-color:#000;
-}
+.list-header h2{font-size:1.4rem;color:#000}
 .count-badge{
 min-width:38px;
 padding:.22rem .8rem;
@@ -361,13 +328,13 @@ background:#e8edf4;
 color:#000;
 text-align:center;
 font-size:.8rem;
-font-weight:650;
+font-weight:650
 }
 .papers-list{
 border:1px solid #e2e8f0;
 border-radius:20px;
 overflow:hidden;
-background:#fff;
+background:#fff
 }
 .paper-item{
 width:100%;
@@ -378,11 +345,9 @@ background:#fff;
 color:#000;
 overflow:hidden;
 user-select:text;
--webkit-user-select:text;
+-webkit-user-select:text
 }
-.paper-item+.paper-item{
-border-top:2px solid #dbe3ed;
-}
+.paper-item+.paper-item{border-top:2px solid #dbe3ed}
 .paper-item:hover{background:#fafcff}
 .paper-title{
 margin-bottom:.6rem;
@@ -391,13 +356,13 @@ font-size:1.15rem;
 font-weight:750;
 line-height:1.45;
 overflow-wrap:anywhere;
-word-break:break-word;
+word-break:break-word
 }
 .paper-meta{
 display:grid;
 gap:.26rem;
 min-width:0;
-color:#000;
+color:#000
 }
 .meta-row{
 display:flex;
@@ -409,18 +374,14 @@ font-size:.9rem;
 font-weight:400;
 line-height:1.55;
 overflow-wrap:anywhere;
-word-break:break-word;
+word-break:break-word
 }
-.meta-label{
-flex:0 0 auto;
-color:#000;
-font-weight:700;
-}
+.meta-label{flex:0 0 auto;color:#000;font-weight:700}
 .paper-actions{
 display:flex;
 justify-content:flex-end;
 min-width:0;
-color:#000;
+color:#000
 }
 .edit-btn{
 flex:0 0 auto;
@@ -437,22 +398,21 @@ line-height:1.55;
 text-decoration:none;
 user-select:none;
 -webkit-user-select:none;
-touch-action:manipulation;
+touch-action:manipulation
 }
 .edit-btn:hover,
 .edit-btn:focus-visible{
 background:transparent;
 color:#000;
 outline:none;
-text-decoration:none;
+text-decoration:none
 }
 .empty-state{
 padding:2.8rem 1rem;
 background:#fafcff;
 color:#000;
-text-align:center;
+text-align:center
 }
-/* ===== 弹窗 ===== */
 .overlay{
 position:fixed;
 inset:0;
@@ -465,7 +425,7 @@ max(12px,env(safe-area-inset-right))
 max(12px,env(safe-area-inset-bottom))
 max(12px,env(safe-area-inset-left));
 background:rgba(15,23,42,.45);
-backdrop-filter:blur(5px);
+backdrop-filter:blur(5px)
 }
 .dialog{
 width:min(100%,700px);
@@ -475,19 +435,16 @@ flex-direction:column;
 overflow:hidden;
 background:#fff;
 border-radius:26px;
-box-shadow:0 30px 70px rgba(15,23,42,.28);
+box-shadow:0 30px 70px rgba(15,23,42,.28)
 }
 .dialog-scroll{
 flex:1 1 auto;
 min-height:0;
 overflow-y:auto;
 padding:1.7rem 1.7rem 1rem;
-scrollbar-gutter:stable;
+scrollbar-gutter:stable
 }
-.dialog h3{
-margin-bottom:1rem;
-font-size:1.3rem;
-}
+.dialog h3{margin-bottom:1rem;font-size:1.3rem}
 .dialog-actions{
 display:flex;
 align-items:center;
@@ -495,19 +452,17 @@ justify-content:flex-end;
 gap:9px;
 padding:.95rem 1.7rem max(.95rem,env(safe-area-inset-bottom));
 border-top:1px solid #e8edf4;
-background:#fff;
+background:#fff
 }
 #editDelete{margin-right:auto}
-.dialog-actions .btn{
-flex:0 0 auto;
-}
+.dialog-actions .btn{flex:0 0 auto}
 .dialog-desc{
 margin-bottom:1rem;
 padding-bottom:.8rem;
 border-bottom:1px solid #e2e8f0;
 color:#64748b;
 font-size:.86rem;
-line-height:1.6;
+line-height:1.6
 }
 .toast{
 position:fixed;
@@ -523,7 +478,7 @@ color:#fff;
 font-size:.88rem;
 font-weight:600;
 text-align:center;
-box-shadow:0 12px 34px rgba(15,23,42,.25);
+box-shadow:0 12px 34px rgba(15,23,42,.25)
 }
 .toast.success{background:#16a34a}
 .toast.error{background:#dc2626}
@@ -549,40 +504,38 @@ line-height:1;
 opacity:0;
 visibility:hidden;
 pointer-events:none;
-transition:.05s;
+transition:.05s
 }
 .back-to-top.visible{
 opacity:.55;
 visibility:visible;
-pointer-events:auto;
+pointer-events:auto
 }
 .back-to-top:hover{opacity:1}
 @media(max-width:700px){
 html,body{
 width:100%;
 max-width:100%;
-overflow-x:hidden;
+overflow-x:hidden
 }
-body{
-padding:.8rem;
-}
+body{padding:.8rem}
 .container{
 width:100%;
 max-width:100%;
 min-width:0;
 padding:1.25rem;
-border-radius:22px;
+border-radius:22px
 }
 .papers-list{
 width:100%;
 max-width:100%;
-min-width:0;
+min-width:0
 }
 .paper-item{
 width:100%;
 max-width:100%;
 min-width:0;
-padding:1rem;
+padding:1rem
 }
 .paper-title,
 .paper-meta,
@@ -590,54 +543,34 @@ padding:1rem;
 max-width:100%;
 min-width:0;
 overflow-wrap:anywhere;
-word-break:break-word;
+word-break:break-word
 }
-.page-title{
-font-size:1.8rem;
-}
+.page-title{font-size:1.8rem}
 .toolbar{
 flex-direction:column;
-align-items:stretch;
+align-items:stretch
 }
-.toolbar-group{
-justify-content:center;
-}
-.last-sync{
-text-align:center;
-}
-.add-section{
-padding:1.2rem;
-}
-.form-grid{
-grid-template-columns:1fr;
-}
+.toolbar-group{justify-content:center}
+.last-sync{text-align:center}
+.add-section{padding:1.2rem}
+.form-grid{grid-template-columns:1fr}
 .form-group.full,
-.add-button{
-grid-column:auto;
-}
+.add-button{grid-column:auto}
 .dialog{
 width:100%;
 max-height:calc(100dvh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-border-radius:20px;
+border-radius:20px
 }
-.dialog-scroll{
-padding:1.2rem 1.2rem .8rem;
-}
-.dialog-actions{
-padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom));
-}
-.combo-panel{
-max-height:230px;
-}
-.combo-pill-select{
-max-width:calc(100vw - 120px);
-}
+.dialog-scroll{padding:1.2rem 1.2rem .8rem}
+.dialog-actions{padding:.85rem 1.2rem max(.85rem,env(safe-area-inset-bottom))}
+.combo-panel{max-height:230px}
+.combo-pill-select{max-width:calc(100vw - 120px)}
 .back-to-top{
 right:3px;
 top:70%;
 width:24px;
 height:24px;
-font-size:.7rem;
+font-size:.7rem
 }
 }
 </style>
@@ -653,224 +586,93 @@ Papers
 </h1>
 <section class="toolbar">
 <div class="toolbar-group">
-<button
-class="btn btn-sync"
-id="syncBtn"
-type="button"
-disabled
->同步</button>
-<button
-class="btn"
-id="configBtn"
-type="button"
->编辑登录</button>
-<button
-class="btn"
-id="exportBtn"
-type="button"
-disabled
->导出</button>
-<button
-class="btn"
-id="importBtn"
-type="button"
-disabled
->导入</button>
-<input
-type="file"
-id="fileInput"
-accept=".html,text/html,.json,application/json"
-hidden
->
+<button class="btn btn-sync" id="syncBtn" type="button" disabled>同步</button>
+<button class="btn" id="configBtn" type="button">编辑登录</button>
+<button class="btn" id="exportBtn" type="button" disabled>导出</button>
+<button class="btn" id="importBtn" type="button" disabled>导入</button>
+<input type="file" id="fileInput" accept=".html,text/html,.json,application/json" hidden>
 </div>
-<span
-class="last-sync"
-id="lastSyncTime"
->正在加载公开内容…</span>
+<span class="last-sync" id="lastSyncTime">正在加载公开内容…</span>
 </section>
-<section
-class="visitor-note"
-id="visitorNote"
->
-<button
-class="visitor-login-link"
-id="visitorLoginBtn"
-type="button"
->编辑登录</button>
+<section class="visitor-note" id="visitorNote">
+<button class="visitor-login-link" id="visitorLoginBtn" type="button">编辑登录</button>
 </section>
-<section
-class="add-section hidden"
-id="editorSection"
->
+<section class="add-section hidden" id="editorSection">
 <h2>添加</h2>
 <div class="form-grid">
 <div class="form-group full">
 <label for="titleInput">标题</label>
-<input
-class="input"
-id="titleInput"
-type="text"
-autocomplete="off"
->
+<input class="input" id="titleInput" type="text" autocomplete="off">
 </div>
 <div class="form-group">
 <label for="journalInput">刊名</label>
-<div
-class="combo"
-id="journalCombo"
->
+<div class="combo" id="journalCombo">
 <div class="combo-row">
-<input
-class="input"
-id="journalInput"
-type="text"
-autocomplete="off"
->
-<button
-class="combo-toggle"
-id="journalToggle"
-type="button"
-aria-label="展开刊名历史"
->▾</button>
+<input class="input" id="journalInput" type="text" autocomplete="off">
+<button class="combo-toggle" id="journalToggle" type="button" aria-label="展开刊名历史">▾</button>
 </div>
-<div
-class="combo-panel hidden"
-id="journalPanel"
->
+<div class="combo-panel hidden" id="journalPanel">
 <div id="journalOptions"></div>
 </div>
 </div>
 </div>
 <div class="form-group">
 <label for="yearInput">刊期</label>
-<input
-class="input"
-id="yearInput"
-type="text"
-inputmode="numeric"
-autocomplete="off"
->
+<input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
 </div>
 <div class="form-group">
 <label for="issueInput">刊号</label>
-<div
-class="combo"
-id="issueCombo"
->
+<div class="combo" id="issueCombo">
 <div class="combo-row">
-<input
-class="input"
-id="issueInput"
-type="text"
-autocomplete="off"
->
-<button
-class="combo-toggle"
-id="issueToggle"
-type="button"
-aria-label="展开刊号历史"
->▾</button>
+<input class="input" id="issueInput" type="text" autocomplete="off">
+<button class="combo-toggle" id="issueToggle" type="button" aria-label="展开刊号历史">▾</button>
 </div>
-<div
-class="combo-panel hidden"
-id="issuePanel"
->
+<div class="combo-panel hidden" id="issuePanel">
 <div id="issueOptions"></div>
 </div>
 </div>
 </div>
 <div class="form-group">
 <label for="journalNoteInput">刊注</label>
-<div
-class="combo"
-id="journalNoteCombo"
->
+<div class="combo" id="journalNoteCombo">
 <div class="combo-row">
-<input
-class="input"
-id="journalNoteInput"
-type="text"
-autocomplete="off"
->
-<button
-class="combo-toggle"
-id="journalNoteToggle"
-type="button"
-aria-label="展开刊注历史"
->▾</button>
+<input class="input" id="journalNoteInput" type="text" autocomplete="off">
+<button class="combo-toggle" id="journalNoteToggle" type="button" aria-label="展开刊注历史">▾</button>
 </div>
-<div
-class="combo-panel hidden"
-id="journalNotePanel"
->
+<div class="combo-panel hidden" id="journalNotePanel">
 <div id="journalNoteOptions"></div>
 </div>
 </div>
 </div>
-<button
-class="add-button"
-id="addBtn"
-type="button"
->提交</button>
+<button class="add-button" id="addBtn" type="button">提交</button>
 </div>
 </section>
 <section>
 <div class="list-header">
 <h2>总表</h2>
-<span
-class="count-badge"
-id="countDisplay"
->0/0</span>
+<span class="count-badge" id="countDisplay">0/0</span>
 </div>
-<div
-class="papers-list"
-id="papersList"
->
+<div class="papers-list" id="papersList">
 <div class="empty-state"></div>
 </div>
 </section>
 </main>
-<section
-class="overlay hidden"
-id="editModal"
-role="dialog"
-aria-modal="true"
->
+<section class="overlay hidden" id="editModal" role="dialog" aria-modal="true">
 <div class="dialog">
 <div class="dialog-scroll">
 <div class="form-grid">
 <div class="form-group full">
 <label for="editTitle">标题</label>
-<input
-class="input"
-id="editTitle"
-type="text"
-autocomplete="off"
->
+<input class="input" id="editTitle" type="text" autocomplete="off">
 </div>
 <div class="form-group">
 <label for="editJournal">刊名</label>
-<div
-class="combo"
-id="editJournalCombo"
->
+<div class="combo" id="editJournalCombo">
 <div class="combo-row">
-<input
-class="input"
-id="editJournal"
-type="text"
-autocomplete="off"
->
-<button
-class="combo-toggle"
-id="editJournalToggle"
-type="button"
->▾</button>
+<input class="input" id="editJournal" type="text" autocomplete="off">
+<button class="combo-toggle" id="editJournalToggle" type="button">▾</button>
 </div>
-<div
-class="combo-panel hidden"
-id="editJournalPanel"
->
+<div class="combo-panel hidden" id="editJournalPanel">
 <div id="editJournalOptions"></div>
 </div>
 </div>
@@ -878,70 +680,30 @@ id="editJournalPanel"
 <div class="form-group">
 <label for="editYear">刊期</label>
 <div class="clearable-input">
-<input
-class="input"
-id="editYear"
-type="text"
-inputmode="numeric"
-autocomplete="off"
->
-<button
-class="input-clear"
-id="clearEditYear"
-type="button"
->×</button>
+<input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off">
+<button class="input-clear" id="clearEditYear" type="button">×</button>
 </div>
 </div>
 <div class="form-group">
 <label for="editIssue">刊号</label>
-<div
-class="combo"
-id="editIssueCombo"
->
+<div class="combo" id="editIssueCombo">
 <div class="combo-row">
-<input
-class="input"
-id="editIssue"
-type="text"
-autocomplete="off"
->
-<button
-class="combo-toggle"
-id="editIssueToggle"
-type="button"
->▾</button>
+<input class="input" id="editIssue" type="text" autocomplete="off">
+<button class="combo-toggle" id="editIssueToggle" type="button">▾</button>
 </div>
-<div
-class="combo-panel hidden"
-id="editIssuePanel"
->
+<div class="combo-panel hidden" id="editIssuePanel">
 <div id="editIssueOptions"></div>
 </div>
 </div>
 </div>
 <div class="form-group">
 <label for="editJournalNote">刊注</label>
-<div
-class="combo"
-id="editJournalNoteCombo"
->
+<div class="combo" id="editJournalNoteCombo">
 <div class="combo-row">
-<input
-class="input"
-id="editJournalNote"
-type="text"
-autocomplete="off"
->
-<button
-class="combo-toggle"
-id="editJournalNoteToggle"
-type="button"
->▾</button>
+<input class="input" id="editJournalNote" type="text" autocomplete="off">
+<button class="combo-toggle" id="editJournalNoteToggle" type="button">▾</button>
 </div>
-<div
-class="combo-panel hidden"
-id="editJournalNotePanel"
->
+<div class="combo-panel hidden" id="editJournalNotePanel">
 <div id="editJournalNoteOptions"></div>
 </div>
 </div>
@@ -949,131 +711,54 @@ id="editJournalNotePanel"
 </div>
 </div>
 <div class="dialog-actions">
-<button
-class="btn btn-danger"
-id="editDelete"
-type="button"
->删除</button>
-<button
-class="btn"
-id="editCancel"
-type="button"
->取消</button>
-<button
-class="btn btn-primary"
-id="editSave"
-type="button"
->保存</button>
+<button class="btn btn-danger" id="editDelete" type="button">删除</button>
+<button class="btn" id="editCancel" type="button">取消</button>
+<button class="btn btn-primary" id="editSave" type="button">保存</button>
 </div>
 </div>
 </section>
-<section
-class="overlay hidden"
-id="configModal"
-role="dialog"
-aria-modal="true"
-aria-labelledby="configHeading"
->
-<form
-class="dialog"
-id="configForm"
-autocomplete="on"
->
+<section class="overlay hidden" id="configModal" role="dialog" aria-modal="true" aria-labelledby="configHeading">
+<form class="dialog" id="configForm" autocomplete="on">
 <div class="dialog-scroll">
 <h3 id="configHeading">GitHub 登录配置</h3>
 <p class="dialog-desc">
 浏览 Papers 不需要 Token。Token 仅用于新增、编辑、删除、导入和同步。
 公开数据文件默认为 papers_data.json。
 </p>
-<div
-class="form-group"
-style="margin-bottom:.9rem"
->
+<div class="form-group" style="margin-bottom:.9rem">
 <label for="cfgOwner">仓库所有者</label>
-<input
-class="input"
-id="cfgOwner"
-name="github-owner"
-type="text"
-autocomplete="username"
->
+<input class="input" id="cfgOwner" name="github-owner" type="text" autocomplete="username">
 </div>
-<div
-class="form-group"
-style="margin-bottom:.9rem"
->
+<div class="form-group" style="margin-bottom:.9rem">
 <label for="cfgRepo">仓库名称</label>
-<input
-class="input"
-id="cfgRepo"
-type="text"
-autocomplete="off"
->
+<input class="input" id="cfgRepo" type="text" autocomplete="off">
 </div>
-<div
-class="form-group"
-style="margin-bottom:.9rem"
->
+<div class="form-group" style="margin-bottom:.9rem">
 <label for="cfgFile">数据文件路径</label>
-<input
-class="input"
-id="cfgFile"
-type="text"
-value="papers_data.json"
-autocomplete="off"
->
+<input class="input" id="cfgFile" type="text" value="papers_data.json" autocomplete="off">
 </div>
-<div
-class="form-group"
-style="margin-bottom:.9rem"
->
+<div class="form-group" style="margin-bottom:.9rem">
 <label for="cfgToken">GitHub Personal Access Token</label>
-<input
-class="input"
-id="cfgToken"
-name="github-token"
-type="password"
-autocomplete="current-password"
-spellcheck="false"
->
+<input class="input" id="cfgToken" name="github-token" type="password" autocomplete="current-password" spellcheck="false">
 </div>
-<p
-class="dialog-desc"
-style="margin:0;padding:0;border:0"
->
+<p class="dialog-desc" style="margin:0;padding:0;border:0">
 Token 将保存在本设备，用于后续编辑登录。
 </p>
 </div>
 <div class="dialog-actions">
-<button
-class="btn"
-id="configCancel"
-type="button"
->取消</button>
-<button
-class="btn btn-primary"
-id="configSave"
-type="submit"
->保存并登录</button>
+<button class="btn" id="configCancel" type="button">取消</button>
+<button class="btn btn-primary" id="configSave" type="submit">保存并登录</button>
 </div>
 </form>
 </section>
-<button
-class="back-to-top"
-id="backToTopBtn"
-type="button"
-aria-label="回到顶部"
-></button>
-<div
-class="toast hidden"
-id="toast"
-role="status"
-aria-live="polite"
-></div>
+<button class="back-to-top" id="backToTopBtn" type="button" aria-label="回到顶部"></button>
+<div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
 <script>
 (()=>{
 'use strict';
+
 const $=id=>document.getElementById(id);
+
 const
 statusDot=$('statusDot'),
 statusText=$('statusText'),
@@ -1138,32 +823,39 @@ configCancel=$('configCancel'),
 configSave=$('configSave'),
 backToTopBtn=$('backToTopBtn'),
 toast=$('toast');
+
 const MAX_BYTES=900*1024;
 const MAX_HTML_BACKUP_BYTES=20*1024*1024;
 const BACKUP_FORMAT='papers-html-backup';
 const BACKUP_VERSION=1;
 const AUTO_DELAY=700;
 const API_VERSION='2026-03-10';
+
 const PUBLIC_DATA_FILE=
 String(
 document.querySelector('meta[name="papers-data-file"]')?.content||
 'papers_data.json'
 ).trim()||'papers_data.json';
+
 function pageIdentity(){
 let p=(location.pathname||'/')
 .replace(/\\/g,'/')
 .replace(/\/+/g,'/')
 .replace(/\/(?:index\.html?)$/i,'/');
+
 if(
 p.length>1&&
 p.endsWith('/')
 ){
 p=p.slice(0,-1);
 }
+
 return `${location.origin}${p}`;
 }
+
 function hashIdentity(value){
 let hash=0x811c9dc5;
+
 for(
 let i=0;
 i<value.length;
@@ -1175,31 +867,29 @@ hash,
 0x01000193
 );
 }
+
 return (hash>>>0)
 .toString(16)
 .padStart(8,'0');
 }
+
 const PAGE_INSTANCE_ID=
 hashIdentity(
 pageIdentity()
 );
-const NS=
-`papers_private:${PAGE_INSTANCE_ID}`;
-const CONFIG_KEY=
-`${NS}:config`;
-const TOKEN_KEY=
-`${NS}:token`;
-const META_KEY=
-`${NS}:meta`;
-const PUBLIC_CACHE_KEY=
-`${NS}:public_cache`;
-const WORKING_COPY_KEY=
-`${NS}:working_copy`;
-const IDB_NAME=
-`${NS}:indexeddb_v1`;
+
+const NS=`papers_private:${PAGE_INSTANCE_ID}`;
+const CONFIG_KEY=`${NS}:config`;
+const TOKEN_KEY=`${NS}:token`;
+const META_KEY=`${NS}:meta`;
+const PUBLIC_CACHE_KEY=`${NS}:public_cache`;
+const WORKING_COPY_KEY=`${NS}:working_copy`;
+const IDB_NAME=`${NS}:indexeddb_v1`;
 const IDB_STORE='kv';
+
 const OPFS_WORKING_FILE=
 `papers-working-${PAGE_INSTANCE_ID}.json`;
+
 let data={
 entries:[],
 histories:{
@@ -1209,18 +899,21 @@ notes:[]
 },
 profiles:[]
 };
+
 let config={
 owner:'',
 repo:'',
 file:'papers_data.json',
 token:''
 };
+
 let meta={
 target:'',
 fingerprint:null,
 sha:null,
 lastSyncAt:null
 };
+
 let unlocked=false;
 let publicLoaded=false;
 let syncing=false;
@@ -1229,32 +922,36 @@ let editingId='';
 let editInitialSnapshot='';
 let toastTimer=null;
 let idbPromise=null;
-let workingSaveChain=
-Promise.resolve();
+let workingSaveChain=Promise.resolve();
+let duplicateCodeWarningSignature='';
+
 function clean(v){
 return String(v??'').trim();
 }
+
 function key(v){
 return clean(v)
 .normalize('NFKC')
 .toLocaleLowerCase('zh-CN');
 }
+
 function esc(v){
-const d=
-document.createElement('div');
-d.textContent=
-String(v??'');
+const d=document.createElement('div');
+d.textContent=String(v??'');
 return d.innerHTML;
 }
+
 function attr(v){
 return esc(v)
 .replace(/"/g,'&quot;');
 }
+
 function uid(){
 return crypto?.randomUUID
 ?crypto.randomUUID()
 :`papers_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
 }
+
 const collator=
 new Intl.Collator(
 'zh-CN',
@@ -1263,6 +960,7 @@ numeric:true,
 sensitivity:'base'
 }
 );
+
 const pinyinCollator=
 new Intl.Collator(
 'zh-CN-u-co-pinyin',
@@ -1271,6 +969,7 @@ numeric:true,
 sensitivity:'base'
 }
 );
+
 const latinCollator=
 new Intl.Collator(
 'en',
@@ -1279,10 +978,12 @@ numeric:true,
 sensitivity:'base'
 }
 );
+
 function titleSortInfo(value){
 const raw=
 clean(value)
 .normalize('NFKC');
+
 if(!raw){
 return{
 type:99,
@@ -1290,16 +991,17 @@ text:'',
 number:null
 };
 }
-const chars=
-Array.from(raw);
+
+const chars=Array.from(raw);
 let startIndex=-1;
+
 for(
 let i=0;
 i<chars.length;
 i++
 ){
-const ch=
-chars[i];
+const ch=chars[i];
+
 if(
 /^\p{Script=Han}$/u.test(ch)||
 /^\d$/.test(ch)||
@@ -1309,6 +1011,7 @@ startIndex=i;
 break;
 }
 }
+
 if(startIndex<0){
 return{
 type:3,
@@ -1316,22 +1019,24 @@ text:raw,
 number:null
 };
 }
+
 const text=
 chars.slice(startIndex).join('');
-const first=
-chars[startIndex];
-if(
-/^\p{Script=Han}$/u.test(first)
-){
+
+const first=chars[startIndex];
+
+if(/^\p{Script=Han}$/u.test(first)){
 return{
 type:0,
 text,
 number:null
 };
 }
+
 if(/^\d$/.test(first)){
 const numberMatch=
 text.match(/^\d+(?:\.\d+)?/);
+
 return{
 type:1,
 text,
@@ -1341,151 +1046,165 @@ numberMatch
 :Number(first)
 };
 }
+
 return{
 type:2,
 text,
 number:null
 };
 }
+
 function comparePaperTitle(a,b){
-const x=
-titleSortInfo(a);
-const y=
-titleSortInfo(b);
+const x=titleSortInfo(a);
+const y=titleSortInfo(b);
+
 if(x.type!==y.type){
 return x.type-y.type;
 }
+
 if(x.type===0){
 const r=
 pinyinCollator.compare(
 x.text,
 y.text
 );
+
 if(r!==0){
 return r;
 }
 }
+
 if(
 x.type===1&&
 x.number!==y.number
 ){
 return x.number-y.number;
 }
+
 if(x.type===2){
 const r=
 latinCollator.compare(
 x.text,
 y.text
 );
+
 if(r!==0){
 return r;
 }
 }
+
 const r=
 collator.compare(
 x.text,
 y.text
 );
+
 if(r!==0){
 return r;
 }
+
 return x.text<y.text
 ?-1
 :(x.text>y.text?1:0);
 }
+
 function paperTitleGroup(value){
-const info=
-titleSortInfo(value);
+const info=titleSortInfo(value);
+
 if(info.type===0){
 return 0;
 }
+
 if(info.type===2){
 return 1;
 }
+
 if(info.type===1){
-const chars=
-Array.from(info.text);
+const chars=Array.from(info.text);
+
 for(const ch of chars){
-if(
-/^\p{Script=Han}$/u.test(ch)
-){
+if(/^\p{Script=Han}$/u.test(ch)){
 return 0;
 }
-if(
-/^[A-Za-z]$/.test(ch)
-){
+
+if(/^[A-Za-z]$/.test(ch)){
 return 1;
 }
 }
 }
+
 return 2;
 }
+
 function comparePaperField(a,b){
 const x=
 clean(a)
 .normalize('NFKC');
+
 const y=
 clean(b)
 .normalize('NFKC');
-if(
-Boolean(x)!==Boolean(y)
-){
-return x
-?-1
-:1;
+
+if(Boolean(x)!==Boolean(y)){
+return x?-1:1;
 }
+
 if(!x&&!y){
 return 0;
 }
+
 const r=
 collator.compare(
 x,
 y
 );
+
 if(r!==0){
 return r;
 }
+
 return x<y
 ?-1
 :(x>y?1:0);
 }
-function journalNoteSortRank(
-value,
-options
-){
+
+function journalNoteSortRank(value,options){
 const list=
 Array.isArray(options)
 ?options
 :[];
-const k=
-key(value);
+
+const k=key(value);
+
 if(!k){
 return list.length+1;
 }
+
 const index=
 list.findIndex(
 x=>key(x)===k
 );
+
 return index>=0
 ?index
 :list.length;
 }
-function comparePaperEntry(
-a,
-b,
-noteOptions
-){
+
+function comparePaperEntry(a,b,noteOptions){
 const groupA=
 paperTitleGroup(
 a?.title
 );
+
 const groupB=
 paperTitleGroup(
 b?.title
 );
+
 if(groupA!==groupB){
 return groupA-groupB;
 }
+
 const notes=
 Array.isArray(noteOptions)
 ?noteOptions
@@ -1496,133 +1215,151 @@ data?.histories?.notes
 ?data.histories.notes
 :[]
 );
+
 const noteRankA=
 journalNoteSortRank(
 a?.journalNote,
 notes
 );
+
 const noteRankB=
 journalNoteSortRank(
 b?.journalNote,
 notes
 );
+
 if(noteRankA!==noteRankB){
 return noteRankA-noteRankB;
 }
+
 if(noteRankA>=notes.length){
 const byNote=
 comparePaperField(
 a?.journalNote,
 b?.journalNote
 );
+
 if(byNote!==0){
 return byNote;
 }
 }
+
 const byIssue=
 comparePaperField(
 a?.issue,
 b?.issue
 );
+
 if(byIssue!==0){
 return byIssue;
 }
+
 const byYear=
 comparePaperField(
 a?.year,
 b?.year
 );
+
 if(byYear!==0){
 return byYear;
 }
+
 const byTitle=
 comparePaperTitle(
 a?.title,
 b?.title
 );
+
 if(byTitle!==0){
 return byTitle;
 }
+
 return String(a?.id||'')
 .localeCompare(
 String(b?.id||'')
 );
 }
+
 function uniq(values){
 const out=[];
-const seen=
-new Set();
+const seen=new Set();
+
 for(
 const raw
 of values||[]
 ){
-const v=
-clean(raw);
-const k=
-key(v);
-if(
-!v||
-seen.has(k)
-){
+const v=clean(raw);
+const k=key(v);
+
+if(!v||seen.has(k)){
 continue;
 }
+
 seen.add(k);
 out.push(v);
 }
+
 return out;
 }
+
 function sortOptions(values){
 return uniq(values)
-.sort(
-comparePaperTitle
-);
+.sort(comparePaperTitle);
 }
+
 function journalOptionSortInfo(value){
 const text=
 clean(value)
 .normalize('NFKC');
+
 for(const ch of Array.from(text)){
 if(/^\p{Script=Han}$/u.test(ch)){
 return{group:0,text};
 }
+
 if(/^[A-Za-z]$/.test(ch)){
 return{group:1,text};
 }
 }
+
 return{group:2,text};
 }
+
 function compareJournalOption(a,b){
-const x=
-journalOptionSortInfo(a);
-const y=
-journalOptionSortInfo(b);
+const x=journalOptionSortInfo(a);
+const y=journalOptionSortInfo(b);
+
 if(x.group!==y.group){
 return x.group-y.group;
 }
+
 const primary=
 x.group===0
 ?pinyinCollator
 :x.group===1
 ?latinCollator
 :collator;
+
 const r=
 primary.compare(
 x.text,
 y.text
 );
+
 if(r!==0){
 return r;
 }
+
 return x.text<y.text
 ?-1
 :(x.text>y.text?1:0);
 }
+
 function sortJournalOptions(values){
 return uniq(values)
-.sort(
-compareJournalOption
-);
+.sort(compareJournalOption);
 }
+
 function sortIssueOptions(values){
 return uniq(values)
 .sort(
@@ -1630,28 +1367,33 @@ return uniq(values)
 const x=
 clean(a)
 .normalize('NFKC');
+
 const y=
 clean(b)
 .normalize('NFKC');
+
 const r=
 collator.compare(
 x,
 y
 );
+
 if(r!==0){
 return r;
 }
+
 return x<y
 ?-1
 :(x>y?1:0);
 }
 );
 }
+
 function preserveJournalNoteOptions(values){
-return uniq(
-values||[]
-);
+return uniq(values||[]);
 }
+
+/* 编码只允许在“提交”和“保存”两个明确用户动作中首次生成 */
 const PAPER_CODE_RULES=Object.freeze({
 zhIssue:{
 key:'zhIssue',
@@ -1685,140 +1427,120 @@ ranges:[
 ]
 }
 });
+
 function paperTitleLanguage(title){
 const group=
-paperTitleGroup(
-title
-);
+paperTitleGroup(title);
+
 return group===0
 ?'zh'
 :group===1
 ?'en'
 :'';
 }
+
+/*
+优先级：
+1. 未填写刊名时，先进入中文/英文“无刊名”区间；
+2. 已填写刊名后，中文按是否填写刊号进入中文区间；
+3. 已填写刊名的英文标题只有填写刊号时有编码区间；
+4. 已填写刊名且未填写刊号的英文标题不自动编码。
+*/
 function automaticCodeRule(entry){
 const language=
 paperTitleLanguage(
 entry?.title
 );
+
 if(!language){
 return null;
 }
+
 const hasJournal=
 Boolean(
-clean(
-entry?.journal
-)
+clean(entry?.journal)
 );
+
 const hasIssue=
 Boolean(
-clean(
-entry?.issue
-)
+clean(entry?.issue)
 );
+
 if(!hasJournal){
 return language==='zh'
 ?PAPER_CODE_RULES.zhNoJournal
 :PAPER_CODE_RULES.enNoJournal;
 }
+
 if(language==='zh'){
 return hasIssue
 ?PAPER_CODE_RULES.zhIssue
 :PAPER_CODE_RULES.zhNoIssue;
 }
+
 if(
 language==='en'&&
 hasIssue
 ){
 return PAPER_CODE_RULES.enIssue;
 }
+
 return null;
 }
+
 function normalizeAutomaticCode(value){
-const code=
-clean(value);
+const code=clean(value);
+
 return /^\d{6}$/.test(code)
 ?code
 :'';
 }
-function codeBelongsToRule(code,rule){
-if(!rule){
-return false;
-}
-const normalized=
-normalizeAutomaticCode(
-code
-);
-if(!normalized){
-return false;
-}
-const number=
-Number(normalized);
-return rule.ranges
-.some(
-([start,end])=>
-number>=start&&
-number<=end
-);
-}
+
 function usedAutomaticCodes(entries,excludeId=''){
-const used=
-new Set();
-for(
-const item
-of entries||[]
-){
+const used=new Set();
+
+for(const item of entries||[]){
 if(
 excludeId&&
 item?.id===excludeId
 ){
 continue;
 }
+
 const code=
 normalizeAutomaticCode(
 item?.code
 );
+
 if(code){
 used.add(
 Number(code)
 );
 }
 }
+
 return used;
 }
+
+/*
+只负责“首次分配”。
+不接受已有编码作为候选，不会重新校正规则，也不会修改任何条目。
+*/
 function nextAutomaticCode(entry,entries,excludeId=''){
 const rule=
-automaticCodeRule(
-entry
-);
+automaticCodeRule(entry);
+
 if(!rule){
 return '';
 }
+
 const used=
 usedAutomaticCodes(
 entries,
 excludeId
 );
-const current=
-normalizeAutomaticCode(
-entry?.code
-);
-if(
-current&&
-codeBelongsToRule(
-current,
-rule
-)&&
-!used.has(
-Number(current)
-)
-){
-return current;
-}
-for(
-const [start,end]
-of rule.ranges
-){
+
+for(const [start,end] of rule.ranges){
 for(
 let number=start;
 number<=end;
@@ -1829,7 +1551,120 @@ return String(number);
 }
 }
 }
+
 return '';
+}
+
+/*
+重复检测只报警，不修改任何编码。
+*/
+function duplicateCodeGroups(entries){
+const map=new Map();
+
+for(const item of entries||[]){
+const rawCode=
+item?.code==null
+?''
+:String(item.code);
+
+const code=clean(rawCode);
+
+if(!code){
+continue;
+}
+
+if(!map.has(code)){
+map.set(code,[]);
+}
+
+map.get(code).push({
+id:String(item?.id||''),
+title:
+clean(item?.title)||
+'未命名条目'
+});
+}
+
+return[
+...map.entries()
+]
+.filter(
+([,items])=>
+items.length>1
+)
+.map(
+([code,items])=>({
+code,
+items
+})
+)
+.sort(
+(a,b)=>
+collator.compare(
+a.code,
+b.code
+)
+);
+}
+
+function warnDuplicateCodes(entries=data.entries){
+const groups=
+duplicateCodeGroups(entries);
+
+if(!groups.length){
+duplicateCodeWarningSignature='';
+return false;
+}
+
+const signature=
+JSON.stringify(
+groups.map(
+group=>[
+group.code,
+group.items
+.map(
+item=>item.id
+)
+.sort()
+]
+)
+);
+
+if(
+signature===
+duplicateCodeWarningSignature
+){
+return true;
+}
+
+duplicateCodeWarningSignature=
+signature;
+
+const detail=
+groups
+.slice(0,6)
+.map(
+group=>
+`${group.code}（${group.items.length}条）`
+)
+.join('、');
+
+console.warn(
+'检测到重复编码，系统不会自动改号：',
+groups
+);
+
+setTimeout(
+()=>{
+show(
+`检测到重复编码：${detail}${groups.length>6?' 等':''}。系统不会自动改号，请人工处理。`,
+'error'
+);
+},
+0
+);
+
+return true;
 }
 
 function normalizeEntry(x){
@@ -1839,29 +1674,39 @@ typeof x!=='object'
 ){
 return null;
 }
+
 return{
 id:
 clean(x.id)||
 uid(),
+
 title:
 clean(x.title),
+
 year:
 clean(x.year),
+
 journal:
 clean(x.journal),
+
 issue:
 clean(x.issue),
+
 journalNote:
 clean(
 x.journalNote??
 x.note
 ),
+
+/*
+加载、刷新、同步、导入、渲染时只原样读取已有编码。
+这里绝不生成、修正规则、重新排序或重新编号。
+*/
 code:
-normalizeAutomaticCode(
-x.code
-)
+x.code??''
 };
 }
+
 function normalizeProfile(x){
 if(
 !x||
@@ -1869,15 +1714,16 @@ typeof x!=='object'
 ){
 return null;
 }
-const journal=
-clean(x.journal);
+
+const journal=clean(x.journal);
+
 if(!journal){
 return null;
 }
+
 return{
 journal,
-issue:
-clean(x.issue),
+issue:clean(x.issue),
 journalNote:
 clean(
 x.journalNote??
@@ -1885,16 +1731,15 @@ x.note
 )
 };
 }
+
 function deriveProfiles(entries){
-const map=
-new Map();
-for(
-const x
-of entries
-){
+const map=new Map();
+
+for(const x of entries){
 if(!x.journal){
 continue;
 }
+
 map.set(
 key(x.journal),
 {
@@ -1904,22 +1749,23 @@ journalNote:x.journalNote
 }
 );
 }
+
 return[
 ...map.values()
 ];
 }
+
 function normalizeData(value){
 const source=
 Array.isArray(value)
-?{
-entries:value
-}
+?{entries:value}
 :(
 value&&
 typeof value==='object'
 ?value
 :{}
 );
+
 const entries=
 (
 Array.isArray(
@@ -1928,15 +1774,15 @@ source.entries
 ?source.entries
 :[]
 )
-.map(
-normalizeEntry
-)
+.map(normalizeEntry)
 .filter(Boolean);
+
 const rawHist=
 source.histories&&
 typeof source.histories==='object'
 ?source.histories
 :{};
+
 const histories={
 journals:
 Array.isArray(
@@ -1950,6 +1796,7 @@ entries.map(
 x=>x.journal
 )
 ),
+
 issues:
 Array.isArray(
 rawHist.issues
@@ -1962,6 +1809,7 @@ entries.map(
 x=>x.issue
 )
 ),
+
 notes:
 Array.isArray(
 rawHist.notes
@@ -1975,6 +1823,7 @@ x=>x.journalNote
 )
 )
 };
+
 entries.sort(
 (a,b)=>
 comparePaperEntry(
@@ -1983,29 +1832,25 @@ b,
 histories.notes
 )
 );
+
 const profiles=
 Array.isArray(
 source.profiles
 )
 ?source.profiles
-.map(
-normalizeProfile
-)
+.map(normalizeProfile)
 .filter(Boolean)
-:deriveProfiles(
-entries
-);
-const profileMap=
-new Map();
-for(
-const p
-of profiles
-){
+:deriveProfiles(entries);
+
+const profileMap=new Map();
+
+for(const p of profiles){
 profileMap.set(
 key(p.journal),
 p
 );
 }
+
 return{
 entries,
 histories,
@@ -2014,23 +1859,13 @@ profiles:[
 ]
 };
 }
+
 function fingerprint(value=data){
 return JSON.stringify(
 normalizeData(value)
 );
 }
-function formatDate(iso){
-const d=
-new Date(iso);
-if(
-Number.isNaN(
-d.getTime()
-)
-){
-return '';
-}
-return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
+
 function target(){
 return(
 config.owner&&
@@ -2040,6 +1875,7 @@ config.file
 ?`${config.owner}/${config.repo}/${config.file}`
 :'';
 }
+
 function adminConfigured(){
 return Boolean(
 config.owner&&
@@ -2048,49 +1884,48 @@ config.file&&
 config.token
 );
 }
+
 function pathEncode(path){
 return String(path)
 .split('/')
 .filter(Boolean)
-.map(
-encodeURIComponent
-)
+.map(encodeURIComponent)
 .join('/');
 }
+
 function openStorageDb(){
 if(idbPromise){
 return idbPromise;
 }
+
 idbPromise=
 new Promise(
-(
-resolve,
-reject
-)=>{
+(resolve,reject)=>{
 const request=
 indexedDB.open(
 IDB_NAME,
 1
 );
+
 request.onupgradeneeded=
 ()=>{
-const db=
-request.result;
+const db=request.result;
+
 if(
 !db.objectStoreNames
-.contains(
-IDB_STORE
-)
+.contains(IDB_STORE)
 ){
 db.createObjectStore(
 IDB_STORE
 );
 }
 };
+
 request.onsuccess=
 ()=>resolve(
 request.result
 );
+
 request.onerror=
 ()=>reject(
 request.error||
@@ -2098,36 +1933,40 @@ new Error(
 'IndexedDB 打开失败'
 )
 );
+
 request.onblocked=
 ()=>console.warn(
 'IndexedDB 打开被阻塞'
 );
 }
 );
+
 return idbPromise;
 }
+
 async function idbGet(k){
 try{
 const db=
 await openStorageDb();
+
 return await new Promise(
-(
-resolve,
-reject
-)=>{
+(resolve,reject)=>{
 const tx=
 db.transaction(
 IDB_STORE,
 'readonly'
 );
+
 const req=
 tx.objectStore(
 IDB_STORE
 ).get(k);
+
 req.onsuccess=
 ()=>resolve(
 req.result
 );
+
 req.onerror=
 ()=>reject(
 req.error||
@@ -2142,31 +1981,34 @@ console.error(
 'IndexedDB 读取失败:',
 error
 );
+
 return undefined;
 }
 }
+
 async function idbSet(k,v){
 try{
 const db=
 await openStorageDb();
+
 await new Promise(
-(
-resolve,
-reject
-)=>{
+(resolve,reject)=>{
 const tx=
 db.transaction(
 IDB_STORE,
 'readwrite'
 );
+
 tx.objectStore(
 IDB_STORE
 ).put(
 v,
 k
 );
+
 tx.oncomplete=
 ()=>resolve();
+
 tx.onerror=
 ()=>reject(
 tx.error||
@@ -2174,6 +2016,7 @@ new Error(
 'IndexedDB 写入失败'
 )
 );
+
 tx.onabort=
 ()=>reject(
 tx.error||
@@ -2183,34 +2026,38 @@ new Error(
 );
 }
 );
+
 return true;
 }catch(error){
 console.error(
 'IndexedDB 写入失败:',
 error
 );
+
 return false;
 }
 }
+
 async function idbDelete(k){
 try{
 const db=
 await openStorageDb();
+
 await new Promise(
-(
-resolve,
-reject
-)=>{
+(resolve,reject)=>{
 const tx=
 db.transaction(
 IDB_STORE,
 'readwrite'
 );
+
 tx.objectStore(
 IDB_STORE
 ).delete(k);
+
 tx.oncomplete=
 ()=>resolve();
+
 tx.onerror=
 ()=>reject(
 tx.error||
@@ -2218,6 +2065,7 @@ new Error(
 'IndexedDB 删除失败'
 )
 );
+
 tx.onabort=
 ()=>reject(
 tx.error||
@@ -2227,20 +2075,21 @@ new Error(
 );
 }
 );
+
 return true;
 }catch(error){
 console.error(
 'IndexedDB 删除失败:',
 error
 );
+
 return false;
 }
 }
+
 async function requestPersistentStorage(){
 try{
-if(
-navigator.storage?.persist
-){
+if(navigator.storage?.persist){
 await navigator.storage.persist();
 }
 }catch(error){
@@ -2250,6 +2099,7 @@ error
 );
 }
 }
+
 async function opfsRoot(){
 try{
 return navigator.storage?.getDirectory
@@ -2260,26 +2110,33 @@ console.warn(
 'OPFS 不可用:',
 error
 );
+
 return null;
 }
 }
+
 async function readOpfsWorkingCopy(){
 try{
 const root=
 await opfsRoot();
+
 if(!root){
 return null;
 }
+
 const handle=
 await root.getFileHandle(
 OPFS_WORKING_FILE
 );
+
 const file=
 await handle.getFile();
+
 const parsed=
 JSON.parse(
 await file.text()
 );
+
 return(
 parsed&&
 typeof parsed==='object'
@@ -2296,16 +2153,20 @@ console.warn(
 error
 );
 }
+
 return null;
 }
 }
+
 async function writeOpfsWorkingCopy(payload){
 try{
 const root=
 await opfsRoot();
+
 if(!root){
 return false;
 }
+
 const handle=
 await root.getFileHandle(
 OPFS_WORKING_FILE,
@@ -2313,23 +2174,27 @@ OPFS_WORKING_FILE,
 create:true
 }
 );
+
 const writable=
 await handle.createWritable();
+
 await writable.write(
-JSON.stringify(
-payload
-)
+JSON.stringify(payload)
 );
+
 await writable.close();
+
 return true;
 }catch(error){
 console.warn(
 '写入 OPFS 工作副本失败:',
 error
 );
+
 return false;
 }
 }
+
 function validWorkingEnvelope(
 value,
 expectedTarget=''
@@ -2341,26 +2206,23 @@ typeof value!=='object'||
 ){
 return null;
 }
+
 const payloadTarget=
-clean(
-value.target
-);
+clean(value.target);
+
 if(
 expectedTarget&&
-payloadTarget!==
-expectedTarget
+payloadTarget!==expectedTarget
 ){
 return null;
 }
+
 const savedAt=
-Number(
-value.savedAt
-)||0;
+Number(value.savedAt)||0;
+
 return{
 version:
-Number(
-value.version
-)||1,
+Number(value.version)||1,
 target:
 payloadTarget,
 savedAt,
@@ -2370,9 +2232,8 @@ value.state
 )
 };
 }
-async function persistWorkingEnvelope(
-payload
-){
+
+async function persistWorkingEnvelope(payload){
 const results=
 await Promise.allSettled(
 [
@@ -2385,60 +2246,56 @@ payload
 )
 ]
 );
+
 const idbOk=
 results[0].status==='fulfilled'&&
 results[0].value===true;
+
 const opfsOk=
 results[1].status==='fulfilled'&&
 results[1].value===true;
-if(
-!idbOk&&
-!opfsOk
-){
+
+if(!idbOk&&!opfsOk){
 throw new Error(
 '本机工作副本保存失败'
 );
 }
+
 return{
 idbOk,
 opfsOk
 };
 }
-function saveWorkingCopy(
-snapshot=data
-){
-const currentTarget=
-target();
+
+function saveWorkingCopy(snapshot=data){
+const currentTarget=target();
+
 if(!currentTarget){
-return Promise.resolve(
-false
-);
+return Promise.resolve(false);
 }
+
 const normalized=
-normalizeData(
-snapshot
-);
+normalizeData(snapshot);
+
 const payload={
 version:1,
-target:
-currentTarget,
-savedAt:
-Date.now(),
-state:
-normalized
+target:currentTarget,
+savedAt:Date.now(),
+state:normalized
 };
+
 workingSaveChain=
 workingSaveChain
-.catch(
-()=>{}
-)
+.catch(()=>{})
 .then(
 ()=>persistWorkingEnvelope(
 payload
 )
 );
+
 return workingSaveChain;
 }
+
 async function loadWorkingCopy(
 expectedTarget=target()
 ){
@@ -2454,16 +2311,19 @@ WORKING_COPY_KEY
 readOpfsWorkingCopy()
 ]
 );
+
 const idbCopy=
 validWorkingEnvelope(
 idbRaw,
 expectedTarget
 );
+
 const opfsCopy=
 validWorkingEnvelope(
 opfsRaw,
 expectedTarget
 );
+
 const chosen=
 !idbCopy
 ?opfsCopy
@@ -2477,22 +2337,22 @@ idbCopy.savedAt
 :idbCopy
 )
 );
+
 if(!chosen){
 return null;
 }
+
 const needsIdb=
 !idbCopy||
-idbCopy.savedAt!==
-chosen.savedAt;
+idbCopy.savedAt!==chosen.savedAt;
+
 const needsOpfs=
 !opfsCopy||
-opfsCopy.savedAt!==
-chosen.savedAt;
-if(
-needsIdb||
-needsOpfs
-){
+opfsCopy.savedAt!==chosen.savedAt;
+
+if(needsIdb||needsOpfs){
 const tasks=[];
+
 if(needsIdb){
 tasks.push(
 idbSet(
@@ -2501,6 +2361,7 @@ chosen
 )
 );
 }
+
 if(needsOpfs){
 tasks.push(
 writeOpfsWorkingCopy(
@@ -2508,132 +2369,118 @@ chosen
 )
 );
 }
-void Promise.allSettled(
-tasks
-);
+
+void Promise.allSettled(tasks);
 }
+
 return chosen.state;
 }
-async function savePublicCache(
-snapshot=data
-){
+
+async function savePublicCache(snapshot=data){
 return idbSet(
 PUBLIC_CACHE_KEY,
 {
 version:1,
 savedAt:Date.now(),
 state:
-normalizeData(
-snapshot
-)
+normalizeData(snapshot)
 }
 );
 }
+
 async function loadPublicCache(){
 const value=
 await idbGet(
 PUBLIC_CACHE_KEY
 );
+
 return(
 value&&
 typeof value==='object'&&
 value.state
 )
-?normalizeData(
-value.state
-)
-:normalizeData(
-{}
-);
+?normalizeData(value.state)
+:normalizeData({});
 }
-function show(
-msg,
-type='info'
-){
-toast.textContent=
-msg;
-toast.className=
-`toast ${type}`;
-clearTimeout(
-toastTimer
-);
+
+function show(msg,type='info'){
+toast.textContent=msg;
+toast.className=`toast ${type}`;
+
+clearTimeout(toastTimer);
+
 toastTimer=
 setTimeout(
-()=>toast.classList.add(
+()=>{
+toast.classList.add(
 'hidden'
-),
+);
+},
 3200
 );
 }
-function status(
-kind,
-text
-){
+
+function status(kind,text){
 statusDot.className=
 `status-dot ${kind}`;
-statusText.textContent=
-text;
+
+statusText.textContent=text;
 }
+
 function formatError(error){
 if(!error){
 return '未知错误';
 }
+
 if(error.status===401){
 return 'Token 无效或已过期';
 }
+
 if(error.status===403){
 return 'Token 权限不足或仓库访问被拒绝';
 }
+
 if(error.status===404){
 return '仓库或数据文件不存在，或 Token 无权访问';
 }
+
 if(error.status===409){
 return '云端文件已被其他设备修改';
 }
+
 return(
 error.message||
 String(error)
 );
 }
+
 async function loadConfig(){
 const saved=
-await idbGet(
-CONFIG_KEY
-)||{};
+await idbGet(CONFIG_KEY)||{};
+
 const storedToken=
 clean(
-await idbGet(
-TOKEN_KEY
-)||''
+await idbGet(TOKEN_KEY)||''
 );
-config.owner=
-clean(
-saved.owner
-);
-config.repo=
-clean(
-saved.repo
-);
+
+config.owner=clean(saved.owner);
+config.repo=clean(saved.repo);
 config.file=
-clean(
-saved.file
-)||
+clean(saved.file)||
 'papers_data.json';
-config.token=
-storedToken;
+config.token=storedToken;
 }
+
 async function saveConfig(){
 await idbSet(
 CONFIG_KEY,
 {
-owner:
-config.owner,
-repo:
-config.repo,
-file:
-config.file
+owner:config.owner,
+repo:config.repo,
+file:config.file
 }
 );
+
 if(config.token){
 await idbSet(
 TOKEN_KEY,
@@ -2645,71 +2492,60 @@ TOKEN_KEY
 );
 }
 }
+
 async function loadMeta(){
 const x=
-await idbGet(
-META_KEY
-)||{};
+await idbGet(META_KEY)||{};
+
 meta={
 target:
-clean(
-x.target
-),
+clean(x.target),
+
 fingerprint:
-typeof x.fingerprint===
-'string'
+typeof x.fingerprint==='string'
 ?x.fingerprint
 :null,
+
 sha:
-clean(
-x.sha
-)||null,
+clean(x.sha)||null,
+
 lastSyncAt:
-clean(
-x.lastSyncAt
-)||null
+clean(x.lastSyncAt)||null
 };
 }
+
 async function saveMeta(){
 return idbSet(
 META_KEY,
 meta
 );
 }
-async function record(
-snapshot,
-sha
-){
+
+async function record(snapshot,sha){
 const normalized=
-normalizeData(
-snapshot
-);
+normalizeData(snapshot);
+
 const baselineFingerprint=
-fingerprint(
-normalized
-);
+fingerprint(normalized);
+
 meta={
-target:
-target(),
-fingerprint:
-baselineFingerprint,
-sha:
-sha||null,
+target:target(),
+fingerprint:baselineFingerprint,
+sha:sha||null,
 lastSyncAt:
-new Date()
-.toISOString()
+new Date().toISOString()
 };
+
 const currentSnapshot=
-normalizeData(
-data
-);
+normalizeData(data);
+
 const changedDuringSync=
-fingerprint(
-currentSnapshot
-)!==
+fingerprint(currentSnapshot)!==
 baselineFingerprint;
+
 const metaSaved=
 await saveMeta();
+
 try{
 await saveWorkingCopy(
 changedDuringSync
@@ -2722,32 +2558,38 @@ console.error(
 error
 );
 }
+
 if(!metaSaved){
 console.warn(
 '同步元数据未能持久保存'
 );
 }
+
 lastSyncTime.textContent=
 `已同步 ${new Date(meta.lastSyncAt).toLocaleString()}`;
+
 if(changedDuringSync){
 setTimeout(
 ()=>{
 if(!unlocked){
 return;
 }
+
 status(
 'offline',
 '待同步'
 );
+
 lastSyncTime.textContent=
 '有未同步修改';
-clearTimeout(
-autoTimer
-);
+
+clearTimeout(autoTimer);
+
 autoTimer=
 setTimeout(
 ()=>{
 autoTimer=null;
+
 sync(
 false,
 false
@@ -2760,38 +2602,40 @@ AUTO_DELAY
 );
 }
 }
+
 function setUnlocked(on){
-unlocked=
-Boolean(on);
+unlocked=Boolean(on);
+
 editorSection.classList.toggle(
 'hidden',
 !unlocked
 );
+
 visitorNote.classList.toggle(
 'hidden',
 unlocked
 );
-syncBtn.disabled=
-!unlocked;
-importBtn.disabled=
-!unlocked;
+
+syncBtn.disabled=!unlocked;
+importBtn.disabled=!unlocked;
+
 exportBtn.disabled=
-!publicLoaded&&
-!unlocked;
+!publicLoaded&&!unlocked;
+
 configBtn.textContent=
 unlocked
 ?'配置'
 :'编辑登录';
 }
+
 function publicDataUrl(){
 return new URL(
 PUBLIC_DATA_FILE,
 location.href
 ).href;
 }
-function parseHtmlBackupPayload(
-value
-){
+
+function parseHtmlBackupPayload(value){
 if(
 !value||
 typeof value!=='object'||
@@ -2803,20 +2647,20 @@ throw new Error(
 'HTML 备份格式不受支持'
 );
 }
-return normalizeData(
-value.data
-);
+
+return normalizeData(value.data);
 }
-function readEmbeddedBackup(
-doc=document
-){
+
+function readEmbeddedBackup(doc=document){
 const node=
 doc.getElementById(
 'papersBackupData'
 );
+
 if(!node){
 return null;
 }
+
 try{
 return parseHtmlBackupPayload(
 JSON.parse(
@@ -2828,37 +2672,42 @@ console.error(
 '内嵌 HTML 备份数据无效:',
 error
 );
+
 return null;
 }
 }
+
 async function loadPublicView(){
 const embedded=
 readEmbeddedBackup();
+
 if(embedded){
-data=
-embedded;
-publicLoaded=
-true;
+data=embedded;
+publicLoaded=true;
 render();
-exportBtn.disabled=
-false;
-void savePublicCache(
-data
-);
+exportBtn.disabled=false;
+
+void savePublicCache(data);
+
 status(
 'backup',
 'HTML 备份'
 );
+
 lastSyncTime.textContent=
 'HTML 备份 · 当前显示导出时刻快照';
+
 return true;
 }
+
 status(
 'syncing',
 '加载公开内容…'
 );
+
 lastSyncTime.textContent=
 '公开浏览 · 编辑需 Token';
+
 try{
 const response=
 await fetch(
@@ -2871,17 +2720,20 @@ Accept:'application/json'
 }
 }
 );
+
 const raw=
 await response.text();
+
 if(!response.ok){
 const e=
 new Error(
 `公开数据加载失败：HTTP ${response.status}`
 );
-e.status=
-response.status;
+
+e.status=response.status;
 throw e;
 }
+
 if(
 new TextEncoder()
 .encode(raw)
@@ -2892,58 +2744,66 @@ throw new Error(
 '公开数据超过 900 KB'
 );
 }
+
 data=
 normalizeData(
 JSON.parse(raw)
 );
-publicLoaded=
-true;
+
+publicLoaded=true;
 render();
-exportBtn.disabled=
-false;
-void savePublicCache(
-data
-);
+exportBtn.disabled=false;
+
+void savePublicCache(data);
+
 status(
 'online',
 '公开浏览'
 );
+
 lastSyncTime.textContent=
 '公开浏览 · 编辑需 Token';
+
 return true;
 }catch(error){
-console.error(
-error
-);
+console.error(error);
+
 const cached=
 await loadPublicCache();
-data=
-cached;
+
+data=cached;
+
 publicLoaded=
 cached.entries.length>0;
+
 render();
+
 if(publicLoaded){
-exportBtn.disabled=
-false;
+exportBtn.disabled=false;
+
 status(
 'offline',
 '离线浏览'
 );
+
 lastSyncTime.textContent=
 '公开数据暂时不可用 · 当前显示本机缓存';
 }else{
-exportBtn.disabled=
-true;
+exportBtn.disabled=true;
+
 status(
 'offline',
 '公开数据不可用'
 );
+
 lastSyncTime.textContent=
 '无法加载 papers_data.json · 编辑登录仍可使用';
 }
+
 return false;
 }
 }
+
 async function githubApi(
 method,
 endpoint='',
@@ -2953,71 +2813,86 @@ const owner=
 encodeURIComponent(
 config.owner
 );
+
 const repo=
 encodeURIComponent(
 config.repo
 );
+
 const suffix=
 endpoint
 ?`/${endpoint}`
 :'';
+
 const url=
 `https://api.github.com/repos/${owner}/${repo}${suffix}`;
+
 const headers={
 'Authorization':
 `Bearer ${config.token}`,
+
 'Accept':
 'application/vnd.github+json',
+
 'X-GitHub-Api-Version':
 API_VERSION
 };
+
 const options={
 method,
 headers
 };
+
 if(body!==null){
 headers['Content-Type']=
 'application/json';
+
 options.body=
-JSON.stringify(
-body
-);
+JSON.stringify(body);
 }
+
 const response=
 await fetch(
 url,
 options
 );
+
 const raw=
 await response.text();
+
 let result=null;
+
 if(raw){
 try{
-result=
-JSON.parse(raw);
+result=JSON.parse(raw);
 }catch(e){
 result={
 message:raw
 };
 }
 }
+
 if(!response.ok){
 const e=
 new Error(
 result?.message||
 `HTTP ${response.status}`
 );
-e.status=
-response.status;
+
+e.status=response.status;
 throw e;
 }
+
 return result;
 }
+
 function utf8ToBase64(text){
 const bytes=
 new TextEncoder()
 .encode(text);
+
 let binary='';
+
 for(
 let i=0;
 i<bytes.length;
@@ -3031,26 +2906,27 @@ i+0x8000
 )
 );
 }
-return btoa(
-binary
-);
+
+return btoa(binary);
 }
-function base64ToUtf8(
-base64
-){
+
+function base64ToUtf8(base64){
 const binary=
 atob(
 String(
 base64||''
-).replace(
+)
+.replace(
 /\s/g,
 ''
 )
 );
+
 const bytes=
 new Uint8Array(
 binary.length
 );
+
 for(
 let i=0;
 i<binary.length;
@@ -3059,17 +2935,16 @@ i++
 bytes[i]=
 binary.charCodeAt(i);
 }
+
 return new TextDecoder(
 'utf-8'
-).decode(
-bytes
-);
+).decode(bytes);
 }
+
 async function verifyRepository(){
-return githubApi(
-'GET'
-);
+return githubApi('GET');
 }
+
 async function readRemote(){
 try{
 const result=
@@ -3077,6 +2952,7 @@ await githubApi(
 'GET',
 `contents/${pathEncode(config.file)}`
 );
+
 if(
 !result||
 result.type!=='file'||
@@ -3087,23 +2963,21 @@ throw new Error(
 '云端数据文件格式异常'
 );
 }
+
 if(
-Number.isFinite(
-result.size
-)&&
-result.size>
-MAX_BYTES
+Number.isFinite(result.size)&&
+result.size>MAX_BYTES
 ){
 throw new Error(
 '云端数据超过 900 KB'
 );
 }
+
 try{
 return{
 exists:true,
 invalid:false,
-sha:
-result.sha,
+sha:result.sha,
 data:
 normalizeData(
 JSON.parse(
@@ -3118,39 +2992,33 @@ console.error(
 '云端 JSON 损坏:',
 error
 );
+
 return{
 exists:true,
 invalid:true,
-sha:
-result.sha,
+sha:result.sha,
 data:null
 };
 }
 }catch(error){
-if(
-error.status===404
-){
+if(error.status===404){
 return{
 exists:false,
 invalid:false,
 sha:null,
 data:
-normalizeData(
-{}
-)
+normalizeData({})
 };
 }
+
 throw error;
 }
 }
-async function writeRemote(
-snapshot,
-sha
-){
+
+async function writeRemote(snapshot,sha){
 const normalized=
-normalizeData(
-snapshot
-);
+normalizeData(snapshot);
+
 const raw=
 JSON.stringify(
 {
@@ -3160,6 +3028,7 @@ schemaVersion:2,
 null,
 2
 );
+
 if(
 new TextEncoder()
 .encode(raw)
@@ -3170,135 +3039,149 @@ throw new Error(
 '数据超过 900 KB'
 );
 }
+
 const body={
 message:
 `更新 Papers 数据 - ${new Date().toLocaleString()}`,
+
 content:
-utf8ToBase64(
-raw
-)
+utf8ToBase64(raw)
 };
+
 if(sha){
 body.sha=sha;
 }
+
 const result=
 await githubApi(
 'PUT',
 `contents/${pathEncode(config.file)}`,
 body
 );
+
 return(
 result?.content?.sha||
 null
 );
 }
-async function login(
-showResult=true
-){
-if(
-!adminConfigured()
-){
-setUnlocked(
-false
-);
+
+async function login(showResult=true){
+if(!adminConfigured()){
+setUnlocked(false);
+
 if(
 publicLoaded||
 data.entries.length
 ){
 render();
 }
+
 status(
 publicLoaded
 ?'online'
 :'offline',
+
 publicLoaded
 ?'公开浏览'
 :'公开数据不可用'
 );
+
 if(showResult){
 show(
 '请填写仓库和 Token 以启用编辑',
 'error'
 );
 }
+
 return false;
 }
+
 status(
 'syncing',
 '验证编辑权限…'
 );
+
 syncBtn.disabled=true;
 exportBtn.disabled=true;
 importBtn.disabled=true;
+
 try{
 await verifyRepository();
+
 const remote=
 await readRemote();
+
 if(remote.invalid){
 const cache=
 await loadWorkingCopy(
 target()
 );
+
 if(cache){
 data=cache;
 }
-setUnlocked(
-true
-);
+
+setUnlocked(true);
 render();
+
 status(
 'offline',
 '数据文件异常'
 );
+
 lastSyncTime.textContent=
 '编辑已登录 · 云端 JSON 损坏，可导入 HTML 备份后点击“同步”修复';
+
 if(showResult){
 show(
 'Token 验证成功，但云端 JSON 已损坏；请导入 HTML 备份后点击“同步”修复',
 'error'
 );
 }
+
 return true;
 }
+
 const remoteFp=
-fingerprint(
-remote.data
-);
+fingerprint(remote.data);
+
 const cache=
 await loadWorkingCopy(
 target()
 );
+
 const sameTarget=
-meta.target===
-target();
+meta.target===target();
+
 const cacheFp=
 cache
 ?fingerprint(cache)
 :null;
+
 const cacheUnsynced=
 Boolean(cache)&&
 sameTarget&&
 meta.fingerprint!==null&&
 cacheFp!==meta.fingerprint&&
 cacheFp!==remoteFp;
+
 if(cacheUnsynced){
-data=
-cache;
-setUnlocked(
-true
-);
+data=cache;
+setUnlocked(true);
 render();
+
 if(
 remote.exists&&
-remoteFp!==
-meta.fingerprint
+remoteFp!==meta.fingerprint
 ){
 status(
 'offline',
 '存在同步冲突'
 );
+
 lastSyncTime.textContent=
 '编辑已登录 · 本地和云端均有修改';
+
 if(showResult){
 show(
 '编辑登录成功，但检测到同步冲突，请点击“同步”处理',
@@ -3310,9 +3193,12 @@ status(
 'offline',
 '有未同步修改'
 );
+
 lastSyncTime.textContent=
 '编辑已登录 · 正在恢复未同步修改';
+
 scheduleSync();
+
 if(showResult){
 show(
 '编辑登录成功，已恢复本地未同步修改',
@@ -3321,26 +3207,26 @@ show(
 }
 }
 }else{
-data=
-remote.data;
-setUnlocked(
-true
-);
+data=remote.data;
+
+setUnlocked(true);
 render();
+
 await record(
 data,
 remote.sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
-if(
-!remote.exists
-){
+
+if(!remote.exists){
 lastSyncTime.textContent=
 '编辑已登录 · 数据文件尚未创建';
 }
+
 if(showResult){
 show(
 'Token 验证成功，已启用编辑',
@@ -3348,37 +3234,41 @@ show(
 );
 }
 }
+
 return true;
 }catch(error){
-console.error(
-error
-);
-setUnlocked(
-false
-);
+console.error(error);
+
+setUnlocked(false);
+
 if(
 publicLoaded||
 data.entries.length
 ){
 render();
 }
+
 status(
 publicLoaded
 ?'online'
 :'offline',
+
 publicLoaded
 ?'公开浏览'
 :'公开数据不可用'
 );
+
 if(showResult){
 show(
 `编辑登录失败：${formatError(error)}`,
 'error'
 );
 }
+
 return false;
 }
 }
+
 async function sync(
 showResult=true,
 interactive=showResult
@@ -3391,130 +3281,152 @@ show(
 '请先使用 Token 登录',
 'error'
 );
+
 return false;
 }
+
 if(syncing){
 return false;
 }
-clearTimeout(
-autoTimer
-);
+
+clearTimeout(autoTimer);
+
 autoTimer=null;
 syncing=true;
 syncBtn.disabled=true;
+
 status(
 'syncing',
 '同步中…'
 );
+
 try{
 const localSnapshot=
-normalizeData(
-data
-);
+normalizeData(data);
+
 const localFp=
-fingerprint(
-localSnapshot
-);
+fingerprint(localSnapshot);
+
 const baseline=
 meta.target===target()
 ?meta.fingerprint
 :null;
+
 const remote=
 await readRemote();
+
 if(remote.invalid){
 if(!interactive){
 status(
 'offline',
 '数据文件异常'
 );
+
 lastSyncTime.textContent=
 '云端 JSON 损坏 · 请点击“同步”确认用当前数据修复';
+
 return false;
 }
+
 const repair=
 confirm(
 '检测到云端数据文件 JSON 已损坏。\n\n确定：用当前网页数据覆盖损坏文件并修复。\n取消：暂不处理。'
 );
+
 if(!repair){
 status(
 'offline',
 '同步已取消'
 );
+
 return false;
 }
+
 const sha=
 await writeRemote(
 localSnapshot,
 remote.sha
 );
+
 await record(
 localSnapshot,
 sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 if(showResult){
 show(
 '云端 JSON 已用当前数据修复',
 'success'
 );
 }
+
 return true;
 }
+
 if(!remote.exists){
 const sha=
 await writeRemote(
 localSnapshot,
 null
 );
+
 await record(
 localSnapshot,
 sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 if(showResult){
 show(
 '同步完成',
 'success'
 );
 }
+
 return true;
 }
+
 const remoteFp=
-fingerprint(
-remote.data
-);
-if(
-localFp===
-remoteFp
-){
+fingerprint(remote.data);
+
+if(localFp===remoteFp){
 await record(
 localSnapshot,
 remote.sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 if(showResult){
 show(
 '本地与云端已一致',
 'success'
 );
 }
+
 return true;
 }
+
 const localChanged=
 baseline===null||
 localFp!==baseline;
+
 const remoteChanged=
 baseline===null||
 remoteFp!==baseline;
+
 if(
 baseline!==null&&
 localChanged&&
@@ -3525,133 +3437,156 @@ await writeRemote(
 localSnapshot,
 remote.sha
 );
+
 await record(
 localSnapshot,
 sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 if(showResult){
 show(
 '同步完成',
 'success'
 );
 }
+
 return true;
 }
+
 if(
 baseline!==null&&
 !localChanged&&
 remoteChanged
 ){
-data=
-remote.data;
+data=remote.data;
 render();
+
 await record(
 data,
 remote.sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 if(showResult){
 show(
 '已采用云端最新数据',
 'success'
 );
 }
+
 return true;
 }
+
 if(!interactive){
 status(
 'offline',
 '存在同步冲突'
 );
+
 show(
 '本地和云端都发生了修改，请点击“同步”选择版本',
 'error'
 );
+
 return false;
 }
+
 const useLocal=
 confirm(
 '检测到本地和云端数据不同。\n\n确定：用当前网页数据覆盖云端。\n取消：继续选择是否采用云端数据。'
 );
+
 if(useLocal){
 const sha=
 await writeRemote(
 localSnapshot,
 remote.sha
 );
+
 await record(
 localSnapshot,
 sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 show(
 '已用当前网页数据覆盖云端',
 'success'
 );
+
 return true;
 }
+
 const useRemote=
 confirm(
 '是否采用云端数据覆盖当前网页？\n\n确定：采用云端最新数据。\n取消：暂不处理。'
 );
+
 if(useRemote){
-data=
-remote.data;
+data=remote.data;
 render();
+
 await record(
 data,
 remote.sha
 );
+
 status(
 'online',
 '编辑已登录'
 );
+
 show(
 '已采用云端数据',
 'success'
 );
+
 return true;
 }
+
 status(
 'offline',
 '同步已取消'
 );
+
 return false;
 }catch(error){
-console.error(
-error
-);
+console.error(error);
+
 status(
 'offline',
 '同步失败'
 );
+
 show(
 `同步失败：${formatError(error)}`,
 'error'
 );
+
 return false;
 }finally{
-syncing=
-false;
-syncBtn.disabled=
-!unlocked;
+syncing=false;
+syncBtn.disabled=!unlocked;
 }
 }
+
 function scheduleSync(){
 if(target()){
-void saveWorkingCopy(
-data
-).catch(
+void saveWorkingCopy(data)
+.catch(
 error=>
 console.error(
 '保存本机工作副本失败:',
@@ -3659,16 +3594,18 @@ error
 )
 );
 }
+
 if(!unlocked){
 return;
 }
-clearTimeout(
-autoTimer
-);
+
+clearTimeout(autoTimer);
+
 autoTimer=
 setTimeout(
 ()=>{
 autoTimer=null;
+
 sync(
 false,
 false
@@ -3677,16 +3614,21 @@ false
 AUTO_DELAY
 );
 }
+
 function markLocalChange(){
 render();
+
 status(
 'offline',
 '待同步'
 );
+
 lastSyncTime.textContent=
 '有未同步修改';
+
 scheduleSync();
 }
+
 function historyMeta(type){
 return type==='journal'
 ?{
@@ -3703,41 +3645,33 @@ key:'notes',
 label:'刊注'
 };
 }
+
 function getHistory(type){
 return data.histories[
 historyMeta(type).key
 ];
 }
-function setHistory(
-type,
-values
-){
+
+function setHistory(type,values){
 data.histories[
 historyMeta(type).key
 ]=
 type==='note'
-?preserveJournalNoteOptions(
-values
-)
+?preserveJournalNoteOptions(values)
 :type==='journal'
-?sortJournalOptions(
-values
-)
-:sortIssueOptions(
-values
-);
+?sortJournalOptions(values)
+:sortIssueOptions(values);
 }
-function rememberOption(
-type,
-value
-){
-const v=
-clean(value);
+
+function rememberOption(type,value){
+const v=clean(value);
+
 if(!v){
 return;
 }
-const list=
-getHistory(type);
+
+const list=getHistory(type);
+
 if(
 !list.some(
 x=>key(x)===key(v)
@@ -3752,127 +3686,126 @@ v
 );
 }
 }
+
 function findProfile(journal){
-const k=
-key(journal);
+const k=key(journal);
+
 return data.profiles.find(
 x=>
-key(x.journal)===
-k
+key(x.journal)===k
 )||null;
 }
+
 function upsertProfile(
 journal,
 issue,
 journalNote
 ){
-const j=
-clean(journal);
+const j=clean(journal);
+
 if(!j){
 return;
 }
+
 const existing=
 findProfile(j);
+
 if(existing){
-existing.journal=
-j;
-existing.issue=
-clean(issue);
+existing.journal=j;
+existing.issue=clean(issue);
 existing.journalNote=
-clean(
-journalNote
-);
+clean(journalNote);
 }else{
 data.profiles.push(
 {
 journal:j,
-issue:
-clean(issue),
+issue:clean(issue),
 journalNote:
-clean(
-journalNote
-)
+clean(journalNote)
 }
 );
 }
-const map=
-new Map();
-for(
-const p
-of data.profiles
-){
-if(
-p.journal
-){
+
+const map=new Map();
+
+for(const p of data.profiles){
+if(p.journal){
 map.set(
 key(p.journal),
 normalizeProfile(p)
 );
 }
 }
+
 data.profiles=[
 ...map.values()
 ];
 }
+
 function applyJournalProfile(
 journal,
 context
 ){
 const profile=
-findProfile(
-journal
-);
+findProfile(journal);
+
 if(!profile){
 return false;
 }
+
 const issue=
 context==='edit'
 ?editIssue
 :issueInput;
+
 const note=
 context==='edit'
 ?editJournalNote
 :journalNoteInput;
+
 issue.value=
 profile.issue||'';
+
 note.value=
 profile.journalNote||'';
+
 renderCombo(
 'issue',
 context
 );
+
 renderCombo(
 'note',
 context
 );
+
 return true;
 }
+
 function deleteHistoryOption(
 type,
 value
 ){
-const meta=
-historyMeta(type);
+const meta=historyMeta(type);
+
 const confirmText=
 type==='note'
 ?`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n所有使用该刊注的论文条目会同步清空刊注。`
 :`确定从${meta.label}下拉菜单删除“${value}”吗？\n\n已经保存的论文条目不会改变。`;
-if(
-!confirm(
-confirmText
-)
-){
+
+if(!confirm(confirmText)){
 return;
 }
+
 setHistory(
 type,
 getHistory(type)
 .filter(
 v=>
-key(v)!==
-key(value)
+key(v)!==key(value)
 )
 );
+
 if(type==='journal'){
 data.profiles=
 data.profiles.filter(
@@ -3880,13 +3813,8 @@ p=>
 key(p.journal)!==
 key(value)
 );
-}else if(
-type==='issue'
-){
-for(
-const p
-of data.profiles
-){
+}else if(type==='issue'){
+for(const p of data.profiles){
 if(
 key(p.issue)===
 key(value)
@@ -3895,10 +3823,7 @@ p.issue='';
 }
 }
 }else{
-for(
-const item
-of data.entries
-){
+for(const item of data.entries){
 if(
 key(item.journalNote)===
 key(value)
@@ -3906,10 +3831,8 @@ key(value)
 item.journalNote='';
 }
 }
-for(
-const p
-of data.profiles
-){
+
+for(const p of data.profiles){
 if(
 key(p.journalNote)===
 key(value)
@@ -3917,12 +3840,14 @@ key(value)
 p.journalNote='';
 }
 }
+
 if(
 key(journalNoteInput.value)===
 key(value)
 ){
 journalNoteInput.value='';
 }
+
 if(
 key(editJournalNote.value)===
 key(value)
@@ -3930,13 +3855,16 @@ key(value)
 editJournalNote.value='';
 }
 }
+
 scheduleSync();
 render();
+
 show(
 `已删除${meta.label}选项`,
 'success'
 );
 }
+
 const comboRegistry={
 add:{
 journal:{
@@ -3961,6 +3889,7 @@ options:journalNoteOptions,
 combo:journalNoteCombo
 }
 },
+
 edit:{
 journal:{
 input:editJournal,
@@ -3985,6 +3914,7 @@ combo:editJournalNoteCombo
 }
 }
 };
+
 function allPanels(){
 return Object.values(
 comboRegistry
@@ -3997,6 +3927,7 @@ x=>x.panel
 )
 );
 }
+
 function closePanels(){
 allPanels()
 .forEach(
@@ -4006,18 +3937,18 @@ p.classList.add(
 )
 );
 }
-function renderCombo(
-type,
-context
-){
+
+function renderCombo(type,context){
 const cfg=
 comboRegistry[
 context
 ][type];
+
 const query=
 key(
 cfg.input.value
 );
+
 const values=
 getHistory(type)
 .filter(
@@ -4025,15 +3956,18 @@ v=>
 !query||
 key(v).includes(query)
 );
+
 const canDragNote=
 type==='note'&&
 !query;
+
 const noteDraft=
 type==='note'
 ?clean(
 cfg.input.value
 )
 :'';
+
 const canAddNote=
 Boolean(noteDraft)&&
 type==='note'&&
@@ -4043,6 +3977,7 @@ value=>
 key(value)===
 key(noteDraft)
 );
+
 cfg.options.innerHTML=
 (
 values.length||
@@ -4060,6 +3995,7 @@ draggable="${canDragNote?'true':'false'}"
 title="${canDragNote?'拖拽调整刊注顺序':'清空输入内容后可拖拽排序'}"
 `
 :`class="combo-pill"`;
+
 return`
 <span ${noteAttrs}>
 <button
@@ -4095,6 +4031,7 @@ data-add-note="${attr(noteDraft)}"
 </div>
 `;
 }
+
 function renderAllCombos(){
 for(
 const context
@@ -4118,16 +4055,16 @@ context
 }
 }
 }
-function setupCombo(
-type,
-context
-){
+
+function setupCombo(type,context){
 const cfg=
 comboRegistry[
 context
 ][type];
+
 let keyboardIndex=-1;
 let draggedNoteValue='';
+
 function clearNoteDragClasses(){
 cfg.options
 .querySelectorAll(
@@ -4142,6 +4079,7 @@ row.classList.remove(
 )
 );
 }
+
 function commitNoteOrder(
 sourceValue,
 targetValue,
@@ -4156,48 +4094,60 @@ key(targetValue)
 ){
 return false;
 }
+
 const current=
 [...getHistory('note')];
+
 const sourceIndex=
 current.findIndex(
 value=>
 key(value)===
 key(sourceValue)
 );
+
 if(sourceIndex<0){
 return false;
 }
+
 const [moved]=
 current.splice(
 sourceIndex,
 1
 );
+
 const targetIndex=
 current.findIndex(
 value=>
 key(value)===
 key(targetValue)
 );
+
 if(targetIndex<0){
 return false;
 }
+
 current.splice(
 targetIndex+
 (placeAfter?1:0),
 0,
 moved
 );
+
 setHistory(
 'note',
 current
 );
+
 markLocalChange();
+
 show(
 '刊注顺序已更新',
 'success'
 );
+
 return true;
 }
+
 function selectableOptions(){
 return[
 ...cfg.options
@@ -4206,29 +4156,33 @@ return[
 )
 ];
 }
+
 function clearKeyboardActive(){
 keyboardIndex=-1;
+
 selectableOptions()
 .forEach(
 option=>{
 option.classList.remove(
 'keyboard-active'
 );
+
 option.removeAttribute(
 'aria-selected'
 );
 }
 );
 }
-function setKeyboardActive(
-nextIndex
-){
+
+function setKeyboardActive(nextIndex){
 const options=
 selectableOptions();
+
 if(!options.length){
 keyboardIndex=-1;
 return false;
 }
+
 keyboardIndex=
 (
 (
@@ -4238,18 +4192,20 @@ options.length
 options.length
 )%
 options.length;
+
 options.forEach(
 (
 option,
 index
 )=>{
 const active=
-index===
-keyboardIndex;
+index===keyboardIndex;
+
 option.classList.toggle(
 'keyboard-active',
 active
 );
+
 if(active){
 option.setAttribute(
 'aria-selected',
@@ -4262,6 +4218,7 @@ option.removeAttribute(
 }
 }
 );
+
 options[
 keyboardIndex
 ].scrollIntoView(
@@ -4269,60 +4226,66 @@ keyboardIndex
 block:'nearest'
 }
 );
+
 return true;
 }
-function selectValue(
-value
-){
-cfg.input.value=
-value;
-if(
-type==='journal'
-){
+
+function selectValue(value){
+cfg.input.value=value;
+
+if(type==='journal'){
 applyJournalProfile(
 cfg.input.value,
 context
 );
 }
+
 clearKeyboardActive();
+
 cfg.panel.classList.add(
 'hidden'
 );
+
 cfg.input.focus();
 }
+
 function openForKeyboard(){
 if(
 cfg.panel.classList
-.contains(
-'hidden'
-)
+.contains('hidden')
 ){
 closePanels();
+
 cfg.panel.classList.remove(
 'hidden'
 );
+
 renderCombo(
 type,
 context
 );
+
 keyboardIndex=-1;
 }
 }
+
 cfg.toggle.addEventListener(
 'click',
 event=>{
 event.stopPropagation();
+
 const open=
 cfg.panel.classList
-.contains(
-'hidden'
-);
+.contains('hidden');
+
 closePanels();
 keyboardIndex=-1;
+
 if(open){
 cfg.panel.classList.remove(
 'hidden'
 );
+
 renderCombo(
 type,
 context
@@ -4330,21 +4293,27 @@ context
 }
 }
 );
+
 cfg.input.addEventListener(
 'click',
 event=>{
 event.stopPropagation();
+
 closePanels();
+
 cfg.panel.classList.remove(
 'hidden'
 );
+
 renderCombo(
 type,
 context
 );
+
 keyboardIndex=-1;
 }
 );
+
 cfg.input.addEventListener(
 'input',
 ()=>{
@@ -4352,10 +4321,10 @@ renderCombo(
 type,
 context
 );
+
 keyboardIndex=-1;
-if(
-type==='journal'
-){
+
+if(type==='journal'){
 applyJournalProfile(
 cfg.input.value,
 context
@@ -4363,6 +4332,7 @@ context
 }
 }
 );
+
 cfg.input.addEventListener(
 'keydown',
 event=>{
@@ -4372,15 +4342,17 @@ event.key==='ArrowUp'
 ){
 event.preventDefault();
 event.stopPropagation();
+
 openForKeyboard();
+
 const options=
 selectableOptions();
+
 if(!options.length){
 return;
 }
-if(
-keyboardIndex<0
-){
+
+if(keyboardIndex<0){
 setKeyboardActive(
 event.key==='ArrowDown'
 ?0
@@ -4396,51 +4368,57 @@ event.key==='ArrowDown'
 )
 );
 }
+
 return;
 }
+
 if(
 event.key==='Enter'&&
 !cfg.panel.classList
-.contains(
-'hidden'
-)&&
+.contains('hidden')&&
 keyboardIndex>=0
 ){
 const option=
 selectableOptions()[
 keyboardIndex
 ];
+
 if(option){
 event.preventDefault();
 event.stopPropagation();
+
 selectValue(
 option.dataset.select
 );
 }
+
 return;
 }
+
 if(
 event.key==='Escape'&&
 !cfg.panel.classList
-.contains(
-'hidden'
-)
+.contains('hidden')
 ){
 event.preventDefault();
 event.stopPropagation();
+
 clearKeyboardActive();
+
 cfg.panel.classList.add(
 'hidden'
 );
 }
 }
 );
+
 cfg.options.addEventListener(
 'dragstart',
 event=>{
 if(type!=='note'){
 return;
 }
+
 if(
 event.target.closest(
 '[data-delete]'
@@ -4449,23 +4427,30 @@ event.target.closest(
 event.preventDefault();
 return;
 }
+
 const row=
 event.target.closest(
 '.note-draggable[draggable="true"]'
 );
+
 if(!row){
 event.preventDefault();
 return;
 }
+
 draggedNoteValue=
 row.dataset.noteValue||'';
+
 clearNoteDragClasses();
+
 row.classList.add(
 'dragging'
 );
+
 if(event.dataTransfer){
 event.dataTransfer.effectAllowed=
 'move';
+
 event.dataTransfer.setData(
 'text/plain',
 draggedNoteValue
@@ -4473,6 +4458,7 @@ draggedNoteValue
 }
 }
 );
+
 cfg.options.addEventListener(
 'dragover',
 event=>{
@@ -4482,10 +4468,12 @@ type!=='note'||
 ){
 return;
 }
+
 const row=
 event.target.closest(
 '.note-draggable'
 );
+
 if(
 !row||
 key(row.dataset.noteValue)===
@@ -4493,17 +4481,24 @@ key(draggedNoteValue)
 ){
 return;
 }
+
 event.preventDefault();
+
 if(event.dataTransfer){
-event.dataTransfer.dropEffect='move';
+event.dataTransfer.dropEffect=
+'move';
 }
+
 clearNoteDragClasses();
+
 const rect=
 row.getBoundingClientRect();
+
 const after=
 event.clientY>
 rect.top+
 rect.height/2;
+
 row.classList.add(
 after
 ?'drag-over-after'
@@ -4511,6 +4506,7 @@ after
 );
 }
 );
+
 cfg.options.addEventListener(
 'drop',
 event=>{
@@ -4520,26 +4516,36 @@ type!=='note'||
 ){
 return;
 }
+
 const row=
 event.target.closest(
 '.note-draggable'
 );
+
 if(!row){
 return;
 }
+
 event.preventDefault();
+
 const rect=
 row.getBoundingClientRect();
+
 const after=
 event.clientY>
 rect.top+
 rect.height/2;
+
 const sourceValue=
 draggedNoteValue;
+
 const targetValue=
 row.dataset.noteValue||'';
+
 draggedNoteValue='';
+
 clearNoteDragClasses();
+
 commitNoteOrder(
 sourceValue,
 targetValue,
@@ -4547,6 +4553,7 @@ after
 );
 }
 );
+
 cfg.options.addEventListener(
 'dragend',
 ()=>{
@@ -4554,14 +4561,17 @@ draggedNoteValue='';
 clearNoteDragClasses();
 }
 );
+
 cfg.options.addEventListener(
 'click',
 event=>{
 event.stopPropagation();
+
 const addNote=
 event.target.closest(
 '[data-add-note]'
 );
+
 if(
 addNote&&
 type==='note'
@@ -4570,53 +4580,67 @@ const value=
 clean(
 addNote.dataset.addNote
 );
+
 rememberOption(
 'note',
 value
 );
-cfg.input.value=
-value;
+
+cfg.input.value=value;
+
 clearKeyboardActive();
+
 renderCombo(
 'note',
 context
 );
+
 markLocalChange();
+
 show(
 '已添加刊注选项',
 'success'
 );
+
 return;
 }
+
 const del=
 event.target.closest(
 '[data-delete]'
 );
+
 if(del){
 clearKeyboardActive();
+
 return deleteHistoryOption(
 type,
 del.dataset.delete
 );
 }
+
 const select=
 event.target.closest(
 '[data-select]'
 );
+
 if(!select){
 return;
 }
+
 selectValue(
 select.dataset.select
 );
 }
 );
+
 cfg.combo.addEventListener(
 'click',
 event=>
 event.stopPropagation()
 );
 }
+
 for(
 const context
 of[
@@ -4638,34 +4662,47 @@ context
 );
 }
 }
+
 document.addEventListener(
 'click',
 closePanels
 );
+
 function render(){
+/*
+只做数据结构规范化、排序与界面显示。
+normalizeData() 不生成、不改号。
+*/
 data=
-normalizeData(
-data
-);
+normalizeData(data);
+
 const codedCount=
 data.entries
 .filter(
 item=>
 Boolean(
-item.code
+clean(item.code)
 )
 )
 .length;
+
 countDisplay.textContent=
 `${codedCount}/${data.entries.length}`;
-if(
-!data.entries.length
-){
+
+/* 只检测并报警；绝不自动改号。 */
+warnDuplicateCodes(
+data.entries
+);
+
+if(!data.entries.length){
 papersList.innerHTML=
 '<div class="empty-state"></div>';
+
 renderAllCombos();
+
 return;
 }
+
 papersList.innerHTML=
 data.entries
 .map(
@@ -4700,9 +4737,11 @@ ${esc(item.journalNote)}
 `
 :''
 ].filter(Boolean);
+
 const editLabel=
-item.code||
+clean(item.code)||
 '编辑';
+
 const editButton=
 unlocked
 ?`
@@ -4713,6 +4752,7 @@ type="button"
 >${esc(editLabel)}</button>
 `
 :'';
+
 if(
 editButton&&
 rows.length
@@ -4727,6 +4767,7 @@ rows.length-1
 `${editButton}</div>`
 );
 }
+
 const actions=
 editButton&&
 !rows.length
@@ -4736,6 +4777,7 @@ ${editButton}
 </div>
 `
 :'';
+
 return`
 <article class="paper-item">
 <h3 class="paper-title">
@@ -4750,12 +4792,13 @@ ${actions}
 }
 )
 .join('');
-publicLoaded=
-true;
-exportBtn.disabled=
-false;
+
+publicLoaded=true;
+exportBtn.disabled=false;
+
 renderAllCombos();
 }
+
 function requireEditAccess(){
 if(
 unlocked&&
@@ -4763,49 +4806,52 @@ adminConfigured()
 ){
 return true;
 }
+
 show(
 '请先使用 Token 登录后再编辑',
 'error'
 );
+
 return false;
 }
+
+/*
+唯一允许首次产生编码的入口之一：
+新条目点击“提交”。
+*/
 function addEntry(){
-if(
-!requireEditAccess()
-){
+if(!requireEditAccess()){
 return;
 }
+
 const title=
-clean(
-titleInput.value
-);
+clean(titleInput.value);
+
 if(!title){
 show(
 '标题不能为空',
 'error'
 );
+
 titleInput.focus();
+
 return;
 }
+
 const year=
-clean(
-yearInput.value
-);
+clean(yearInput.value);
+
 const journal=
-clean(
-journalInput.value
-);
+clean(journalInput.value);
+
 const issue=
-clean(
-issueInput.value
-);
+clean(issueInput.value);
+
 const journalNote=
-clean(
-journalNoteInput.value
-);
+clean(journalNoteInput.value);
+
 const entry={
-id:
-uid(),
+id:uid(),
 title,
 year,
 journal,
@@ -4813,15 +4859,20 @@ issue,
 journalNote,
 code:''
 };
+
 const codeRule=
-automaticCodeRule(
-entry
-);
+automaticCodeRule(entry);
+
+/*
+在真正插入条目之前，
+使用当前完整 data.entries 检查所有已使用的合法编码。
+*/
 entry.code=
 nextAutomaticCode(
 entry,
 data.entries
 );
+
 if(
 codeRule&&
 !entry.code
@@ -4830,157 +4881,200 @@ show(
 '对应编码区间已无可用编码',
 'error'
 );
+
 return;
 }
+
 rememberOption(
 'journal',
 journal
 );
+
 rememberOption(
 'issue',
 issue
 );
+
 rememberOption(
 'note',
 journalNote
 );
+
 upsertProfile(
 journal,
 issue,
 journalNote
 );
+
 data.entries.push(
 entry
 );
+
 titleInput.value='';
 yearInput.value='';
 journalInput.value='';
 issueInput.value='';
 journalNoteInput.value='';
+
 markLocalChange();
+
 titleInput.focus();
+
 show(
 '已提交',
 'success'
 );
 }
+
 function editSnapshot(){
 return JSON.stringify(
 {
 title:
 editTitle.value,
+
 year:
 editYear.value,
+
 journal:
 editJournal.value,
+
 issue:
 editIssue.value,
+
 journalNote:
 editJournalNote.value
 }
 );
 }
+
 function closeEdit(){
 editingId='';
 editInitialSnapshot='';
+
 editModal.classList.add(
 'hidden'
 );
+
 closePanels();
 }
+
 function openEdit(id){
-if(
-!requireEditAccess()
-){
+if(!requireEditAccess()){
 return;
 }
+
 const item=
 data.entries.find(
 x=>x.id===id
 );
+
 if(!item){
 return;
 }
-editingId=
-id;
-editTitle.value=
-item.title;
-editYear.value=
-item.year;
-editJournal.value=
-item.journal;
-editIssue.value=
-item.issue;
-editJournalNote.value=
-item.journalNote;
+
+editingId=id;
+
+editTitle.value=item.title;
+editYear.value=item.year;
+editJournal.value=item.journal;
+editIssue.value=item.issue;
+editJournalNote.value=item.journalNote;
+
 editInitialSnapshot=
 editSnapshot();
+
 editModal.classList.remove(
 'hidden'
 );
+
 renderAllCombos();
+
 setTimeout(
 ()=>editTitle.focus(),
 30
 );
 }
+
+/*
+唯一允许首次产生编码的另一个入口：
+已有条目点击“保存”。
+
+已有非空编码：
+无条件、原样保留，绝不因标题、刊名、刊号变化而改号。
+
+旧条目无编码：
+才允许按保存后的字段首次分配。
+*/
 function saveEditEntry(){
-if(
-!requireEditAccess()
-){
+if(!requireEditAccess()){
 return;
 }
+
 const item=
 data.entries.find(
 x=>x.id===editingId
 );
+
 if(!item){
 return;
 }
+
 const next={
-id:
-item.id,
+id:item.id,
+
 title:
-clean(
-editTitle.value
-),
+clean(editTitle.value),
+
 year:
-clean(
-editYear.value
-),
+clean(editYear.value),
+
 journal:
-clean(
-editJournal.value
-),
+clean(editJournal.value),
+
 issue:
-clean(
-editIssue.value
-),
+clean(editIssue.value),
+
 journalNote:
-clean(
-editJournalNote.value
-),
+clean(editJournalNote.value),
+
 code:
-item.code||''
+item.code??''
 };
+
 if(!next.title){
 show(
 '标题不能为空',
 'error'
 );
+
 editTitle.focus();
+
 return;
 }
+
+const existingCode=
+item.code??'';
+
+if(
+clean(existingCode)
+){
+/*
+已有编码永久锁定。
+这里不调用编码规则、不检查区间、不重新分配。
+*/
+next.code=
+existingCode;
+}else{
 const codeRule=
-automaticCodeRule(
-next
-);
+automaticCodeRule(next);
+
 next.code=
 nextAutomaticCode(
 next,
 data.entries,
 item.id
 );
+
 if(
 codeRule&&
 !next.code
@@ -4989,36 +5083,47 @@ show(
 '对应编码区间已无可用编码',
 'error'
 );
+
 return;
 }
+}
+
 rememberOption(
 'journal',
 next.journal
 );
+
 rememberOption(
 'issue',
 next.issue
 );
+
 rememberOption(
 'note',
 next.journalNote
 );
+
 upsertProfile(
 next.journal,
 next.issue,
 next.journalNote
 );
+
 Object.assign(
 item,
 next
 );
+
 closeEdit();
+
 markLocalChange();
+
 show(
 '已保存',
 'success'
 );
 }
+
 function deleteEntry(){
 if(
 !requireEditAccess()||
@@ -5026,13 +5131,16 @@ if(
 ){
 return;
 }
+
 const item=
 data.entries.find(
 x=>x.id===editingId
 );
+
 if(!item){
 return;
 }
+
 if(
 !confirm(
 `确定删除论文“${item.title}”吗？`
@@ -5040,24 +5148,28 @@ if(
 ){
 return;
 }
+
 data.entries=
 data.entries.filter(
 x=>x.id!==editingId
 );
+
 data.entries.sort(
 comparePaperEntry
 );
+
 closeEdit();
+
 markLocalChange();
+
 show(
 '已删除',
 'success'
 );
 }
+
 function safeBackupJson(value){
-return JSON.stringify(
-value
-)
+return JSON.stringify(value)
 .replace(
 /</g,
 '\\u003c'
@@ -5071,36 +5183,36 @@ value
 '\\u2029'
 );
 }
-function buildHtmlBackup(
-unixTime
-){
+
+function buildHtmlBackup(unixTime){
 const snapshot={
 schemaVersion:2,
 ...normalizeData(data)
 };
+
 const envelope={
-format:
-BACKUP_FORMAT,
-version:
-BACKUP_VERSION,
+format:BACKUP_FORMAT,
+version:BACKUP_VERSION,
+
 exportedAt:
 new Date(
 unixTime*1000
 ).toISOString(),
+
 unixTime,
-data:
-snapshot
+data:snapshot
 };
+
 const clone=
 document.documentElement
-.cloneNode(
-true
-);
+.cloneNode(true);
+
 clone
 .querySelector(
 '#papersBackupData'
 )
 ?.remove();
+
 for(
 const id
 of[
@@ -5114,6 +5226,7 @@ const input=
 clone.querySelector(
 `#${id}`
 );
+
 if(input){
 input.value='';
 input.removeAttribute(
@@ -5121,30 +5234,33 @@ input.removeAttribute(
 );
 }
 }
+
 const backupScript=
 document.createElement(
 'script'
 );
+
 backupScript.id=
 'papersBackupData';
+
 backupScript.type=
 'application/json';
+
 backupScript.textContent=
-safeBackupJson(
-envelope
-);
+safeBackupJson(envelope);
+
 clone
-.querySelector(
-'head'
-)
+.querySelector('head')
 ?.appendChild(
 backupScript
 );
+
 return(
 '<!DOCTYPE html>\n'+
 clone.outerHTML
 );
 }
+
 function downloadHtmlBackup(){
 if(
 !publicLoaded&&
@@ -5152,14 +5268,15 @@ if(
 ){
 return;
 }
+
 const unixTime=
 Math.floor(
 Date.now()/1000
 );
+
 const html=
-buildHtmlBackup(
-unixTime
-);
+buildHtmlBackup(unixTime);
+
 const blob=
 new Blob(
 [html],
@@ -5168,41 +5285,36 @@ type:
 'text/html;charset=utf-8'
 }
 );
+
 const url=
-URL.createObjectURL(
-blob
-);
+URL.createObjectURL(blob);
+
 const a=
-document.createElement(
-'a'
-);
-a.href=
-url;
+document.createElement('a');
+
+a.href=url;
 a.download=
 `papers${unixTime}.html`;
+
 a.click();
-URL.revokeObjectURL(
-url
-);
+
+URL.revokeObjectURL(url);
 }
+
 function importDataFromText(
 text,
 file
 ){
 const raw=
-String(
-text||''
-);
+String(text||'');
+
 const looksHtml=
 /\.html?$/i.test(
 file?.name||''
 )||
-/^\s*<!doctype\s+html\b/i.test(
-raw
-)||
-/^\s*<html\b/i.test(
-raw
-);
+/^\s*<!doctype\s+html\b/i.test(raw)||
+/^\s*<html\b/i.test(raw);
+
 if(looksHtml){
 const doc=
 new DOMParser()
@@ -5210,16 +5322,20 @@ new DOMParser()
 raw,
 'text/html'
 );
+
 const node=
 doc.getElementById(
 'papersBackupData'
 );
+
 if(!node){
 throw new Error(
 '该 HTML 中没有 Papers 备份数据'
 );
 }
+
 let parsed;
+
 try{
 parsed=
 JSON.parse(
@@ -5230,11 +5346,20 @@ throw new Error(
 'HTML 内嵌备份数据损坏'
 );
 }
+
+/*
+导入只读取备份中已有编码。
+normalizeData 不生成、不改号。
+*/
 return parseHtmlBackupPayload(
 parsed
 );
 }
+
 try{
+/*
+JSON 导入同样只保留已有编码。
+*/
 return normalizeData(
 JSON.parse(raw)
 );
@@ -5244,6 +5369,7 @@ throw new Error(
 );
 }
 }
+
 function importFile(file){
 if(
 !requireEditAccess()||
@@ -5251,30 +5377,32 @@ if(
 ){
 return;
 }
+
 const htmlByName=
 /\.html?$/i.test(
 file.name||''
 )||
-file.type===
-'text/html';
+file.type==='text/html';
+
 const maxBytes=
 htmlByName
 ?MAX_HTML_BACKUP_BYTES
 :MAX_BYTES;
-if(
-file.size>
-maxBytes
-){
+
+if(file.size>maxBytes){
 show(
 htmlByName
 ?'HTML 备份超过 20 MB'
 :'文件超过 900 KB',
 'error'
 );
+
 return;
 }
+
 const reader=
 new FileReader();
+
 reader.onload=
 e=>{
 try{
@@ -5285,6 +5413,7 @@ e.target.result||''
 ),
 file
 );
+
 if(
 !confirm(
 `将导入 ${next.entries.length} 条 Papers，并替换当前数据。继续吗？`
@@ -5292,80 +5421,85 @@ if(
 ){
 return;
 }
-data=
-next;
+
+data=next;
+
 markLocalChange();
+
 show(
 '导入完成',
 'success'
 );
 }catch(error){
-console.error(
-error
-);
+console.error(error);
+
 show(
 `导入失败：${error.message||'文件格式不正确'}`,
 'error'
 );
 }
 };
+
 reader.readAsText(
 file,
 'utf-8'
 );
 }
+
 function openConfig(){
-cfgOwner.value=
-config.owner;
-cfgRepo.value=
-config.repo;
+cfgOwner.value=config.owner;
+cfgRepo.value=config.repo;
+
 cfgFile.value=
 config.file||
 'papers_data.json';
-cfgToken.value=
-config.token;
+
+cfgToken.value=config.token;
+
 configModal.classList.remove(
 'hidden'
 );
 }
+
 function closeConfig(){
 configModal.classList.add(
 'hidden'
 );
 }
+
 configForm.addEventListener(
 'submit',
 async event=>{
 event.preventDefault();
+
 config.owner=
-clean(
-cfgOwner.value
-);
+clean(cfgOwner.value);
+
 config.repo=
-clean(
-cfgRepo.value
-);
+clean(cfgRepo.value);
+
 config.file=
-clean(
-cfgFile.value
-)||
+clean(cfgFile.value)||
 'papers_data.json';
+
 config.token=
-clean(
-cfgToken.value
-);
+clean(cfgToken.value);
+
 await saveConfig();
+
 closeConfig();
-await login(
-true
-);
+
+await login(true);
 }
 );
+
 let paperEditPointer=null;
 const EDIT_CLICK_MOVE_LIMIT=6;
+
 function hasActiveTextSelection(){
 const selection=
 window.getSelection?.();
+
 return Boolean(
 selection&&
 selection.rangeCount>0&&
@@ -5373,6 +5507,7 @@ selection.rangeCount>0&&
 String(selection).length
 );
 }
+
 papersList.addEventListener(
 'pointerdown',
 event=>{
@@ -5380,24 +5515,22 @@ const btn=
 event.target.closest(
 '.edit-btn[data-id]'
 );
+
 if(!btn){
-paperEditPointer=
-null;
+paperEditPointer=null;
 return;
 }
+
 paperEditPointer={
-pointerId:
-event.pointerId,
-button:
-btn,
-x:
-event.clientX,
-y:
-event.clientY,
+pointerId:event.pointerId,
+button:btn,
+x:event.clientX,
+y:event.clientY,
 moved:false
 };
 }
 );
+
 papersList.addEventListener(
 'pointermove',
 event=>{
@@ -5408,6 +5541,7 @@ paperEditPointer.pointerId
 ){
 return;
 }
+
 if(
 Math.abs(
 event.clientX-
@@ -5420,11 +5554,11 @@ paperEditPointer.y
 )>
 EDIT_CLICK_MOVE_LIMIT
 ){
-paperEditPointer.moved=
-true;
+paperEditPointer.moved=true;
 }
 }
 );
+
 papersList.addEventListener(
 'pointerup',
 event=>{
@@ -5435,34 +5569,39 @@ paperEditPointer.pointerId
 ){
 return;
 }
+
 const state=
 paperEditPointer;
-paperEditPointer=
-null;
+
+paperEditPointer=null;
+
 const releasedBtn=
 event.target.closest(
 '.edit-btn[data-id]'
 );
+
 const genuineClick=
 !state.moved&&
-releasedBtn===
-state.button&&
+releasedBtn===state.button&&
 !hasActiveTextSelection();
+
 if(genuineClick){
 event.preventDefault();
+
 openEdit(
 state.button.dataset.id
 );
 }
 }
 );
+
 papersList.addEventListener(
 'pointercancel',
 ()=>{
-paperEditPointer=
-null;
+paperEditPointer=null;
 }
 );
+
 papersList.addEventListener(
 'click',
 event=>{
@@ -5470,12 +5609,14 @@ const btn=
 event.target.closest(
 '.edit-btn[data-id]'
 );
+
 if(btn){
 event.preventDefault();
 event.stopPropagation();
 }
 }
 );
+
 papersList.addEventListener(
 'keydown',
 event=>{
@@ -5483,17 +5624,18 @@ const btn=
 event.target.closest(
 '.edit-btn[data-id]'
 );
+
 if(!btn){
 return;
 }
+
 if(
 event.key==='Enter'||
 event.key===' '
 ){
 event.preventDefault();
-if(
-!hasActiveTextSelection()
-){
+
+if(!hasActiveTextSelection()){
 openEdit(
 btn.dataset.id
 );
@@ -5501,28 +5643,34 @@ btn.dataset.id
 }
 }
 );
+
 addBtn.addEventListener(
 'click',
 addEntry
 );
+
 editDelete.addEventListener(
 'click',
 deleteEntry
 );
+
 editCancel.addEventListener(
 'click',
 closeEdit
 );
+
 editSave.addEventListener(
 'click',
 saveEditEntry
 );
+
 clearEditYear.addEventListener(
 'click',
 ()=>{
 editYear.value='';
 }
 );
+
 editModal.addEventListener(
 'pointerdown',
 event=>{
@@ -5532,13 +5680,16 @@ event.target===editModal
 :'0';
 }
 );
+
 editModal.addEventListener(
 'pointerup',
 event=>{
 const genuine=
 editModal.dataset.outside==='1'&&
 event.target===editModal;
+
 editModal.dataset.outside='0';
+
 if(
 genuine&&
 editingId&&
@@ -5549,6 +5700,7 @@ closeEdit();
 }
 }
 );
+
 syncBtn.addEventListener(
 'click',
 ()=>sync(
@@ -5556,52 +5708,55 @@ true,
 true
 )
 );
+
 configBtn.addEventListener(
 'click',
 openConfig
 );
+
 visitorLoginBtn.addEventListener(
 'click',
 openConfig
 );
+
 configCancel.addEventListener(
 'click',
 closeConfig
 );
+
 exportBtn.addEventListener(
 'click',
 downloadHtmlBackup
 );
+
 importBtn.addEventListener(
 'click',
 ()=>fileInput.click()
 );
+
 fileInput.addEventListener(
 'change',
 ()=>{
 const file=
 fileInput.files?.[0];
+
 if(file){
-importFile(
-file
-);
+importFile(file);
 }
+
 fileInput.value='';
 }
 );
+
 document.addEventListener(
 'keydown',
 event=>{
-if(
-event.key===
-'Escape'
-){
+if(event.key==='Escape'){
 closePanels();
+
 if(
 !editModal.classList
-.contains(
-'hidden'
-)&&
+.contains('hidden')&&
 editSnapshot()===
 editInitialSnapshot
 ){
@@ -5612,34 +5767,34 @@ closeConfig();
 }
 }
 );
+
 backToTopBtn.addEventListener(
 'click',
 ()=>{
-const start=
-scrollY;
-const t=
-performance.now();
+const start=scrollY;
+const t=performance.now();
+
 function go(now){
 const p=
 Math.min(
 (now-t)/10,
 1
 );
+
 scrollTo(
 0,
 start*(1-p)
 );
+
 if(p<1){
-requestAnimationFrame(
-go
-);
+requestAnimationFrame(go);
 }
 }
-requestAnimationFrame(
-go
-);
+
+requestAnimationFrame(go);
 }
 );
+
 addEventListener(
 'scroll',
 ()=>{
@@ -5654,35 +5809,33 @@ scrollY>260
 passive:true
 }
 );
+
 (async()=>{
 await requestPersistentStorage();
 await loadConfig();
 await loadMeta();
-setUnlocked(
-false
-);
+
+setUnlocked(false);
+
 await loadPublicView();
-if(
-adminConfigured()
-){
-await login(
-false
-);
+
+if(adminConfigured()){
+await login(false);
 }
+
 render();
 })();
+
 function persistCurrentWorkingCopyBestEffort(){
 if(
 unlocked&&
 target()
 ){
-void saveWorkingCopy(
-data
-).catch(
-()=>{}
-);
+void saveWorkingCopy(data)
+.catch(()=>{});
 }
 }
+
 document.addEventListener(
 'visibilitychange',
 ()=>{
@@ -5694,10 +5847,12 @@ persistCurrentWorkingCopyBestEffort();
 }
 }
 );
+
 window.addEventListener(
 'pagehide',
 persistCurrentWorkingCopyBestEffort
 );
+
 })();
 </script>
 </body>
