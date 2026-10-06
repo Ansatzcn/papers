@@ -250,6 +250,24 @@ font-weight:700;
 outline:2px solid #D98A9B;
 outline-offset:-2px
 }
+.combo-pill-edit{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+flex:0 0 34px;
+width:34px;
+min-width:34px;
+padding:0;
+border:0;
+border-left:1px solid #e2e8f0;
+background:transparent;
+color:#166534;
+font-size:1.05rem;
+font-weight:700;
+line-height:1;
+white-space:nowrap
+}
+.combo-pill-edit:hover{background:#dcfce7}
 .combo-pill-delete{
 display:inline-flex;
 align-items:center;
@@ -269,6 +287,7 @@ white-space:nowrap
 }
 .combo-pill-delete:hover{background:#fee2e2}
 .combo-pill.note-draggable{cursor:grab}
+.combo-pill.note-draggable .combo-pill-edit,
 .combo-pill.note-draggable .combo-pill-delete{cursor:pointer}
 .combo-pill.note-draggable:active{cursor:grabbing}
 .combo-pill.note-draggable.dragging{opacity:.45}
@@ -605,6 +624,10 @@ Papers
 <input class="input" id="titleInput" type="text" autocomplete="off">
 </div>
 <div class="form-group">
+<label for="yearInput">刊期</label>
+<input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
+</div>
+<div class="form-group">
 <label for="journalInput">刊名</label>
 <div class="combo" id="journalCombo">
 <div class="combo-row">
@@ -615,10 +638,6 @@ Papers
 <div id="journalOptions"></div>
 </div>
 </div>
-</div>
-<div class="form-group">
-<label for="yearInput">刊期</label>
-<input class="input" id="yearInput" type="text" inputmode="numeric" autocomplete="off">
 </div>
 <div class="form-group">
 <label for="issueInput">刊号</label>
@@ -666,6 +685,13 @@ Papers
 <input class="input" id="editTitle" type="text" autocomplete="off">
 </div>
 <div class="form-group">
+<label for="editYear">刊期</label>
+<div class="clearable-input">
+<input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off">
+<button class="input-clear" id="clearEditYear" type="button">×</button>
+</div>
+</div>
+<div class="form-group">
 <label for="editJournal">刊名</label>
 <div class="combo" id="editJournalCombo">
 <div class="combo-row">
@@ -675,13 +701,6 @@ Papers
 <div class="combo-panel hidden" id="editJournalPanel">
 <div id="editJournalOptions"></div>
 </div>
-</div>
-</div>
-<div class="form-group">
-<label for="editYear">刊期</label>
-<div class="clearable-input">
-<input class="input" id="editYear" type="text" inputmode="numeric" autocomplete="off">
-<button class="input-clear" id="clearEditYear" type="button">×</button>
 </div>
 </div>
 <div class="form-group">
@@ -3782,6 +3801,169 @@ context
 return true;
 }
 
+function editHistoryOption(
+type,
+value
+){
+const meta=historyMeta(type);
+const oldValue=clean(value);
+
+const nextRaw=prompt(
+`修改${meta.label}选项：`,
+oldValue
+);
+
+if(nextRaw===null){
+return;
+}
+
+const nextValue=clean(nextRaw);
+
+if(!nextValue){
+show(
+`${meta.label}选项不能为空`,
+'error'
+);
+
+return;
+}
+
+if(key(nextValue)===key(oldValue)){
+return;
+}
+
+if(
+getHistory(type)
+.some(
+v=>
+key(v)===key(nextValue)
+)
+){
+show(
+`该${meta.label}选项已存在`,
+'error'
+);
+
+return;
+}
+
+setHistory(
+type,
+getHistory(type)
+.map(
+v=>
+key(v)===key(oldValue)
+?nextValue
+:v
+)
+);
+
+if(type==='journal'){
+for(const item of data.entries){
+if(
+key(item.journal)===
+key(oldValue)
+){
+item.journal=nextValue;
+}
+}
+
+for(const p of data.profiles){
+if(
+key(p.journal)===
+key(oldValue)
+){
+p.journal=nextValue;
+}
+}
+
+if(
+key(journalInput.value)===
+key(oldValue)
+){
+journalInput.value=nextValue;
+}
+
+if(
+key(editJournal.value)===
+key(oldValue)
+){
+editJournal.value=nextValue;
+}
+}else if(type==='issue'){
+for(const item of data.entries){
+if(
+key(item.issue)===
+key(oldValue)
+){
+item.issue=nextValue;
+}
+}
+
+for(const p of data.profiles){
+if(
+key(p.issue)===
+key(oldValue)
+){
+p.issue=nextValue;
+}
+}
+
+if(
+key(issueInput.value)===
+key(oldValue)
+){
+issueInput.value=nextValue;
+}
+
+if(
+key(editIssue.value)===
+key(oldValue)
+){
+editIssue.value=nextValue;
+}
+}else{
+for(const item of data.entries){
+if(
+key(item.journalNote)===
+key(oldValue)
+){
+item.journalNote=nextValue;
+}
+}
+
+for(const p of data.profiles){
+if(
+key(p.journalNote)===
+key(oldValue)
+){
+p.journalNote=nextValue;
+}
+}
+
+if(
+key(journalNoteInput.value)===
+key(oldValue)
+){
+journalNoteInput.value=nextValue;
+}
+
+if(
+key(editJournalNote.value)===
+key(oldValue)
+){
+editJournalNote.value=nextValue;
+}
+}
+
+markLocalChange();
+
+show(
+`已修改${meta.label}选项`,
+'success'
+);
+}
+
 function deleteHistoryOption(
 type,
 value
@@ -4003,6 +4185,13 @@ class="combo-pill-select"
 type="button"
 data-select="${attr(v)}"
 >${esc(v)}</button>
+<button
+class="combo-pill-edit"
+type="button"
+draggable="false"
+data-edit="${attr(v)}"
+aria-label="修改${historyMeta(type).label}选项 ${attr(v)}"
+>✓</button>
 <button
 class="combo-pill-delete"
 type="button"
@@ -4421,7 +4610,7 @@ return;
 
 if(
 event.target.closest(
-'[data-delete]'
+'[data-edit],[data-delete]'
 )
 ){
 event.preventDefault();
@@ -4605,6 +4794,20 @@ show(
 return;
 }
 
+const edit=
+event.target.closest(
+'[data-edit]'
+);
+
+if(edit){
+clearKeyboardActive();
+
+return editHistoryOption(
+type,
+edit.dataset.edit
+);
+}
+
 const del=
 event.target.closest(
 '[data-delete]'
@@ -4707,35 +4910,35 @@ papersList.innerHTML=
 data.entries
 .map(
 item=>{
+const journalDisplay=
+[
+clean(item.journal),
+clean(item.journalNote)
+]
+.filter(Boolean)
+.join('/');
+
 const rows=[
-item.journal
-?`
-<div class="meta-row">
-<span class="meta-label">刊名：</span>
-${esc(item.journal)}
-</div>
-`
-:'',
 `
 <div class="meta-row">
 <span class="meta-label">刊期：</span>
 ${esc(item.year)}
 </div>
 `,
+journalDisplay
+?`
+<div class="meta-row">
+<span class="meta-label">刊名：</span>
+${esc(journalDisplay)}
+</div>
+`
+:'',
 `
 <div class="meta-row">
 <span class="meta-label">刊号：</span>
 ${esc(item.issue)}
 </div>
-`,
-item.journalNote
-?`
-<div class="meta-row">
-<span class="meta-label">刊注：</span>
-${esc(item.journalNote)}
-</div>
 `
-:''
 ].filter(Boolean);
 
 const editLabel=
