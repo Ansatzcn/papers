@@ -504,7 +504,7 @@ box-shadow:0 12px 34px rgba(15,23,42,.25)
 .toast.info{background:#1E40AF}
 .back-to-top{
 position:fixed;
-right:16px;
+right:3px;
 top:70%;
 transform:translateY(-50%);
 z-index:900;
@@ -512,10 +512,11 @@ display:inline-flex;
 align-items:center;
 justify-content:center;
 width:30px;
-height:30px;
+height:26px;
 padding:0;
 border:0;
-border-radius:50%;
+border-radius:0;
+clip-path:polygon(50% 0,100% 100%,0 100%);
 background:#1E40AF;
 color:#fff;
 font-size:0;
@@ -588,7 +589,7 @@ border-radius:20px
 right:3px;
 top:70%;
 width:24px;
-height:24px;
+height:20.8px;
 font-size:.7rem
 }
 }
@@ -3715,6 +3716,27 @@ key(x.journal)===k
 )||null;
 }
 
+/* 刊名允许用任意一段文字匹配：唯一匹配才自动补全；多个匹配由用户选择。 */
+function recognizeJournal(value){
+const entered=clean(value);
+if(!entered){
+return '';
+}
+
+const query=key(entered);
+const journals=uniq([
+...getHistory('journal'),
+...data.profiles.map(x=>x.journal)
+]);
+const exact=journals.find(x=>key(x)===query);
+if(exact){
+return exact;
+}
+
+const matches=journals.filter(x=>key(x).includes(query));
+return matches.length===1?matches[0]:entered;
+}
+
 function upsertProfile(
 journal,
 issue,
@@ -3766,7 +3788,7 @@ journal,
 context
 ){
 const profile=
-findProfile(journal);
+findProfile(recognizeJournal(journal));
 
 if(!profile){
 return false;
@@ -4132,7 +4154,12 @@ cfg.input.value
 );
 
 const values=
-getHistory(type)
+(type==='journal'
+?uniq([
+...getHistory('journal'),
+...data.profiles.map(x=>x.journal)
+])
+:getHistory(type))
 .filter(
 v=>
 !query||
@@ -4514,6 +4541,8 @@ context
 keyboardIndex=-1;
 
 if(type==='journal'){
+closePanels();
+cfg.panel.classList.remove('hidden');
 applyJournalProfile(
 cfg.input.value,
 context
@@ -4521,6 +4550,16 @@ context
 }
 }
 );
+
+if(type==='journal'){
+cfg.input.addEventListener('blur',()=>{
+const recognized=recognizeJournal(cfg.input.value);
+if(recognized!==clean(cfg.input.value)){
+cfg.input.value=recognized;
+applyJournalProfile(recognized,context);
+}
+});
+}
 
 cfg.input.addEventListener(
 'keydown',
@@ -5045,7 +5084,7 @@ const year=
 clean(yearInput.value);
 
 const journal=
-clean(journalInput.value);
+recognizeJournal(journalInput.value);
 
 const issue=
 clean(issueInput.value);
@@ -5232,7 +5271,7 @@ year:
 clean(editYear.value),
 
 journal:
-clean(editJournal.value),
+recognizeJournal(editJournal.value),
 
 issue:
 clean(editIssue.value),
@@ -5970,6 +6009,16 @@ closeConfig();
 }
 }
 );
+
+/* 将三角按钮定位在总表右侧约 30px；窄屏自动贴近可视区域右缘。 */
+function positionBackToTop(){
+const rect=papersList.getBoundingClientRect();
+const buttonWidth=backToTopBtn.getBoundingClientRect().width||30;
+const right=window.innerWidth-rect.right-30-buttonWidth;
+backToTopBtn.style.right=`${Math.max(3,Math.round(right))}px`;
+}
+positionBackToTop();
+addEventListener('resize',positionBackToTop,{passive:true});
 
 backToTopBtn.addEventListener(
 'click',
