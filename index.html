@@ -504,7 +504,8 @@ box-shadow:0 12px 34px rgba(15,23,42,.25)
 .toast.info{background:#1E40AF}
 .back-to-top{
 position:fixed;
-right:3px;
+left:0;
+right:auto;
 top:70%;
 transform:translateY(-50%);
 z-index:900;
@@ -532,13 +533,17 @@ visibility:visible;
 pointer-events:auto
 }
 .back-to-top:hover{opacity:1}
+/* 保留主白框右侧的按钮空间，确保小屏幕也不压在白框上。 */
+@media(max-width:1236px){
+body{padding-right:76px}
+}
 @media(max-width:700px){
 html,body{
 width:100%;
 max-width:100%;
 overflow-x:hidden
 }
-body{padding:.8rem}
+body{padding:.8rem;padding-right:60px}
 .container{
 width:100%;
 max-width:100%;
@@ -586,7 +591,6 @@ border-radius:20px
 .combo-panel{max-height:230px}
 .combo-pill-select{max-width:calc(100vw - 120px)}
 .back-to-top{
-right:3px;
 top:70%;
 width:24px;
 height:20.8px;
@@ -6010,12 +6014,12 @@ closeConfig();
 }
 );
 
-/* 将三角按钮定位在总表右侧约 30px；窄屏自动贴近可视区域右缘。 */
+/* 以外围白色主容器的右边缘为基准，始终向右留出约 30px。 */
 function positionBackToTop(){
-const rect=papersList.getBoundingClientRect();
-const buttonWidth=backToTopBtn.getBoundingClientRect().width||30;
-const right=window.innerWidth-rect.right-30-buttonWidth;
-backToTopBtn.style.right=`${Math.max(3,Math.round(right))}px`;
+const container=document.querySelector('main.container');
+const rect=container.getBoundingClientRect();
+backToTopBtn.style.left=`${Math.round(rect.right+30)}px`;
+backToTopBtn.style.right='auto';
 }
 positionBackToTop();
 addEventListener('resize',positionBackToTop,{passive:true});
