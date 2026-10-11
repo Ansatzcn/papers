@@ -3720,25 +3720,31 @@ key(x.journal)===k
 )||null;
 }
 
-/* 刊名允许用任意一段文字匹配：唯一匹配才自动补全；多个匹配由用户选择。 */
-function recognizeJournal(value){
-const entered=clean(value);
-if(!entered){
-return '';
+/* 刊名的“部分文字识别”只用来显示候选项，不猜测用户最后要输入什么。
+ * 关联刊号／刊注仅在用户主动点击候选项或键盘确认候选项后触发。
+ * 记录本次关联填写的值，用户改写刊名时仅清除仍未被手动修改的旧关联值。
+ */
+const journalAutofill={add:null,edit:null};
+
+function clearJournalAutofill(context){
+const previous=journalAutofill[context];
+if(!previous){
+return;
 }
 
-const query=key(entered);
-const journals=uniq([
-...getHistory('journal'),
-...data.profiles.map(x=>x.journal)
-]);
-const exact=journals.find(x=>key(x)===query);
-if(exact){
-return exact;
+const issue=context==='edit'?editIssue:issueInput;
+const note=context==='edit'?editJournalNote:journalNoteInput;
+
+if(issue.value===previous.issue){
+issue.value='';
+}
+if(note.value===previous.note){
+note.value='';
 }
 
-const matches=journals.filter(x=>key(x).includes(query));
-return matches.length===1?matches[0]:entered;
+journalAutofill[context]=null;
+renderCombo('issue',context);
+renderCombo('note',context);
 }
 
 function upsertProfile(
@@ -3791,8 +3797,9 @@ function applyJournalProfile(
 journal,
 context
 ){
-const profile=
-findProfile(recognizeJournal(journal));
+/* 必须是用户明确选择的完整刊名，严禁部分匹配自动填入。 */
+clearJournalAutofill(context);
+const profile=findProfile(journal);
 
 if(!profile){
 return false;
@@ -3813,6 +3820,12 @@ profile.issue||'';
 
 note.value=
 profile.journalNote||'';
+
+journalAutofill[context]={
+journal:profile.journal,
+issue:issue.value,
+note:note.value
+};
 
 renderCombo(
 'issue',
@@ -4454,6 +4467,7 @@ function selectValue(value){
 cfg.input.value=value;
 
 if(type==='journal'){
+/* 点击候选或用方向键加回车，才是明确选择。 */
 applyJournalProfile(
 cfg.input.value,
 context
@@ -4545,25 +4559,18 @@ context
 keyboardIndex=-1;
 
 if(type==='journal'){
+/* 输入期间只更新候选列表：绝不改变刊名，也绝不自动带出关联资料。 */
+if(
+journalAutofill[context]&&
+key(cfg.input.value)!==key(journalAutofill[context].journal)
+){
+clearJournalAutofill(context);
+}
 closePanels();
 cfg.panel.classList.remove('hidden');
-applyJournalProfile(
-cfg.input.value,
-context
-);
 }
 }
 );
-
-if(type==='journal'){
-cfg.input.addEventListener('blur',()=>{
-const recognized=recognizeJournal(cfg.input.value);
-if(recognized!==clean(cfg.input.value)){
-cfg.input.value=recognized;
-applyJournalProfile(recognized,context);
-}
-});
-}
 
 cfg.input.addEventListener(
 'keydown',
@@ -5088,7 +5095,7 @@ const year=
 clean(yearInput.value);
 
 const journal=
-recognizeJournal(journalInput.value);
+clean(journalInput.value);
 
 const issue=
 clean(issueInput.value);
@@ -5161,6 +5168,7 @@ yearInput.value='';
 journalInput.value='';
 issueInput.value='';
 journalNoteInput.value='';
+journalAutofill.add=null;
 
 markLocalChange();
 
@@ -5196,6 +5204,7 @@ editJournalNote.value
 function closeEdit(){
 editingId='';
 editInitialSnapshot='';
+journalAutofill.edit=null;
 
 editModal.classList.add(
 'hidden'
@@ -5225,6 +5234,8 @@ editYear.value=item.year;
 editJournal.value=item.journal;
 editIssue.value=item.issue;
 editJournalNote.value=item.journalNote;
+/* 如果改写旧条目的刊名，避免沿用原刊名的关联资料。 */
+journalAutofill.edit={journal:item.journal,issue:item.issue,note:item.journalNote};
 
 editInitialSnapshot=
 editSnapshot();
@@ -5275,7 +5286,7 @@ year:
 clean(editYear.value),
 
 journal:
-recognizeJournal(editJournal.value),
+clean(editJournal.value),
 
 issue:
 clean(editIssue.value),
