@@ -1055,15 +1055,6 @@
       "code": "330080"
     },
     {
-      "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
-      "title": "Competition A Marxist View",
-      "year": "2017-06",
-      "journal": "Cambridge Journal of Economics",
-      "issue": "0309-166X",
-      "journalNote": "Q2/经济学",
-      "code": "350004"
-    },
-    {
       "id": "7ab83b44-fadd-4d94-b2b1-ac965eaf48c8",
       "title": "Monopolistic Competition and the Effects of Aggregate Demand",
       "year": "1987-04",
@@ -1071,6 +1062,15 @@
       "issue": "0002-8282",
       "journalNote": "Q1/经济学",
       "code": "350005"
+    },
+    {
+      "id": "076b4e6e-b32f-417c-b97a-7d067d421745",
+      "title": "Competition A Marxist View",
+      "year": "2017-06",
+      "journal": "Cambridge Journal of Economics",
+      "issue": "0309-166X",
+      "journalNote": "Q2/经济学",
+      "code": "350004"
     },
     {
       "id": "32954d98-0b32-4016-8634-a4f894cf16c7",
@@ -1299,8 +1299,8 @@
       "C刊/高校学报",
       "认定期刊/第一批",
       "认定期刊/第二批",
-      "Q2/经济学",
       "Q1/经济学",
+      "Q2/经济学",
       "Q3/经济学",
       "C刊/民族学与文化学"
     ]
