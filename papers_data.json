@@ -965,6 +965,15 @@
       "code": "350001"
     },
     {
+      "id": "7ab83b44-fadd-4d94-b2b1-ac965eaf48c8",
+      "title": "Monopolistic Competition and the Effects of Aggregate Demand",
+      "year": "1987-04",
+      "journal": "American Economic Review",
+      "issue": "0002-8282",
+      "journalNote": "Q1/经济学",
+      "code": "350005"
+    },
+    {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
       "title": "Biased Technical Change and the Aggregate Production Function",
       "year": "1999-02",
@@ -1044,12 +1053,14 @@
       "中国农村经济",
       "中国社会科学",
       "中国特色社会主义研究",
+      "American Economic Review",
       "Cambridge Journal of Economics",
       "International Review of Applied Economics",
       "Journal of Post Keynesian Economics",
       "Metroeconomica"
     ],
     "issues": [
+      "0002-8282",
       "0026-1386",
       "0160-3477",
       "0257-2826",
@@ -1500,6 +1511,11 @@
       "journal": "理论月刊",
       "issue": "1004-0544",
       "journalNote": "C扩/综合性社会科学"
+    },
+    {
+      "journal": "American Economic Review",
+      "issue": "0002-8282",
+      "journalNote": "Q1/经济学"
     }
   ]
 }
