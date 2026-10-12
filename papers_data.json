@@ -1064,6 +1064,15 @@
       "code": "350004"
     },
     {
+      "id": "7ab83b44-fadd-4d94-b2b1-ac965eaf48c8",
+      "title": "Monopolistic Competition and the Effects of Aggregate Demand",
+      "year": "1987-04",
+      "journal": "American Economic Review",
+      "issue": "0002-8282",
+      "journalNote": "Q1/经济学",
+      "code": "350005"
+    },
+    {
       "id": "32954d98-0b32-4016-8634-a4f894cf16c7",
       "title": "Is the NAIRU Theory a Monetarist New Keynesian Post Keynesian or a Marxist Theory",
       "year": "2008-03",
@@ -1098,15 +1107,6 @@
       "issue": "0160-3477",
       "journalNote": "Q3/经济学",
       "code": "350001"
-    },
-    {
-      "id": "7ab83b44-fadd-4d94-b2b1-ac965eaf48c8",
-      "title": "Monopolistic Competition and the Effects of Aggregate Demand",
-      "year": "1987-04",
-      "journal": "American Economic Review",
-      "issue": "0002-8282",
-      "journalNote": "Q1/经济学",
-      "code": "350005"
     },
     {
       "id": "26a884da-fe96-43ca-8115-fbc170cd42fc",
@@ -1300,8 +1300,8 @@
       "认定期刊/第一批",
       "认定期刊/第二批",
       "Q2/经济学",
-      "Q3/经济学",
       "Q1/经济学",
+      "Q3/经济学",
       "C刊/民族学与文化学"
     ]
   },
