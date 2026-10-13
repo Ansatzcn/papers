@@ -674,7 +674,7 @@ Papers
 <section>
 <div class="list-header">
 <h2>总表</h2>
-<span class="count-badge" id="countDisplay">0/0</span>
+<span class="count-badge" id="countDisplay">0/0/0</span>
 </div>
 <div class="papers-list" id="papersList">
 <div class="empty-state"></div>
@@ -4929,18 +4929,18 @@ normalizeData() 不生成、不改号。
 data=
 normalizeData(data);
 
-const codedCount=
-data.entries
-.filter(
-item=>
-Boolean(
-clean(item.code)
-)
-)
-.length;
+const chineseCount=
+data.entries.filter(
+item=>paperTitleLanguage(item.title)==='zh'
+).length;
+
+const englishCount=
+data.entries.filter(
+item=>paperTitleLanguage(item.title)==='en'
+).length;
 
 countDisplay.textContent=
-`${codedCount}/${data.entries.length}`;
+`${chineseCount}/${englishCount}/${data.entries.length}`;
 
 /* 只检测并报警；绝不自动改号。 */
 warnDuplicateCodes(
